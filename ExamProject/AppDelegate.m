@@ -9,6 +9,11 @@
 #import "AppDelegate.h"
 
 #import "ViewController.h"
+#import "CustomTabBarController.h"
+
+@interface AppDelegate () <UITabBarControllerDelegate>
+
+@end
 
 @implementation AppDelegate
 
@@ -23,8 +28,10 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     // Override point for customization after application launch.
-    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-    self.window.rootViewController = self.viewController;
+//    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
+//    self.window.rootViewController = self.viewController;
+    [self initUIControllers];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -54,6 +61,46 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)initUIControllers
+{
+    //先使用系统NavigationBar
+    UIViewController * tabBarController1 = [[UIViewController alloc] init];
+    tabBarController1.title = @"Table 1";
+    UINavigationController* navController1 = [[UINavigationController alloc] initWithRootViewController:tabBarController1];
+    [tabBarController1 release];
+    
+    UIViewController * tabBarController2 = [[UIViewController alloc] init];
+    tabBarController2.title = @"Table 2";
+    UINavigationController* navController2 = [[UINavigationController alloc] initWithRootViewController:tabBarController2];
+    [tabBarController2 release];
+    
+    UIViewController * tabBarController3 = [[UIViewController alloc] init];
+    tabBarController3.title = @"Table 3";
+    UINavigationController* navController3 = [[UINavigationController alloc] initWithRootViewController:tabBarController3];
+    [tabBarController3 release];
+    
+    UIViewController * tabBarController4 = [[UIViewController alloc] init];
+    tabBarController4.title = @"Table 4";
+    UINavigationController* navController4 = [[UINavigationController alloc] initWithRootViewController:tabBarController4];
+    [tabBarController4 release];
+    
+    NSArray *subTabControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
+    CustomTabBarController * customTabController = [[CustomTabBarController alloc] init];
+    self.tabController = customTabController;
+    [customTabController release];
+    
+    [_tabController setViewControllers:subTabControllers];
+    _tabController.view.frame = CGRectMake(0, 0, 320, WINDOW_HEIGHT);
+    _tabController.view.backgroundColor = [UIColor clearColor];
+    _tabController.delegate = self;
+    [_window setRootViewController:_tabController];
+    
+    [navController1 release];
+    [navController2 release];
+    [navController3 release];
+    [navController4 release];
 }
 
 @end

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B31797C30600CCB95D /* CustomTabBarController.m */; };
+		301A74BA1797C51700CCB95D /* KPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B71797C51700CCB95D /* KPStore.m */; };
+		301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */; };
+		301A74BD1797C55700CCB95D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301A74BC1797C55700CCB95D /* CoreData.framework */; };
 		30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED61797C17A008F0578 /* UIKit.framework */; };
 		30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED81797C17A008F0578 /* Foundation.framework */; };
 		30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */; };
@@ -21,6 +25,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301A74B21797C30600CCB95D /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
+		301A74B31797C30600CCB95D /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
+		301A74B61797C51700CCB95D /* KPStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPStore.h; sourceTree = "<group>"; };
+		301A74B71797C51700CCB95D /* KPStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KPStore.m; sourceTree = "<group>"; };
+		301A74B81797C51700CCB95D /* NSManagedObject+ActiveRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+ActiveRecord.h"; sourceTree = "<group>"; };
+		301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+ActiveRecord.m"; sourceTree = "<group>"; };
+		301A74BC1797C55700CCB95D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		30BDBED31797C17A008F0578 /* ExamProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExamProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDBED61797C17A008F0578 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		30BDBED81797C17A008F0578 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -44,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				301A74BD1797C55700CCB95D /* CoreData.framework in Frameworks */,
 				30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */,
 				30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */,
 				30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */,
@@ -53,6 +65,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		301A74B11797C30600CCB95D /* CustomTabBar */ = {
+			isa = PBXGroup;
+			children = (
+				301A74B21797C30600CCB95D /* CustomTabBarController.h */,
+				301A74B31797C30600CCB95D /* CustomTabBarController.m */,
+			);
+			path = CustomTabBar;
+			sourceTree = "<group>";
+		};
+		301A74B51797C51700CCB95D /* KPStore */ = {
+			isa = PBXGroup;
+			children = (
+				301A74B61797C51700CCB95D /* KPStore.h */,
+				301A74B71797C51700CCB95D /* KPStore.m */,
+				301A74B81797C51700CCB95D /* NSManagedObject+ActiveRecord.h */,
+				301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */,
+			);
+			path = KPStore;
+			sourceTree = "<group>";
+		};
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +105,7 @@
 		30BDBED51797C17A008F0578 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				301A74BC1797C55700CCB95D /* CoreData.framework */,
 				30BDBED61797C17A008F0578 /* UIKit.framework */,
 				30BDBED81797C17A008F0578 /* Foundation.framework */,
 				30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */,
@@ -83,6 +116,8 @@
 		30BDBEDC1797C17A008F0578 /* ExamProject */ = {
 			isa = PBXGroup;
 			children = (
+				301A74B51797C51700CCB95D /* KPStore */,
+				301A74B11797C30600CCB95D /* CustomTabBar */,
 				30BDBEE51797C17A008F0578 /* AppDelegate.h */,
 				30BDBEE61797C17A008F0578 /* AppDelegate.m */,
 				30BDBEEE1797C17A008F0578 /* ViewController.h */,
@@ -173,8 +208,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				301A74BA1797C51700CCB95D /* KPStore.m in Sources */,
 				30BDBEE31797C17A008F0578 /* main.m in Sources */,
+				301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */,
 				30BDBEE71797C17A008F0578 /* AppDelegate.m in Sources */,
+				301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */,
 				30BDBEF01797C17A008F0578 /* ViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -225,7 +263,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -248,7 +286,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -296,6 +334,7 @@
 				30BDBEF81797C17A008F0578 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
