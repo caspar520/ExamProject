@@ -18,6 +18,11 @@
 		301A74CF1797E7F200CCB95D /* PaperData.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74CE1797E7F200CCB95D /* PaperData.m */; };
 		301A74D21797E80400CCB95D /* UserData.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74D11797E80400CCB95D /* UserData.m */; };
 		301A74D51797E81500CCB95D /* TopicData.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74D41797E81500CCB95D /* TopicData.m */; };
+		301A74D71797F02900CCB95D /* region.plist in Resources */ = {isa = PBXBuildFile; fileRef = 301A74D61797F02900CCB95D /* region.plist */; };
+		301A74DD1797F72700CCB95D /* ExamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74DC1797F72700CCB95D /* ExamViewController.m */; };
+		301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74DF1797F75D00CCB95D /* WrongViewController.m */; };
+		301A74E31797F78300CCB95D /* CollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74E21797F78300CCB95D /* CollectViewController.m */; };
+		301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74E51797F7AB00CCB95D /* MoreViewController.m */; };
 		30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED61797C17A008F0578 /* UIKit.framework */; };
 		30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED81797C17A008F0578 /* Foundation.framework */; };
 		30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */; };
@@ -53,6 +58,15 @@
 		301A74D11797E80400CCB95D /* UserData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserData.m; sourceTree = "<group>"; };
 		301A74D31797E81500CCB95D /* TopicData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicData.h; sourceTree = "<group>"; };
 		301A74D41797E81500CCB95D /* TopicData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicData.m; sourceTree = "<group>"; };
+		301A74D61797F02900CCB95D /* region.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = region.plist; sourceTree = "<group>"; };
+		301A74DB1797F72700CCB95D /* ExamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamViewController.h; sourceTree = "<group>"; };
+		301A74DC1797F72700CCB95D /* ExamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamViewController.m; sourceTree = "<group>"; };
+		301A74DE1797F75D00CCB95D /* WrongViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WrongViewController.h; sourceTree = "<group>"; };
+		301A74DF1797F75D00CCB95D /* WrongViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WrongViewController.m; sourceTree = "<group>"; };
+		301A74E11797F78300CCB95D /* CollectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectViewController.h; sourceTree = "<group>"; };
+		301A74E21797F78300CCB95D /* CollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectViewController.m; sourceTree = "<group>"; };
+		301A74E41797F7AB00CCB95D /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
+		301A74E51797F7AB00CCB95D /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
 		30BDBED31797C17A008F0578 /* ExamProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExamProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDBED61797C17A008F0578 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		30BDBED81797C17A008F0578 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -92,7 +106,8 @@
 				301A74B21797C30600CCB95D /* CustomTabBarController.h */,
 				301A74B31797C30600CCB95D /* CustomTabBarController.m */,
 			);
-			path = CustomTabBar;
+			name = CustomTabBar;
+			path = ../../CustomTabBar;
 			sourceTree = "<group>";
 		};
 		301A74B51797C51700CCB95D /* KPStore */ = {
@@ -133,6 +148,38 @@
 			path = DataModel;
 			sourceTree = "<group>";
 		};
+		301A74D81797F63900CCB95D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				301A74D91797F63900CCB95D /* Controllers */,
+				301A74DA1797F63900CCB95D /* Views */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		301A74D91797F63900CCB95D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				301A74B11797C30600CCB95D /* CustomTabBar */,
+				301A74DB1797F72700CCB95D /* ExamViewController.h */,
+				301A74DC1797F72700CCB95D /* ExamViewController.m */,
+				301A74DE1797F75D00CCB95D /* WrongViewController.h */,
+				301A74DF1797F75D00CCB95D /* WrongViewController.m */,
+				301A74E11797F78300CCB95D /* CollectViewController.h */,
+				301A74E21797F78300CCB95D /* CollectViewController.m */,
+				301A74E41797F7AB00CCB95D /* MoreViewController.h */,
+				301A74E51797F7AB00CCB95D /* MoreViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		301A74DA1797F63900CCB95D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
@@ -167,7 +214,7 @@
 				301A74CC1797E7BB00CCB95D /* DataModel */,
 				301A74C11797E64100CCB95D /* DataBase */,
 				301A74B51797C51700CCB95D /* KPStore */,
-				301A74B11797C30600CCB95D /* CustomTabBar */,
+				301A74D81797F63900CCB95D /* UI */,
 				30BDBEE51797C17A008F0578 /* AppDelegate.h */,
 				30BDBEE61797C17A008F0578 /* AppDelegate.m */,
 				30BDBEEE1797C17A008F0578 /* ViewController.h */,
@@ -189,6 +236,7 @@
 				30BDBEEA1797C17A008F0578 /* Default@2x.png */,
 				30BDBEEC1797C17A008F0578 /* Default-568h@2x.png */,
 				301A74BE1797D8E700CCB95D /* ExamDataModel.xcdatamodeld */,
+				301A74D61797F02900CCB95D /* region.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -244,6 +292,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				301A74D71797F02900CCB95D /* region.plist in Resources */,
 				30BDBEE11797C17A008F0578 /* InfoPlist.strings in Resources */,
 				30BDBEE91797C17A008F0578 /* Default.png in Resources */,
 				30BDBEEB1797C17A008F0578 /* Default@2x.png in Resources */,
@@ -266,10 +315,14 @@
 				301A74C01797D8E700CCB95D /* ExamDataModel.xcdatamodeld in Sources */,
 				301A74CA1797E67700CCB95D /* Paper.m in Sources */,
 				301A74CF1797E7F200CCB95D /* PaperData.m in Sources */,
+				301A74E31797F78300CCB95D /* CollectViewController.m in Sources */,
 				30BDBEE31797C17A008F0578 /* main.m in Sources */,
+				301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */,
+				301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */,
 				301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */,
 				30BDBEE71797C17A008F0578 /* AppDelegate.m in Sources */,
 				301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */,
+				301A74DD1797F72700CCB95D /* ExamViewController.m in Sources */,
 				301A74D21797E80400CCB95D /* UserData.m in Sources */,
 				30BDBEF01797C17A008F0578 /* ViewController.m in Sources */,
 			);

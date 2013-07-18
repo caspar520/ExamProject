@@ -10,6 +10,10 @@
 
 #import "ViewController.h"
 #import "CustomTabBarController.h"
+#import "ExamViewController.h"
+#import "WrongViewController.h"
+#import "CollectViewController.h"
+#import "MoreViewController.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -27,9 +31,6 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
-    // Override point for customization after application launch.
-//    self.viewController = [[[ViewController alloc] initWithNibName:@"ViewController" bundle:nil] autorelease];
-//    self.window.rootViewController = self.viewController;
     [self initUIControllers];
     
     [self.window makeKeyAndVisible];
@@ -66,23 +67,23 @@
 - (void)initUIControllers
 {
     //先使用系统NavigationBar
-    UIViewController * tabBarController1 = [[UIViewController alloc] init];
-    tabBarController1.title = @"Table 1";
+    ExamViewController * tabBarController1 = [[ExamViewController alloc] init];
+    tabBarController1.title = @"考试";
     UINavigationController* navController1 = [[UINavigationController alloc] initWithRootViewController:tabBarController1];
     [tabBarController1 release];
     
     UIViewController * tabBarController2 = [[UIViewController alloc] init];
-    tabBarController2.title = @"Table 2";
+    tabBarController2.title = @"错题";
     UINavigationController* navController2 = [[UINavigationController alloc] initWithRootViewController:tabBarController2];
     [tabBarController2 release];
     
     UIViewController * tabBarController3 = [[UIViewController alloc] init];
-    tabBarController3.title = @"Table 3";
+    tabBarController3.title = @"收藏";
     UINavigationController* navController3 = [[UINavigationController alloc] initWithRootViewController:tabBarController3];
     [tabBarController3 release];
     
     UIViewController * tabBarController4 = [[UIViewController alloc] init];
-    tabBarController4.title = @"Table 4";
+    tabBarController4.title = @"更多";
     UINavigationController* navController4 = [[UINavigationController alloc] initWithRootViewController:tabBarController4];
     [tabBarController4 release];
     
