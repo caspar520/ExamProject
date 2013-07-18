@@ -69,15 +69,15 @@ static NSMutableDictionary* __boundClassDict = nil;
 }
 
 + (KPStore*) sharedStore {
-  if (!__instance) {
-    @synchronized(self) {
-      if (!__instance) {
-        __instance = [[KPStore alloc] initWithModelFileName:SHARED_MODEL_FILE_NAME];
-          [__instance managedObjectContext];
-      }
+    if (!__instance) {
+        @synchronized(self) {
+            if (!__instance) {
+                __instance = [[KPStore alloc] initWithModelFileName:SHARED_MODEL_FILE_NAME];
+                [__instance managedObjectContext];
+            }
+        }
     }
-  }
-  return __instance;
+    return __instance;
 }
 
 + (void)saveAllStore {
