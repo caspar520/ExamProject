@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EXListView : UIView
+@interface EXListView : UIView{
+    UITableView     *_tableView;
+}
+
+@property (nonatomic,retain)id			delegate;
 
 @end

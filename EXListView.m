@@ -15,6 +15,10 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _tableView= [[UITableView alloc] initWithFrame:self.frame];
+		[_tableview setDelegate:delegate];
+ 		[_tableview setDataSource:delegate];
+ 		[self addSubview: _tableview];
     }
     return self;
 }
