@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol EXQuestionDelegate
+
+@optional
+- (void)selectOption:(NSInteger)pIndex;
+- (void)cancelOption:(NSInteger)pIndex;
+
+@end
+
 @interface EXExaminationView : UIView
+
+
+@property (nonatomic,assign)id<EXQuestionDelegate>	delegate;
+@property (nonatomic,retain)id         				metaData;
+@property (nonatomic,assign)NSInteger				index;
 
 @end
