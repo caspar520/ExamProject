@@ -36,6 +36,11 @@
 		30BDBEED1797C17A008F0578 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEEC1797C17A008F0578 /* Default-568h@2x.png */; };
 		30BDBEF01797C17A008F0578 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BDBEEF1797C17A008F0578 /* ViewController.m */; };
 		30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEF11797C17A008F0578 /* ViewController.xib */; };
+		9C05B8CC17995EB0008E937D /* EXCheckOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */; };
+		9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */; };
+		9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */; };
+		9C05B8D5179965E1008E937D /* EXExaminationListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8D4179965E1008E937D /* EXExaminationListView.m */; };
+		9C05B8D8179966C9008E937D /* EXExamineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8D7179966C9008E937D /* EXExamineViewController.m */; };
 		9CA3F39E179940A40052C8FE /* EXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F39D179940A40052C8FE /* EXListView.m */; };
 		9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A0179940DC0052C8FE /* EXExaminationView.m */; };
 		9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */; };
@@ -92,6 +97,14 @@
 		30BDBEEE1797C17A008F0578 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		30BDBEEF1797C17A008F0578 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30BDBEF21797C17A008F0578 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		9C05B8CA17995EB0008E937D /* EXCheckOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXCheckOptionView.h; sourceTree = SOURCE_ROOT; };
+		9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXCheckOptionView.m; sourceTree = SOURCE_ROOT; };
+		9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_story_to_local_category_cancel.png; sourceTree = "<group>"; };
+		9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_story_to_local_category_normal.png; sourceTree = "<group>"; };
+		9C05B8D3179965E1008E937D /* EXExaminationListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXExaminationListView.h; sourceTree = SOURCE_ROOT; };
+		9C05B8D4179965E1008E937D /* EXExaminationListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXExaminationListView.m; sourceTree = SOURCE_ROOT; };
+		9C05B8D6179966C9008E937D /* EXExamineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXExamineViewController.h; sourceTree = "<group>"; };
+		9C05B8D7179966C9008E937D /* EXExamineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXExamineViewController.m; sourceTree = "<group>"; };
 		9CA3F39C179940A30052C8FE /* EXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXListView.h; sourceTree = SOURCE_ROOT; };
 		9CA3F39D179940A40052C8FE /* EXListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXListView.m; sourceTree = SOURCE_ROOT; };
 		9CA3F39F179940DC0052C8FE /* EXExaminationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXExaminationView.h; sourceTree = SOURCE_ROOT; };
@@ -188,6 +201,8 @@
 				301A74E21797F78300CCB95D /* CollectViewController.m */,
 				301A74E41797F7AB00CCB95D /* MoreViewController.h */,
 				301A74E51797F7AB00CCB95D /* MoreViewController.m */,
+				9C05B8D6179966C9008E937D /* EXExamineViewController.h */,
+				9C05B8D7179966C9008E937D /* EXExamineViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -203,6 +218,10 @@
 				9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */,
 				9CA3F3A51799412C0052C8FE /* EXSubmitView.h */,
 				9CA3F3A61799412C0052C8FE /* EXSubmitView.m */,
+				9C05B8CA17995EB0008E937D /* EXCheckOptionView.h */,
+				9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */,
+				9C05B8D3179965E1008E937D /* EXExaminationListView.h */,
+				9C05B8D4179965E1008E937D /* EXExaminationListView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -238,6 +257,7 @@
 		30BDBEDC1797C17A008F0578 /* ExamProject */ = {
 			isa = PBXGroup;
 			children = (
+				9C05B8CE1799636E008E937D /* Resource */,
 				301A74CC1797E7BB00CCB95D /* DataModel */,
 				301A74C11797E64100CCB95D /* DataBase */,
 				301A74B51797C51700CCB95D /* KPStore */,
@@ -267,6 +287,15 @@
 				301A74D61797F02900CCB95D /* region.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9C05B8CE1799636E008E937D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */,
+				9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -320,9 +349,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */,
 				301A74D71797F02900CCB95D /* region.plist in Resources */,
 				30BDBEE11797C17A008F0578 /* InfoPlist.strings in Resources */,
 				30BDBEE91797C17A008F0578 /* Default.png in Resources */,
+				9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */,
 				30BDBEEB1797C17A008F0578 /* Default@2x.png in Resources */,
 				30BDBEED1797C17A008F0578 /* Default-568h@2x.png in Resources */,
 				30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */,
@@ -341,12 +372,15 @@
 				301A74C41797E67600CCB95D /* Topic.m in Sources */,
 				301A74D51797E81500CCB95D /* TopicData.m in Sources */,
 				301A74C71797E67700CCB95D /* User.m in Sources */,
+				9C05B8CC17995EB0008E937D /* EXCheckOptionView.m in Sources */,
 				301A74C01797D8E700CCB95D /* ExamDataModel.xcdatamodeld in Sources */,
 				9CA3F3A71799412C0052C8FE /* EXSubmitView.m in Sources */,
+				9C05B8D8179966C9008E937D /* EXExamineViewController.m in Sources */,
 				301A74CA1797E67700CCB95D /* Paper.m in Sources */,
 				301A74CF1797E7F200CCB95D /* PaperData.m in Sources */,
 				301A74E31797F78300CCB95D /* CollectViewController.m in Sources */,
 				9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */,
+				9C05B8D5179965E1008E937D /* EXExaminationListView.m in Sources */,
 				30BDBEE31797C17A008F0578 /* main.m in Sources */,
 				301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */,
 				301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */,

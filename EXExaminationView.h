@@ -11,8 +11,8 @@
 @protocol EXQuestionDelegate
 
 @optional
-- (void)selectOption:(NSInteger)pIndex;
-- (void)cancelOption:(NSInteger)pIndex;
+- (void)selectOption:(NSInteger)pIndex withObject:(id)pObj;
+- (void)cancelOption:(NSInteger)pIndex withObject:(id)pObj;
 
 @end
 

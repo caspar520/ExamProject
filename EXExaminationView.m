@@ -7,6 +7,7 @@
 //
 
 #import "EXExaminationView.h"
+#import "EXCheckOptionView.h"
 
 @implementation EXExaminationView
 
