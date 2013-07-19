@@ -11,6 +11,19 @@
 #import "DbBaseProtocol.h"
 #import "NSManagedObject+ActiveRecord.h"
 
+@class Topic;
+
 @interface Paper : NSManagedObject <PaperDataProtocol>
+
+@property (nonatomic, assign) NSSet *topics;
+
+@end
+
+@interface Paper (CoreDataGeneratedAccessors)
+
+- (void)addTopicsObject:(Topic *)object;
+- (void)removeTopicsObject:(Topic *)object;
+- (void)addTopics:(NSSet *)objects;
+- (void)removeTopics:(NSSet *)objects;
 
 @end

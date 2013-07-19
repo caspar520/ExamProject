@@ -43,12 +43,12 @@
 
 @protocol TopicDataProtocol <NSObject>
 
-@property (nonatomic, retain) NSNumber * paperid;       //所属试卷id
+@property (nonatomic, retain) NSNumber * topicId;       //试题Id
 @property (nonatomic, retain) NSString * question;      // 试题题目
 @property (nonatomic, retain) NSNumber * type;          //试题类型 试题类型 1:单选 2:多选 3:判断 4:简答
 @property (nonatomic, retain) NSString * answers;       //试题答案选项(选项1|选项2),判断题此行无数据,简答题此行为答案
 @property (nonatomic, retain) NSString * corrects;      //试题答案实体,此项数据库中不存储
-@property (nonatomic, retain) NSString * selected;      //试题正确选项 单选题(1),多选题(1|2),判断题(-1为错 0为对),简答题此行无数据
+@property (nonatomic, retain) NSString * selected;      //试题正确选项 单选题(0,1,2,3),多选题(0|1),判断题(-1为错 0为对),简答题此行无数据
 @property (nonatomic, retain) NSString * analysis;      //考生选择的答案 填写形式与corrects字段一样
 @property (nonatomic, retain) NSString * value;         // 试题分值
 @property (nonatomic, retain) NSString * image;         //试题图片

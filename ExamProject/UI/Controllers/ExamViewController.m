@@ -8,6 +8,7 @@
 
 #import "ExamViewController.h"
 #import "PaperData.h"
+#import "TopicData.h"
 #import "DBManager.h"
 
 @interface ExamViewController ()
@@ -76,8 +77,55 @@
     paperData.topicCount = [NSNumber numberWithInt:[[result objectForKey:@"topicCount"] intValue]];
     paperData.passingScore = [NSNumber numberWithInt:[[result objectForKey:@"passingScore"] intValue]];
     paperData.eliteScore = [NSNumber numberWithInt:[[result objectForKey:@"eliteScore"] intValue]];
+    
+    //添加试题
+    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"answerList"]];
+    
     [DBManager addPaper:paperData];
     [paperData release];
+}
+
+//根据解析出的Dictionary，生成TopicData对象
+- (NSMutableArray *)makeTopicsWithArray:(NSArray *)array
+{
+//    @property (nonatomic, retain) NSString * answers;       //试题答案选项(选项1|选项2),判断题此行无数据,简答题此行为答案
+//    @property (nonatomic, retain) NSString * corrects;      //试题答案实体,此项数据库中不存储
+//    @property (nonatomic, retain) NSString * selected;      //试题正确选项 单选题(1),多选题(1|2),判断题(-1为错 0为对),简答题此行无数据
+    NSMutableArray *topics = nil;
+    if (array && [array count] > 0) {
+        for (NSDictionary *topicDic in array) {
+            TopicData *tData = [[TopicData alloc]init];
+            
+            tData.topicId = [NSNumber numberWithInt:[[topicDic objectForKey:@"id"] intValue]];
+            tData.question = [topicDic objectForKey:@"question"];
+            tData.type = [NSNumber numberWithInt:[[topicDic objectForKey:@"type"] intValue]];
+            
+            NSArray *answers = [topicDic objectForKey:@"answerList"];
+            for (NSDictionary *answer in answers) {
+                //答案选项
+                if (tData.answers == nil) {
+                    tData.answers = [answer objectForKey:@"content"];
+                } else {
+                    tData.answers = [tData.answers stringByAppendingFormat:@"|%@",[answer objectForKey:@"content"]];
+                }
+                
+                //正确答案
+                if ([[answer objectForKey:@"isCorrect"]boolValue]) {
+                    if (tData.selected == nil) {
+                        tData.selected = [NSString stringWithFormat:@"%u",[answers indexOfObject:answer]];
+                    } else {
+                        tData.selected = [tData.selected stringByAppendingFormat:@"|%u",[answers indexOfObject:answer]];
+                    }
+                }
+            }
+            tData.value = [topicDic objectForKey:@"value"];
+            tData.analysis = [topicDic objectForKey:@"analysis"];
+            tData.image = [topicDic objectForKey:@"image"];
+            [topics addObject:tData];
+            [tData release];
+        }
+    }
+    return topics;
 }
 
 - (void)getDBPaperClicked:(id)sender
