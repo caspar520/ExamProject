@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>42CDFDD9-677B-4D7E-B510-6678B0371BFB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ExamProject</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5D7CAF0A-706F-4E5A-B6F6-00F1AA85E6C8</key>
+		<string>https://github.com/sgeniusd/ExamProject.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ExamProject.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5D7CAF0A-706F-4E5A-B6F6-00F1AA85E6C8</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/sgeniusd/ExamProject.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5D7CAF0A-706F-4E5A-B6F6-00F1AA85E6C8</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5D7CAF0A-706F-4E5A-B6F6-00F1AA85E6C8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ExamProject</string>
+		</dict>
+	</array>
+</dict>
+</plist>
