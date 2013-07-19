@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "DbBaseProtocol.h"
 
+@class Paper;
+
 @interface PaperData : NSObject <PaperDataProtocol>
+
+- (id)initWithPaper:(Paper *)aPaper;
 
 @end

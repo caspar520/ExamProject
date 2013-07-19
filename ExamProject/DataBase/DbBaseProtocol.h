@@ -14,6 +14,7 @@
 
 @protocol PaperDataProtocol <NSObject>
 
+@property (nonatomic, retain) NSNumber * paperId;          //试卷ID
 @property (nonatomic, retain) NSString * title;            //试卷标题
 @property (nonatomic, retain) NSString * desc;             //试卷描述
 @property (nonatomic, retain) NSString * creator;       // 试卷创建者

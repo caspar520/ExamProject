@@ -9,9 +9,8 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
+#import "NSManagedObject+ActiveRecord.h"
 
 @interface Paper : NSManagedObject <PaperDataProtocol>
-
-
 
 @end

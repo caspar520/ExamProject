@@ -23,6 +23,8 @@
 		301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74DF1797F75D00CCB95D /* WrongViewController.m */; };
 		301A74E31797F78300CCB95D /* CollectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74E21797F78300CCB95D /* CollectViewController.m */; };
 		301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74E51797F7AB00CCB95D /* MoreViewController.m */; };
+		306570F517990B9100347AD1 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 306570F417990B9100347AD1 /* DBManager.m */; };
+		306570FC1799159000347AD1 /* hangyeceshi-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 306570FB1799159000347AD1 /* hangyeceshi-1.json */; };
 		30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED61797C17A008F0578 /* UIKit.framework */; };
 		30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED81797C17A008F0578 /* Foundation.framework */; };
 		30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */; };
@@ -67,6 +69,9 @@
 		301A74E21797F78300CCB95D /* CollectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectViewController.m; sourceTree = "<group>"; };
 		301A74E41797F7AB00CCB95D /* MoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreViewController.h; sourceTree = "<group>"; };
 		301A74E51797F7AB00CCB95D /* MoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreViewController.m; sourceTree = "<group>"; };
+		306570F317990B9100347AD1 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
+		306570F417990B9100347AD1 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
+		306570FB1799159000347AD1 /* hangyeceshi-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hangyeceshi-1.json"; sourceTree = "<group>"; };
 		30BDBED31797C17A008F0578 /* ExamProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExamProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDBED61797C17A008F0578 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		30BDBED81797C17A008F0578 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -125,6 +130,8 @@
 			isa = PBXGroup;
 			children = (
 				301A74CB1797E6C300CCB95D /* DbBaseProtocol.h */,
+				306570F317990B9100347AD1 /* DBManager.h */,
+				306570F417990B9100347AD1 /* DBManager.m */,
 				301A74C81797E67700CCB95D /* Paper.h */,
 				301A74C91797E67700CCB95D /* Paper.m */,
 				301A74C51797E67700CCB95D /* User.h */,
@@ -228,6 +235,7 @@
 		30BDBEDD1797C17A008F0578 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				306570FB1799159000347AD1 /* hangyeceshi-1.json */,
 				30BDBEDE1797C17A008F0578 /* ExamProject-Info.plist */,
 				30BDBEDF1797C17A008F0578 /* InfoPlist.strings */,
 				30BDBEE21797C17A008F0578 /* main.m */,
@@ -298,6 +306,7 @@
 				30BDBEEB1797C17A008F0578 /* Default@2x.png in Resources */,
 				30BDBEED1797C17A008F0578 /* Default-568h@2x.png in Resources */,
 				30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */,
+				306570FC1799159000347AD1 /* hangyeceshi-1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,6 +334,7 @@
 				301A74DD1797F72700CCB95D /* ExamViewController.m in Sources */,
 				301A74D21797E80400CCB95D /* UserData.m in Sources */,
 				30BDBEF01797C17A008F0578 /* ViewController.m in Sources */,
+				306570F517990B9100347AD1 /* DBManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

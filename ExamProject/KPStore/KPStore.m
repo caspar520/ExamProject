@@ -13,7 +13,7 @@
  1. 在新工程中使用的时候，需要先修改 MODEL_FILE_NAME, 例如model文件名为 Hello.xcdatamodeld，MODEL_FILE_NAME 需要指定为Hello
  
  */
-#define SHARED_MODEL_FILE_NAME @"BTStatistics"
+#define SHARED_MODEL_FILE_NAME @"ExamDataModel"
 #ifndef SHARED_MODEL_FILE_NAME
 #warning please define SHARED_MODEL_FILE_NAME
 #endif
