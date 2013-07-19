@@ -16,11 +16,13 @@
 
 @end
 
+@class TopicData;
+
 @interface EXExaminationView : UIView
 
 
 @property (nonatomic,assign)id<EXQuestionDelegate>	delegate;
-@property (nonatomic,retain)id         				metaData;
+@property (nonatomic,retain)TopicData         		*metaData;
 @property (nonatomic,assign)NSInteger				index;
 
 @end

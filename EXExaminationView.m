@@ -8,6 +8,12 @@
 
 #import "EXExaminationView.h"
 #import "EXCheckOptionView.h"
+#import "TopicData.h"
+
+
+@interface EXExaminationView () <BTCheckBoxDelegate>
+
+@end
 
 @implementation EXExaminationView
 
@@ -29,7 +35,7 @@
     [super dealloc];
 }
 
-- (void)setMetaData:(id)metaData{
+- (void)setMetaData:(TopicData *)metaData{
 	if(_metaData != metaData){
 		_metaData=[metaData retain];
 	}
@@ -39,8 +45,8 @@
 - (void)refreshUI{
 	UILabel *orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,100,40)];
 	orderLabel.textColor=[UIColor blackColor];
-	orderLabel.text=[NSString stringWithFormat:@"%d",index];
-	orderLabel.backgroundColor=[UIColor clearColor];
+	orderLabel.text=[NSString stringWithFormat:@"第%d题",index];
+	orderLabel.backgroundColor=[UIColor grayColor];
 	orderLabel.textAlignment=UITextAlignmentLeft;
 	[self addSubview:orderLabel];
     [orderLabel release];
@@ -54,8 +60,8 @@
 	
 	UILabel *questionLabel=[[UILabel alloc] initWithFrame:questionBackground.frame];
 	questionLabel.textColor=[UIColor blackColor];
-	questionLabel.text=@"question:......";
-	questionLabel.backgroundColor=[UIColor clearColor];
+	questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.question];
+	questionLabel.backgroundColor=[UIColor grayColor];
 	questionLabel.textAlignment=UITextAlignmentLeft;
 	questionLabel.numberOfLines=3;
 	[self addSubview:questionLabel];
@@ -65,18 +71,47 @@
                              CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,100,40)];
 	optionTipLabel.textColor=[UIColor blackColor];
 	optionTipLabel.text=@"答案选项";
-	optionTipLabel.backgroundColor=[UIColor clearColor];
+	optionTipLabel.backgroundColor=[UIColor grayColor];
 	optionTipLabel.textAlignment=UITextAlignmentLeft;
 	[self addSubview:optionTipLabel];
     [optionTipLabel release];
 	
 	//options check view
-	
+	NSArray *optionsArray=[_metaData.answers componentsSeparatedByString:@"|"];
+    if (optionsArray) {
+        [optionsArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+            if (obj) {
+                EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMinX(orderLabel.frame), CGRectGetMaxY(optionTipLabel.frame)+5+idx*42, 40, 40) checked:NO];
+                checkView.backgroundColor=[UIColor clearColor];
+                checkView.delegate=self;
+                checkView.exclusiveTouch=YES;
+                checkView.index=idx;
+                [self addSubview:checkView];
+                [checkView release];
+                
+                UILabel *optionLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(checkView.frame)+5,CGRectGetMaxY(optionTipLabel.frame)+5+idx*42,100,40)];
+                optionLabel.textColor=[UIColor blackColor];
+                optionLabel.text=[NSString stringWithFormat:@"%@",obj];
+                optionLabel.backgroundColor=[UIColor clearColor];
+                optionLabel.textAlignment=UITextAlignmentLeft;
+                [self addSubview:optionLabel];
+                [optionLabel release];
+            }
+        }];
+    }
 }
 
-
-- (void)optionItemClicked:(id)sender{
-	
+#pragma mark BTCheckBoxDelegate
+- (void)checkeStateChange:(BOOL)isChecked{
+    if (isChecked==YES) {
+        if (delegate && [delegate respondsToSelector:@selector(selectOption:withObject:)]) {
+            [delegate selectOption:index withObject:self];
+        }
+    }else{
+        if (delegate && [delegate respondsToSelector:@selector(cancelOption:withObject:)]) {
+            [delegate cancelOption:index withObject:self];
+        }
+    }
 }
 
 @end
