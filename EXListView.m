@@ -10,15 +10,17 @@
 
 @implementation EXListView
 
+@synthesize delegate;
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         _tableView= [[UITableView alloc] initWithFrame:self.frame];
-		[_tableview setDelegate:delegate];
- 		[_tableview setDataSource:delegate];
- 		[self addSubview: _tableview];
+		[_tableView setDelegate:delegate];
+ 		[_tableView setDataSource:delegate];
+ 		[self addSubview: _tableView];
     }
     return self;
 }
