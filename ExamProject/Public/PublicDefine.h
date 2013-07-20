@@ -6,4 +6,4 @@
 //  Copyright (c) 2013年 Magic Song. All rights reserved.
 //
 
-
+#define KEYCHAIN_IDENTIFIER     @"exam_proj_keychain_identifier"

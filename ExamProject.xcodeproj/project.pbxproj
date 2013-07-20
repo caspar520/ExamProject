@@ -286,7 +286,6 @@
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
-				301371D5179B05DB00F2BFCE /* Security.framework */,
 				30BDBEDC1797C17A008F0578 /* ExamProject */,
 				30BDBED51797C17A008F0578 /* Frameworks */,
 				30BDBED41797C17A008F0578 /* Products */,
@@ -304,6 +303,7 @@
 		30BDBED51797C17A008F0578 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				301371D5179B05DB00F2BFCE /* Security.framework */,
 				301A74BC1797C55700CCB95D /* CoreData.framework */,
 				30BDBED61797C17A008F0578 /* UIKit.framework */,
 				30BDBED81797C17A008F0578 /* Foundation.framework */,

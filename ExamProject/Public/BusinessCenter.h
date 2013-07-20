@@ -21,6 +21,6 @@
  *  登录相关类
  */
 - (BOOL)isLogin;            //判断是否登录    从keychain中读取登录信息
-- (void)saveUserPassword:(NSString *)password;       //保存用户密码到keychain
+- (void)saveUsername:(NSString *)userName andPassword:(NSString *)password; //保存用户密码到keychain
 
 @end

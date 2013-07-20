@@ -8,6 +8,7 @@
 
 #import "BusinessCenter.h"
 #import "KeychainItemWrapper.h"
+#import "DBManager.h"
 
 static BusinessCenter *instance = nil;
 
@@ -17,7 +18,7 @@ static BusinessCenter *instance = nil;
 {
     self = [super init];
     if (self) {
-        _keychainWrapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"" accessGroup:@""];
+        _keychainWrapper = [[KeychainItemWrapper alloc]initWithIdentifier:KEYCHAIN_IDENTIFIER accessGroup:nil];
     }
     return self;
 }
@@ -32,14 +33,15 @@ static BusinessCenter *instance = nil;
 
 - (BOOL)isLogin            //判断是否登录    从keychain中读取登录信息
 {
-    
-    return YES;
+    return [DBManager getDefaultUser] != nil;
 }
 
 //保存用户密码到keychain
-- (void)saveUserPassword:(NSString *)password
+- (void)saveUsername:(NSString *)userName andPassword:(NSString *)password
 {
-    
+    if (userName && password) {
+        [_keychainWrapper setObject:password forKey:userName];
+    }
 }
 
 - (void)dealloc
