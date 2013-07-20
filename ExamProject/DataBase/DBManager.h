@@ -14,10 +14,10 @@
 
 @interface DBManager : NSObject
 
-+ (Paper *)addPaper:(PaperData *)paperData;
-+ (NSArray *)fetchAllPapersFromDB;
++ (Paper *)addPaper:(PaperData *)paperData;        //添加或者更新试卷
++ (NSArray *)fetchAllPapersFromDB;                 //取得所有数据库试卷
 
-+ (Topic *)addTopic:(TopicData *)topicData;
-+ (NSSet *)addTopicsWithArray:(NSArray *)topics;
++ (Topic *)addTopic:(TopicData *)topicData;         //添加试题
++ (NSSet *)addTopicsWithArray:(NSArray *)topics;    //批量添加试题
 
 @end

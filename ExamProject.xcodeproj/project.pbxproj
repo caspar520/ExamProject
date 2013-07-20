@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		301371BB179AFFBA00F2BFCE /* KeychainItemWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371BA179AFFBA00F2BFCE /* KeychainItemWrapper.m */; };
+		301371C0179B012B00F2BFCE /* BusinessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371BF179B012B00F2BFCE /* BusinessCenter.m */; };
+		301371D6179B05DB00F2BFCE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301371D5179B05DB00F2BFCE /* Security.framework */; };
+		301371D9179B066200F2BFCE /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371D8179B066200F2BFCE /* Utility.m */; };
 		301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B31797C30600CCB95D /* CustomTabBarController.m */; };
 		301A74BA1797C51700CCB95D /* KPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B71797C51700CCB95D /* KPStore.m */; };
 		301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */; };
@@ -50,6 +54,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		301371B9179AFFBA00F2BFCE /* KeychainItemWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeychainItemWrapper.h; sourceTree = "<group>"; };
+		301371BA179AFFBA00F2BFCE /* KeychainItemWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeychainItemWrapper.m; sourceTree = "<group>"; };
+		301371BE179B012B00F2BFCE /* BusinessCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BusinessCenter.h; sourceTree = "<group>"; };
+		301371BF179B012B00F2BFCE /* BusinessCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BusinessCenter.m; sourceTree = "<group>"; };
+		301371CF179B053100F2BFCE /* PublicDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublicDefine.h; sourceTree = "<group>"; };
+		301371D5179B05DB00F2BFCE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		301371D7179B066200F2BFCE /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
+		301371D8179B066200F2BFCE /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
 		301A74B21797C30600CCB95D /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		301A74B31797C30600CCB95D /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
 		301A74B61797C51700CCB95D /* KPStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPStore.h; sourceTree = "<group>"; };
@@ -126,6 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				301371D6179B05DB00F2BFCE /* Security.framework in Frameworks */,
 				301A74BD1797C55700CCB95D /* CoreData.framework in Frameworks */,
 				30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */,
 				30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */,
@@ -136,6 +149,36 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		301371B7179AFFBA00F2BFCE /* OpenSource */ = {
+			isa = PBXGroup;
+			children = (
+				301371B8179AFFBA00F2BFCE /* Keychain */,
+			);
+			name = OpenSource;
+			path = ExamProject/OpenSource;
+			sourceTree = SOURCE_ROOT;
+		};
+		301371B8179AFFBA00F2BFCE /* Keychain */ = {
+			isa = PBXGroup;
+			children = (
+				301371B9179AFFBA00F2BFCE /* KeychainItemWrapper.h */,
+				301371BA179AFFBA00F2BFCE /* KeychainItemWrapper.m */,
+			);
+			path = Keychain;
+			sourceTree = "<group>";
+		};
+		301371BD179B010400F2BFCE /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				301371CF179B053100F2BFCE /* PublicDefine.h */,
+				301371D7179B066200F2BFCE /* Utility.h */,
+				301371D8179B066200F2BFCE /* Utility.m */,
+				301371BE179B012B00F2BFCE /* BusinessCenter.h */,
+				301371BF179B012B00F2BFCE /* BusinessCenter.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
 		301A74B11797C30600CCB95D /* CustomTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,12 +197,14 @@
 				301A74B81797C51700CCB95D /* NSManagedObject+ActiveRecord.h */,
 				301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */,
 			);
-			path = KPStore;
+			name = KPStore;
+			path = ../KPStore;
 			sourceTree = "<group>";
 		};
 		301A74C11797E64100CCB95D /* DataBase */ = {
 			isa = PBXGroup;
 			children = (
+				301A74B51797C51700CCB95D /* KPStore */,
 				301A74CB1797E6C300CCB95D /* DbBaseProtocol.h */,
 				306570F317990B9100347AD1 /* DBManager.h */,
 				306570F417990B9100347AD1 /* DBManager.m */,
@@ -238,6 +283,7 @@
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
+				301371D5179B05DB00F2BFCE /* Security.framework */,
 				30BDBEDC1797C17A008F0578 /* ExamProject */,
 				30BDBED51797C17A008F0578 /* Frameworks */,
 				30BDBED41797C17A008F0578 /* Products */,
@@ -267,10 +313,11 @@
 			isa = PBXGroup;
 			children = (
 				9C05B8CE1799636E008E937D /* Resource */,
+				301371B7179AFFBA00F2BFCE /* OpenSource */,
 				301A74CC1797E7BB00CCB95D /* DataModel */,
 				301A74C11797E64100CCB95D /* DataBase */,
-				301A74B51797C51700CCB95D /* KPStore */,
 				301A74D81797F63900CCB95D /* UI */,
+				301371BD179B010400F2BFCE /* Public */,
 				30BDBEE51797C17A008F0578 /* AppDelegate.h */,
 				30BDBEE61797C17A008F0578 /* AppDelegate.m */,
 				30BDBEEE1797C17A008F0578 /* ViewController.h */,
@@ -413,6 +460,9 @@
 				30BDBEF01797C17A008F0578 /* ViewController.m in Sources */,
 				306570F517990B9100347AD1 /* DBManager.m in Sources */,
 				9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */,
+				301371BB179AFFBA00F2BFCE /* KeychainItemWrapper.m in Sources */,
+				301371C0179B012B00F2BFCE /* BusinessCenter.m in Sources */,
+				301371D9179B066200F2BFCE /* Utility.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
