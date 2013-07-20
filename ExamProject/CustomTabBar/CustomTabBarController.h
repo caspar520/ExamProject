@@ -21,6 +21,8 @@
 
 
 -(void)hideRealTabBar;
+- (void)hideTabBar;
+- (void)showTabBar;
 -(void)tabChanged:(UIButton *)bt;
 
 @end

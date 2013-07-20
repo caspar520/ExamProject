@@ -27,7 +27,7 @@
     
     self = [super init];
     if(self){
-        
+        self.view.backgroundColor=[UIColor whiteColor];
         [self hideRealTabBar];
     }
     
@@ -62,7 +62,7 @@
     CGRect tabBarFrame = self.tabBar.frame;
     
     self.customTabBarView = [[[UIView alloc] initWithFrame:tabBarFrame] autorelease];
-    _customTabBarView.backgroundColor = [UIColor blackColor];
+    _customTabBarView.backgroundColor = [UIColor clearColor];
     _customTabBarView.tag = TAG_TABBAR;
     [self.view addSubview:_customTabBarView];
     
@@ -143,6 +143,22 @@
         UINavigationController *navTabCtr = [self.viewControllers objectAtIndex:currentIndex];
         [navTabCtr popToRootViewControllerAnimated:YES];
     }
+}
+
+- (void)hideTabBar{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), CGRectGetHeight(self.view.frame) , CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
+    } completion:^(BOOL finished) {
+        
+    }];
+}
+
+- (void)showTabBar{
+    [UIView animateWithDuration:0.2 animations:^{
+        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), CGRectGetHeight(self.view.frame)-CGRectGetHeight(self.customTabBarView.frame), CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
+    } completion:^(BOOL finished) {
+        
+    }];
 }
 
 -(void)dealloc{

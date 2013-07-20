@@ -45,6 +45,8 @@
 		9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A0179940DC0052C8FE /* EXExaminationView.m */; };
 		9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */; };
 		9CA3F3A71799412C0052C8FE /* EXSubmitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A61799412C0052C8FE /* EXSubmitView.m */; };
+		9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */; };
+		9CC19421179A2CE300781922 /* EXPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19420179A2CE300781922 /* EXPaperCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +115,10 @@
 		9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMoreConfigureView.m; sourceTree = SOURCE_ROOT; };
 		9CA3F3A51799412C0052C8FE /* EXSubmitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSubmitView.h; sourceTree = SOURCE_ROOT; };
 		9CA3F3A61799412C0052C8FE /* EXSubmitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSubmitView.m; sourceTree = SOURCE_ROOT; };
+		9CC1941B179A2ACE00781922 /* EXPaperListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPaperListViewController.h; sourceTree = "<group>"; };
+		9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperListViewController.m; sourceTree = "<group>"; };
+		9CC1941F179A2CE300781922 /* EXPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPaperCell.h; sourceTree = "<group>"; };
+		9CC19420179A2CE300781922 /* EXPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,6 +189,7 @@
 		301A74D81797F63900CCB95D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9CC1941E179A2CB800781922 /* Cell */,
 				301A74D91797F63900CCB95D /* Controllers */,
 				301A74DA1797F63900CCB95D /* Views */,
 			);
@@ -203,6 +210,8 @@
 				301A74E51797F7AB00CCB95D /* MoreViewController.m */,
 				9C05B8D6179966C9008E937D /* EXExamineViewController.h */,
 				9C05B8D7179966C9008E937D /* EXExamineViewController.m */,
+				9CC1941B179A2ACE00781922 /* EXPaperListViewController.h */,
+				9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -298,6 +307,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		9CC1941E179A2CB800781922 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				9CC1941F179A2CE300781922 /* EXPaperCell.h */,
+				9CC19420179A2CE300781922 /* EXPaperCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -386,10 +404,12 @@
 				301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */,
 				9CA3F39E179940A40052C8FE /* EXListView.m in Sources */,
 				301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */,
+				9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */,
 				30BDBEE71797C17A008F0578 /* AppDelegate.m in Sources */,
 				301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */,
 				301A74DD1797F72700CCB95D /* ExamViewController.m in Sources */,
 				301A74D21797E80400CCB95D /* UserData.m in Sources */,
+				9CC19421179A2CE300781922 /* EXPaperCell.m in Sources */,
 				30BDBEF01797C17A008F0578 /* ViewController.m in Sources */,
 				306570F517990B9100347AD1 /* DBManager.m in Sources */,
 				9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */,

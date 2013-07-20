@@ -94,7 +94,6 @@
     
     [_tabController setViewControllers:subTabControllers];
     _tabController.view.frame = CGRectMake(0, 0, 320, WINDOW_HEIGHT);
-    _tabController.view.backgroundColor = [UIColor clearColor];
     _tabController.delegate = self;
     [_window setRootViewController:_tabController];
     

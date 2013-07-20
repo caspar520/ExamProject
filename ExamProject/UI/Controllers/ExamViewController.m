@@ -10,6 +10,10 @@
 #import "PaperData.h"
 #import "TopicData.h"
 #import "DBManager.h"
+#import "AppDelegate.h"
+#import "CustomTabBarController.h"
+#import "EXPaperListViewController.h"
+#import "EXListView.h"
 
 @interface ExamViewController ()
 
@@ -26,30 +30,27 @@
     return self;
 }
 
+- (void)dealloc{
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.view.backgroundColor=[UIColor whiteColor];
 	// Do any additional setup after loading the view.
+    self.title=@"考试";
+    UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
+    self.navigationItem.rightBarButtonItem= addPaperButton;
     
-    UILabel *testLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 10, 200, 30)];
-    testLabel.backgroundColor = [UIColor greenColor];
-    testLabel.text = @"测试测试";
-    testLabel.textAlignment = NSTextAlignmentCenter;
-    testLabel.font = [UIFont systemFontOfSize:24];
-    testLabel.adjustsLetterSpacingToFitWidth = YES;
-    testLabel.textColor = [UIColor whiteColor];
-    [self.view addSubview:testLabel];
-    [testLabel release];
-    
-    [self testAddPaper];        //添加试卷测试方法(存在会覆盖原来数据)
-    
-    UIButton *getPaperFromDBBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    getPaperFromDBBtn.backgroundColor = [UIColor whiteColor];
-    getPaperFromDBBtn.frame = CGRectMake(10, 60, 80, 40);
-    [getPaperFromDBBtn setTitle:@"获取试卷" forState:UIControlStateNormal];
-    [getPaperFromDBBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [getPaperFromDBBtn addTarget:self action:@selector(getDBPaperClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:getPaperFromDBBtn];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -57,6 +58,26 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
+#pragma mark 按钮点击事件
+- (void)addPaperItemClicked:(id)sender{
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController hideTabBar];
+    
+    EXPaperListViewController *paperListController=[[EXPaperListViewController alloc] init];
+    [self.navigationController pushViewController:paperListController animated:YES];
+    [paperListController release];
+}
+
+
+
+
+
+
+
+#pragma mark 测试用
 
 //测试添加试卷，json从本地读取
 - (void)testAddPaper
