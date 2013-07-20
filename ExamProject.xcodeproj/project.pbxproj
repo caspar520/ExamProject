@@ -11,6 +11,10 @@
 		301371C0179B012B00F2BFCE /* BusinessCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371BF179B012B00F2BFCE /* BusinessCenter.m */; };
 		301371D6179B05DB00F2BFCE /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 301371D5179B05DB00F2BFCE /* Security.framework */; };
 		301371D9179B066200F2BFCE /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371D8179B066200F2BFCE /* Utility.m */; };
+		301371E5179B34E700F2BFCE /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371E4179B34E700F2BFCE /* RegisterViewController.m */; };
+		301371E9179B359900F2BFCE /* EXRegisterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371E8179B359900F2BFCE /* EXRegisterView.m */; };
+		301371EC179B35AF00F2BFCE /* EXLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371EB179B35AF00F2BFCE /* EXLoginView.m */; };
+		301371F0179B35CB00F2BFCE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371EF179B35CB00F2BFCE /* LoginViewController.m */; };
 		301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B31797C30600CCB95D /* CustomTabBarController.m */; };
 		301A74BA1797C51700CCB95D /* KPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B71797C51700CCB95D /* KPStore.m */; };
 		301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */; };
@@ -63,6 +67,14 @@
 		301371D5179B05DB00F2BFCE /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		301371D7179B066200F2BFCE /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		301371D8179B066200F2BFCE /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Utility.m; sourceTree = "<group>"; };
+		301371E3179B34E700F2BFCE /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		301371E4179B34E700F2BFCE /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		301371E7179B359900F2BFCE /* EXRegisterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRegisterView.h; sourceTree = SOURCE_ROOT; };
+		301371E8179B359900F2BFCE /* EXRegisterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRegisterView.m; sourceTree = SOURCE_ROOT; };
+		301371EA179B35AF00F2BFCE /* EXLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXLoginView.h; sourceTree = SOURCE_ROOT; };
+		301371EB179B35AF00F2BFCE /* EXLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXLoginView.m; sourceTree = SOURCE_ROOT; };
+		301371EE179B35CB00F2BFCE /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
+		301371EF179B35CB00F2BFCE /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		301A74B21797C30600CCB95D /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		301A74B31797C30600CCB95D /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
 		301A74B61797C51700CCB95D /* KPStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPStore.h; sourceTree = "<group>"; };
@@ -260,6 +272,10 @@
 				9C05B8D7179966C9008E937D /* EXExamineViewController.m */,
 				9CC1941B179A2ACE00781922 /* EXPaperListViewController.h */,
 				9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */,
+				301371E3179B34E700F2BFCE /* RegisterViewController.h */,
+				301371E4179B34E700F2BFCE /* RegisterViewController.m */,
+				301371EE179B35CB00F2BFCE /* LoginViewController.h */,
+				301371EF179B35CB00F2BFCE /* LoginViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -279,6 +295,10 @@
 				9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */,
 				9C05B8D3179965E1008E937D /* EXExaminationListView.h */,
 				9C05B8D4179965E1008E937D /* EXExaminationListView.m */,
+				301371E7179B359900F2BFCE /* EXRegisterView.h */,
+				301371E8179B359900F2BFCE /* EXRegisterView.m */,
+				301371EA179B35AF00F2BFCE /* EXLoginView.h */,
+				301371EB179B35AF00F2BFCE /* EXLoginView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -469,6 +489,10 @@
 				301371BB179AFFBA00F2BFCE /* KeychainItemWrapper.m in Sources */,
 				301371C0179B012B00F2BFCE /* BusinessCenter.m in Sources */,
 				301371D9179B066200F2BFCE /* Utility.m in Sources */,
+				301371E5179B34E700F2BFCE /* RegisterViewController.m in Sources */,
+				301371E9179B359900F2BFCE /* EXRegisterView.m in Sources */,
+				301371EC179B35AF00F2BFCE /* EXLoginView.m in Sources */,
+				301371F0179B35CB00F2BFCE /* LoginViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
