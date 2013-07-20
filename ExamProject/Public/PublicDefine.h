@@ -6,4 +6,5 @@
 //  Copyright (c) 2013年 Magic Song. All rights reserved.
 //
 
+#define NET_PAPERDATA_URL           @"http://xiaotu.net/examjson/examlist.json"
 

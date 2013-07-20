@@ -9,9 +9,13 @@
 #import <UIKit/UIKit.h>
 
 @class EXListView;
+@class ASIHTTPRequest;
 
 @interface EXPaperListViewController : UIViewController{
-    EXListView      *_paperListView;
+    EXListView              *_paperListView;
+    NSMutableArray          *_netPaperList;
+    
+//    ASIHTTPRequest          *_request;
 }
 
 @end

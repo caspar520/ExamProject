@@ -49,9 +49,13 @@
 		9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A0179940DC0052C8FE /* EXExaminationView.m */; };
 		9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */; };
 		9CA3F3A71799412C0052C8FE /* EXSubmitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A61799412C0052C8FE /* EXSubmitView.m */; };
+		9CB40DAA179A89FF00FBD5BD /* examlist.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CB40DA9179A89FF00FBD5BD /* examlist.json */; };
+		9CB40DAF179A935700FBD5BD /* EXDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CB40DAE179A935700FBD5BD /* EXDownloadManager.m */; };
 		9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */; };
 		9CC19421179A2CE300781922 /* EXPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19420179A2CE300781922 /* EXPaperCell.m */; };
 		9CC19424179A36C200781922 /* EXNetPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19423179A36C200781922 /* EXNetPaperCell.m */; };
+		9CC1944C179A71E300781922 /* EXNetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1944B179A71E300781922 /* EXNetDataManager.m */; };
+		9CC194C2179A7E4200781922 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CC194BE179A7D5500781922 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -128,12 +132,19 @@
 		9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMoreConfigureView.m; sourceTree = SOURCE_ROOT; };
 		9CA3F3A51799412C0052C8FE /* EXSubmitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSubmitView.h; sourceTree = SOURCE_ROOT; };
 		9CA3F3A61799412C0052C8FE /* EXSubmitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSubmitView.m; sourceTree = SOURCE_ROOT; };
+		9CB40DA9179A89FF00FBD5BD /* examlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = examlist.json; sourceTree = "<group>"; };
+		9CB40DAD179A935700FBD5BD /* EXDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXDownloadManager.h; sourceTree = "<group>"; };
+		9CB40DAE179A935700FBD5BD /* EXDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDownloadManager.m; sourceTree = "<group>"; };
 		9CC1941B179A2ACE00781922 /* EXPaperListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPaperListViewController.h; sourceTree = "<group>"; };
 		9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperListViewController.m; sourceTree = "<group>"; };
 		9CC1941F179A2CE300781922 /* EXPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPaperCell.h; sourceTree = "<group>"; };
 		9CC19420179A2CE300781922 /* EXPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperCell.m; sourceTree = "<group>"; };
 		9CC19422179A36C200781922 /* EXNetPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetPaperCell.h; sourceTree = "<group>"; };
 		9CC19423179A36C200781922 /* EXNetPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetPaperCell.m; sourceTree = "<group>"; };
+		9CC1944A179A71E300781922 /* EXNetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetDataManager.h; sourceTree = "<group>"; };
+		9CC1944B179A71E300781922 /* EXNetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetDataManager.m; sourceTree = "<group>"; };
+		9CC194BE179A7D5500781922 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		9CC194C0179A7DB900781922 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CC194C2179A7E4200781922 /* libxml2.dylib in Frameworks */,
 				301371D6179B05DB00F2BFCE /* Security.framework in Frameworks */,
 				301A74BD1797C55700CCB95D /* CoreData.framework in Frameworks */,
 				30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */,
@@ -237,6 +249,7 @@
 		301A74D81797F63900CCB95D /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				9CC19449179A71BC00781922 /* Manager */,
 				9CC1941E179A2CB800781922 /* Cell */,
 				301A74D91797F63900CCB95D /* Controllers */,
 				301A74DA1797F63900CCB95D /* Views */,
@@ -304,6 +317,8 @@
 		30BDBED51797C17A008F0578 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9CC194C0179A7DB900781922 /* libxml2.2.dylib */,
+				9CC194BE179A7D5500781922 /* libxml2.dylib */,
 				301A74BC1797C55700CCB95D /* CoreData.framework */,
 				30BDBED61797C17A008F0578 /* UIKit.framework */,
 				30BDBED81797C17A008F0578 /* Foundation.framework */,
@@ -315,6 +330,7 @@
 		30BDBEDC1797C17A008F0578 /* ExamProject */ = {
 			isa = PBXGroup;
 			children = (
+				9CB40DA9179A89FF00FBD5BD /* examlist.json */,
 				9C05B8CE1799636E008E937D /* Resource */,
 				301371B7179AFFBA00F2BFCE /* OpenSource */,
 				301A74CC1797E7BB00CCB95D /* DataModel */,
@@ -366,6 +382,17 @@
 				9CC19423179A36C200781922 /* EXNetPaperCell.m */,
 			);
 			name = Cell;
+			sourceTree = "<group>";
+		};
+		9CC19449179A71BC00781922 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				9CC1944A179A71E300781922 /* EXNetDataManager.h */,
+				9CC1944B179A71E300781922 /* EXNetDataManager.m */,
+				9CB40DAD179A935700FBD5BD /* EXDownloadManager.h */,
+				9CB40DAE179A935700FBD5BD /* EXDownloadManager.m */,
+			);
+			name = Manager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -421,6 +448,7 @@
 			files = (
 				9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */,
 				301A74D71797F02900CCB95D /* region.plist in Resources */,
+				9CB40DAA179A89FF00FBD5BD /* examlist.json in Resources */,
 				30BDBEE11797C17A008F0578 /* InfoPlist.strings in Resources */,
 				30BDBEE91797C17A008F0578 /* Default.png in Resources */,
 				9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */,
@@ -442,6 +470,7 @@
 				9CC19424179A36C200781922 /* EXNetPaperCell.m in Sources */,
 				301A74C41797E67600CCB95D /* Topic.m in Sources */,
 				301A74D51797E81500CCB95D /* TopicData.m in Sources */,
+				9CC1944C179A71E300781922 /* EXNetDataManager.m in Sources */,
 				301A74C71797E67700CCB95D /* User.m in Sources */,
 				9C05B8CC17995EB0008E937D /* EXCheckOptionView.m in Sources */,
 				301A74C01797D8E700CCB95D /* ExamDataModel.xcdatamodeld in Sources */,
@@ -455,6 +484,7 @@
 				30BDBEE31797C17A008F0578 /* main.m in Sources */,
 				301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */,
 				301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */,
+				9CB40DAF179A935700FBD5BD /* EXDownloadManager.m in Sources */,
 				9CA3F39E179940A40052C8FE /* EXListView.m in Sources */,
 				301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */,
 				9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */,
@@ -553,6 +583,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamProject/ExamProject-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ExamProject/ExamProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
@@ -564,6 +595,7 @@
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamProject/ExamProject-Prefix.pch";
+				HEADER_SEARCH_PATHS = "/usr/include/libxml2/**";
 				INFOPLIST_FILE = "ExamProject/ExamProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;

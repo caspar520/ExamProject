@@ -17,10 +17,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        _tableView= [[UITableView alloc] initWithFrame:self.frame];
-		[_tableView setDelegate:delegate];
- 		[_tableView setDataSource:delegate];
- 		[self addSubview: _tableView];
     }
     return self;
 }
@@ -31,6 +27,12 @@
 }
 
 - (void)refresh{
+    if (_tableView==nil) {
+        _tableView= [[UITableView alloc] initWithFrame:self.frame];
+		[_tableView setDelegate:delegate];
+ 		[_tableView setDataSource:delegate];
+ 		[self addSubview: _tableView];
+    }
     [_tableView reloadData];
 }
 

@@ -8,9 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EXNetPaperCell : UITableViewCell
+@protocol EXNetPaperDelegate <NSObject>
 
+- (void)downloadNetPaper:(id)papaer;
 
+@end
+
+@interface EXNetPaperCell : UITableViewCell{
+    UILabel             *_titleLabel;
+    UILabel             *_describeLabel;
+    UILabel             *_authorLabel;
+    UIButton            *_downloadBtn;
+}
+
+@property (nonatomic,assign)id<EXNetPaperDelegate>  delegate;
 @property (nonatomic,retain)id      paperData;
 
 @end

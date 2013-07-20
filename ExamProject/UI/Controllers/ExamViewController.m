@@ -50,10 +50,11 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-    
+    [self testAddPaper];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
         _paperListView.delegate=self;
@@ -64,6 +65,7 @@
 
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     CustomTabBarController *tabBarController=appDelegate.tabController;
     [tabBarController showTabBar];
@@ -148,6 +150,7 @@
     paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
     
     [DBManager addPaper:paperData];
+    [_localPaperList addObject:paperData];
     [paperData release];
 }
 
@@ -190,15 +193,6 @@
         }
     }
     return topics;
-}
-
-//获取试卷测试
-- (void)getDBPaperClicked:(id)sender
-{
-    NSArray *allPaper = [DBManager fetchAllPapersFromDB];
-    for (PaperData *pData in allPaper) {
-        NSLog(@"pData=%@", pData);
-    }
 }
 
 @end
