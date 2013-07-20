@@ -10,6 +10,18 @@
 #import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
 
+@class Paper;
+
 @interface Topic : NSManagedObject <TopicDataProtocol>
+
+@property (nonatomic,retain) Paper *paper;
+
+@end
+
+
+@interface Topic (CoreDataGeneratedAccessors)
+
+- (void)addPaperObject:(Paper *)value;
+- (void)removePaperObject:(Paper *)value;
 
 @end

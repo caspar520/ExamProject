@@ -13,6 +13,8 @@
 
 @interface PaperData : NSObject <PaperDataProtocol>
 
+@property (nonatomic, retain) NSArray *topics;
+
 - (id)initWithPaper:(Paper *)aPaper;
 
 @end

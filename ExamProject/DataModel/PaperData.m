@@ -26,6 +26,7 @@
 @synthesize sequence;
 @synthesize addtime;
 @synthesize url;
+@synthesize topics;
 
 - (id)initWithPaper:(Paper *)aPaper
 {
@@ -67,6 +68,7 @@
     [sequence release];
     [addtime release];
     [url release];
+    [topics release];
     
     [super dealloc];
 }

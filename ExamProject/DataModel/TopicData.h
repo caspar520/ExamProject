@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
-@interface TopicData : NSObject
+#import "DbBaseProtocol.h"
+
+@class Topic;
+
+@interface TopicData : NSObject <TopicDataProtocol>
+
+- (id)initWithTopic:(Topic *)topic;
 
 @end

@@ -26,6 +26,7 @@
 @dynamic sequence;
 @dynamic addtime;
 @dynamic url;
+@dynamic topics;
 
 + (void)initialize
 {

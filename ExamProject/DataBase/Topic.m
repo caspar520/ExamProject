@@ -11,7 +11,7 @@
 
 @implementation Topic
 
-@dynamic paperid;
+@dynamic topicId;
 @dynamic question;
 @dynamic type;
 @dynamic answers;
@@ -22,5 +22,6 @@
 @dynamic image;
 @dynamic favourite;
 @dynamic wrong;
+@dynamic paper;
 
 @end
