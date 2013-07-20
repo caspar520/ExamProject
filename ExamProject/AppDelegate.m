@@ -14,6 +14,8 @@
 #import "WrongViewController.h"
 #import "CollectViewController.h"
 #import "MoreViewController.h"
+#import "LoginViewController.h"
+#import "BusinessCenter.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -32,8 +34,13 @@
 {
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
     [self initUIControllers];
-    
     [self.window makeKeyAndVisible];
+    
+    //若未登录 展示登录界面
+//    if (![[BusinessCenter sharedInstance]isLogin]) {
+//        [self initRegisterPage];
+//    }
+    
     return YES;
 }
 
@@ -93,7 +100,7 @@
     [customTabController release];
     
     [_tabController setViewControllers:subTabControllers];
-    _tabController.view.frame = CGRectMake(0, 0, 320, WINDOW_HEIGHT);
+    _tabController.view.frame = CGRectMake(0, 0, 320, SCREEN_HEIGHT);
     _tabController.delegate = self;
     [_window setRootViewController:_tabController];
     
@@ -101,6 +108,14 @@
     [navController2 release];
     [navController3 release];
     [navController4 release];
+    
+}
+
+- (void)initRegisterPage
+{
+    LoginViewController *loginViewController = [[LoginViewController alloc]init];
+    [_tabController presentModalViewController:loginViewController animated:NO];
+    [loginViewController release];
 }
 
 @end

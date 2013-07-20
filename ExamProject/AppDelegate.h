@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#define WINDOW_HEIGHT	([UIScreen mainScreen].bounds.size.height)
-
 @class ViewController;
 @class CustomTabBarController;
 

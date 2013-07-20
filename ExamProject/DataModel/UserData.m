@@ -10,4 +10,9 @@
 
 @implementation UserData
 
+@synthesize email;
+@synthesize fullName;
+@synthesize regionId;
+@synthesize deptName;
+
 @end

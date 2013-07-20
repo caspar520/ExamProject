@@ -135,4 +135,41 @@
     return tSet;
 }
 
+//添加用户信息
++ (User *)addUser:(UserData *)userData
+{
+    User *user = [DBManager getDefaultUser];
+    if (user == nil) {
+        user = [User createNewObject];
+    }
+    user.email = userData.email;
+    user.fullName = userData.fullName;
+    user.regionId = userData.regionId;
+    user.deptName = userData.deptName;
+    [User save];
+    return user;
+}
+
+//获取默认用户信息
++ (User *)getDefaultUser
+{
+    NSFetchRequest *fetchRequest = [User defaultFetchRequest];
+    NSArray *result = [User executeFetchRequest:fetchRequest error:nil];
+    User *user = nil;
+    if ([result count] > 0) {
+        user = [result objectAtIndex:0];
+    }
+    return user;
+}
+
+//获取注册用户名
++ (NSString *)getRegisterUserName
+{
+    User *user = [DBManager getDefaultUser];
+    if (user) {
+        return user.fullName;
+    }
+    return nil;
+}
+
 @end

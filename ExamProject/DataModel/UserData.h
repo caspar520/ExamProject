@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DbBaseProtocol.h"
 
-@interface UserData : NSObject
+@interface UserData : NSObject <UserDataProtocol>
 
 @end
