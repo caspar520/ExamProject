@@ -1,14 +1,14 @@
 //
-//  EXPaperCell.m
+//  EXNetPaperCell.m
 //  ExamProject
 //
 //  Created by Brown on 13-7-20.
 //  Copyright (c) 2013年 Magic Song. All rights reserved.
 //
 
-#import "EXPaperCell.h"
+#import "EXNetPaperCell.h"
 
-@implementation EXPaperCell
+@implementation EXNetPaperCell
 
 @synthesize paperData=_paperData;
 

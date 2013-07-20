@@ -16,6 +16,8 @@
 
 @implementation EXExamineViewController
 
+@synthesize paperData=_paperData;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -71,6 +73,15 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark set方法
+- (void)setPaperData:(id)paperData{
+    if (_paperData != paperData) {
+        [_paperData release];
+        _paperData =[paperData retain];
+    }
+    
 }
 
 #pragma mark 按钮点击事件

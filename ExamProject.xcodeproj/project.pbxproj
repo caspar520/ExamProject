@@ -51,6 +51,7 @@
 		9CA3F3A71799412C0052C8FE /* EXSubmitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A61799412C0052C8FE /* EXSubmitView.m */; };
 		9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */; };
 		9CC19421179A2CE300781922 /* EXPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19420179A2CE300781922 /* EXPaperCell.m */; };
+		9CC19424179A36C200781922 /* EXNetPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19423179A36C200781922 /* EXNetPaperCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +132,8 @@
 		9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperListViewController.m; sourceTree = "<group>"; };
 		9CC1941F179A2CE300781922 /* EXPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXPaperCell.h; sourceTree = "<group>"; };
 		9CC19420179A2CE300781922 /* EXPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperCell.m; sourceTree = "<group>"; };
+		9CC19422179A36C200781922 /* EXNetPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetPaperCell.h; sourceTree = "<group>"; };
+		9CC19423179A36C200781922 /* EXNetPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetPaperCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -359,6 +362,8 @@
 			children = (
 				9CC1941F179A2CE300781922 /* EXPaperCell.h */,
 				9CC19420179A2CE300781922 /* EXPaperCell.m */,
+				9CC19422179A36C200781922 /* EXNetPaperCell.h */,
+				9CC19423179A36C200781922 /* EXNetPaperCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -434,6 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301A74BA1797C51700CCB95D /* KPStore.m in Sources */,
+				9CC19424179A36C200781922 /* EXNetPaperCell.m in Sources */,
 				301A74C41797E67600CCB95D /* Topic.m in Sources */,
 				301A74D51797E81500CCB95D /* TopicData.m in Sources */,
 				301A74C71797E67700CCB95D /* User.m in Sources */,

@@ -14,4 +14,6 @@
     EXExaminationListView       *_examineListView;
 }
 
+@property (nonatomic,retain)id          paperData;
+
 @end

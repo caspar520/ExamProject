@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ExamViewController : UIViewController
+@class EXListView;
+
+@interface ExamViewController : UIViewController{
+    EXListView              *_paperListView;
+    NSMutableArray          *_localPaperList;
+}
 
 @end

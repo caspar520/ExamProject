@@ -1,5 +1,5 @@
 //
-//  EXPaperCell.h
+//  EXNetPaperCell.h
 //  ExamProject
 //
 //  Created by Brown on 13-7-20.
@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EXPaperCell : UITableViewCell
+@interface EXNetPaperCell : UITableViewCell
+
 
 @property (nonatomic,retain)id      paperData;
 

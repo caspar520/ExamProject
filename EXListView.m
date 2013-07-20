@@ -26,8 +26,12 @@
 }
 
 - (void)dealloc{
-    
+    [_tableView release];
     [super dealloc];
+}
+
+- (void)refresh{
+    [_tableView reloadData];
 }
 
 @end

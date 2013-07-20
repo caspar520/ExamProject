@@ -14,8 +14,10 @@
 #import "CustomTabBarController.h"
 #import "EXPaperListViewController.h"
 #import "EXListView.h"
+#import "EXPaperCell.h"
+#import "EXExamineViewController.h"
 
-@interface ExamViewController ()
+@interface ExamViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
 
@@ -31,7 +33,8 @@
 }
 
 - (void)dealloc{
-    
+    [_paperListView release];
+    [_localPaperList release];
     [super dealloc];
 }
 
@@ -44,6 +47,19 @@
     UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
     self.navigationItem.rightBarButtonItem= addPaperButton;
     
+    if (_localPaperList==nil) {
+        _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
+    }
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated{
+    if (_paperListView==nil) {
+        _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
+        _paperListView.delegate=self;
+        _paperListView.backgroundColor=[UIColor grayColor];
+        [self.view addSubview:_paperListView];
+    }
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -71,7 +87,36 @@
     [paperListController release];
 }
 
+#pragma mark table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50.0f;
+}
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _localPaperList.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"StoryListCell";
+    EXPaperCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell==nil) {
+        cell=[[[EXPaperCell alloc] init] autorelease];
+        if (indexPath.row<_localPaperList.count) {
+            cell.paperData=[_localPaperList objectAtIndex:indexPath.row];
+        }
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    id paperMetaData=[_localPaperList objectAtIndex:indexPath.row];
+    if (paperMetaData) {
+        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+        examineController.paperData=nil;
+        [self.navigationController pushViewController:examineController animated:YES];
+    }
+}
 
 
 
