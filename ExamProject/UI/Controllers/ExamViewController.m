@@ -79,7 +79,7 @@
     paperData.eliteScore = [NSNumber numberWithInt:[[result objectForKey:@"eliteScore"] intValue]];
     
     //添加试题
-    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"answerList"]];
+    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
     
     [DBManager addPaper:paperData];
     [paperData release];
@@ -88,17 +88,15 @@
 //根据解析出的Dictionary，生成TopicData对象
 - (NSMutableArray *)makeTopicsWithArray:(NSArray *)array
 {
-//    @property (nonatomic, retain) NSString * answers;       //试题答案选项(选项1|选项2),判断题此行无数据,简答题此行为答案
-//    @property (nonatomic, retain) NSString * corrects;      //试题答案实体,此项数据库中不存储
-//    @property (nonatomic, retain) NSString * selected;      //试题正确选项 单选题(1),多选题(1|2),判断题(-1为错 0为对),简答题此行无数据
     NSMutableArray *topics = nil;
     if (array && [array count] > 0) {
+        topics = [[[NSMutableArray alloc]initWithCapacity:0] autorelease];
         for (NSDictionary *topicDic in array) {
             TopicData *tData = [[TopicData alloc]init];
             
-            tData.topicId = [NSNumber numberWithInt:[[topicDic objectForKey:@"id"] intValue]];
+            tData.topicId = [topicDic objectForKey:@"id"];
             tData.question = [topicDic objectForKey:@"question"];
-            tData.type = [NSNumber numberWithInt:[[topicDic objectForKey:@"type"] intValue]];
+            tData.type = [topicDic objectForKey:@"type"];
             
             NSArray *answers = [topicDic objectForKey:@"answerList"];
             for (NSDictionary *answer in answers) {
@@ -118,7 +116,7 @@
                     }
                 }
             }
-            tData.value = [topicDic objectForKey:@"value"];
+            tData.value = [[topicDic objectForKey:@"value"]stringValue];
             tData.analysis = [topicDic objectForKey:@"analysis"];
             tData.image = [topicDic objectForKey:@"image"];
             [topics addObject:tData];
@@ -128,12 +126,13 @@
     return topics;
 }
 
+//获取试卷测试
 - (void)getDBPaperClicked:(id)sender
 {
     NSArray *allPaper = [DBManager fetchAllPapersFromDB];
     for (PaperData *pData in allPaper) {
         NSLog(@"pData=%@", pData);
-    }    
+    }
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "PaperData.h"
 #import "Paper.h"
+#import "TopicData.h"
+#import "Topic.h"
 
 @implementation PaperData
 
@@ -47,6 +49,20 @@
         self.sequence = aPaper.sequence;
         self.addtime = aPaper.addtime;
         self.url = aPaper.url;
+        
+        //先按照topicId升序排列
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"topicId" ascending:YES];
+        NSArray *sortedArray = [aPaper.topics sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        [sortDescriptor release];
+        
+        //将数据以TopicData的形式传递出去
+        NSMutableArray *topicDataArray = [[[NSMutableArray alloc]initWithCapacity:0] autorelease];
+        for (Topic *topic in sortedArray) {
+            TopicData *topicData = [[TopicData alloc]initWithTopic:topic];
+            [topicDataArray addObject:topicData];
+            [topicData release];
+        }
+        self.topics = topicDataArray;
     }
     return self;
 }
