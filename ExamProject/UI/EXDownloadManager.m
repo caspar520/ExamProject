@@ -8,9 +8,13 @@
 
 #import "EXDownloadManager.h"
 #import "EXNetDataManager.h"
-
+#import "ASIHTTPRequest.h"
 
 static EXDownloadManager *instance=nil;
+
+@interface EXDownloadManager ()<ASIHTTPRequestDelegate>
+
+@end
 
 @implementation EXDownloadManager
 
@@ -30,7 +34,7 @@ static EXDownloadManager *instance=nil;
     self=[super init];
     if (self) {
         //TODO:initializations
-        
+        [ASIHTTPRequest setMaxBandwidthPerSecond:0];
     }
     return self;
 }
@@ -40,9 +44,27 @@ static EXDownloadManager *instance=nil;
     [super dealloc];
 }
 
+- (void)cancelRequest{
+    if (request) {
+        [request clearDelegatesAndCancel];
+        [request release];
+        request=nil;
+    }
+}
+
 - (void)downloadPaper:(id)paper{
     //判断有没有，如果没有则直接去下载
-    NSLog(@"download paper:%@",[paper objectForKey:@"name"]);
+    NSURL *url = nil;
+    if ([paper isKindOfClass:[NSDictionary class]]) {
+        [NSURL URLWithString:[paper objectForKey:@"url"]];
+        request = [[ASIHTTPRequest alloc] initWithURL:url];
+        [request setTimeOutSeconds:10];
+        request.numberOfTimesToRetryOnTimeout = 2;
+        request.delegate = self;
+        [request setDownloadDestinationPath:@""];
+        
+//        [request startAsynchronous];
+    }
 }
 
 - (void)downloadPaperList{
@@ -57,6 +79,15 @@ static EXDownloadManager *instance=nil;
 
 
 #pragma mark 下载回调
+- (void)requestFinished:(ASIHTTPRequest *)request{
+    //下载成功后的回调
+    
+    
+}
 
+- (void)requestFailed:(ASIHTTPRequest *)request{
+    //下载失败
+    
+}
 
 @end

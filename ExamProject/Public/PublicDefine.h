@@ -21,3 +21,4 @@
 
 //通知
 #define NOTIFICATION_PAPERS_DOWNLOAD_FINISH     @"papersDownloadedFinish"
+#define NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH @"specialPaperDownloadedFinish"

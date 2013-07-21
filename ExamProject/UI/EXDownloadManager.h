@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface EXDownloadManager : NSObject
+@class  ASIHTTPRequest;
+
+@interface EXDownloadManager : NSObject{
+    ASIHTTPRequest      *request;
+}
 
 + (EXDownloadManager *)shareInstance;
 + (void)destroyInstance;
+
+- (void)cancelRequest;
 
 //download method
 - (void)downloadPaper:(id)paper;
