@@ -80,12 +80,12 @@
     UINavigationController* navController1 = [[UINavigationController alloc] initWithRootViewController:tabBarController1];
     [tabBarController1 release];
     
-    UIViewController * tabBarController2 = [[UIViewController alloc] init];
+    UIViewController * tabBarController2 = [[WrongViewController alloc] init];
     tabBarController2.title = @"错题";
     UINavigationController* navController2 = [[UINavigationController alloc] initWithRootViewController:tabBarController2];
     [tabBarController2 release];
     
-    UIViewController * tabBarController3 = [[UIViewController alloc] init];
+    UIViewController * tabBarController3 = [[CollectViewController alloc] init];
     tabBarController3.title = @"收藏";
     UINavigationController* navController3 = [[UINavigationController alloc] initWithRootViewController:tabBarController3];
     [tabBarController3 release];

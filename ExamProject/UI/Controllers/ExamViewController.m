@@ -16,7 +16,6 @@
 #import "EXListView.h"
 #import "EXPaperCell.h"
 #import "EXExamineViewController.h"
-#import "DBManager.h"
 
 @interface ExamViewController ()<UITableViewDataSource,UITableViewDelegate>
 
