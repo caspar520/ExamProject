@@ -131,9 +131,11 @@
 
 #pragma mark 按钮点击事件
 - (void)backwardItemClicked:(id)sender{
-	if(self.navigationController){
-		[self.navigationController popViewControllerAnimated:YES];
-	}
+    if (displayTopicType==kDisplayTopicType_Default) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"你正在考试，要返回主界面吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+        [alert show];
+        [alert release];
+    }
 }
 
 //submit paper
@@ -188,6 +190,15 @@
             }
         }];
         _paperData.userScore=[NSNumber numberWithInteger:mark];
+    }
+}
+
+#pragma mark UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) {
+        if(self.navigationController){
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
