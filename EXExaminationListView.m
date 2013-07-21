@@ -17,6 +17,7 @@
 
 @synthesize delegate;
 @synthesize dataArray=_dataArray;
+@synthesize dipalyTopicType;
 
 - (id)initWithFrame:(CGRect)frame
 {

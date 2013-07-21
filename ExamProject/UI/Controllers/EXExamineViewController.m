@@ -7,7 +7,6 @@
 //
 
 #import "EXExamineViewController.h"
-#import "EXExaminationListView.h"
 #import "EXExaminationView.h"
 #import "PaperData.h"
 #import "Topic.h"
@@ -20,6 +19,7 @@
 @implementation EXExamineViewController
 
 @synthesize paperData=_paperData;
+@synthesize displayTopicType;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,7 +84,29 @@
         [_paperData release];
         _paperData =[paperData retain];
     }
-    _examineListView.dataArray=_paperData.topics;
+    _examineListView.dipalyTopicType=displayTopicType;
+    
+    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
+    if (displayTopicType==kDisplayTopicType_Default) {
+        [selectedArray addObjectsFromArray:_paperData.topics];
+    }else if (displayTopicType==kDisplayTopicType_Wrong){
+        if (_paperData.topics) {
+            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                if (obj && [obj.wrong boolValue]==YES) {
+                    [selectedArray addObject:obj];
+                }
+            }];
+        }
+    }else if (displayTopicType==kDisplayTopicType_Collected){
+        if (_paperData.topics) {
+            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                if (obj && [obj.favourite boolValue]==YES) {
+                    [selectedArray addObject:obj];
+                }
+            }];
+        }
+    }
+    _examineListView.dataArray=selectedArray;
 }
 
 #pragma mark 按钮点击事件

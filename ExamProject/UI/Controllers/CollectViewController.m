@@ -15,6 +15,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "CustomTabBarController.h"
+#import "EXExamineViewController.h"
 
 @interface CollectViewController ()
 
@@ -111,7 +112,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PaperData *paperMetaData=[_collectedPaperList objectAtIndex:indexPath.row];
     if (paperMetaData) {
-        
+        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+        [self.navigationController pushViewController:examineController animated:YES];
+        examineController.displayTopicType=kDisplayTopicType_Collected;
+        examineController.paperData=paperMetaData;
     }
 }
 

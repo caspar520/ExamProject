@@ -14,6 +14,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "CustomTabBarController.h"
+#import "EXExamineViewController.h"
 
 @interface WrongViewController ()
 
@@ -112,12 +113,12 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"selecte wrong cell");
     PaperData *paperMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
     if (paperMetaData) {
-//        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-//        [self.navigationController pushViewController:examineController animated:YES];
-//        examineController.paperData=paperMetaData;
+        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+        [self.navigationController pushViewController:examineController animated:YES];
+        examineController.displayTopicType=kDisplayTopicType_Wrong;
+        examineController.paperData=paperMetaData;
     }
 }
 
