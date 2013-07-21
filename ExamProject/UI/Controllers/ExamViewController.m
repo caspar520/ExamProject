@@ -51,6 +51,7 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
+    [self testAddPaper];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -130,10 +131,6 @@
 }
 
 
-<<<<<<< HEAD
-=======
-
-
 
 #pragma mark 测试用
 
@@ -161,7 +158,6 @@
     paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
     
     [DBManager addPaper:paperData];
-    [_localPaperList addObject:paperData];
     [paperData release];
 
     //测试读数据库逻辑
@@ -212,5 +208,4 @@
     return topics;
 }
 
->>>>>>> dea7d7814e48a26ffd8a1d1c842b09cabc4be028
 @end
