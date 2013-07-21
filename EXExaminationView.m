@@ -47,43 +47,53 @@
 }
 
 - (void)refreshUI{
-	orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,100,40)];
-	orderLabel.textColor=[UIColor blackColor];
-	orderLabel.text=[NSString stringWithFormat:@"第%d题",index];
-	orderLabel.backgroundColor=[UIColor grayColor];
-	orderLabel.textAlignment=UITextAlignmentLeft;
-	[self addSubview:orderLabel];
+    if (orderLabel==nil) {
+        orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,100,40)];
+        orderLabel.textColor=[UIColor blackColor];
+        orderLabel.text=[NSString stringWithFormat:@"第%d题",index];
+        orderLabel.backgroundColor=[UIColor clearColor];
+        orderLabel.textAlignment=UITextAlignmentLeft;
+        [self addSubview:orderLabel];
+    }
 	
-	questionBackground=[[UIImageView alloc] initWithFrame:
-                                     CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),100)];
-	questionBackground.backgroundColor=[UIColor grayColor];
-	questionBackground.image=nil;
-	[self addSubview:questionBackground];
+	if (questionBackground==nil) {
+        questionBackground=[[UIImageView alloc] initWithFrame:
+                            CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),100)];
+        questionBackground.backgroundColor=[UIColor clearColor];
+        questionBackground.image=nil;
+        [self addSubview:questionBackground];
+    }
 	
-	questionLabel=[[UILabel alloc] initWithFrame:questionBackground.frame];
-	questionLabel.textColor=[UIColor blackColor];
-	questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.question];
-	questionLabel.backgroundColor=[UIColor grayColor];
-	questionLabel.textAlignment=UITextAlignmentLeft;
-	questionLabel.numberOfLines=3;
-	[self addSubview:questionLabel];
+	if (questionLabel==nil) {
+        questionLabel=[[UILabel alloc] initWithFrame:questionBackground.frame];
+        questionLabel.textColor=[UIColor blackColor];
+        questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.question];
+        questionLabel.backgroundColor=[UIColor clearColor];
+        questionLabel.textAlignment=UITextAlignmentLeft;
+        questionLabel.numberOfLines=3;
+        [self addSubview:questionLabel];
+    }
 	
-	optionTipLabel=[[UILabel alloc] initWithFrame:
-                             CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,100,40)];
-	optionTipLabel.textColor=[UIColor blackColor];
-	optionTipLabel.text=@"答案选项";
-	optionTipLabel.backgroundColor=[UIColor grayColor];
-	optionTipLabel.textAlignment=UITextAlignmentLeft;
-	[self addSubview:optionTipLabel];
-    
-    answerContainerView=[[UIScrollView alloc] initWithFrame:
-                         CGRectMake(CGRectGetMinX(self.frame),
-                                   CGRectGetMaxY(optionTipLabel.frame)+5,
-                                   CGRectGetWidth(self.frame),
-                                   CGRectGetHeight(self.frame)-(CGRectGetMaxY(optionTipLabel.frame)+5))];
-    answerContainerView.userInteractionEnabled=YES;
-    answerContainerView.backgroundColor=[UIColor clearColor];
-    [self addSubview:answerContainerView];
+	if (optionTipLabel==nil) {
+        optionTipLabel=[[UILabel alloc] initWithFrame:
+                        CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,100,40)];
+        optionTipLabel.textColor=[UIColor blackColor];
+        optionTipLabel.text=@"答案选项";
+        optionTipLabel.backgroundColor=[UIColor clearColor];
+        optionTipLabel.textAlignment=UITextAlignmentLeft;
+        [self addSubview:optionTipLabel];
+    }
+	
+    if (answerContainerView==nil) {
+        answerContainerView=[[UIScrollView alloc] initWithFrame:
+                             CGRectMake(CGRectGetMinX(orderLabel.frame),
+                                        CGRectGetMaxY(optionTipLabel.frame)+5,
+                                        CGRectGetWidth(self.frame),
+                                        CGRectGetHeight(self.frame)-(CGRectGetMaxY(optionTipLabel.frame)+5))];
+        answerContainerView.scrollEnabled=YES;
+        answerContainerView.backgroundColor=[UIColor clearColor];
+        [self addSubview:answerContainerView];
+    }
 }
 
 //实时更新选择活这判断的答案
@@ -126,7 +136,6 @@
         //简单题
         result=answerTextView.text;
     }
-    NSLog(@"result:%@",result);
     _metaData.analysis=result;
 }
 

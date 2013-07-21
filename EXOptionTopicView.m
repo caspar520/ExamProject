@@ -25,12 +25,15 @@
 
 - (void)refreshUI{
     [super refreshUI];
-//    NSLog(@"option index:%d",self.index);
     //options check view
     NSArray *optionsArray=[self.metaData.answers componentsSeparatedByString:@"|"];
     if (optionsArray) {
-        [optionsArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+        if (answerContainerView.contentSize.height<optionsArray.count*45) {
+            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, (optionsArray.count+1)*45);
+        }
+        for (NSString *obj in optionsArray) {
             if (obj) {
+                NSInteger idx=[optionsArray indexOfObject:obj];
                 EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, idx*45, 40, 40) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
@@ -49,7 +52,8 @@
                 [answerContainerView addSubview:optionLabel];
                 [optionLabel release];
             }
-        }];
+        }
+        
         if (answerContainerView.contentSize.height<45*optionsArray.count) {
             answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 45*optionsArray.count);
         }
