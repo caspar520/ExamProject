@@ -57,7 +57,7 @@
 {
     //没有协议，故这里先暂时只检查非空,直接进入主页
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)registerClicked
@@ -65,6 +65,14 @@
     RegisterViewController *registerController = [[RegisterViewController alloc]init];
     [self.navigationController pushViewController:registerController animated:YES];
     [registerController release];
+}
+
+//验证用户名和密码
+- (BOOL)verifyIdentifier
+{
+    //查找用户名是否存在
+    
+    return YES;
 }
 
 @end

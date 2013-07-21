@@ -152,6 +152,12 @@
     [DBManager addPaper:paperData];
     [_localPaperList addObject:paperData];
     [paperData release];
+
+    //测试读数据库逻辑
+//    NSArray *allPapers = [DBManager fetchAllPapersFromDB];
+//    NSArray *collectedPapers = [DBManager fetchCollectedPapers];
+//    NSArray *wrongPapers = [DBManager fetchWrongPapers];
+//    NSLog(@"allPapers=%@ collectedPapers=%@ wrongPapers=%@",allPapers,collectedPapers,wrongPapers);
 }
 
 //根据解析出的Dictionary，生成TopicData对象

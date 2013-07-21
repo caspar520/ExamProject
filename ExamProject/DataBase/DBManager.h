@@ -18,6 +18,8 @@
 
 + (Paper *)addPaper:(PaperData *)paperData;        //添加或者更新试卷
 + (NSArray *)fetchAllPapersFromDB;                 //取得所有数据库试卷
++ (NSArray *)fetchWrongPapers;                     //取所有错题
++ (NSArray *)fetchCollectedPapers;                 //取所有收藏的试卷
 
 + (Topic *)addTopic:(TopicData *)topicData;         //添加试题
 + (NSSet *)addTopicsWithArray:(NSArray *)topics;    //批量添加试题

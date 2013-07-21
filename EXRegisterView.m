@@ -42,6 +42,8 @@ typedef enum
 
 - (void)dealloc
 {
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+    
     [_userData release];
     [_inputBgView release];
     

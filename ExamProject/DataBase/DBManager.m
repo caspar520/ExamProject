@@ -11,8 +11,11 @@
 
 @interface DBManager ()
 
++ (NSArray *)paperDataWithPapers:(NSArray *)papers;     //paper转换为PaperData
 + (Paper *)getPaperByID:(int)paperId;       //通过PaperID获得Paper对象
-+ (NSArray *)readAllPapers;
++ (NSArray *)readAllPapers;                 //取得所有试卷
++ (NSArray *)readWrongPapers;               //取得所有错题试卷
++ (NSArray *)readCollectedPapers;           //取得所有收藏的试卷
 + (Topic *)getTopicByID:(int)topicId;       //通过topicID获得Topic对象
 
 @end
@@ -22,18 +25,49 @@
 + (NSArray *)fetchAllPapersFromDB
 {
     NSArray *result = [DBManager readAllPapers];
-    NSMutableArray *resultData = [[NSMutableArray alloc]initWithCapacity:0];
-    for (Paper *paper in result) {
-        PaperData *paperData = [[PaperData alloc]initWithPaper:paper];
-        [resultData addObject:paperData];
-        [paperData release];
-    }
-    return [resultData autorelease];
+    return [DBManager paperDataWithPapers:result];
+}
+
+//取所有错题
++ (NSArray *)fetchWrongPapers
+{
+    NSArray *result = [DBManager readWrongPapers];
+    return [DBManager paperDataWithPapers:result];
+}
+
+//取所有收藏的试卷
++ (NSArray *)fetchCollectedPapers
+{
+    NSArray *result = [DBManager readCollectedPapers];
+    return [DBManager paperDataWithPapers:result];
 }
 
 + (NSArray *)readAllPapers
 {
+    return [DBManager readPapersWithCondition:nil];
+}
+
+//取得所有错题试卷
++ (NSArray *)readWrongPapers
+{
+    return [DBManager readPapersWithCondition:@"wrong=YES"];
+}
+
+//取得所有收藏的试卷
++ (NSArray *)readCollectedPapers
+{
+    return [DBManager readPapersWithCondition:@"fav=YES"];
+}
+
+//根据条件取得相应的试卷
++ (NSArray *)readPapersWithCondition:(NSString *)condition
+{
     NSFetchRequest *request = [Paper defaultFetchRequest];
+    
+    if (condition && ![@"" isEqualToString:condition]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition];
+        [request setPredicate:predicate];
+    }
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"paperId"
                                                                    ascending:NO];
@@ -44,10 +78,23 @@
     return result;
 }
 
+
 #pragma mark - Paper
++ (NSArray *)paperDataWithPapers:(NSArray *)papers
+{
+    NSMutableArray *resultData = [[NSMutableArray alloc]initWithCapacity:0];
+    for (Paper *paper in papers) {
+        PaperData *paperData = [[PaperData alloc]initWithPaper:paper];
+        [resultData addObject:paperData];
+        [paperData release];
+    }
+    return [resultData autorelease];
+}
+
 + (Paper *)getPaperByID:(int)paperId
 {
     NSFetchRequest *fetchRequest = [Paper defaultFetchRequest];
+    
     [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"paperId = %d", paperId]];
     NSArray *result = [Paper executeFetchRequest:fetchRequest error:nil];
     Paper *paper = nil;
