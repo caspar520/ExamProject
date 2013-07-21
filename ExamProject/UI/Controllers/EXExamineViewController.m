@@ -78,6 +78,10 @@
     if (_examineListView) {
         _examineListView.dataArray=questions;
     }
+    
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController hideTabBar];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
