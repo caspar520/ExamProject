@@ -389,9 +389,6 @@
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
-				9C252C75179BC75E00E8E69C /* MobileCoreServices.framework */,
-				9C252C73179BC71A00E8E69C /* SystemConfiguration.framework */,
-				9C252C71179BC6E300E8E69C /* CFNetwork.framework */,
 				30BDBEDC1797C17A008F0578 /* ExamProject */,
 				30BDBED51797C17A008F0578 /* Frameworks */,
 				30BDBED41797C17A008F0578 /* Products */,
@@ -409,6 +406,9 @@
 		30BDBED51797C17A008F0578 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9C252C75179BC75E00E8E69C /* MobileCoreServices.framework */,
+				9C252C73179BC71A00E8E69C /* SystemConfiguration.framework */,
+				9C252C71179BC6E300E8E69C /* CFNetwork.framework */,
 				9CBAF262179BC48A009BA64E /* libxml2.dylib */,
 				9CBAF260179BC442009BA64E /* libz.1.2.5.dylib */,
 				301371D5179B05DB00F2BFCE /* Security.framework */,

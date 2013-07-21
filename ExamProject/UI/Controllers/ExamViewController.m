@@ -35,6 +35,7 @@
 - (void)dealloc{
     [_paperListView release];
     [_localPaperList release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -42,6 +43,8 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 	// Do any additional setup after loading the view.
     self.title=@"考试";
     UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
@@ -128,6 +131,12 @@
         examineController.displayTopicType=kDisplayTopicType_Default;
         examineController.paperData=paperMetaData;
     }
+}
+
+- (void)downloadPaperFinish:(NSNotification *)notification{
+    [_localPaperList removeAllObjects];
+    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+    [_paperListView refresh];
 }
 
 

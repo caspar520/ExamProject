@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+@class PaperData;
+
 @interface Utility : NSObject
+
++ (PaperData *)convertJSONToPaperData:(NSData *)data;
++ (NSArray *)convertJSONToTopicData:(NSData *)data;
 
 @end
