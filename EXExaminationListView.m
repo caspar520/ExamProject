@@ -69,6 +69,7 @@
                 view.delegate=delegate;
                 view.index=idx+1;
                 view.metaData=obj;
+                view.tag=idx;
                 
                 [_scrollView addSubview:view];
                 [view release];
@@ -98,6 +99,18 @@
             _scrollView.scrollEnabled=YES;
         }];
     }
+}
+
+- (void)collectionTopic{
+    NSInteger index=_scrollView.contentOffset.x/CGRectGetWidth(_scrollView.frame);
+    if (index<_dataArray.count) {
+        TopicData *topic=[_dataArray objectAtIndex:index];
+        if (topic) {
+            topic.favourite=[NSNumber numberWithBool:YES];
+        }
+    }
+    
+    
 }
 
 

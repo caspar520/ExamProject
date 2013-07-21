@@ -10,6 +10,7 @@
 #import "EXExaminationListView.h"
 #import "EXExaminationView.h"
 #import "PaperData.h"
+#import "Topic.h"
 #import "EXResultViewController.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
@@ -95,6 +96,11 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
+    [self markPaper];
+    
+    //批改试卷完成后需要上传服务器：暂不做
+    
+    
 	//跳转到成绩界面
     EXResultViewController *resultController=[[EXResultViewController alloc] init];
     resultController.paperData=self.paperData;
@@ -111,15 +117,34 @@
 
 - (void)collectItemClicked:(id)sender{
 	_paperData.fav=[NSNumber numberWithBool:YES];
+    [_examineListView collectionTopic];
 }
 
-#pragma mark UIScrollViewDelegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    NSLog(@"begin dragging");
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
-    NSLog(@"end dragging");
+//批改试卷
+- (void)markPaper{
+    //计算总成绩并判断答过的题是否有错误，有标记该试卷有错误
+    __block NSInteger mark=0;
+    if (_paperData.topics) {
+        [_paperData.topics enumerateObjectsUsingBlock:^(Topic *obj, NSUInteger idx, BOOL *stop) {
+            if (obj && ([obj.type integerValue]==1 || [obj.type integerValue]==2 || [obj.type integerValue]==3)) {
+                //先判断试题类型：只有选择题和判断题可以进行判断，简答暂不做判断
+                if (obj.analysis) {
+                    if ([obj.analysis isEqualToString:obj.selected]) {
+                        //正确
+                        obj.wrong=[NSNumber numberWithBool:NO];
+                        mark+=[obj.value integerValue];
+                    }else{
+                        //错误
+                        obj.wrong=[NSNumber numberWithBool:YES];
+                        if ([_paperData.wrong boolValue]==NO) {
+                            _paperData.wrong=[NSNumber numberWithBool:YES];
+                        }
+                    }
+                }
+            }
+        }];
+        _paperData.userScore=[NSNumber numberWithInteger:mark];
+    }
 }
 
 @end

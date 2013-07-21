@@ -17,5 +17,6 @@
 
 - (void)preTopic;
 - (void)nextTopic;
+- (void)collectionTopic;
 
 @end

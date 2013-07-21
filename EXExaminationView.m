@@ -93,7 +93,7 @@
         //单选题
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).enabled==YES) {
+                if (((EXCheckOptionView *)item).checked==YES) {
                     result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
                     break;
                 }
@@ -103,7 +103,7 @@
         //多选题
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).enabled==YES) {
+                if (((EXCheckOptionView *)item).checked==YES) {
                     if (result==nil || result.length==0) {
                         result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
                     }else{
@@ -116,7 +116,7 @@
         //判断题
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).enabled==YES) {
+                if (((EXCheckOptionView *)item).checked==YES) {
                     result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
                     break;
                 }
@@ -124,8 +124,10 @@
         }
     }else{
         //简单题
-        _metaData.answers=answerTextView.text;
+        result=answerTextView.text;
     }
+    NSLog(@"result:%@",result);
+    _metaData.analysis=result;
 }
 
 @end

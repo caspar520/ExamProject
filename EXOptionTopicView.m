@@ -36,6 +36,7 @@
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
                 checkView.index=idx;
+                checkView.enabled=YES;
                 [answerContainerView addSubview:checkView];
                 [checkView release];
                 
@@ -64,6 +65,7 @@
         //单选:取消其它按纽的选中状态
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                ((EXCheckOptionView *)item).enabled=YES;
                 if (item != sender) {
                     ((EXCheckOptionView *)item).checked=NO;
                 }
