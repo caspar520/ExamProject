@@ -11,6 +11,8 @@
 #import "PaperData.h"
 #import "Topic.h"
 #import "EXResultViewController.h"
+#import "CustomTabBarController.h"
+#import "AppDelegate.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
@@ -70,6 +72,14 @@
     if (_examineListView) {
         _examineListView.dataArray=questions;
     }
+}
+
+- (void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
 }
 
 - (void)didReceiveMemoryWarning

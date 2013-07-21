@@ -16,6 +16,7 @@
 #import "CustomTabBarController.h"
 #import "EXExamineViewController.h"
 
+
 @interface WrongViewController ()
 
 @end
@@ -115,6 +116,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PaperData *paperMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
     if (paperMetaData) {
+        
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        [tabBarController hideTabBar];
+        
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         [self.navigationController pushViewController:examineController animated:YES];
         examineController.displayTopicType=kDisplayTopicType_Wrong;

@@ -112,6 +112,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     PaperData *paperMetaData=[_collectedPaperList objectAtIndex:indexPath.row];
     if (paperMetaData) {
+        
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        [tabBarController hideTabBar];
+        
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         [self.navigationController pushViewController:examineController animated:YES];
         examineController.displayTopicType=kDisplayTopicType_Collected;
