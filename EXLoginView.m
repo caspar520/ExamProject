@@ -7,6 +7,7 @@
 //
 
 #import "EXLoginView.h"
+#import "Toast.h"
 
 @interface EXLoginView () <UITextFieldDelegate>
 
@@ -104,7 +105,11 @@
 #pragma mark - 按钮回调事件
 - (void)loginClicked:(id)sender
 {
+    //登录
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    if (![self checkInputAvailiable]) {
+        return;
+    }
     
     if (_delegate && [_delegate respondsToSelector:@selector(loginClicked)]) {
         [_delegate loginClicked];
@@ -113,6 +118,7 @@
 
 - (void)registerClicked:(id)sender
 {
+    //注册
     NSLog(@"%s", __PRETTY_FUNCTION__);
     if (_delegate && [_delegate respondsToSelector:@selector(registerClicked)]) {
         [_delegate registerClicked];
@@ -121,12 +127,13 @@
 
 - (void)autoLoginClicked:(id)sender
 {
+    //自动登录
     NSLog(@"%s", __PRETTY_FUNCTION__);
 }
 
 - (void)forgetPwdClicked:(id)sender
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //忘记密码
     NSLog(@"%s", __PRETTY_FUNCTION__);
     if (_delegate && [_delegate respondsToSelector:@selector(forgetPwdClicked)]) {
         [_delegate forgetPwdClicked];
@@ -139,6 +146,23 @@
     [textField resignFirstResponder];
     
     return NO;
+}
+
+- (BOOL)checkInputAvailiable
+{
+    //非空检查
+    BOOL isCheckedOut = YES;
+    NSString *errorMsg = nil;
+    if ((_mailTextField.text == nil || [@"" isEqualToString:_mailTextField.text])
+        || (_pwdTextField.text == nil || [@"" isEqualToString:_pwdTextField.text])) {
+        isCheckedOut = NO;
+        errorMsg = @"输入项目不能为空!";
+    }
+    
+    if (!isCheckedOut) {
+        [[Toast sharedInstance]show:errorMsg duration:TOAST_DEFALT_DURATION];
+    }
+    return isCheckedOut;
 }
 
 @end

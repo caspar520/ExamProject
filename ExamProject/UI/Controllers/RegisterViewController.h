@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class UserData;
+
 @interface RegisterViewController : UIViewController
+{
+    UserData    *_userData;
+}
+
+- (id)initWithUserData:(UserData *)aUserData;
 
 @end

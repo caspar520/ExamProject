@@ -6,6 +6,7 @@
 //  Copyright (c) 2013年 Magic Song. All rights reserved.
 //
 
+#define SCREEN_WIDTH    320
 #define SCREEN_HEIGHT	([UIScreen mainScreen].bounds.size.height)      //屏幕高度
 
 #define KEYCHAIN_IDENTIFIER     @"exam_proj_keychain_identifier"
