@@ -43,7 +43,7 @@
 	// Do any additional setup after loading the view.
     
     self.title=@"试题收藏";
-    UIBarButtonItem *clearPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"清空收藏" style:UIBarButtonItemStyleBordered target:self action:@selector(clearWrongPapersClicked:)];
+    UIBarButtonItem *clearPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"清空收藏" style:UIBarButtonItemStyleBordered target:self action:@selector(clearCollectedPapersClicked:)];
     self.navigationItem.rightBarButtonItem= clearPaperButton;
     
     if (_collectedPaperList==nil) {
@@ -80,10 +80,13 @@
         [_collectedPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
             if (obj) {
                 obj.fav=[NSNumber numberWithBool:NO];
+                [DBManager addPaper:obj];
             }
         }];
     }
     
+    [_collectedPaperList removeAllObjects];
+    [_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
     [_paperListView refresh];
 }
 

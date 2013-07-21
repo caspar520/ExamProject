@@ -84,10 +84,12 @@
         [_wrongPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
             if (obj) {
                 obj.wrong=[NSNumber numberWithBool:NO];
+                [DBManager addPaper:obj];
             }
         }];
     }
-    
+    [_wrongPaperList removeAllObjects];
+    [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
     [_paperListView refresh];
 }
 
