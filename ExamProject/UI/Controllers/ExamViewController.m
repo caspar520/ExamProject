@@ -53,7 +53,6 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-    [self testAddPaper];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -139,82 +138,5 @@
     [_paperListView refresh];
 }
 
-
-
-#pragma mark 测试用
-
-//测试添加试卷，json从本地读取
-- (void)testAddPaper
-{
-    //解析本地json文件
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"hangyeceshi-1" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//    NSLog(@"result=%@", result);
-    
-    PaperData *paperData = [[PaperData alloc]init];
-    paperData.paperId = [NSNumber numberWithInt:[[result objectForKey:@"id"] intValue]];
-    paperData.title = [result objectForKey:@"title"];
-    paperData.desc = [result objectForKey:@"description"];
-    paperData.creator = [result objectForKey:@"creator"];
-    paperData.totalTime = [NSNumber numberWithInt:[[result objectForKey:@"totalTime"] intValue]];
-    paperData.totalScore = [NSNumber numberWithInt:[[result objectForKey:@"totalScore"] intValue]];
-    paperData.topicCount = [NSNumber numberWithInt:[[result objectForKey:@"topicCount"] intValue]];
-    paperData.passingScore = [NSNumber numberWithInt:[[result objectForKey:@"passingScore"] intValue]];
-    paperData.eliteScore = [NSNumber numberWithInt:[[result objectForKey:@"eliteScore"] intValue]];
-    
-    //添加试题
-    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
-    
-    [DBManager addPaper:paperData];
-    [paperData release];
-
-    //测试读数据库逻辑
-//    NSArray *allPapers = [DBManager fetchAllPapersFromDB];
-//    NSArray *collectedPapers = [DBManager fetchCollectedPapers];
-//    NSArray *wrongPapers = [DBManager fetchWrongPapers];
-//    NSLog(@"allPapers=%@ collectedPapers=%@ wrongPapers=%@",allPapers,collectedPapers,wrongPapers);
-}
-
-//根据解析出的Dictionary，生成TopicData对象
-- (NSMutableArray *)makeTopicsWithArray:(NSArray *)array
-{
-    NSMutableArray *topics = nil;
-    if (array && [array count] > 0) {
-        topics = [[[NSMutableArray alloc]initWithCapacity:0] autorelease];
-        for (NSDictionary *topicDic in array) {
-            TopicData *tData = [[TopicData alloc]init];
-            
-            tData.topicId = [topicDic objectForKey:@"id"];
-            tData.question = [topicDic objectForKey:@"question"];
-            tData.type = [topicDic objectForKey:@"type"];
-            
-            NSArray *answers = [topicDic objectForKey:@"answerList"];
-            for (NSDictionary *answer in answers) {
-                //答案选项
-                if (tData.answers == nil) {
-                    tData.answers = [answer objectForKey:@"content"];
-                } else {
-                    tData.answers = [tData.answers stringByAppendingFormat:@"|%@",[answer objectForKey:@"content"]];
-                }
-                
-                //正确答案
-                if ([[answer objectForKey:@"isCorrect"]boolValue]) {
-                    if (tData.selected == nil) {
-                        tData.selected = [NSString stringWithFormat:@"%u",[answers indexOfObject:answer]];
-                    } else {
-                        tData.selected = [tData.selected stringByAppendingFormat:@"|%u",[answers indexOfObject:answer]];
-                    }
-                }
-            }
-            tData.value = [[topicDic objectForKey:@"value"]stringValue];
-            tData.analysis = [topicDic objectForKey:@"analysis"];
-            tData.image = [topicDic objectForKey:@"image"];
-            [topics addObject:tData];
-            [tData release];
-        }
-    }
-    return topics;
-}
 
 @end

@@ -13,6 +13,7 @@
 #import "EXResultViewController.h"
 #import "CustomTabBarController.h"
 #import "AppDelegate.h"
+#import "DBManager.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
@@ -129,7 +130,6 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
     [self markPaper];
-    
     //批改试卷完成后需要上传服务器：暂不做
     
     
@@ -150,6 +150,8 @@
 - (void)collectItemClicked:(id)sender{
 	_paperData.fav=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
+    
+    [DBManager addPaper:_paperData];
 }
 
 //批改试卷
@@ -170,6 +172,7 @@
                         obj.wrong=[NSNumber numberWithBool:YES];
                         if ([_paperData.wrong boolValue]==NO) {
                             _paperData.wrong=[NSNumber numberWithBool:YES];
+                            [DBManager addPaper:_paperData];
                         }
                     }
                 }
