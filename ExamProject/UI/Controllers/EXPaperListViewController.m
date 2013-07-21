@@ -59,7 +59,7 @@
     [super viewWillAppear:animated];
     
     if (_paperListView==nil) {
-        _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
+        _paperListView=[[EXListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame))];
         _paperListView.delegate=self;
         _paperListView.backgroundColor=[UIColor clearColor];
         [self.view addSubview:_paperListView];

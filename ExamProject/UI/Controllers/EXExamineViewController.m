@@ -42,6 +42,7 @@
 {
     [super viewDidLoad];
     self.title=@"考试";
+    self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
     self.navigationItem.leftBarButtonItem= backButton;
     
@@ -59,11 +60,12 @@
         [self.navigationController setToolbarHidden:YES animated:NO];
     }
     
-    
-    
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:self.view.bounds];
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        
+        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(tabBarController.tabBar.frame)-CGRectGetHeight(self.navigationController.navigationBar.frame)-20)];
         _examineListView.backgroundColor=[UIColor clearColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];

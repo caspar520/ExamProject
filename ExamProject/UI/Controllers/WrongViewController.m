@@ -43,6 +43,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.title=@"错题解析";
+    self.view.backgroundColor=[UIColor blueColor];
     UIBarButtonItem *clearPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"清空错题" style:UIBarButtonItemStyleBordered target:self action:@selector(clearWrongPapersClicked:)];
     self.navigationItem.rightBarButtonItem= clearPaperButton;
     
@@ -60,9 +61,12 @@
     [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
     
     if (_paperListView==nil) {
-        _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        
+        _paperListView=[[EXListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(tabBarController.tabBar.frame))];
         _paperListView.delegate=self;
-        _paperListView.backgroundColor=[UIColor clearColor];
+        _paperListView.backgroundColor=[UIColor grayColor];
         [self.view addSubview:_paperListView];
     }
     

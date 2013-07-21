@@ -41,7 +41,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
     self.title=@"试题收藏";
     UIBarButtonItem *clearPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"清空收藏" style:UIBarButtonItemStyleBordered target:self action:@selector(clearCollectedPapersClicked:)];
     self.navigationItem.rightBarButtonItem= clearPaperButton;
@@ -60,7 +59,10 @@
     [_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
     
     if (_paperListView==nil) {
-        _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        
+        _paperListView=[[EXListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(tabBarController.tabBar.frame))];
         _paperListView.delegate=self;
         _paperListView.backgroundColor=[UIColor clearColor];
         [self.view addSubview:_paperListView];
