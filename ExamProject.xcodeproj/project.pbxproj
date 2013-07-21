@@ -48,6 +48,7 @@
 		30BDBEF01797C17A008F0578 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BDBEEF1797C17A008F0578 /* ViewController.m */; };
 		30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEF11797C17A008F0578 /* ViewController.xib */; };
 		30F0263C179C531200508326 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F0263B179C531200508326 /* Toast.m */; };
+		30F02643179C622000508326 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F02642179C622000508326 /* AboutViewController.m */; };
 		9C05B8CC17995EB0008E937D /* EXCheckOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */; };
 		9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */; };
 		9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */; };
@@ -140,6 +141,8 @@
 		30BDBEF21797C17A008F0578 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		30F0263A179C531200508326 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
 		30F0263B179C531200508326 /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
+		30F02641179C622000508326 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		30F02642179C622000508326 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		9C05B8CA17995EB0008E937D /* EXCheckOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXCheckOptionView.h; sourceTree = SOURCE_ROOT; };
 		9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXCheckOptionView.m; sourceTree = SOURCE_ROOT; };
 		9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_story_to_local_category_cancel.png; sourceTree = "<group>"; };
@@ -308,6 +311,8 @@
 				301371EF179B35CB00F2BFCE /* LoginViewController.m */,
 				9CACE90E179ACCF9007509EF /* EXResultViewController.h */,
 				9CACE90F179ACCF9007509EF /* EXResultViewController.m */,
+				30F02641179C622000508326 /* AboutViewController.h */,
+				30F02642179C622000508326 /* AboutViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -568,6 +573,7 @@
 				30137202179B762300F2BFCE /* EXDownloadManager.m in Sources */,
 				30137203179B762300F2BFCE /* EXNetDataManager.m in Sources */,
 				30F0263C179C531200508326 /* Toast.m in Sources */,
+				30F02643179C622000508326 /* AboutViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -82,11 +82,10 @@
     
     if (_modifyMode) {
         [[Toast sharedInstance]show:@"修改成功！" duration:TOAST_DEFALT_DURATION];
-        [self.navigationController dismissModalViewControllerAnimated:YES];
     } else {
         [[Toast sharedInstance]show:@"注册成功！" duration:TOAST_DEFALT_DURATION];
-        [self.navigationController popViewControllerAnimated:YES];
     }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 @end

@@ -9,7 +9,10 @@
 #import "MoreViewController.h"
 #import "LoginViewController.h"
 #import "RegisterViewController.h"
+#import "AboutViewController.h"
 #import "DBManager.h"
+#import "AppDelegate.h"
+#import "CustomTabBarController.h"
 
 @interface MoreViewController () <UITableViewDataSource,UITableViewDelegate>
 {
@@ -58,6 +61,16 @@
     [tableView addSubview:exitLogin];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //显示TabBar
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
@@ -103,14 +116,24 @@
         //进入帐号
         RegisterViewController *registerController = [[RegisterViewController alloc]initWithUserData:[DBManager getDefaultUserData]];
         registerController.modifyMode = YES;
-        
-        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:registerController];
-        [self.navigationController presentModalViewController:navController animated:YES];
+        [self.navigationController pushViewController:registerController animated:YES];
         [registerController release];
-        [navController release];
+        
+        //隐藏TabBar
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        [tabBarController hideTabBar];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             //进入关于
+            AboutViewController *aboutController = [[AboutViewController alloc]init];
+            [self.navigationController pushViewController:aboutController animated:YES];
+            [aboutController release];
+            
+            //隐藏TabBar
+            AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+            CustomTabBarController *tabBarController=appDelegate.tabController;
+            [tabBarController hideTabBar];
         }
     }
     
