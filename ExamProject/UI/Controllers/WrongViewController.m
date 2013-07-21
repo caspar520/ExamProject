@@ -122,8 +122,8 @@
         [tabBarController hideTabBar];
         
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-        [self.navigationController pushViewController:examineController animated:YES];
         examineController.displayTopicType=kDisplayTopicType_Wrong;
+        [self.navigationController pushViewController:examineController animated:YES];
         examineController.paperData=paperMetaData;
     }
 }

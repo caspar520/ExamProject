@@ -43,17 +43,22 @@
     [super viewDidLoad];
     self.title=@"考试";
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
-    UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"submit" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
-    
     self.navigationItem.leftBarButtonItem= backButton;
-    self.navigationItem.rightBarButtonItem= submitButton;
     
-    UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)];
-	UIBarButtonItem *preButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)];
-    UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)];
+    if (displayTopicType==kDisplayTopicType_Default) {
+        UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"submit" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
+        self.navigationItem.rightBarButtonItem= submitButton;
+        
+        UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)];
+        UIBarButtonItem *preButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)];
+        UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)];
+        
+        [self.navigationController setToolbarHidden:NO animated:NO];
+        [self setToolbarItems:[NSArray arrayWithObjects:preButton,nextButton,collectButton,nil]];
+    }else{
+        [self.navigationController setToolbarHidden:YES animated:NO];
+    }
     
-    [self.navigationController setToolbarHidden:NO animated:NO];
-    [self setToolbarItems:[NSArray arrayWithObjects:preButton,nextButton,collectButton,nil]];
     
     
 	// Do any additional setup after loading the view.
