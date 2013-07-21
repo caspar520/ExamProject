@@ -227,4 +227,10 @@
     return nil;
 }
 
+//删除用户信息
++ (void)deleteAllUser
+{
+    [User deleteAllObjects];
+}
+
 @end

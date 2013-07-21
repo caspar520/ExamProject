@@ -9,6 +9,7 @@
 #import "LoginViewController.h"
 #import "EXLoginView.h"
 #import "RegisterViewController.h"
+#import "BusinessCenter.h"
 
 @interface LoginViewController () <LoginViewDelegate>
 
@@ -25,6 +26,13 @@
     return self;
 }
 
+- (void)dealloc
+{
+    [_loginView release];
+    
+    [super dealloc];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -32,11 +40,11 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    EXLoginView *loginView = [[EXLoginView alloc]initWithFrame:CGRectMake(0, 0, 320, SCREEN_HEIGHT)];
-    loginView.delegate = self;
-    loginView.backgroundColor = [UIColor colorWithRed:0x8e/255.0f green:0xcb/255.0f blue:0x49/255.0f alpha:1.0f];
-    [self.view addSubview:loginView];
-    [loginView release];
+    _loginView = [[EXLoginView alloc]initWithFrame:CGRectMake(0, 0, 320, SCREEN_HEIGHT)];
+    _loginView.delegate = self;
+    _loginView.backgroundColor = [UIColor colorWithRed:0x8e/255.0f green:0xcb/255.0f blue:0x49/255.0f alpha:1.0f];
+    [self.view addSubview:_loginView];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -56,7 +64,6 @@
 - (void)loginClicked
 {
     //没有协议，故这里先暂时只检查非空,直接进入主页
-    
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
@@ -70,7 +77,14 @@
 //验证用户名和密码
 - (BOOL)verifyIdentifier
 {
-    //查找用户名是否存在
+    //本地验证是否合法(只能验证登录过的)
+    NSString *userName = _loginView.mailTextField.text;
+    NSString *pwd = _loginView.pwdTextField.text;
+    if ([[BusinessCenter sharedInstance]verifyWithUserName:userName andPwd:pwd]) {
+        return YES;
+    }
+    
+    //验证用户名密码是否匹配 网络验证
     
     return YES;
 }

@@ -24,6 +24,8 @@ typedef enum
 
 @interface EXRegisterView () <UITextFieldDelegate>
 
+- (void)refreshUIWithUserData;
+
 @end
 
 @implementation EXRegisterView
@@ -48,6 +50,32 @@ typedef enum
     [_inputBgView release];
     
     [super dealloc];
+}
+
+- (void)setUserData:(UserData *)userData
+{
+    if (userData) {
+        [_userData release];
+        _userData = [userData retain];
+        
+        [self refreshUIWithUserData];
+    }
+}
+
+- (void)refreshUIWithUserData
+{
+    if (_userData.email) {
+        UITextField *textField = (UITextField*)[_inputBgView viewWithTag:RegisterTag_Mail+INPUT_TAG];
+        textField.text = _userData.email;
+    }
+    if (_userData.fullName) {
+        UITextField *textField = (UITextField*)[_inputBgView viewWithTag:RegisterTag_Name+INPUT_TAG];
+        textField.text = _userData.fullName;
+    }
+    if (_userData.deptName) {
+        UITextField *textField = (UITextField*)[_inputBgView viewWithTag:RegisterTag_Dept+INPUT_TAG];
+        textField.text = _userData.deptName;
+    }
 }
 
 - (void)initRegisterUI

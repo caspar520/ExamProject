@@ -20,7 +20,14 @@
 /*
  *  登录相关类
  */
-- (BOOL)isLogin;            //判断是否登录    从keychain中读取登录信息
-- (void)saveUsername:(NSString *)userName andPassword:(NSString *)password; //保存用户密码到keychain
+
+//判断是否登录    从keychain中读取登录信息
+- (BOOL)isLogin;
+
+//保存用户密码到keychain
+- (void)saveUsername:(NSString *)userName andPwd:(NSString *)password; 
+
+//本地验证用户名密码是否合法
+- (BOOL)verifyWithUserName:(NSString *)userName andPwd:(NSString *)password;
 
 @end

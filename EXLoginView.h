@@ -25,6 +25,8 @@
     id<LoginViewDelegate>       _delegate;
 }
 
+@property (nonatomic,retain) UITextField *mailTextField;
+@property (nonatomic,retain) UITextField *pwdTextField;
 @property (nonatomic,assign) id<LoginViewDelegate> delegate;
 
 @end

@@ -27,5 +27,6 @@
 + (User *)addUser:(UserData *)userData;             //添加用户信息
 + (UserData *)getDefaultUserData;                           //获取默认用户信息
 + (NSString *)getRegisterUserName;                  //获取注册用户名
++ (void)deleteAllUser;                              //删除用户信息
 
 @end

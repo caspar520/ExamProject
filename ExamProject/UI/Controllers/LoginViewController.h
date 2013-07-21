@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class EXLoginView;
+
 @interface LoginViewController : UIViewController
+{
+    EXLoginView         *_loginView;
+}
 
 @end

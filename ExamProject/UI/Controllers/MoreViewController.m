@@ -144,6 +144,7 @@
 - (void)exitClicked:(id)sender
 {
     //TODO删除数据库User
+    [DBManager deleteAllUser];
     
     //跳转到登录界面
     LoginViewController *loginController = [[LoginViewController alloc]init];

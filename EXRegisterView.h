@@ -26,4 +26,6 @@
 @property (nonatomic,assign) id<RegisterViewDelegate> delegate;
 @property (nonatomic,retain) UserData       *userData;
 
+- (void)initRegisterUI;
+
 @end

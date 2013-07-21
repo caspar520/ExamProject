@@ -33,15 +33,24 @@ static BusinessCenter *instance = nil;
 
 - (BOOL)isLogin            //判断是否登录    从keychain中读取登录信息
 {
-    return [DBManager getDefaultUser] != nil;
+    return [DBManager getDefaultUserData] != nil;
 }
 
 //保存用户密码到keychain
-- (void)saveUsername:(NSString *)userName andPassword:(NSString *)password
+- (void)saveUsername:(NSString *)userName andPwd:(NSString *)password
 {
     if (userName && password) {
         [_keychainWrapper setObject:password forKey:userName];
     }
+}
+
+- (BOOL)verifyWithUserName:(NSString *)userName andPwd:(NSString *)password
+{
+    NSString *localPwd = [_keychainWrapper objectForKey:userName];
+    if (localPwd && [localPwd isEqualToString:password]) {
+        return YES;
+    }
+    return NO;
 }
 
 - (void)dealloc
