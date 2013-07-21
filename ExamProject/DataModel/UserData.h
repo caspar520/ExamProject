@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "DbBaseProtocol.h"
 
+@class User;
+
 @interface UserData : NSObject <UserDataProtocol>
+
+- (id)initWithUser:(User *)user;
 
 @end

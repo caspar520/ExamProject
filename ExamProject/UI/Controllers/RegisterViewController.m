@@ -52,6 +52,7 @@
     
     EXRegisterView *registerView = [[EXRegisterView alloc]init];
     registerView.delegate = self;
+    registerView.modifyMode = _modifyMode;
     registerView.userData = _userData;
     registerView.frame = CGRectMake(0, 0, 320, SCREEN_HEIGHT-44);
     registerView.backgroundColor = [UIColor colorWithRed:0xE3/255.0f green:0xEC/255.0f blue:0xEC/255.0f alpha:1.0f];
@@ -79,9 +80,13 @@
     //这里暂时在本地保存注册信息
     [DBManager addUser:_userData];
     
-    [[Toast sharedInstance]show:@"注册成功！" duration:TOAST_DEFALT_DURATION];
-    
-    [self.navigationController popViewControllerAnimated:YES];
+    if (_modifyMode) {
+        [[Toast sharedInstance]show:@"修改成功！" duration:TOAST_DEFALT_DURATION];
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    } else {
+        [[Toast sharedInstance]show:@"注册成功！" duration:TOAST_DEFALT_DURATION];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 @end

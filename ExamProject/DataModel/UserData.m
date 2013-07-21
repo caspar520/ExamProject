@@ -7,6 +7,7 @@
 //
 
 #import "UserData.h"
+#import "User.h"
 
 @implementation UserData
 
@@ -14,5 +15,17 @@
 @synthesize fullName;
 @synthesize regionId;
 @synthesize deptName;
+
+- (id)initWithUser:(User *)user
+{
+    self = [super init];
+    if (self) {
+        self.email = user.email;
+        self.fullName = user.fullName;
+        self.regionId = user.regionId;
+        self.deptName = user.deptName;
+    }
+    return self;
+}
 
 @end

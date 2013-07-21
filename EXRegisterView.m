@@ -116,7 +116,11 @@ typedef enum
     registerBtn.backgroundColor = [UIColor clearColor];
     registerBtn.frame = CGRectMake(20, CGRectGetMaxY(_inputBgView.frame)+15, 280, 40);
     registerBtn.backgroundColor = [UIColor colorWithRed:0xCD/255.0f green:0xCE/255.0f blue:0xCC/255.0f alpha:1.0f];
-    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    if (_modifyMode) {
+        [registerBtn setTitle:@"修改" forState:UIControlStateNormal];
+    } else {
+        [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    }
     [registerBtn addTarget:self action:@selector(doRegister:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:registerBtn];
 }

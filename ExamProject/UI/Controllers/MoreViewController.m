@@ -7,6 +7,9 @@
 //
 
 #import "MoreViewController.h"
+#import "LoginViewController.h"
+#import "RegisterViewController.h"
+#import "DBManager.h"
 
 @interface MoreViewController () <UITableViewDataSource,UITableViewDelegate>
 {
@@ -40,11 +43,19 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-43) style:UITableViewStyleGrouped];
-    tableView.backgroundColor = [UIColor greenColor];
+    tableView.backgroundColor = [UIColor clearColor];
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
     [tableView release];
+    
+    //退出登录
+    UIButton *exitLogin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    exitLogin.backgroundColor = [UIColor clearColor];
+    exitLogin.frame = CGRectMake(40, 240, 240, 40);
+    [exitLogin setTitle:@"退出登录" forState:UIControlStateNormal];
+    [exitLogin addTarget:self action:@selector(exitClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [tableView addSubview:exitLogin];
 }
 
 - (void)didReceiveMemoryWarning
@@ -90,8 +101,13 @@
 {
     if (indexPath.section == 0) {
         //进入帐号
+        RegisterViewController *registerController = [[RegisterViewController alloc]initWithUserData:[DBManager getDefaultUserData]];
+        registerController.modifyMode = YES;
         
-        [self.navigationController presentModalViewController:nil animated:YES];
+        UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:registerController];
+        [self.navigationController presentModalViewController:navController animated:YES];
+        [registerController release];
+        [navController release];
     } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             //进入关于
@@ -99,6 +115,19 @@
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Button Event Callback
+- (void)exitClicked:(id)sender
+{
+    //TODO删除数据库User
+    
+    //跳转到登录界面
+    LoginViewController *loginController = [[LoginViewController alloc]init];
+    UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginController];
+    [self.navigationController presentModalViewController:navController animated:YES];
+    [loginController release];
+    [navController release];
 }
 
 @end

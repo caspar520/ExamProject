@@ -17,6 +17,7 @@
 + (NSArray *)readWrongPapers;               //取得所有错题试卷
 + (NSArray *)readCollectedPapers;           //取得所有收藏的试卷
 + (Topic *)getTopicByID:(int)topicId;       //通过topicID获得Topic对象
++ (User *) getDefaultUser;
 
 @end
 
@@ -207,6 +208,13 @@
         user = [result objectAtIndex:0];
     }
     return user;
+}
+
+//获取默认用户信息
++ (UserData *)getDefaultUserData
+{
+    UserData *userData = [[UserData alloc]initWithUser:[DBManager getDefaultUser]];
+    return [userData autorelease];
 }
 
 //获取注册用户名
