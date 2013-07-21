@@ -10,6 +10,7 @@
 #import "EXExaminationListView.h"
 #import "EXExaminationView.h"
 #import "PaperData.h"
+#import "EXResultViewController.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
@@ -95,7 +96,9 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
 	//跳转到成绩界面
-    
+    EXResultViewController *resultController=[[EXResultViewController alloc] init];
+    resultController.paperData=self.paperData;
+    [self.navigationController pushViewController:resultController animated:YES];
 }
 
 - (void)nextItemClicked:(id)sender{

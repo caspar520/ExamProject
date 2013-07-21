@@ -7,12 +7,15 @@
 //
 
 #import "EXResultViewController.h"
+#import "PaperData.h"
 
 @interface EXResultViewController ()
 
 @end
 
 @implementation EXResultViewController
+
+@synthesize paperData;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -23,6 +26,11 @@
     return self;
 }
 
+- (void)dealloc{
+    [paperData release];
+    [super dealloc];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -31,6 +39,8 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning

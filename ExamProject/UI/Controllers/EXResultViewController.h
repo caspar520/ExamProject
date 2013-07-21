@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+@class PaperData;
+
 @interface EXResultViewController : UIViewController
+
+@property (nonatomic,retain)PaperData       *paperData;
 
 @end
