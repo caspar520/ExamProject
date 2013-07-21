@@ -15,5 +15,6 @@
 
 //download method
 - (void)downloadPaper:(id)paper;
+- (void)downloadPaperList;
 
 @end

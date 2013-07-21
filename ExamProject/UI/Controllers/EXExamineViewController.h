@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@class EXExaminationListView;
+@class EXExaminationListView,PaperData;
 
 @interface EXExamineViewController : UIViewController{
     EXExaminationListView       *_examineListView;
 }
 
-@property (nonatomic,retain)id          paperData;
+@property (nonatomic,retain)PaperData          *paperData;
 
 @end

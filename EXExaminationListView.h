@@ -13,6 +13,9 @@
 }
 
 @property (nonatomic,assign)id              delegate;
-@property (nonatomic,retain)NSMutableArray  *dataArray;
+@property (nonatomic,retain)NSArray         *dataArray;
+
+- (void)preTopic;
+- (void)nextTopic;
 
 @end

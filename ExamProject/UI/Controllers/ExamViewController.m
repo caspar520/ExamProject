@@ -16,6 +16,7 @@
 #import "EXListView.h"
 #import "EXPaperCell.h"
 #import "EXExamineViewController.h"
+#import "DBManager.h"
 
 @interface ExamViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -50,17 +51,25 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-    [self testAddPaper];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    [self.navigationController setToolbarHidden:YES animated:NO];
+    
+    //读数据
+    [_localPaperList removeAllObjects];
+    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+    
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
         _paperListView.delegate=self;
-        _paperListView.backgroundColor=[UIColor grayColor];
+        _paperListView.backgroundColor=[UIColor clearColor];
         [self.view addSubview:_paperListView];
     }
+    
+    [_paperListView refresh];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
@@ -115,12 +124,14 @@
     id paperMetaData=[_localPaperList objectAtIndex:indexPath.row];
     if (paperMetaData) {
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-        examineController.paperData=nil;
         [self.navigationController pushViewController:examineController animated:YES];
+        examineController.paperData=paperMetaData;
     }
 }
 
 
+<<<<<<< HEAD
+=======
 
 
 
@@ -201,4 +212,5 @@
     return topics;
 }
 
+>>>>>>> dea7d7814e48a26ffd8a1d1c842b09cabc4be028
 @end

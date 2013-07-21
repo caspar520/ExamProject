@@ -109,8 +109,11 @@ static const CGFloat kHeight = 36.0f;
         if (CGRectContainsPoint(validTouchArea, point)) {
             _checked = !_checked;
             [self updateCheckBoxImage];
-            if ([_delegate respondsToSelector:@selector(checkeStateChange:)]) {
-                [_delegate checkeStateChange:_checked];
+//            if ([_delegate respondsToSelector:@selector(checkeStateChange:)]) {
+//                [_delegate checkeStateChange:_checked];
+//            }
+            if (_delegate && [_delegate respondsToSelector:@selector(checkeStateChange:withObject:)]) {
+                [_delegate checkeStateChange:_checked withObject:self];
             }
         }
     }

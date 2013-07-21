@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface EXPaperCell : UITableViewCell
+@class PaperData;
 
-@property (nonatomic,retain)id      paperData;
+@interface EXPaperCell : UITableViewCell{
+    UILabel         *titleLabel;
+    UILabel         *authorLabel;
+}
+
+@property (nonatomic,retain)PaperData      *paperData;
 
 @end

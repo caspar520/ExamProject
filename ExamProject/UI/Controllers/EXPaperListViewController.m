@@ -12,6 +12,7 @@
 #import "CustomTabBarController.h"
 #import "AppDelegate.h"
 #import "EXNetDataManager.h"
+#import "EXDownloadManager.h"
 //#import "ASIHTTPRequest.h"
 
 @interface EXPaperListViewController ()<UITableViewDataSource,UITableViewDelegate,EXNetPaperDelegate>
@@ -32,6 +33,7 @@
 - (void)dealloc{
     [_paperListView release];
     [_netPaperList release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -49,6 +51,8 @@
     if (_netPaperList==nil) {
         _netPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:NOTIFICATION_PAPERS_DOWNLOAD_FINISH object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -62,12 +66,18 @@
     }
     
     //请求数据
-    [self fetchData];
+    if ([EXNetDataManager shareInstance].netPaperDataArray==nil || [EXNetDataManager shareInstance].netPaperDataArray.count==0) {
+        [self fetchData];
+    }else{
+        [_netPaperList removeAllObjects];
+        [_netPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
+        
+        [_paperListView refresh];
+    }
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-//    [ASIHTTPRequest hideNetworkActivityIndicator];
     
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     CustomTabBarController *tabBarController=appDelegate.tabController;
@@ -88,38 +98,18 @@
 }
 
 - (void)refreshItemClicked:(id)sender{
-    //刷新列表
-//    [ASIHTTPRequest showNetworkActivityIndicator];
-    
+    //刷新列表    
     [self fetchData];
 }
 
 #pragma mark 列表数据请求
 - (void)fetchData{
-//    if (_request) {
-//        [_request clearDelegatesAndCancel];
-//		[_request release];
-//        _request = nil;
-//    }
-//    NSArray *components=[NET_PAPERDATA_URL componentsSeparatedByString:@"/"];
-//    NSString *fileName=nil;
-//    if (components) {
-//        fileName=[components lastObject];
-//    }
-//    NSString *path=[[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:fileName];
-//    
-//    _request = [[ASIHTTPRequest alloc] initWithURL:[NSURL URLWithString:NET_PAPERDATA_URL]];
-//    [_request setTimeOutSeconds:10];
-//    _request.numberOfTimesToRetryOnTimeout = 2;
-//    
-//    [_request setDownloadDestinationPath:path];
-//    _request.delegate = self;
-//    [ASIHTTPRequest showNetworkActivityIndicator];
-//    [_request startAsynchronous];
-    NSString *path=[[NSBundle mainBundle] pathForResource:@"examlist" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-    [_netPaperList addObjectsFromArray:[result objectForKey:@"arrayData"]];
+    [[EXDownloadManager shareInstance] downloadPaperList];
+}
+
+- (void)refreshList:(NSNotification *)notification{
+    [_netPaperList removeAllObjects];
+    [_netPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
     
     [_paperListView refresh];
 }
@@ -149,32 +139,16 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //与点击下载按钮一样：先判断是否下载过，如果没有就去下载
-    
+    if (indexPath.row<_netPaperList.count) {
+        id  paper=[_netPaperList objectAtIndex:indexPath.row];
+        [[EXDownloadManager shareInstance] downloadPaper:paper];
+    }
 }
-
-#pragma mark 请求
-//- (void)requestFinished:(ASIHTTPRequest *)request{
-//    [ASIHTTPRequest hideNetworkActivityIndicator];
-//    NSArray *components=[NET_PAPERDATA_URL componentsSeparatedByString:@"/"];
-//    NSString *fileName=nil;
-//    if (components) {
-//        fileName=[components lastObject];
-//    }
-//    NSString *path=[[NSSearchPathForDirectoriesInDomains(NSDocumentationDirectory, NSUserDomainMask, YES) objectAtIndex:0] stringByAppendingPathComponent:fileName];
-//    
-//    NSMutableDictionary *papersData=[NSMutableDictionary dictionaryWithContentsOfFile:path];
-//    NSLog(@"paper data:%@",papersData);
-//}
-//
-//- (void)requestFailed:(ASIHTTPRequest *)request{
-//    [ASIHTTPRequest hideNetworkActivityIndicator];
-//    
-//}
 
 
 #pragma mark EXNetPaperDelegate
-- (void)downloadNetPaper:(id)papaer{
-    NSLog(@"download %@",[papaer objectForKey:@"name"]);
+- (void)downloadNetPaper:(id)paper{
+    [[EXDownloadManager shareInstance] downloadPaper:paper];
 }
 
 @end

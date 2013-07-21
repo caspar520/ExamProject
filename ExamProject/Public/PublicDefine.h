@@ -10,3 +10,14 @@
 #define SCREEN_HEIGHT	([UIScreen mainScreen].bounds.size.height)      //屏幕高度
 
 #define KEYCHAIN_IDENTIFIER     @"exam_proj_keychain_identifier"
+
+
+
+
+//brown...............................
+#define NET_PAPERDATA_URL       @"http://xiaotu.net/examjson/examlist.json"
+
+
+
+//通知
+#define NOTIFICATION_PAPERS_DOWNLOAD_FINISH     @"papersDownloadedFinish"

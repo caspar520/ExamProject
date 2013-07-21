@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol BTCheckBoxDelegate <NSObject>
+@protocol EXCheckBoxDelegate <NSObject>
 
 - (void)checkeStateChange:(BOOL)isChecked;
 

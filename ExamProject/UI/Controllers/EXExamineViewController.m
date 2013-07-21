@@ -9,8 +9,9 @@
 #import "EXExamineViewController.h"
 #import "EXExaminationListView.h"
 #import "EXExaminationView.h"
+#import "PaperData.h"
 
-@interface EXExamineViewController ()<EXQuestionDelegate>
+@interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
 @end
 
@@ -76,12 +77,12 @@
 }
 
 #pragma mark set方法
-- (void)setPaperData:(id)paperData{
+- (void)setPaperData:(PaperData *)paperData{
     if (_paperData != paperData) {
         [_paperData release];
         _paperData =[paperData retain];
     }
-    
+    _examineListView.dataArray=_paperData.topics;
 }
 
 #pragma mark 按钮点击事件
@@ -93,28 +94,29 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
-	
+	//跳转到成绩界面
+    
 }
 
 - (void)nextItemClicked:(id)sender{
-	
+    [_examineListView nextTopic];
 }
 
 - (void)preItemClicked:(id)sender{
-	
+    [_examineListView preTopic];
 }
 
 - (void)collectItemClicked:(id)sender{
-	
+	_paperData.fav=[NSNumber numberWithBool:YES];
 }
 
-#pragma mark 选择操作
-- (void)selectOption:(NSInteger)pIndex withObject:(id)pObj{
-    
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    NSLog(@"begin dragging");
 }
 
-- (void)cancelOption:(NSInteger)pIndex withObject:(id)pObj{
-    
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate{
+    NSLog(@"end dragging");
 }
 
 @end

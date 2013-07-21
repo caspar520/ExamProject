@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopicData.h"
+#import "EXCheckOptionView.h"
 
 @protocol EXQuestionDelegate
 
@@ -16,13 +18,25 @@
 
 @end
 
-@class TopicData;
 
-@interface EXExaminationView : UIView
+@interface EXExaminationView : UIView{
+    NSString        *result;
+    
+    UILabel         *orderLabel;
+    UIImageView     *questionBackground;
+    UILabel         *questionLabel;
+    UILabel         *optionTipLabel;
+    UITextView      *answerTextView;
+    
+    UIScrollView    *answerContainerView;
+}
 
 
 @property (nonatomic,assign)id<EXQuestionDelegate>	delegate;
 @property (nonatomic,retain)TopicData         		*metaData;
 @property (nonatomic,assign)NSInteger				index;
+
+- (void)refreshUI;
+- (void)updateSelectedResult;
 
 @end
