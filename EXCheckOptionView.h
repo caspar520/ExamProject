@@ -10,7 +10,9 @@
 
 @protocol EXCheckBoxDelegate <NSObject>
 
+@optional
 - (void)checkeStateChange:(BOOL)isChecked;
+- (void)checkeStateChange:(BOOL)isChecked withObject:(id)obj;
 
 @end
 
