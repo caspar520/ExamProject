@@ -7,6 +7,7 @@
 //
 
 #import "RegisterViewController.h"
+#import "EXRegisterView.h"
 
 @interface RegisterViewController ()
 
@@ -27,7 +28,21 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    EXRegisterView *registerView = [[EXRegisterView alloc]init];
+    registerView.frame = CGRectMake(0, 0, 320, SCREEN_HEIGHT-44);
+    registerView.backgroundColor = [UIColor colorWithRed:0xE3/255.0f green:0xEC/255.0f blue:0xEC/255.0f alpha:1.0f];
+    [self.view addSubview:registerView];
+    [registerView release];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.navigationController.navigationBar.hidden = NO;
+}
+
 
 - (void)didReceiveMemoryWarning
 {

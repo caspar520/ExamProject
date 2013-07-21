@@ -37,9 +37,9 @@
     [self.window makeKeyAndVisible];
     
     //若未登录 展示登录界面
-//    if (![[BusinessCenter sharedInstance]isLogin]) {
-//        [self initRegisterPage];
-//    }
+    if (![[BusinessCenter sharedInstance]isLogin]) {
+        [self initRegisterPage];
+    }
     
     return YES;
 }
@@ -114,8 +114,10 @@
 - (void)initRegisterPage
 {
     LoginViewController *loginViewController = [[LoginViewController alloc]init];
-    [_tabController presentModalViewController:loginViewController animated:NO];
+    UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
     [loginViewController release];
+    [_tabController presentModalViewController:navController animated:NO];
+    [navController release];
 }
 
 @end
