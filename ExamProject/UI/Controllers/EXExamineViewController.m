@@ -135,6 +135,10 @@
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"你正在考试，要返回主界面吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert show];
         [alert release];
+    }else{
+        if(self.navigationController){
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 
