@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "CustomTabBarController.h"
 #import "ExamViewController.h"
+#import "MoreViewController.h"
 #import "WrongViewController.h"
 #import "CollectViewController.h"
 #import "MoreViewController.h"
@@ -89,7 +90,7 @@
     UINavigationController* navController3 = [[UINavigationController alloc] initWithRootViewController:tabBarController3];
     [tabBarController3 release];
     
-    UIViewController * tabBarController4 = [[UIViewController alloc] init];
+    MoreViewController * tabBarController4 = [[MoreViewController alloc] init];
     tabBarController4.title = @"更多";
     UINavigationController* navController4 = [[UINavigationController alloc] initWithRootViewController:tabBarController4];
     [tabBarController4 release];
