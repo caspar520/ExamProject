@@ -17,7 +17,6 @@
 		301371F0179B35CB00F2BFCE /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371EF179B35CB00F2BFCE /* LoginViewController.m */; };
 		30137202179B762300F2BFCE /* EXDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371FF179B762300F2BFCE /* EXDownloadManager.m */; };
 		30137203179B762300F2BFCE /* EXNetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30137201179B762300F2BFCE /* EXNetDataManager.m */; };
-		3013720C179BAC4C00F2BFCE /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 3013720B179BAC4C00F2BFCE /* Toast.m */; };
 		3013720E179BAD4500F2BFCE /* toast_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3013720D179BAD4500F2BFCE /* toast_bg.png */; };
 		301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B31797C30600CCB95D /* CustomTabBarController.m */; };
 		301A74BA1797C51700CCB95D /* KPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B71797C51700CCB95D /* KPStore.m */; };
@@ -48,6 +47,7 @@
 		30BDBEED1797C17A008F0578 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEEC1797C17A008F0578 /* Default-568h@2x.png */; };
 		30BDBEF01797C17A008F0578 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BDBEEF1797C17A008F0578 /* ViewController.m */; };
 		30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEF11797C17A008F0578 /* ViewController.xib */; };
+		30F0263C179C531200508326 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F0263B179C531200508326 /* Toast.m */; };
 		9C05B8CC17995EB0008E937D /* EXCheckOptionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */; };
 		9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */; };
 		9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */; };
@@ -88,8 +88,6 @@
 		301371FF179B762300F2BFCE /* EXDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXDownloadManager.m; sourceTree = "<group>"; };
 		30137200179B762300F2BFCE /* EXNetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetDataManager.h; sourceTree = "<group>"; };
 		30137201179B762300F2BFCE /* EXNetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetDataManager.m; sourceTree = "<group>"; };
-		3013720A179BAC4C00F2BFCE /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
-		3013720B179BAC4C00F2BFCE /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
 		3013720D179BAD4500F2BFCE /* toast_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_bg.png; sourceTree = "<group>"; };
 		301A74B21797C30600CCB95D /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		301A74B31797C30600CCB95D /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
@@ -140,6 +138,8 @@
 		30BDBEEE1797C17A008F0578 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		30BDBEEF1797C17A008F0578 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30BDBEF21797C17A008F0578 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		30F0263A179C531200508326 /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
+		30F0263B179C531200508326 /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
 		9C05B8CA17995EB0008E937D /* EXCheckOptionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXCheckOptionView.h; sourceTree = SOURCE_ROOT; };
 		9C05B8CB17995EB0008E937D /* EXCheckOptionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXCheckOptionView.m; sourceTree = SOURCE_ROOT; };
 		9C05B8CF1799636E008E937D /* add_story_to_local_category_cancel.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_story_to_local_category_cancel.png; sourceTree = "<group>"; };
@@ -219,16 +219,6 @@
 			path = Public;
 			sourceTree = "<group>";
 		};
-		30137209179BAC4C00F2BFCE /* Toast */ = {
-			isa = PBXGroup;
-			children = (
-				3013720A179BAC4C00F2BFCE /* Toast.h */,
-				3013720B179BAC4C00F2BFCE /* Toast.m */,
-			);
-			name = Toast;
-			path = ../../../../branches/ExamProject/ExamProject/UI/Toast;
-			sourceTree = "<group>";
-		};
 		301A74B11797C30600CCB95D /* CustomTabBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -298,7 +288,7 @@
 		301A74D91797F63900CCB95D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				30137209179BAC4C00F2BFCE /* Toast */,
+				30F02639179C52FC00508326 /* Toast */,
 				301A74B11797C30600CCB95D /* CustomTabBar */,
 				301A74DB1797F72700CCB95D /* ExamViewController.h */,
 				301A74DC1797F72700CCB95D /* ExamViewController.m */,
@@ -409,6 +399,16 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		30F02639179C52FC00508326 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				30F0263A179C531200508326 /* Toast.h */,
+				30F0263B179C531200508326 /* Toast.m */,
+			);
+			name = Toast;
+			path = ExamProject/UI/Toast;
+			sourceTree = SOURCE_ROOT;
 		};
 		9C05B8CE1799636E008E937D /* Resource */ = {
 			isa = PBXGroup;
@@ -567,7 +567,7 @@
 				301371F0179B35CB00F2BFCE /* LoginViewController.m in Sources */,
 				30137202179B762300F2BFCE /* EXDownloadManager.m in Sources */,
 				30137203179B762300F2BFCE /* EXNetDataManager.m in Sources */,
-				3013720C179BAC4C00F2BFCE /* Toast.m in Sources */,
+				30F0263C179C531200508326 /* Toast.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
