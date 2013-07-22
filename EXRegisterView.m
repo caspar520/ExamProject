@@ -24,8 +24,6 @@ typedef enum
 
 @interface EXRegisterView () <UITextFieldDelegate>
 
-- (void)refreshUIWithUserData;
-
 @end
 
 @implementation EXRegisterView
@@ -48,6 +46,7 @@ typedef enum
     
     [_userData release];
     [_inputBgView release];
+    [_regionLabel release];
     
     [super dealloc];
 }
@@ -75,6 +74,14 @@ typedef enum
     if (_userData.deptName) {
         UITextField *textField = (UITextField*)[_inputBgView viewWithTag:RegisterTag_Dept+INPUT_TAG];
         textField.text = _userData.deptName;
+    }
+    if (_userData.city && _userData.area) {
+        //更新地区
+        _regionLabel.text = [NSString stringWithFormat:@"%@ %@",_userData.city, _userData.area];
+        _regionLabel.textColor = [UIColor blackColor];
+    } else {
+        _regionLabel.text = @"请选择地区";
+        _regionLabel.textColor = [UIColor colorWithRed:0xA4/255.0f green:0xA4/255.0f blue:0xA4/255.0f alpha:1.0f];
     }
 }
 
@@ -115,13 +122,23 @@ typedef enum
         [mailTitleView release];
         
         if (i == RegisterTag_Region) {
-            UILabel *regionLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 40*i+10, 90, 20)];
-            regionLabel.backgroundColor = [UIColor clearColor];
-            regionLabel.textColor = [UIColor colorWithRed:0xA4/255.0f green:0xA4/255.0f blue:0xA4/255.0f alpha:1.0f];
-            regionLabel.textAlignment = NSTextAlignmentLeft;
-            regionLabel.font = [UIFont systemFontOfSize:17];
-            regionLabel.text = [registerPlaceholderNames objectAtIndex:i];
-            [_inputBgView addSubview:regionLabel];
+            if (_regionLabel == nil) {
+                _regionLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 40*i+10, 160, 20)];
+            }
+            _regionLabel.backgroundColor = [UIColor clearColor];
+            _regionLabel.textColor = [UIColor colorWithRed:0xA4/255.0f green:0xA4/255.0f blue:0xA4/255.0f alpha:1.0f];
+            _regionLabel.textAlignment = NSTextAlignmentLeft;
+            _regionLabel.font = [UIFont systemFontOfSize:17];
+            _regionLabel.text = [registerPlaceholderNames objectAtIndex:i];
+            [_inputBgView addSubview:_regionLabel];
+            
+            UIButton *modifyBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+            modifyBtn.backgroundColor = [UIColor clearColor];
+            modifyBtn.frame = CGRectMake(CGRectGetMaxX(mailTitleView.frame)+180, 40*i+10, 50, 20);
+            [modifyBtn setTitle:@"修改" forState:UIControlStateNormal];
+            [modifyBtn setTitleColor:[UIColor colorWithRed:0x3D/255.0f green:0x94/255.0f blue:0xD8/255.0f alpha:1.0f] forState:UIControlStateNormal];
+            [modifyBtn addTarget:self action:@selector(modifyClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [_inputBgView addSubview:modifyBtn];
         } else {
             UITextField *mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 8 + 40*i, 240, 30)];
             mailTextField.delegate = self;
@@ -190,6 +207,13 @@ typedef enum
     
     if (_delegate && [_delegate respondsToSelector:@selector(doRegister)]) {
         [_delegate doRegister];
+    }
+}
+
+- (void)modifyClicked:(id)sender
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(wakeupPickerView)]) {
+        [_delegate wakeupPickerView];
     }
 }
 

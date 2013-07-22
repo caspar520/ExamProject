@@ -15,4 +15,7 @@
 
 - (id)initWithUser:(User *)user;
 
+@property (nonatomic,copy) NSString *city;      //市
+@property (nonatomic,copy) NSString *area;      //区
+
 @end

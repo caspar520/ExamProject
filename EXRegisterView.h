@@ -11,7 +11,9 @@
 
 @protocol RegisterViewDelegate <NSObject>
 
+@optional
 - (void)doRegister;
+- (void)wakeupPickerView;
 
 @end
 
@@ -20,6 +22,7 @@
     id<RegisterViewDelegate>        _delegate;
     
     UIView *_inputBgView;       //输入框的父View
+    UILabel *_regionLabel;       //地区View
 }
 
 @property (nonatomic,assign) BOOL   modifyMode;             //是否为修改页
@@ -27,5 +30,6 @@
 @property (nonatomic,retain) UserData       *userData;
 
 - (void)initRegisterUI;
+- (void)refreshUIWithUserData;
 
 @end

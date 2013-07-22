@@ -56,3 +56,13 @@
 @property (nonatomic, retain) NSNumber * wrong;         // 错题标记
 
 @end
+
+@protocol RegionDataProtocol <NSObject>
+
+@property (nonatomic, retain) NSNumber * regionId;
+@property (nonatomic, retain) NSString * city;
+@property (nonatomic, retain) NSString * area;
+@property (nonatomic, retain) NSString * desc;
+@property (nonatomic, retain) NSNumber * show;
+
+@end

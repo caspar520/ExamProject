@@ -9,10 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class UserData;
+@class CustomPickerView;
+@class EXRegisterView;
 
 @interface RegisterViewController : UIViewController
 {
     UserData    *_userData;
+    EXRegisterView *_registerView;
+    CustomPickerView *_cPickerView;
 }
 
 @property (nonatomic,assign) BOOL modifyMode;       //是否是修改页(注册与修改公用页面)

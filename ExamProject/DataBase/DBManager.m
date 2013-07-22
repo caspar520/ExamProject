@@ -213,8 +213,13 @@
 //获取默认用户信息
 + (UserData *)getDefaultUserData
 {
-    UserData *userData = [[UserData alloc]initWithUser:[DBManager getDefaultUser]];
-    return [userData autorelease];
+    UserData *userData = nil;
+    User *user = [DBManager getDefaultUser];
+    if (user) {
+        userData = [[[UserData alloc]initWithUser:[DBManager getDefaultUser]] autorelease];
+    }
+    
+    return userData;
 }
 
 //获取注册用户名
