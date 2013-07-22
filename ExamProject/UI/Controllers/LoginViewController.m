@@ -11,6 +11,7 @@
 #import "RegisterViewController.h"
 #import "BusinessCenter.h"
 #import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 
 @interface LoginViewController () <LoginViewDelegate,ASIHTTPRequestDelegate>
 
@@ -95,16 +96,14 @@
 {
     //注册测试
     NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
-    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url]autorelease];
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
     request.delegate = self;
-    NSDictionary *postBodyDic = [NSDictionary dictionaryWithObjectsAndKeys:
-                                 @"magicTest@sina.com",@"email",
-                                 @"magicTest",@"fullName",
-                                 @"611025",@"regionId",
-                                 @"magic_deptName",@"deptName",
-                                 @"magic_pwd", @"password",nil];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:postBodyDic options:kNilOptions error:nil];
-    [request appendPostData:jsonData];
+    [request setPostValue:@"wangyulong126300@sina.com" forKey:@"email"];
+    [request setPostValue:@"magicTest" forKey:@"fullName"];
+    [request setPostValue:@"611025" forKey:@"regionId"];
+    [request setPostValue:@"magic_deptName" forKey:@"deptName"];
+    [request setPostValue:@"123456" forKey:@"password"];
+    request.requestMethod=@"POST";
     [request startAsynchronous];
     
     //登录测试
