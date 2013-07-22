@@ -46,30 +46,43 @@
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
     self.navigationItem.leftBarButtonItem= backButton;
     
+    float width=CGRectGetWidth(self.navigationController.toolbar.frame)/3;
     if (displayTopicType==kDisplayTopicType_Default) {
         UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"submit" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
         self.navigationItem.rightBarButtonItem= submitButton;
         
         UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)];
+        
+        UIBarButtonItem *flexibleSpace1 = [[UIBarButtonItem alloc]
+                                          initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                          target:nil
+                                          action:nil];
+        
         UIBarButtonItem *preButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)];
+        preButton.width=width;
+        
+        UIBarButtonItem *flexibleSpace2 = [[UIBarButtonItem alloc]
+                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                           target:nil
+                                           action:nil];
+        
         UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)];
+        nextButton.width=width;
         
         [self.navigationController setToolbarHidden:NO animated:NO];
-        [self setToolbarItems:[NSArray arrayWithObjects:preButton,nextButton,collectButton,nil]];
+        [self setToolbarItems:[NSArray arrayWithObjects:preButton,flexibleSpace1,nextButton,flexibleSpace2,collectButton,nil]];
     }else{
         [self.navigationController setToolbarHidden:YES animated:NO];
     }
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
-        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-        CustomTabBarController *tabBarController=appDelegate.tabController;
-        
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(tabBarController.tabBar.frame)-CGRectGetHeight(self.navigationController.navigationBar.frame)-20)];
+        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-20)];
         _examineListView.backgroundColor=[UIColor clearColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
     }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -84,6 +97,10 @@
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     CustomTabBarController *tabBarController=appDelegate.tabController;
     [tabBarController hideTabBar];
+}
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated{
@@ -148,9 +165,7 @@
 - (void)submitExaminationItemClicked:(id)sender{
     [self markPaper];
     //批改试卷完成后需要上传服务器：暂不做
-    
-    
-	//跳转到成绩界面
+    //跳转到成绩界面
     EXResultViewController *resultController=[[EXResultViewController alloc] init];
     resultController.paperData=self.paperData;
     [self.navigationController pushViewController:resultController animated:YES];
@@ -167,8 +182,18 @@
 - (void)collectItemClicked:(id)sender{
 	_paperData.fav=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
-    
     [DBManager addPaper:_paperData];
+    
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [alert show];
+    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
+    [alert release];
+}
+
+- (void)removeAlertTip:(id)object{
+    if ([object isKindOfClass:[UIAlertView class]]) {
+        [((UIAlertView *)object)dismissWithClickedButtonIndex:0 animated:YES];
+    }
 }
 
 //批改试卷

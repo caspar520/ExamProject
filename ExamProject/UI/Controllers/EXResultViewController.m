@@ -131,7 +131,7 @@
 
 - (void)backwardItemClicked:(id)sender{
     if(self.navigationController){
-		[self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController popToRootViewControllerAnimated:YES];
 	}
 }
 

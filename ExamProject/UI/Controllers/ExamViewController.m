@@ -91,9 +91,6 @@
 
 #pragma mark 按钮点击事件
 - (void)addPaperItemClicked:(id)sender{
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-    CustomTabBarController *tabBarController=appDelegate.tabController;
-    [tabBarController hideTabBar];
     
     EXPaperListViewController *paperListController=[[EXPaperListViewController alloc] init];
     [self.navigationController pushViewController:paperListController animated:YES];
