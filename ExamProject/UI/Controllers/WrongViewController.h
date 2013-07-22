@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WrongViewController : UIViewController
+@class EXListView;
+
+@interface WrongViewController : UIViewController{
+    EXListView              *_paperListView;
+    NSMutableArray          *_wrongPaperList;
+}
 
 @end

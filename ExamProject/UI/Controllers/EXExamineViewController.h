@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EXExaminationListView.h"
 
 @class EXExaminationListView,PaperData;
 
@@ -15,5 +16,6 @@
 }
 
 @property (nonatomic,retain)PaperData          *paperData;
+@property (nonatomic,assign)DisplayTopicType    displayTopicType;
 
 @end

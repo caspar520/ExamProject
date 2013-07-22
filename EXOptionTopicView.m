@@ -25,17 +25,21 @@
 
 - (void)refreshUI{
     [super refreshUI];
-//    NSLog(@"option index:%d",self.index);
     //options check view
     NSArray *optionsArray=[self.metaData.answers componentsSeparatedByString:@"|"];
     if (optionsArray) {
-        [optionsArray enumerateObjectsUsingBlock:^(NSString *obj, NSUInteger idx, BOOL *stop) {
+        if (answerContainerView.contentSize.height<optionsArray.count*45) {
+            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, (optionsArray.count+1)*45);
+        }
+        for (NSString *obj in optionsArray) {
             if (obj) {
+                NSInteger idx=[optionsArray indexOfObject:obj];
                 EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, idx*45, 40, 40) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
                 checkView.index=idx;
+                checkView.enabled=YES;
                 [answerContainerView addSubview:checkView];
                 [checkView release];
                 
@@ -48,7 +52,8 @@
                 [answerContainerView addSubview:optionLabel];
                 [optionLabel release];
             }
-        }];
+        }
+        
         if (answerContainerView.contentSize.height<45*optionsArray.count) {
             answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 45*optionsArray.count);
         }
@@ -64,6 +69,7 @@
         //单选:取消其它按纽的选中状态
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                ((EXCheckOptionView *)item).enabled=YES;
                 if (item != sender) {
                     ((EXCheckOptionView *)item).checked=NO;
                 }

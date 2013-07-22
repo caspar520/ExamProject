@@ -29,6 +29,7 @@
     if(self){
         self.view.backgroundColor=[UIColor whiteColor];
         [self hideRealTabBar];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
     }
     
     return self;
@@ -161,9 +162,16 @@
     }];
 }
 
+- (void)downloadFailure:(NSNotification *)notification{
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"下载失败，请重新下载" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+    [alert show];
+    [alert release];
+}
+
 -(void)dealloc{
     [_tabBarItems release];
     [_customTabBarView release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 

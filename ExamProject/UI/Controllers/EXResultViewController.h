@@ -10,7 +10,14 @@
 
 @class PaperData;
 
-@interface EXResultViewController : UIViewController
+@interface EXResultViewController : UIViewController{
+    UILabel         *titleLabel;
+    UILabel         *authorLabel;
+    UILabel         *markLabel;
+    UILabel         *resultLabel;
+    
+    UILabel         *resultTipLabel;
+}
 
 @property (nonatomic,retain)PaperData       *paperData;
 

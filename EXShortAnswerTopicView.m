@@ -26,7 +26,6 @@
 
 - (void)refreshUI{
     [super refreshUI];
-    NSLog(@"short answer");
     if (answerTextView==nil) {
         answerTextView=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(answerContainerView.frame), CGRectGetHeight(answerContainerView.frame))];
         answerTextView.delegate = self;

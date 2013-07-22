@@ -17,6 +17,7 @@
 
 @synthesize delegate;
 @synthesize dataArray=_dataArray;
+@synthesize dipalyTopicType;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -54,8 +55,9 @@
 - (void)refreshUI{
     if (_dataArray) {
         _scrollView.contentSize=CGSizeMake(_dataArray.count*CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
-        [_dataArray enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+        for (TopicData *obj in _dataArray) {
             if (obj) {
+                NSInteger idx=[_dataArray indexOfObject:obj];
                 EXExaminationView *view=nil;
                 if ([obj.type integerValue]==1 || [obj.type integerValue]==2) {
                     view= [[EXOptionTopicView alloc] init];
@@ -64,16 +66,16 @@
                 }else{
                     view= [[EXShortAnswerTopicView alloc] init];
                 }
-                view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame)+10, CGRectGetMinY(_scrollView.frame)+10, CGRectGetWidth(_scrollView.frame)-20, CGRectGetHeight(_scrollView.frame)-20);
-                 
+                view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
                 view.delegate=delegate;
                 view.index=idx+1;
                 view.metaData=obj;
+                view.tag=idx;
                 
                 [_scrollView addSubview:view];
                 [view release];
             }
-        }];
+        }
     }
     [_scrollView setContentOffset:CGPointMake(0, _scrollView.contentOffset.y)];
 }
@@ -98,6 +100,18 @@
             _scrollView.scrollEnabled=YES;
         }];
     }
+}
+
+- (void)collectionTopic{
+    NSInteger index=_scrollView.contentOffset.x/CGRectGetWidth(_scrollView.frame);
+    if (index<_dataArray.count) {
+        TopicData *topic=[_dataArray objectAtIndex:index];
+        if (topic) {
+            topic.favourite=[NSNumber numberWithBool:YES];
+        }
+    }
+    
+    
 }
 
 

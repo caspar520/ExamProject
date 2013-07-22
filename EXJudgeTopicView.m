@@ -25,10 +25,9 @@
 
 - (void)refreshUI{
     [super refreshUI];
-//    NSLog(@"judge index:%d",self.index);
     //options check view
     EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, 0, 40, 40) checked:NO];
-    rightCheckView.backgroundColor=[UIColor greenColor];
+    rightCheckView.backgroundColor=[UIColor clearColor];
     rightCheckView.delegate=self;
     rightCheckView.exclusiveTouch=YES;
     rightCheckView.index=0;
@@ -36,7 +35,7 @@
     [rightCheckView release];
     
     EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+10, 0, 40, 40) checked:NO];
-    wrongCheckView.backgroundColor=[UIColor brownColor];
+    wrongCheckView.backgroundColor=[UIColor clearColor];
     wrongCheckView.delegate=self;
     wrongCheckView.exclusiveTouch=YES;
     wrongCheckView.index=-1;
@@ -54,10 +53,11 @@
     EXCheckOptionView *sender=(EXCheckOptionView *)obj;
     NSArray *subViews=[answerContainerView subviews];
     
-    if ([self.metaData.type integerValue]==1) {
+    if ([self.metaData.type integerValue]==3) {
         //单选:取消其它按纽的选中状态
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                ((EXCheckOptionView *)item).enabled=YES;
                 if (item != sender) {
                     ((EXCheckOptionView *)item).checked=NO;
                 }

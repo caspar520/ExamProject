@@ -16,7 +16,6 @@
 #import "EXListView.h"
 #import "EXPaperCell.h"
 #import "EXExamineViewController.h"
-#import "DBManager.h"
 
 @interface ExamViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -36,6 +35,7 @@
 - (void)dealloc{
     [_paperListView release];
     [_localPaperList release];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super dealloc];
 }
 
@@ -43,6 +43,8 @@
 {
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 	// Do any additional setup after loading the view.
     self.title=@"考试";
     UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
@@ -51,7 +53,6 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-    [self testAddPaper];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -126,11 +127,10 @@
     if (paperMetaData) {
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         [self.navigationController pushViewController:examineController animated:YES];
+        examineController.displayTopicType=kDisplayTopicType_Default;
         examineController.paperData=paperMetaData;
     }
 }
-
-
 
 #pragma mark 测试用
 
@@ -155,7 +155,7 @@
     paperData.eliteScore = [NSNumber numberWithInt:[[result objectForKey:@"eliteScore"] intValue]];
     
     //添加试题
-    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
+//    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
     
     [DBManager addPaper:paperData];
     [paperData release];
@@ -167,45 +167,9 @@
 //    NSLog(@"allPapers=%@ collectedPapers=%@ wrongPapers=%@",allPapers,collectedPapers,wrongPapers);
 }
 
-//根据解析出的Dictionary，生成TopicData对象
-- (NSMutableArray *)makeTopicsWithArray:(NSArray *)array
-{
-    NSMutableArray *topics = nil;
-    if (array && [array count] > 0) {
-        topics = [[[NSMutableArray alloc]initWithCapacity:0] autorelease];
-        for (NSDictionary *topicDic in array) {
-            TopicData *tData = [[TopicData alloc]init];
-            
-            tData.topicId = [topicDic objectForKey:@"id"];
-            tData.question = [topicDic objectForKey:@"question"];
-            tData.type = [topicDic objectForKey:@"type"];
-            
-            NSArray *answers = [topicDic objectForKey:@"answerList"];
-            for (NSDictionary *answer in answers) {
-                //答案选项
-                if (tData.answers == nil) {
-                    tData.answers = [answer objectForKey:@"content"];
-                } else {
-                    tData.answers = [tData.answers stringByAppendingFormat:@"|%@",[answer objectForKey:@"content"]];
-                }
-                
-                //正确答案
-                if ([[answer objectForKey:@"isCorrect"]boolValue]) {
-                    if (tData.selected == nil) {
-                        tData.selected = [NSString stringWithFormat:@"%u",[answers indexOfObject:answer]];
-                    } else {
-                        tData.selected = [tData.selected stringByAppendingFormat:@"|%u",[answers indexOfObject:answer]];
-                    }
-                }
-            }
-            tData.value = [[topicDic objectForKey:@"value"]stringValue];
-            tData.analysis = [topicDic objectForKey:@"analysis"];
-            tData.image = [topicDic objectForKey:@"image"];
-            [topics addObject:tData];
-            [tData release];
-        }
-    }
-    return topics;
+- (void)downloadPaperFinish:(NSNotification *)notification{
+    [_localPaperList removeAllObjects];
+    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+    [_paperListView refresh];
 }
-
 @end

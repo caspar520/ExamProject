@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CollectViewController : UIViewController
+@class EXListView;
+
+@interface CollectViewController : UIViewController{
+    EXListView              *_paperListView;
+    NSMutableArray          *_collectedPaperList;
+}
 
 @end
