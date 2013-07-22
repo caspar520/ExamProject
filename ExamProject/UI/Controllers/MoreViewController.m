@@ -64,11 +64,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    //显示TabBar
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-    CustomTabBarController *tabBarController=appDelegate.tabController;
-    [tabBarController showTabBar];
 }
 
 - (void)didReceiveMemoryWarning

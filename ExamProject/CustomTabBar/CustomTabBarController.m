@@ -147,19 +147,50 @@
 }
 
 - (void)hideTabBar{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), CGRectGetHeight(self.view.frame) , CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
-    } completion:^(BOOL finished) {
+    
+    for(UIView *view in self.view.subviews)
+    {
+        if([view isKindOfClass:[UITabBar class]])
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, SCREEN_HEIGHT , view.frame.size.width, view.frame.size.height)];
+        }
+        else
+        {
+            [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, SCREEN_HEIGHT)];
+        }
+    }
+    
+    [UIView animateWithDuration:0.3 animations:^{
         
+        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), CGRectGetHeight(self.view.frame) , CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
+        
+    } completion:^(BOOL finished) {
+        [self.customTabBarView setHidden:YES];
     }];
 }
 
 - (void)showTabBar{
-    [UIView animateWithDuration:0.2 animations:^{
-        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), CGRectGetHeight(self.view.frame)-CGRectGetHeight(self.customTabBarView.frame), CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
-    } completion:^(BOOL finished) {
+    
+    [self.customTabBarView setHidden:NO];
+    
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.customTabBarView.frame=CGRectMake(CGRectGetMinX(self.customTabBarView.frame), SCREEN_HEIGHT-49, CGRectGetWidth(self.customTabBarView.frame), CGRectGetHeight(self.customTabBarView.frame));
         
+    } completion:^(BOOL finished) {
+        for(UIView *view in self.view.subviews)
+        {
+            if([view isKindOfClass:[UITabBar class]])
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, SCREEN_HEIGHT-49 , view.frame.size.width, view.frame.size.height)];
+            }
+            else
+            {
+                [view setFrame:CGRectMake(view.frame.origin.x, view.frame.origin.y, view.frame.size.width, SCREEN_HEIGHT - 49)];
+            }
+        }
     }];
+    
 }
 
 - (void)downloadFailure:(NSNotification *)notification{

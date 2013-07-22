@@ -11,6 +11,8 @@
 #import "DBManager.h"
 #import "Toast.h"
 #import "CustomPickerView.h"
+#import "AppDelegate.h"
+#import "CustomTabBarController.h"
 
 @interface RegisterViewController () <RegisterViewDelegate,CustomPickerViewDelegate>
 
@@ -58,7 +60,7 @@
     _registerView.modifyMode = _modifyMode;
     [_registerView initRegisterUI];
     _registerView.userData = _userData;
-    _registerView.frame = CGRectMake(0, 0, 320, SCREEN_HEIGHT-44);
+    _registerView.frame = CGRectMake(0, 0, 320, SCREEN_HEIGHT);
     _registerView.backgroundColor = [UIColor colorWithRed:0xE3/255.0f green:0xEC/255.0f blue:0xEC/255.0f alpha:1.0f];
     [self.view addSubview:_registerView];
     
@@ -75,6 +77,17 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
+    
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    //显示TabBar
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
 }
 
 

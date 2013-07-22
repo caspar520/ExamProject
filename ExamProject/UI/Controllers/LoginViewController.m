@@ -95,27 +95,24 @@
 - (void)testRegister
 {
     //注册测试
-    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
-    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
-    request.delegate = self;
-    [request setPostValue:@"wangyulong126300@sina.com" forKey:@"email"];
-    [request setPostValue:@"magicTest" forKey:@"fullName"];
-    [request setPostValue:@"611025" forKey:@"regionId"];
-    [request setPostValue:@"magic_deptName" forKey:@"deptName"];
-    [request setPostValue:@"123456" forKey:@"password"];
-    request.requestMethod=@"POST";
-    [request startAsynchronous];
+//    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
+//    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
+//    request.delegate = self;
+//    [request setPostValue:@"magicTest@sina.com" forKey:@"email"];
+//    [request setPostValue:@"magicTest" forKey:@"fullName"];
+//    [request setPostValue:@"611025" forKey:@"regionId"];
+//    [request setPostValue:@"magic_deptName" forKey:@"deptName"];
+//    [request setPostValue:@"magic_pwd" forKey:@"password"];
+//    request.requestMethod=@"POST";
+//    [request startAsynchronous];
     
     //登录测试
-//    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/user_login"];
-//    ASIHTTPRequest *request = [[[ASIHTTPRequest alloc] initWithURL:url]autorelease];
-//    request.delegate = self;
-//    NSDictionary *postBodyDic = [NSDictionary dictionaryWithObjectsAndKeys:
-//                                 @"magicTest@sina.com",@"userName",
-//                                 @"magic_pwd", @"password",nil];
-//    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:postBodyDic options:kNilOptions error:nil];
-//    [request appendPostData:jsonData];
-//    [request startAsynchronous];
+    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/user_login"];
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
+    request.delegate = self;
+    [request setPostValue:@"magicTest@sina.com" forKey:@"userName"];
+    [request setPostValue:@"magic_pwd" forKey:@"userPass"];
+    [request startAsynchronous];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -132,6 +129,22 @@
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    NSLog(@"errorCode=%d", [[request error] code]);
+    
+    ASINetworkErrorType errorType = [[request error] code];
+    NSString *errorString = nil;
+    switch (errorType) {
+        case ASIRequestTimedOutErrorType:
+            errorString = @"连接超时!";
+            break;
+        default:
+            errorString = @"连接失败!";
+            break;
+    }
+    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:errorString delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    [alertView show];
+    [alertView release];
 }
 
 @end
