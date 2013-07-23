@@ -7,6 +7,7 @@
 //
 
 #import "EXNetPaperCell.h"
+#import "DBManager.h"
 
 @implementation EXNetPaperCell
 
@@ -41,7 +42,7 @@
 
 - (void)refreshUI{
     if (_titleLabel==nil) {
-        _titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMinY(self.frame), CGRectGetWidth(self.frame)-80, 20)];
+        _titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMinY(self.frame)+3, CGRectGetWidth(self.frame)-80, 20)];
         _titleLabel.textColor=[UIColor blackColor];
         _titleLabel.textAlignment=UITextAlignmentLeft;
         _titleLabel.backgroundColor=[UIColor clearColor];
@@ -74,19 +75,42 @@
     _authorLabel.text=[_paperData objectForKey:@"author"];
     
     if (_downloadBtn==nil) {
-        _downloadBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-        _downloadBtn.frame=CGRectMake(CGRectGetMaxX(_titleLabel.frame)+5, CGRectGetMinY(self.frame), 60, 40);
-        [_downloadBtn setTitle:@"下载" forState:UIControlStateNormal];
+        _downloadBtn=[UIButton buttonWithType:UIButtonTypeContactAdd];
+        _downloadBtn.frame=CGRectMake(CGRectGetMaxX(_titleLabel.frame)+5, CGRectGetMinY(self.frame), 48, 48);
         [_downloadBtn addTarget:self action:@selector(downloadItemClicked:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:_downloadBtn];
     }
+    [self checkDownloadStatus];
+}
+
+- (void)checkDownloadStatus{
+    BOOL isDownloaded=NO;
+    NSArray *allPapers=[DBManager fetchAllPapersFromDB];
+    if (allPapers) {
+        for (PaperData *item in allPapers) {
+            if(item){
+                if ([item.paperId integerValue]==[[_paperData objectForKey:@"id"] integerValue]) {
+                    isDownloaded=YES;
+                    break;
+                }
+            }
+        }
+    }
+    if (isDownloaded) {
+        [_downloadBtn setImage:[UIImage imageNamed:@"icon_btn_download_unable.png"] forState:UIControlStateNormal];
+        _downloadBtn.enabled=NO;
+    }else{
+        [_downloadBtn setImage:[UIImage imageNamed:@"icon_btn_download.png"] forState:UIControlStateNormal];
+        _downloadBtn.enabled=YES;
+    }
 }
 
 - (void)downloadItemClicked:(id)sender{
+    [self checkDownloadStatus];
     if (delegate && [delegate respondsToSelector:@selector(downloadNetPaper:)]) {
         [delegate downloadNetPaper:_paperData];
     }
-}
+ }
 
 @end

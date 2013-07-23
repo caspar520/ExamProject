@@ -44,16 +44,16 @@ static const CGFloat kHeight = 36.0f;
     self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor clearColor];
     
-    _boxFrameView=[[UIImageView alloc] initWithFrame:self.bounds];
-    _boxFrameView.backgroundColor=[UIColor clearColor];
-    _boxFrameView.contentMode=UIViewContentModeScaleAspectFit;
+    _boxFrameView=[[UIImageView alloc] initWithFrame:aFrame];
+    _boxFrameView.contentMode=UIViewContentModeCenter;
     [self addSubview:_boxFrameView];
     
     UIImage *img = [self checkBoxImage:_checked];
     CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
     _checkBoxImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    _checkBoxImageView.backgroundColor=[UIColor clearColor];
     _checkBoxImageView.image = img;
-    [self addSubview:_checkBoxImageView];
+    [self insertSubview:_checkBoxImageView aboveSubview:_boxFrameView];
     
     return self;
 }
@@ -78,8 +78,14 @@ static const CGFloat kHeight = 36.0f;
         boxFrameImage=[UIImage imageNamed:@"answer_single_selected.png"];
     }else {
         boxFrameImage=[UIImage imageNamed:@"topic_index_bg.png"];
+        if (_checkBoxImageView.image==nil) {
+            UIImage *img = [self checkBoxImage:_checked];
+            CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
+            _checkBoxImageView.frame=imageViewFrame;
+            _checkBoxImageView.image = img;
+        }
     }
-    _boxFrameView.image=boxFrameImage;
+    _boxFrameView.backgroundColor=[UIColor colorWithPatternImage:boxFrameImage];
 }
 
 - (void)setChecked:(BOOL)checked{
@@ -141,7 +147,7 @@ static const CGFloat kHeight = 36.0f;
 - (UIImage *) checkBoxImage:(BOOL)isChecked
 {
     NSString *imageName=nil;
-    switch (self.index) {
+    switch (_index) {
         case -1:
             if (isChecked) {
                 imageName=@"answer_judge_false_selected.png";
@@ -157,32 +163,50 @@ static const CGFloat kHeight = 36.0f;
             }
             break;
         case 1:
-            imageName=@"answer_a.png";
+            if (isChecked) {
+                imageName=@"answer_a.png";
+            }
+            
             break;
         case 2:
-            imageName=@"answer_b.png";
+            if (isChecked) {
+                imageName=@"answer_b.png";
+            }
+            
             break;
         case 3:
-            imageName=@"answer_c.png";
+            if (isChecked) {
+                imageName=@"answer_c.png";
+            }
+            
             break;
         case 4:
-            imageName=@"answer_d.png";
+            if (isChecked) {
+                imageName=@"answer_d.png";
+            }
+            
             break;
         case 5:
-            imageName=@"answer_e.png";
+            if (isChecked) {
+                imageName=@"answer_e.png";
+            }
+            
             break;
         case 6:
-            imageName=@"answer_f.png";
+            if (isChecked) {
+                imageName=@"answer_f.png";
+            }
             break;
         case 7:
-            imageName=@"answer_g.png";
+            if (isChecked) {
+                imageName=@"answer_g.png";
+            }
             break;
         default:
             break;
     }
-//    NSString *suffix = !isChecked ? @"normal" : @"cancel";
-//    NSString *imageName = [NSString stringWithFormat:@"add_story_to_local_category_%@.png", suffix];
-    return [UIImage imageNamed:imageName];
+    UIImage *targetImage=[UIImage imageNamed:imageName];
+    return targetImage;
 }
 
 - (CGRect) imageViewFrameForCheckBoxImage:(UIImage *)img
@@ -193,7 +217,10 @@ static const CGFloat kHeight = 36.0f;
 
 - (void) updateCheckBoxImage
 {
-    _checkBoxImageView.image = [self checkBoxImage:_checked];
+    UIImage *img=[self checkBoxImage:_checked];
+    CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
+    _checkBoxImageView.frame=imageViewFrame;
+    _checkBoxImageView.image = img;
 }
 
 @end

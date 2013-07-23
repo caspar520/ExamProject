@@ -38,7 +38,7 @@
 
 - (void)refreshUI{
     if (titleLabel==nil) {
-        titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMinY(self.frame), CGRectGetWidth(self.frame)-80, 20)];
+        titleLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMinY(self.frame)+5, CGRectGetWidth(self.frame)-80, 20)];
         titleLabel.textColor=[UIColor blackColor];
         titleLabel.textAlignment=UITextAlignmentLeft;
         titleLabel.backgroundColor=[UIColor clearColor];
@@ -49,7 +49,7 @@
     titleLabel.text=_paperData.title;
     
     if (authorLabel==nil) {
-        authorLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(titleLabel.frame)+5, CGRectGetWidth(self.frame)-80, 12)];
+        authorLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(titleLabel.frame)+7, CGRectGetWidth(self.frame)-80, 12)];
         authorLabel.textColor=[UIColor blackColor];
         authorLabel.textAlignment=UITextAlignmentLeft;
         authorLabel.backgroundColor=[UIColor clearColor];

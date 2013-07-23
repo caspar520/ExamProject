@@ -28,13 +28,13 @@
     //options check view
     NSArray *optionsArray=[self.metaData.answers componentsSeparatedByString:@"|"];
     if (optionsArray) {
-        if (answerContainerView.contentSize.height<optionsArray.count*45) {
+        if (answerContainerView.contentSize.height<optionsArray.count*50) {
             answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, (optionsArray.count+1)*45);
         }
         for (NSString *obj in optionsArray) {
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
-                EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, idx*45, 40, 40) checked:NO];
+                EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, idx*50, 40, 40) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
@@ -43,7 +43,7 @@
                 [answerContainerView addSubview:checkView];
                 [checkView release];
                 
-                UILabel *optionLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(checkView.frame)+5,idx*45,200,40)];
+                UILabel *optionLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(checkView.frame)+5,idx*50,200,40)];
                 optionLabel.textColor=[UIColor blackColor];
                 optionLabel.text=obj;
                 optionLabel.backgroundColor=[UIColor clearColor];
@@ -55,7 +55,7 @@
         }
         
         if (answerContainerView.contentSize.height<45*optionsArray.count) {
-            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 45*optionsArray.count);
+            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 50*optionsArray.count);
         }
     }
 }

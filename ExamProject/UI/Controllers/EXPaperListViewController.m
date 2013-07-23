@@ -128,7 +128,7 @@
 
 #pragma mark table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0f;
+    return 60.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -161,6 +161,7 @@
 #pragma mark EXNetPaperDelegate
 - (void)downloadNetPaper:(id)paper{
     [[EXDownloadManager shareInstance] downloadPaper:paper];
+    [_paperListView refresh];
 }
 
 @end
