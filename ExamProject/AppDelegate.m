@@ -45,9 +45,9 @@
     }
     
     //若未登录 展示登录界面
-    if (![[BusinessCenter sharedInstance]isLogin]) {
-        [self initRegisterPage];
-    }
+//    if (![[BusinessCenter sharedInstance]isLogin]) {
+//        [self initRegisterPage];
+//    }
     
     return YES;
 }

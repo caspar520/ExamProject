@@ -60,12 +60,12 @@
         questionBackground=[[UIImageView alloc] initWithFrame:
                             CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),90)];
         questionBackground.backgroundColor=[UIColor clearColor];
-        questionBackground.image=nil;
+        questionBackground.image=[UIImage imageNamed:@"topic_bg.9.png"];
         [self addSubview:questionBackground];
     }
 	
 	if (questionLabel==nil) {
-        questionLabel=[[UILabel alloc] initWithFrame:questionBackground.frame];
+        questionLabel=[[UILabel alloc] initWithFrame:CGRectMake(30, CGRectGetMinY(questionBackground.frame)+4, CGRectGetWidth(questionBackground.frame)-25, CGRectGetHeight(questionBackground.frame)-22)];
         questionLabel.textColor=[UIColor blackColor];
         questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.question];
         questionLabel.backgroundColor=[UIColor clearColor];
