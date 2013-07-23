@@ -36,6 +36,8 @@
 		301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74E51797F7AB00CCB95D /* MoreViewController.m */; };
 		306570F517990B9100347AD1 /* DBManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 306570F417990B9100347AD1 /* DBManager.m */; };
 		306570FC1799159000347AD1 /* hangyeceshi-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 306570FB1799159000347AD1 /* hangyeceshi-1.json */; };
+		309A4BF4179E284700776409 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 309A4BF3179E284700776409 /* MBProgressHUD.m */; };
+		309A4BF7179E292D00776409 /* Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 309A4BF6179E292D00776409 /* Progress.m */; };
 		30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED61797C17A008F0578 /* UIKit.framework */; };
 		30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED81797C17A008F0578 /* Foundation.framework */; };
 		30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */; };
@@ -139,6 +141,10 @@
 		306570F317990B9100347AD1 /* DBManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBManager.h; sourceTree = "<group>"; };
 		306570F417990B9100347AD1 /* DBManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBManager.m; sourceTree = "<group>"; };
 		306570FB1799159000347AD1 /* hangyeceshi-1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "hangyeceshi-1.json"; sourceTree = "<group>"; };
+		309A4BF2179E284700776409 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		309A4BF3179E284700776409 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		309A4BF5179E292D00776409 /* Progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Progress.h; sourceTree = "<group>"; };
+		309A4BF6179E292D00776409 /* Progress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Progress.m; sourceTree = "<group>"; };
 		30BDBED31797C17A008F0578 /* ExamProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExamProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDBED61797C17A008F0578 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		30BDBED81797C17A008F0578 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -466,10 +472,14 @@
 		30F02639179C52FC00508326 /* Custom */ = {
 			isa = PBXGroup;
 			children = (
+				309A4BF2179E284700776409 /* MBProgressHUD.h */,
+				309A4BF3179E284700776409 /* MBProgressHUD.m */,
 				30F0263A179C531200508326 /* Toast.h */,
 				30F0263B179C531200508326 /* Toast.m */,
 				30F0265D179C993000508326 /* CustomPickerView.h */,
 				30F0265E179C993000508326 /* CustomPickerView.m */,
+				309A4BF5179E292D00776409 /* Progress.h */,
+				309A4BF6179E292D00776409 /* Progress.m */,
 			);
 			name = Custom;
 			path = ExamProject/UI/Toast;
@@ -634,12 +644,14 @@
 				301A74CA1797E67700CCB95D /* Paper.m in Sources */,
 				301A74CF1797E7F200CCB95D /* PaperData.m in Sources */,
 				301A74E31797F78300CCB95D /* CollectViewController.m in Sources */,
+				309A4BF4179E284700776409 /* MBProgressHUD.m in Sources */,
 				9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */,
 				9CBAF25A179BC435009BA64E /* ASIDownloadCache.m in Sources */,
 				9C05B8D5179965E1008E937D /* EXExaminationListView.m in Sources */,
 				30BDBEE31797C17A008F0578 /* main.m in Sources */,
 				301A74E61797F7AB00CCB95D /* MoreViewController.m in Sources */,
 				301A74E01797F75D00CCB95D /* WrongViewController.m in Sources */,
+				309A4BF7179E292D00776409 /* Progress.m in Sources */,
 				9CBAF25B179BC435009BA64E /* ASIFormDataRequest.m in Sources */,
 				9CA3F39E179940A40052C8FE /* EXListView.m in Sources */,
 				301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */,

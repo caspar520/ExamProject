@@ -16,6 +16,7 @@
 #import "ASIFormDataRequest.h"
 #import "BusinessCenter.h"
 #import "Utility.h"
+#import "Progress.h"
 
 @interface RegisterViewController () <RegisterViewDelegate,CustomPickerViewDelegate>
 
@@ -86,7 +87,6 @@
     [super viewWillAppear:animated];
     
     self.navigationController.navigationBar.hidden = NO;
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -119,6 +119,12 @@
     [request setPostValue:_userData.deptName forKey:@"deptName"];
     [request setPostValue:[Utility md5:_userData.pwd] forKey:@"password"];
     [request startAsynchronous];
+    
+    if (_modifyMode) {
+        [[Progress sharedInstance]showWaitingWithLabel:@"正在修改..."];
+    } else {
+        [[Progress sharedInstance]showWaitingWithLabel:@"正在注册..."];
+    }
 }
 
 - (void)wakeupPickerView
@@ -191,9 +197,11 @@
 #pragma mark - ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    //    NSLog(@"%s", __PRETTY_FUNCTION__);
-    //    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
-    //    NSLog(@"responseString = %@", [request responseString]);
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
+//    NSLog(@"responseString = %@", [request responseString]);
+    
+    [[Progress sharedInstance]hide:YES];
     
     //保存用户信息到数据库
     NSDictionary *responsePostBody = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:nil];
@@ -220,6 +228,8 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     NSLog(@"errorCode=%d", [[request error] code]);
+    
+    [[Progress sharedInstance]hide:YES];
     
     ASINetworkErrorType errorType = [[request error] code];
     NSString *errorString = nil;

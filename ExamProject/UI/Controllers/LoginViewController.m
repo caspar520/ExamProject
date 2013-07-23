@@ -17,6 +17,7 @@
 #import "DBManager.h"
 #import "KeychainItemWrapper.h"
 #import "Utility.h"
+#import "Progress.h"
 
 @interface LoginViewController () <LoginViewDelegate,ASIHTTPRequestDelegate>
 
@@ -72,6 +73,9 @@
 #pragma mark - LoginViewDelegate
 - (void)loginClicked
 {
+    [_loginView.mailTextField resignFirstResponder];
+    [_loginView.pwdTextField resignFirstResponder];
+    
     //验证用户名密码是否匹配 网络验证
     NSString *userName = _loginView.mailTextField.text;
     NSString *pwd = _loginView.pwdTextField.text;
@@ -106,6 +110,8 @@
     [request setPostValue:userName forKey:@"userName"];
     [request setPostValue:[Utility md5:pwd] forKey:@"userPass"];
     [request startAsynchronous];
+    
+    [[Progress sharedInstance]showWaitingWithLabel:@"正在登录..."];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
@@ -114,6 +120,8 @@
 //    NSLog(@"%s", __PRETTY_FUNCTION__);
 //    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
 //    NSLog(@"responseString = %@", [request responseString]);
+    
+    [[Progress sharedInstance]hide:YES];
     
     //保存用户信息到数据库
     NSDictionary *responsePostBody = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:nil];
@@ -147,6 +155,8 @@
     NSLog(@"%s", __PRETTY_FUNCTION__);
     
     NSLog(@"errorCode=%d", [[request error] code]);
+    
+    [[Progress sharedInstance]hide:YES];
     
     ASINetworkErrorType errorType = [[request error] code];
     NSString *errorString = nil;
