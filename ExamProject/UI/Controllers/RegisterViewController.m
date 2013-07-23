@@ -40,6 +40,12 @@
     self = [super init];
     if (self) {
         _userData = [aUserData retain];
+        
+        if (_userData.regionId) {
+            NSDictionary *regionDic = [self dictionaryWIthRegionId:_userData.regionId];
+            _userData.city = [regionDic objectForKey:@"city"];
+            _userData.area = [regionDic objectForKey:@"area"];
+        }
     }
     return self;
 }
@@ -150,6 +156,18 @@
     if (filteredRegions && [filteredRegions count] > 0) {
         NSDictionary *dic = [filteredRegions objectAtIndex:0];
         return [dic objectForKey:@"regionId"];
+    }
+    return nil;
+}
+
+- (NSDictionary *)dictionaryWIthRegionId:(NSNumber *)regionId
+{
+    NSString *filePath = [[NSBundle mainBundle]pathForResource:@"regionData" ofType:@"plist"];
+    NSArray *regionData = [NSArray arrayWithContentsOfFile:filePath];
+    NSArray *filteredRegions = [regionData filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"regionId=%@",regionId]];
+    if (filteredRegions && [filteredRegions count] > 0) {
+        NSDictionary *dic = [filteredRegions objectAtIndex:0];
+        return dic;
     }
     return nil;
 }
