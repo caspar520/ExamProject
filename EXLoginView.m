@@ -35,49 +35,64 @@
 
 - (void)initLoginUI
 {
-    UILabel *titleView = [[UILabel alloc]initWithFrame:CGRectMake(60, 58, 200, 40)];
-    titleView.backgroundColor = [UIColor clearColor];
-    titleView.textColor = [UIColor colorWithRed:0xED/255.0f green:0xED/255.0f blue:0xED/255.0f alpha:1.0f];
-    titleView.textAlignment = NSTextAlignmentCenter;
-    titleView.font = [UIFont systemFontOfSize:38];
-    titleView.text = @"健教天地";
-    [self addSubview:titleView];
-    [titleView release];
+    UIImageView *titleImgView = [[UIImageView alloc]initWithFrame:CGRectMake(79, 58, 163, 50)];
+    titleImgView.image = [UIImage imageNamed:@"login_logo.png"];
+    [self addSubview:titleImgView];
+    [titleImgView release];
     
-    _mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(titleView.frame)+30, 270, 25)];
+    _mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(titleImgView.frame)+30, 270, 25)];
     _mailTextField.delegate = self;
-    _mailTextField.backgroundColor = [UIColor whiteColor];
+    _mailTextField.backgroundColor = [UIColor clearColor];
     _mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _mailTextField.placeholder = @"请输入邮箱";
     [self addSubview:_mailTextField];
     
+    UIImageView *mailTxtBg = [[UIImageView alloc]initWithFrame:CGRectMake(22, CGRectGetMaxY(titleImgView.frame)+30, 276, 25)];
+    mailTxtBg.image = [[UIImage imageNamed:@"login_input_drw.png"] stretchableImageWithLeftCapWidth:3.0f topCapHeight:2.0f];
+    [self addSubview:mailTxtBg];
+    [mailTxtBg release];
+    
     _pwdTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMinX(_mailTextField.frame), CGRectGetMaxY(_mailTextField.frame)+10, 270, 25)];
     _pwdTextField.delegate = self;
     _pwdTextField.secureTextEntry = YES;
-    _pwdTextField.backgroundColor = [UIColor whiteColor];
+    _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.placeholder = @"请输入密码";
     [self addSubview:_pwdTextField];
     
+    UIImageView *pwdTxtBg = [[UIImageView alloc]initWithFrame:CGRectMake(22, CGRectGetMaxY(_mailTextField.frame)+10, 276, 25)];
+    pwdTxtBg.image = [[UIImage imageNamed:@"login_input_drw.png"] stretchableImageWithLeftCapWidth:3.0f topCapHeight:2.0f];
+    [self addSubview:pwdTxtBg];
+    [pwdTxtBg release];
+    
     UIButton *loginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    loginBtn.backgroundColor = [UIColor whiteColor];
+    loginBtn.backgroundColor = [UIColor clearColor];
     loginBtn.frame = CGRectMake(CGRectGetMinX(_mailTextField.frame), CGRectGetMaxY(_pwdTextField.frame)+10, 270, 40);
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    [loginBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [loginBtn setTitleColor:[UIColor colorWithRed:0xB1/255.0f green:0xB1/255.0f blue:0xB1/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [loginBtn setBackgroundImage:[[UIImage imageNamed:@"login_btn_login.png"] stretchableImageWithLeftCapWidth:8.0f topCapHeight:6.0f] forState:UIControlStateNormal];
     [loginBtn addTarget:self action:@selector(loginClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:loginBtn];
     
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    registerBtn.backgroundColor = [UIColor whiteColor];
+    registerBtn.backgroundColor = [UIColor clearColor];
     registerBtn.frame = CGRectMake(CGRectGetMinX(_mailTextField.frame), CGRectGetMaxY(loginBtn.frame)+10, 270, 40);
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     [registerBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [registerBtn setBackgroundImage:[[UIImage imageNamed:@"gray_button_bg_normal.png"] stretchableImageWithLeftCapWidth:8.0f topCapHeight:6.0f] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(registerClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:registerBtn];
     
     //自动登录选项
     UIButton *autoLoginBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    autoLoginBtn.backgroundColor = [UIColor whiteColor];
-    autoLoginBtn.frame = CGRectMake(CGRectGetMinX(_mailTextField.frame), CGRectGetMaxY(registerBtn.frame)+10, 100, 20);
+    autoLoginBtn.backgroundColor = [UIColor clearColor];
+    autoLoginBtn.frame = CGRectMake(CGRectGetMinX(_mailTextField.frame)-12, CGRectGetMaxY(registerBtn.frame)+10, 120, 20);
+    autoLoginBtn.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN]) {
+        [autoLoginBtn setImage:[UIImage imageNamed:@"add_story_to_local_category_cancel.png"] forState:UIControlStateNormal];
+    } else {
+        [autoLoginBtn setImage:[UIImage imageNamed:@"add_story_to_local_category_normal.png"] forState:UIControlStateNormal];
+    }
+    
     [autoLoginBtn setTitle:@"自动登录" forState:UIControlStateNormal];
     [autoLoginBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [autoLoginBtn addTarget:self action:@selector(autoLoginClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -85,8 +100,8 @@
     
     //忘记密码
     UIButton *forgetPwdBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    forgetPwdBtn.backgroundColor = [UIColor whiteColor];
-    forgetPwdBtn.frame = CGRectMake(CGRectGetMinX(autoLoginBtn.frame) + 170, CGRectGetMaxY(registerBtn.frame)+10, 100, 20);
+    forgetPwdBtn.backgroundColor = [UIColor clearColor];
+    forgetPwdBtn.frame = CGRectMake(CGRectGetMinX(autoLoginBtn.frame) + 196, CGRectGetMaxY(registerBtn.frame)+10, 100, 20);
     [forgetPwdBtn setTitle:@"忘记密码" forState:UIControlStateNormal];
     [forgetPwdBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [forgetPwdBtn addTarget:self action:@selector(forgetPwdClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -129,6 +144,15 @@
 {
     //自动登录
     NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    BOOL isAutoLogin = [[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN];
+    if (!isAutoLogin) {
+        [sender setImage:[UIImage imageNamed:@"add_story_to_local_category_cancel.png"] forState:UIControlStateNormal];
+    } else {
+        [sender setImage:[UIImage imageNamed:@"add_story_to_local_category_normal.png"] forState:UIControlStateNormal];
+    }
+    [[NSUserDefaults standardUserDefaults] setBool:!isAutoLogin forKey:AUTO_LOGIN];
+    [[NSUserDefaults standardUserDefaults]synchronize];
 }
 
 - (void)forgetPwdClicked:(id)sender

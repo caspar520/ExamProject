@@ -37,10 +37,17 @@
     [self initUIControllers];
     [self.window makeKeyAndVisible];
     
+    //首次登录设置
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:NOT_FIRST_RUN]) {
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:NOT_FIRST_RUN];
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:AUTO_LOGIN];   //默认为自动登录
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+    
     //若未登录 展示登录界面
-//    if (![[BusinessCenter sharedInstance]isLogin]) {
-//        [self initRegisterPage];
-//    }
+    if (![[BusinessCenter sharedInstance]isLogin]) {
+        [self initRegisterPage];
+    }
     
     return YES;
 }

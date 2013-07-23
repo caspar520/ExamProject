@@ -13,7 +13,8 @@
 #define KEYCHAIN_USRNAME        @"kcUserName"
 #define KEYCHAIN_PWD            @"kcPassword"
 
-
+#define NOT_FIRST_RUN           @"notfirstRun"      //首次启动(首次肯定为NO，以后设置为YES)
+#define AUTO_LOGIN              @"isAutoLogin"      //自动登录开关
 
 //brown...............................
 #define NET_PAPERDATA_URL       @"http://xiaotu.net/examjson/examlist.json"

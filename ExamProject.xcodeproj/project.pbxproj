@@ -38,6 +38,10 @@
 		306570FC1799159000347AD1 /* hangyeceshi-1.json in Resources */ = {isa = PBXBuildFile; fileRef = 306570FB1799159000347AD1 /* hangyeceshi-1.json */; };
 		309A4BF4179E284700776409 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 309A4BF3179E284700776409 /* MBProgressHUD.m */; };
 		309A4BF7179E292D00776409 /* Progress.m in Sources */ = {isa = PBXBuildFile; fileRef = 309A4BF6179E292D00776409 /* Progress.m */; };
+		309A4BFA179E5A9C00776409 /* login_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 309A4BF9179E5A9C00776409 /* login_logo.png */; };
+		309A4BFC179E5C7400776409 /* gray_button_bg_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 309A4BFB179E5C7400776409 /* gray_button_bg_normal.png */; };
+		309A4BFE179E5F8100776409 /* login_input_drw.png in Resources */ = {isa = PBXBuildFile; fileRef = 309A4BFD179E5F8100776409 /* login_input_drw.png */; };
+		309A4C00179E62A000776409 /* login_btn_login.png in Resources */ = {isa = PBXBuildFile; fileRef = 309A4BFF179E62A000776409 /* login_btn_login.png */; };
 		30BDBED71797C17A008F0578 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED61797C17A008F0578 /* UIKit.framework */; };
 		30BDBED91797C17A008F0578 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBED81797C17A008F0578 /* Foundation.framework */; };
 		30BDBEDB1797C17A008F0578 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BDBEDA1797C17A008F0578 /* CoreGraphics.framework */; };
@@ -169,6 +173,10 @@
 		309A4BF3179E284700776409 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		309A4BF5179E292D00776409 /* Progress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Progress.h; sourceTree = "<group>"; };
 		309A4BF6179E292D00776409 /* Progress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Progress.m; sourceTree = "<group>"; };
+		309A4BF9179E5A9C00776409 /* login_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_logo.png; sourceTree = "<group>"; };
+		309A4BFB179E5C7400776409 /* gray_button_bg_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gray_button_bg_normal.png; sourceTree = "<group>"; };
+		309A4BFD179E5F8100776409 /* login_input_drw.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_input_drw.png; sourceTree = "<group>"; };
+		309A4BFF179E62A000776409 /* login_btn_login.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = login_btn_login.png; sourceTree = "<group>"; };
 		30BDBED31797C17A008F0578 /* ExamProject.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ExamProject.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30BDBED61797C17A008F0578 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		30BDBED81797C17A008F0578 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -445,6 +453,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		309A4BF8179E5A7B00776409 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				309A4BF9179E5A9C00776409 /* login_logo.png */,
+				309A4BFB179E5C7400776409 /* gray_button_bg_normal.png */,
+				309A4BFD179E5F8100776409 /* login_input_drw.png */,
+				309A4BFF179E62A000776409 /* login_btn_login.png */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
@@ -536,6 +555,7 @@
 		9C05B8CE1799636E008E937D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				309A4BF8179E5A7B00776409 /* Login */,
 				9C790CC5179E4F940077621B /* topic_index_bg.png */,
 				9C790C97179E431A0077621B /* answer_a.png */,
 				9C790C98179E431A0077621B /* answer_b.png */,
@@ -684,12 +704,15 @@
 				9C05B8D11799636E008E937D /* add_story_to_local_category_cancel.png in Resources */,
 				9C790CB0179E431A0077621B /* answer_c.png in Resources */,
 				9C790CB1179E431A0077621B /* answer_d.png in Resources */,
+				309A4BFE179E5F8100776409 /* login_input_drw.png in Resources */,
 				301A74D71797F02900CCB95D /* region.plist in Resources */,
+				309A4BFC179E5C7400776409 /* gray_button_bg_normal.png in Resources */,
 				9C790CB2179E431A0077621B /* answer_e.png in Resources */,
 				9CACE90D179ABF21007509EF /* examlist.json in Resources */,
 				30BDBEE11797C17A008F0578 /* InfoPlist.strings in Resources */,
 				9C790CAF179E431A0077621B /* answer_b.png in Resources */,
 				30BDBEE91797C17A008F0578 /* Default.png in Resources */,
+				309A4C00179E62A000776409 /* login_btn_login.png in Resources */,
 				9C790CBF179E431A0077621B /* icon_btn_download.png in Resources */,
 				9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */,
 				9C790CB6179E431A0077621B /* answer_judge_false_selected.png in Resources */,
@@ -709,6 +732,7 @@
 				9C790CB4179E431A0077621B /* answer_g.png in Resources */,
 				9C790CBA179E431A0077621B /* category_selected.png in Resources */,
 				9C790CB7179E431A0077621B /* answer_judge_true_normal.png in Resources */,
+				309A4BFA179E5A9C00776409 /* login_logo.png in Resources */,
 				30F02669179CB11600508326 /* regionData.plist in Resources */,
 				9C790CC2179E431A0077621B /* more_unselected.png in Resources */,
 				9C790CC4179E431A0077621B /* top_unselected.png in Resources */,

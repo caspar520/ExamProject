@@ -61,8 +61,8 @@ static BusinessCenter *instance = nil;
 - (void)deleteIdentifierInfoFormKeyChain
 {
 #if TARGET_IPHONE_SIMULATOR
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:KEYCHAIN_USRNAME];
-    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:KEYCHAIN_PWD];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEYCHAIN_USRNAME];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:KEYCHAIN_PWD];
     [[NSUserDefaults standardUserDefaults]synchronize];
 #else
     [_keychainWrapper setObject:nil forKey:KEYCHAIN_USRNAME];
