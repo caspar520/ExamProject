@@ -38,7 +38,7 @@
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
-                checkView.index=idx;
+                checkView.index=idx+1;
                 checkView.enabled=YES;
                 [answerContainerView addSubview:checkView];
                 [checkView release];
