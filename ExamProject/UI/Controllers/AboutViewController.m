@@ -7,6 +7,8 @@
 //
 
 #import "AboutViewController.h"
+#import "AppDelegate.h"
+#import "CustomTabBarController.h"
 
 @interface AboutViewController ()
 
@@ -59,6 +61,11 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    //显示TabBar
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
 }
 
 - (void)didReceiveMemoryWarning

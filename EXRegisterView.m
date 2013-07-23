@@ -75,6 +75,7 @@ typedef enum
         UITextField *textField = (UITextField*)[_inputBgView viewWithTag:RegisterTag_Dept+INPUT_TAG];
         textField.text = _userData.deptName;
     }
+    
     if (_userData.city && _userData.area) {
         //更新地区
         _regionLabel.text = [NSString stringWithFormat:@"%@ %@",_userData.city, _userData.area];
@@ -171,6 +172,13 @@ typedef enum
 }
 
 #pragma mark - UITextFieldDelegate
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    if (_delegate && [_delegate respondsToSelector:@selector(hideShowingPickerView)]) {
+        [_delegate hideShowingPickerView];
+    }
+}
+
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -192,6 +200,12 @@ typedef enum
         case RegisterTag_Dept:
             _userData.deptName = currentTextField.text;
             break;
+        case RegisterTag_Pwd:
+            _userData.pwd = currentTextField.text;
+            break;
+        case RegisterTag_PwdAgain:
+            _userData.pwdAgain = currentTextField.text;
+            break;
         default:
             break;
     }
@@ -212,6 +226,11 @@ typedef enum
 
 - (void)modifyClicked:(id)sender
 {
+    for (UIView *subView in [_inputBgView subviews]) {
+        if ([subView isKindOfClass:[UITextField class]]) {
+            [subView resignFirstResponder];
+        }
+    }
     if (_delegate && [_delegate respondsToSelector:@selector(wakeupPickerView)]) {
         [_delegate wakeupPickerView];
     }
@@ -230,6 +249,12 @@ typedef enum
             errorMsg = @"输入项目不能为空!";
         }
     }
+    
+    if (isCheckedOut && ![_userData.pwd isEqualToString:_userData.pwdAgain]) {
+        isCheckedOut = NO;
+        errorMsg = @"两次输入密码不一致!";
+    }
+    
     if (!isCheckedOut) {
         
         [[Toast sharedInstance]show:errorMsg duration:TOAST_DEFALT_DURATION];

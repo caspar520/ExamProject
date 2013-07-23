@@ -33,24 +33,42 @@ static BusinessCenter *instance = nil;
 
 - (BOOL)isLogin            //判断是否登录    从keychain中读取登录信息
 {
-    return [DBManager getDefaultUserData] != nil;
+#if TARGET_IPHONE_SIMULATOR
+    NSString *usr = [[NSUserDefaults standardUserDefaults]objectForKey:KEYCHAIN_USRNAME];
+    NSString *pwd = [[NSUserDefaults standardUserDefaults]objectForKey:KEYCHAIN_PWD];
+    return (usr != nil && pwd != nil);
+#else
+    return ([_keychainWrapper objectForKey:KEYCHAIN_USRNAME] != nil
+            && [_keychainWrapper objectForKey:KEYCHAIN_PWD] != nil);
+#endif
 }
 
 //保存用户密码到keychain
 - (void)saveUsername:(NSString *)userName andPwd:(NSString *)password
 {
     if (userName && password) {
-        [_keychainWrapper setObject:password forKey:userName];
+#if TARGET_IPHONE_SIMULATOR
+        [[NSUserDefaults standardUserDefaults]setObject:userName forKey:KEYCHAIN_USRNAME];
+        [[NSUserDefaults standardUserDefaults]setObject:password forKey:KEYCHAIN_PWD];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+#else
+        [_keychainWrapper setObject:userName forKey:KEYCHAIN_USRNAME];
+        [_keychainWrapper setObject:password forKey:KEYCHAIN_PWD];
+#endif
     }
 }
 
-- (BOOL)verifyWithUserName:(NSString *)userName andPwd:(NSString *)password
+- (void)deleteIdentifierInfoFormKeyChain
 {
-    NSString *localPwd = [_keychainWrapper objectForKey:userName];
-    if (localPwd && [localPwd isEqualToString:password]) {
-        return YES;
-    }
-    return NO;
+#if TARGET_IPHONE_SIMULATOR
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:KEYCHAIN_USRNAME];
+    [[NSUserDefaults standardUserDefaults]setObject:nil forKey:KEYCHAIN_PWD];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+#else
+    [_keychainWrapper setObject:nil forKey:KEYCHAIN_USRNAME];
+    [_keychainWrapper setObject:nil forKey:KEYCHAIN_PWD];
+#endif
+    
 }
 
 - (void)dealloc

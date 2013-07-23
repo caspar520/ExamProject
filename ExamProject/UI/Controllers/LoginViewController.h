@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 
 @class EXLoginView;
+@class KeychainItemWrapper;
 
 @interface LoginViewController : UIViewController
 {
     EXLoginView         *_loginView;
+    KeychainItemWrapper *_keychainItemWrapper;
 }
 
 @end

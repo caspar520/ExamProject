@@ -34,6 +34,7 @@
 
 @protocol UserDataProtocol <NSObject>
 
+@property (nonatomic, retain) NSNumber * userId;
 @property (nonatomic, retain) NSString * email;         // email作为用户名
 @property (nonatomic, retain) NSString * fullName;      // 姓名
 @property (nonatomic, retain) NSNumber * regionId;      // 所在地代号

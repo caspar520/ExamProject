@@ -13,6 +13,9 @@
 #import "CustomPickerView.h"
 #import "AppDelegate.h"
 #import "CustomTabBarController.h"
+#import "ASIFormDataRequest.h"
+#import "BusinessCenter.h"
+#import "Utility.h"
 
 @interface RegisterViewController () <RegisterViewDelegate,CustomPickerViewDelegate>
 
@@ -100,20 +103,26 @@
 #pragma RegisterViewDelegate
 - (void)doRegister
 {
-    //这里暂时在本地保存注册信息
-    [DBManager addUser:_userData];
-    
-    if (_modifyMode) {
-        [[Toast sharedInstance]show:@"修改成功！" duration:TOAST_DEFALT_DURATION];
-    } else {
-        [[Toast sharedInstance]show:@"注册成功！" duration:TOAST_DEFALT_DURATION];
-    }
-    [self.navigationController popViewControllerAnimated:YES];
+    //注册测试
+    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
+    ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
+    request.delegate = self;
+    [request setPostValue:_userData.email forKey:@"email"];
+    [request setPostValue:_userData.fullName forKey:@"fullName"];
+    [request setPostValue:_userData.regionId forKey:@"regionId"];
+    [request setPostValue:_userData.deptName forKey:@"deptName"];
+    [request setPostValue:[Utility md5:_userData.pwd] forKey:@"password"];
+    [request startAsynchronous];
 }
 
 - (void)wakeupPickerView
 {
     [self showPickerView];
+}
+
+- (void)hideShowingPickerView
+{
+    [self hidePickerView];
 }
 
 #pragma mark - CustomPickerViewDelegate
@@ -160,5 +169,53 @@
         _cPickerView.frame = CGRectMake(0, SCREEN_HEIGHT, CGRectGetWidth(_cPickerView.frame), CGRectGetHeight(_cPickerView.frame));
     } completion:nil];
 }
+
+#pragma mark - ASIHTTPRequestDelegate
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+    //    NSLog(@"%s", __PRETTY_FUNCTION__);
+    //    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
+    //    NSLog(@"responseString = %@", [request responseString]);
+    
+    //保存用户信息到数据库
+    NSDictionary *responsePostBody = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:nil];
+    if ([[responsePostBody objectForKey:@"result"]boolValue]) {
+        
+        if (_modifyMode) {
+            [[Toast sharedInstance]show:@"修改成功！" duration:TOAST_DEFALT_DURATION];
+        } else {
+            [[Toast sharedInstance]show:@"注册成功！" duration:TOAST_DEFALT_DURATION];
+        }
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    } else {
+        if (_modifyMode) {
+            [[Toast sharedInstance]show:@"修改失败！" duration:TOAST_DEFALT_DURATION];
+        } else {
+            [[Toast sharedInstance]show:@"注册失败！" duration:TOAST_DEFALT_DURATION];
+        }
+    }
+}
+
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    NSLog(@"%s", __PRETTY_FUNCTION__);
+    
+    NSLog(@"errorCode=%d", [[request error] code]);
+    
+    ASINetworkErrorType errorType = [[request error] code];
+    NSString *errorString = nil;
+    switch (errorType) {
+        case ASIRequestTimedOutErrorType:
+            errorString = @"连接超时!";
+            break;
+        default:
+            errorString = @"连接失败!";
+            break;
+    }
+    
+    [[Toast sharedInstance]show:errorString duration:2.0f];
+}
+
 
 @end

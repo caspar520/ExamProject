@@ -11,6 +11,7 @@
 
 @implementation User
 
+@dynamic userId;
 @dynamic email;
 @dynamic fullName;
 @dynamic regionId;

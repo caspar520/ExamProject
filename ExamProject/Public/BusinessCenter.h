@@ -25,9 +25,7 @@
 - (BOOL)isLogin;
 
 //保存用户密码到keychain
-- (void)saveUsername:(NSString *)userName andPwd:(NSString *)password; 
-
-//本地验证用户名密码是否合法
-- (BOOL)verifyWithUserName:(NSString *)userName andPwd:(NSString *)password;
+- (void)saveUsername:(NSString *)userName andPwd:(NSString *)password;
+- (void)deleteIdentifierInfoFormKeyChain;
 
 @end

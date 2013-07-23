@@ -13,6 +13,7 @@
 #import "DBManager.h"
 #import "AppDelegate.h"
 #import "CustomTabBarController.h"
+#import "BusinessCenter.h"
 
 @interface MoreViewController () <UITableViewDataSource,UITableViewDelegate>
 {
@@ -45,6 +46,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-43) style:UITableViewStyleGrouped];
     tableView.backgroundColor = [UIColor clearColor];
     tableView.dataSource = self;
@@ -117,7 +119,7 @@
         //隐藏TabBar
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
         CustomTabBarController *tabBarController=appDelegate.tabController;
-        [tabBarController hideTabBar];
+        [tabBarController hideTabBar];	
     } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             //进入关于
@@ -140,6 +142,7 @@
 {
     //TODO删除数据库User
     [DBManager deleteAllUser];
+    [[BusinessCenter sharedInstance]deleteIdentifierInfoFormKeyChain];
     
     //跳转到登录界面
     LoginViewController *loginController = [[LoginViewController alloc]init];

@@ -13,7 +13,8 @@
 
 @optional
 - (void)doRegister;
-- (void)wakeupPickerView;
+- (void)wakeupPickerView;               //显示PickerView
+- (void)hideShowingPickerView;          //隐藏PickerView
 
 @end
 

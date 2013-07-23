@@ -236,6 +236,7 @@
 + (void)deleteAllUser
 {
     [User deleteAllObjects];
+    [User save];
 }
 
 @end

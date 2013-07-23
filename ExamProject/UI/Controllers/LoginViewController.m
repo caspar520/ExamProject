@@ -12,6 +12,11 @@
 #import "BusinessCenter.h"
 #import "ASIHTTPRequest.h"
 #import "ASIFormDataRequest.h"
+#import "Toast.h"
+#import "UserData.h"
+#import "DBManager.h"
+#import "KeychainItemWrapper.h"
+#import "Utility.h"
 
 @interface LoginViewController () <LoginViewDelegate,ASIHTTPRequestDelegate>
 
@@ -24,6 +29,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        _keychainItemWrapper = [[KeychainItemWrapper alloc]initWithIdentifier:@"examIdentifier" accessGroup:@""];
     }
     return self;
 }
@@ -31,6 +37,7 @@
 - (void)dealloc
 {
     [_loginView release];
+    [_keychainItemWrapper release];
     
     [super dealloc];
 }
@@ -47,7 +54,6 @@
     _loginView.backgroundColor = [UIColor colorWithRed:0x8e/255.0f green:0xcb/255.0f blue:0x49/255.0f alpha:1.0f];
     [self.view addSubview:_loginView];
     
-    [self testRegister];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -66,8 +72,10 @@
 #pragma mark - LoginViewDelegate
 - (void)loginClicked
 {
-    //没有协议，故这里先暂时只检查非空,直接进入主页
-    [self.navigationController dismissModalViewControllerAnimated:YES];
+    //验证用户名密码是否匹配 网络验证
+    NSString *userName = _loginView.mailTextField.text;
+    NSString *pwd = _loginView.pwdTextField.text;
+    [self doLoginWithUserName:userName pwd:pwd];
 }
 
 - (void)registerClicked
@@ -77,22 +85,7 @@
     [registerController release];
 }
 
-//验证用户名和密码
-- (BOOL)verifyIdentifier
-{
-    //本地验证是否合法(只能验证登录过的)
-    NSString *userName = _loginView.mailTextField.text;
-    NSString *pwd = _loginView.pwdTextField.text;
-    if ([[BusinessCenter sharedInstance]verifyWithUserName:userName andPwd:pwd]) {
-        return YES;
-    }
-    
-    //验证用户名密码是否匹配 网络验证
-    
-    return YES;
-}
-
-- (void)testRegister
+- (void)doLoginWithUserName:(NSString *)userName pwd:(NSString *)pwd
 {
     //注册测试
 //    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
@@ -110,20 +103,43 @@
     NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/user_login"];
     ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
     request.delegate = self;
-    [request setPostValue:@"magicTest@sina.com" forKey:@"userName"];
-    [request setPostValue:@"magic_pwd" forKey:@"userPass"];
+    [request setPostValue:userName forKey:@"userName"];
+    [request setPostValue:[Utility md5:pwd] forKey:@"userPass"];
     [request startAsynchronous];
 }
 
 #pragma mark - ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
-    NSLog(@"responseString = %@", [request responseString]);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
+//    NSLog(@"responseString = %@", [request responseString]);
     
+    //保存用户信息到数据库
     NSDictionary *responsePostBody = [NSJSONSerialization JSONObjectWithData:[request responseData] options:kNilOptions error:nil];
-    NSLog(@"responsePostBody = %@", responsePostBody);
+    
+    if ([[responsePostBody objectForKey:@"result"]boolValue]) {
+        UserData *userData = [[UserData alloc]init];
+        userData.userId = [responsePostBody objectForKey:@"id"];
+        userData.regionId = [NSNumber numberWithInt:[[responsePostBody objectForKey:@"regionId"] intValue]];
+        userData.email = [responsePostBody objectForKey:@"email"];
+        userData.deptName = [responsePostBody objectForKey:@"deptName"];
+        userData.fullName = [responsePostBody objectForKey:@"fullName"];
+        [DBManager addUser:userData];
+        [userData release];
+        NSLog(@"responsePostBody = %@", responsePostBody);
+        
+        //保存帐户密码到keychain中
+        NSString *userName = [responsePostBody objectForKey:@"email"];
+        NSString *pwd = [responsePostBody objectForKey:@"password"];
+        [[BusinessCenter sharedInstance]saveUsername:userName andPwd:pwd];
+        
+        [[Toast sharedInstance]show:@"登录成功!" duration:2.0f];
+        
+        [self.navigationController dismissModalViewControllerAnimated:YES];
+    } else {
+        [[Toast sharedInstance]show:@"登录失败!" duration:2.0f];
+    }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request
@@ -142,9 +158,8 @@
             errorString = @"连接失败!";
             break;
     }
-    UIAlertView *alertView = [[UIAlertView alloc]initWithTitle:@"" message:errorString delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil];
-    [alertView show];
-    [alertView release];
+    
+    [[Toast sharedInstance]show:errorString duration:2.0f];
 }
 
 @end

@@ -11,6 +11,7 @@
 
 @implementation UserData
 
+@synthesize userId;
 @synthesize email;
 @synthesize fullName;
 @synthesize regionId;
@@ -20,12 +21,23 @@
 {
     self = [super init];
     if (self) {
+        self.userId = user.userId;
         self.email = user.email;
         self.fullName = user.fullName;
         self.regionId = user.regionId;
         self.deptName = user.deptName;
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [_city release];
+    [_area release];
+    [_pwd release];
+    [_pwdAgain release];
+    
+    [super dealloc];
 }
 
 @end
