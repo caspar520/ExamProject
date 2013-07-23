@@ -80,6 +80,8 @@
     NSString *filePath = [[NSBundle mainBundle]pathForResource:@"region" ofType:@"plist"];
     _cPickerView.regionsDic = [NSDictionary dictionaryWithContentsOfFile:filePath];
     [self.view addSubview:_cPickerView];
+    
+    self.navigationController.navigationBar.backgroundColor = [UIColor colorWithRed:0x76/255.0f green:0xa3/255.0f blue:0x43/255.0f alpha:1.0f];
 }
 
 - (void)viewWillAppear:(BOOL)animated

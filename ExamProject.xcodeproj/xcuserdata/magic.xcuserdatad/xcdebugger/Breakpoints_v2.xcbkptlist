@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ExamProject/UI/Controllers/RegisterViewController.m"
-            timestampString = "396252838.338587"
+            timestampString = "396260067.658396"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "229"
-            endingLineNumber = "229"
+            startingLineNumber = "231"
+            endingLineNumber = "231"
             landmarkName = "-requestFailed:"
             landmarkType = "5">
          </BreakpointContent>

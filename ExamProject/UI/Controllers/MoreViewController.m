@@ -48,17 +48,22 @@
 	// Do any additional setup after loading the view.
     
     UITableView *tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-43) style:UITableViewStyleGrouped];
-    tableView.backgroundColor = [UIColor clearColor];
+    tableView.backgroundColor = [UIColor colorWithRed:0xe8/255.0f green:0xf0/255.0f blue:0xf0/255.0f alpha:1.0f];
+    tableView.backgroundView = nil;
+    tableView.scrollEnabled = NO;
     tableView.dataSource = self;
     tableView.delegate = self;
     [self.view addSubview:tableView];
     [tableView release];
     
     //退出登录
-    UIButton *exitLogin = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    UIButton *exitLogin = [UIButton buttonWithType:UIButtonTypeCustom];
     exitLogin.backgroundColor = [UIColor clearColor];
     exitLogin.frame = CGRectMake(40, 240, 240, 40);
     [exitLogin setTitle:@"退出登录" forState:UIControlStateNormal];
+    [exitLogin setTitleColor:[UIColor colorWithRed:0x83/255.0f green:0x83/255.0f blue:0x83/255.0f alpha:1.0f] forState:UIControlStateNormal];
+    [exitLogin setBackgroundImage:[[UIImage imageNamed:@"gray_button_bg_normal.png"] stretchableImageWithLeftCapWidth:8.0f topCapHeight:8.0f] forState:UIControlStateNormal];
+    [exitLogin setBackgroundImage:[[UIImage imageNamed:@"gray_button_bg_press.png"] stretchableImageWithLeftCapWidth:8.0f topCapHeight:8.0f] forState:UIControlStateHighlighted];
     [exitLogin addTarget:self action:@selector(exitClicked:) forControlEvents:UIControlEventTouchUpInside];
     [tableView addSubview:exitLogin];
 }

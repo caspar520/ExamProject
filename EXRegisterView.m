@@ -8,6 +8,7 @@
 
 #import "EXRegisterView.h"
 #import "Toast.h"
+#import <QuartzCore/QuartzCore.h>
 
 #define NUMBER_OF_INPUTS        6       //需要输入项的总数
 #define INPUT_TAG               100     //输入框起始tag
@@ -94,6 +95,8 @@ typedef enum
     
     //背景
     _inputBgView = [[UIView alloc]initWithFrame:CGRectMake(10, 18, 300, 40 * NUMBER_OF_INPUTS)];
+    _inputBgView.layer.masksToBounds = YES;
+    _inputBgView.layer.cornerRadius = 4.0f;
     _inputBgView.backgroundColor = [UIColor whiteColor];
     [self addSubview:_inputBgView];
     
@@ -117,7 +120,7 @@ typedef enum
         mailTitleView.text = [registerNames objectAtIndex:i];
         CGSize autoSize = [mailTitleView sizeThatFits:CGSizeMake(0, 20)];
         if (autoSize.width > mailTitleView.frame.size.width) {
-            mailTitleView.frame = CGRectMake(5, 40*i, autoSize.width, 40);
+            mailTitleView.frame = CGRectMake(5, 40*i, autoSize.width+8, 40);
         }
         [_inputBgView addSubview:mailTitleView];
         [mailTitleView release];
@@ -141,7 +144,7 @@ typedef enum
             [modifyBtn addTarget:self action:@selector(modifyClicked:) forControlEvents:UIControlEventTouchUpInside];
             [_inputBgView addSubview:modifyBtn];
         } else {
-            UITextField *mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 8 + 40*i, 240, 30)];
+            UITextField *mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 8 + 40*i, CGRectGetWidth(_inputBgView.frame)-CGRectGetWidth(mailTitleView.frame)-15, 30)];
             mailTextField.delegate = self;
             mailTextField.tag = i+INPUT_TAG;
             mailTextField.backgroundColor = [UIColor clearColor];
@@ -161,12 +164,12 @@ typedef enum
     UIButton *registerBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     registerBtn.backgroundColor = [UIColor clearColor];
     registerBtn.frame = CGRectMake(20, CGRectGetMaxY(_inputBgView.frame)+15, 280, 40);
-    registerBtn.backgroundColor = [UIColor colorWithRed:0xCD/255.0f green:0xCE/255.0f blue:0xCC/255.0f alpha:1.0f];
     if (_modifyMode) {
         [registerBtn setTitle:@"修改" forState:UIControlStateNormal];
     } else {
         [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     }
+    [registerBtn setBackgroundImage:[[UIImage imageNamed:@"gray_button_bg_normal.png"] stretchableImageWithLeftCapWidth:8.0f topCapHeight:6.0f] forState:UIControlStateNormal];
     [registerBtn addTarget:self action:@selector(doRegister:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:registerBtn];
 }

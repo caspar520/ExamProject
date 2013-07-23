@@ -85,21 +85,25 @@
     ExamViewController * tabBarController1 = [[ExamViewController alloc] init];
     tabBarController1.title = @"考试";
     UINavigationController* navController1 = [[UINavigationController alloc] initWithRootViewController:tabBarController1];
+    navController1.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController1 release];
     
     UIViewController * tabBarController2 = [[WrongViewController alloc] init];
     tabBarController2.title = @"错题";
     UINavigationController* navController2 = [[UINavigationController alloc] initWithRootViewController:tabBarController2];
+    navController2.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController2 release];
     
     UIViewController * tabBarController3 = [[CollectViewController alloc] init];
     tabBarController3.title = @"收藏";
     UINavigationController* navController3 = [[UINavigationController alloc] initWithRootViewController:tabBarController3];
+    navController3.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController3 release];
     
     MoreViewController * tabBarController4 = [[MoreViewController alloc] init];
     tabBarController4.title = @"更多";
     UINavigationController* navController4 = [[UINavigationController alloc] initWithRootViewController:tabBarController4];
+    navController4.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController4 release];
     
     NSArray *subTabControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
