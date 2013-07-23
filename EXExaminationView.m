@@ -48,17 +48,17 @@
 
 - (void)refreshUI{
     if (orderLabel==nil) {
-        orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,100,40)];
+        orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,50,30)];
         orderLabel.textColor=[UIColor blackColor];
         orderLabel.text=[NSString stringWithFormat:@"第%d题",index];
-        orderLabel.backgroundColor=[UIColor clearColor];
+        orderLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
         orderLabel.textAlignment=UITextAlignmentLeft;
         [self addSubview:orderLabel];
     }
 	
 	if (questionBackground==nil) {
         questionBackground=[[UIImageView alloc] initWithFrame:
-                            CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),100)];
+                            CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),90)];
         questionBackground.backgroundColor=[UIColor clearColor];
         questionBackground.image=nil;
         [self addSubview:questionBackground];
@@ -76,10 +76,10 @@
 	
 	if (optionTipLabel==nil) {
         optionTipLabel=[[UILabel alloc] initWithFrame:
-                        CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,100,40)];
+                        CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,70,30)];
         optionTipLabel.textColor=[UIColor blackColor];
         optionTipLabel.text=@"答案选项";
-        optionTipLabel.backgroundColor=[UIColor clearColor];
+        optionTipLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
         optionTipLabel.textAlignment=UITextAlignmentLeft;
         [self addSubview:optionTipLabel];
     }

@@ -77,7 +77,7 @@
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-20)];
+        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-62)];
         _examineListView.backgroundColor=[UIColor clearColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];

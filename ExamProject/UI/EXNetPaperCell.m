@@ -78,7 +78,6 @@
         _downloadBtn=[UIButton buttonWithType:UIButtonTypeContactAdd];
         _downloadBtn.frame=CGRectMake(CGRectGetMaxX(_titleLabel.frame)+5, CGRectGetMinY(self.frame), 48, 48);
         [_downloadBtn addTarget:self action:@selector(downloadItemClicked:) forControlEvents:UIControlEventTouchUpInside];
-        
         [self addSubview:_downloadBtn];
     }
     [self checkDownloadStatus];

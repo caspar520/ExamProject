@@ -33,7 +33,7 @@ static const CGFloat kHeight = 36.0f;
 }
 
 - (id) initWithFrame:(CGRect)aFrame checked:(BOOL)aChecked{
-    aFrame.size.height = kHeight;
+//    aFrame.size.height = kHeight;
     if (!(self = [super initWithFrame:aFrame])) {
         return self;
     }
@@ -49,8 +49,7 @@ static const CGFloat kHeight = 36.0f;
     [self addSubview:_boxFrameView];
     
     UIImage *img = [self checkBoxImage:_checked];
-    CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
-    _checkBoxImageView = [[UIImageView alloc] initWithFrame:imageViewFrame];
+    _checkBoxImageView = [[UIImageView alloc] init];
     _checkBoxImageView.backgroundColor=[UIColor clearColor];
     _checkBoxImageView.image = img;
     [self insertSubview:_checkBoxImageView aboveSubview:_boxFrameView];
@@ -63,6 +62,7 @@ static const CGFloat kHeight = 36.0f;
         [_checkBoxImageView release];
     }
     [_boxFrameView release];
+    [_buttomView release];
     [super dealloc];
 }
 
@@ -73,19 +73,29 @@ static const CGFloat kHeight = 36.0f;
 
 - (void)setIndex:(int)index{
     _index=index;
-    UIImage *boxFrameImage=nil;
     if (index>0) {
-        boxFrameImage=[UIImage imageNamed:@"answer_single_selected.png"];
+        UIImage *boxFrameImage=[UIImage imageNamed:@"answer_single_selected.png"];
+        CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:boxFrameImage];
+        _boxFrameView.image=boxFrameImage;
+        _boxFrameView.frame=CGRectMake((CGRectGetWidth(self.frame)-CGRectGetWidth(imageViewFrame))/2, (CGRectGetHeight(self.frame)-CGRectGetHeight(imageViewFrame))/2, CGRectGetWidth(imageViewFrame), CGRectGetHeight(imageViewFrame));
+        
+        if (_buttomView==nil) {
+            UIImage *buttomFrameImage=[UIImage imageNamed:@"topic_index_bg.png"];
+            _buttomView=[[UIImageView alloc] initWithFrame:self.bounds];
+            _buttomView.backgroundColor=[UIColor colorWithPatternImage:buttomFrameImage];
+            [self insertSubview:_buttomView belowSubview:_boxFrameView];
+        }
     }else {
-        boxFrameImage=[UIImage imageNamed:@"topic_index_bg.png"];
+        UIImage *boxFrameImage=[UIImage imageNamed:@"topic_index_bg.png"];
         if (_checkBoxImageView.image==nil) {
             UIImage *img = [self checkBoxImage:_checked];
             CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
-            _checkBoxImageView.frame=imageViewFrame;
+            _checkBoxImageView.frame=CGRectMake((CGRectGetWidth(self.frame)-CGRectGetWidth(imageViewFrame))/2, (CGRectGetHeight(self.frame)-CGRectGetHeight(imageViewFrame))/2, CGRectGetWidth(imageViewFrame), CGRectGetHeight(imageViewFrame));;
             _checkBoxImageView.image = img;
         }
+        _boxFrameView.backgroundColor=[UIColor colorWithPatternImage:boxFrameImage];
+        _boxFrameView.frame=self.bounds;
     }
-    _boxFrameView.backgroundColor=[UIColor colorWithPatternImage:boxFrameImage];
 }
 
 - (void)setChecked:(BOOL)checked{
@@ -219,7 +229,7 @@ static const CGFloat kHeight = 36.0f;
 {
     UIImage *img=[self checkBoxImage:_checked];
     CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
-    _checkBoxImageView.frame=imageViewFrame;
+    _checkBoxImageView.frame=CGRectMake((CGRectGetWidth(self.frame)-CGRectGetWidth(imageViewFrame))/2, (CGRectGetHeight(self.frame)-CGRectGetHeight(imageViewFrame))/2, CGRectGetWidth(imageViewFrame), CGRectGetHeight(imageViewFrame));
     _checkBoxImageView.image = img;
 }
 
