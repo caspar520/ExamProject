@@ -63,39 +63,48 @@
     CGRect tabBarFrame = self.tabBar.frame;
     
     self.customTabBarView = [[[UIView alloc] initWithFrame:tabBarFrame] autorelease];
-    _customTabBarView.backgroundColor = [UIColor clearColor];
+    _customTabBarView.backgroundColor = [UIColor colorWithRed:0xe3/255.0f green:0xe6/255.0f blue:0xe8/255.0f alpha:1.0f];
     _customTabBarView.tag = TAG_TABBAR;
     [self.view addSubview:_customTabBarView];
     
-    UIImageView *bottom = [[UIImageView alloc] initWithFrame:CGRectMake(0, -12, 320, 66)];
-    bottom.image = [UIImage imageNamed:@"player_green.png"];
-    [_customTabBarView addSubview:bottom];
-    [bottom release];
+//    UIImageView *bottom = [[UIImageView alloc] initWithFrame:CGRectMake(0, -12, 320, 66)];
+//    bottom.image = [UIImage imageNamed:@"player_green.png"];
+//    [_customTabBarView addSubview:bottom];
+//    [bottom release];
     
     float originX = 0;
     UIImage *image = nil;
     for (int i = 0; i < 4; i++) {
-        UIButton *bt = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        UIButton *bt = [[UIButton alloc]init];
         bt.frame = CGRectMake(originX,0,80,60);
+//        UIViewController *vc = [self.viewControllers objectAtIndex:i];
+//        
+//        [bt setTitle:vc.title forState:UIControlStateNormal];
+//        [bt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        
         NSString *pic = [NSString stringWithFormat:@"tabBarItem_%d.png",i+1];
         image = [UIImage imageNamed:pic];
         if (image) {
             [bt setImage:image forState:UIControlStateNormal];
-            
             pic = [NSString stringWithFormat:@"tabBarItem_selected_%d.png",i+1];
             image = [UIImage imageNamed:pic];
             [bt setImage:image forState:UIControlStateSelected];
-        } else {
-            UIViewController *vc = [self.viewControllers objectAtIndex:i];
-            [bt setTitle:vc.title forState:UIControlStateNormal];
-            [bt setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            bt.backgroundColor = [UIColor whiteColor];
         }
-        
         bt.tag = TAG_BUTTON_ORIGIN + i;
         [bt addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventTouchUpInside];
         [bt setExclusiveTouch:YES];
         [_tabBarItems addObject:bt];
+        [bt release];
+        
+        UILabel *tabBarTitle = [[UILabel alloc]initWithFrame:CGRectMake(originX, 0, 0, 0)];
+        tabBarTitle.tag = TAG_TABBAR_TITLE_ORIGIN+i;
+        
+        UIViewController *vc = [self.viewControllers objectAtIndex:i];
+        tabBarTitle.text = vc.title;
+        tabBarTitle.textAlignment = NSTextAlignmentCenter;
+        tabBarTitle.textColor = [UIColor blackColor];
+        [bt addSubview:tabBarTitle];
+        [tabBarTitle release];
         
         if (i == 0) 
             bt.selected = YES;
@@ -103,23 +112,7 @@
         originX += 80;
         
         //调整位置
-        switch (i) {
-            case 0:
-                [bt setImageEdgeInsets:UIEdgeInsetsMake(-13, 0, 0, 0)];
-                break;
-            case 1:
-                [bt setImageEdgeInsets:UIEdgeInsetsMake(-5, 0, 0, 0)];
-                break;
-            case 2:
-                [bt setImageEdgeInsets:UIEdgeInsetsMake(-5, 0, 0, 0)];
-                break;          
-            case 3:
-                [bt setImageEdgeInsets:UIEdgeInsetsMake(-8.5, 0, 0, 0)];
-                break;
-            default:
-                break;
-        }
-        
+        [bt setImageEdgeInsets:UIEdgeInsetsMake(5, 25, 31, 25)];       
     }
     
 }

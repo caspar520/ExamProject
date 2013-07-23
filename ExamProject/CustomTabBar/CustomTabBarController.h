@@ -10,6 +10,7 @@
 #define TAG_TABBAR         1101
 #define TAG_BUTTON_ORIGIN  1102
 #define TAG_BADGE_ORIGIN   1103
+#define TAG_TABBAR_TITLE_ORIGIN 1200
 
 @interface CustomTabBarController : UITabBarController{
     
