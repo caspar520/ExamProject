@@ -22,6 +22,7 @@
     BOOL            _enabled;
     
     UIImageView     *_checkBoxImageView;
+    UIImageView     *_boxFrameView;
 }
 
 @property (nonatomic, assign) BOOL            checked;

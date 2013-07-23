@@ -39,9 +39,15 @@ static const CGFloat kHeight = 36.0f;
     }
     _checked = aChecked;
     self.enabled = YES;
+    _index=-10;
     
     self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor clearColor];
+    
+    _boxFrameView=[[UIImageView alloc] initWithFrame:self.bounds];
+    _boxFrameView.backgroundColor=[UIColor clearColor];
+    _boxFrameView.contentMode=UIViewContentModeScaleAspectFit;
+    [self addSubview:_boxFrameView];
     
     UIImage *img = [self checkBoxImage:_checked];
     CGRect imageViewFrame = [self imageViewFrameForCheckBoxImage:img];
@@ -56,12 +62,24 @@ static const CGFloat kHeight = 36.0f;
     if (_checkBoxImageView) {
         [_checkBoxImageView release];
     }
+    [_boxFrameView release];
     [super dealloc];
 }
 
 - (void) setEnabled:(BOOL)enabled
 {
     _enabled = enabled;
+}
+
+- (void)setIndex:(int)index{
+    _index=index;
+    UIImage *boxFrameImage=nil;
+    if (index>0) {
+        boxFrameImage=[UIImage imageNamed:@"answer_single_selected.png"];
+    }else {
+        boxFrameImage=[UIImage imageNamed:@"topic_index_bg.png"];
+    }
+    _boxFrameView.image=boxFrameImage;
 }
 
 - (void)setChecked:(BOOL)checked{
@@ -109,9 +127,6 @@ static const CGFloat kHeight = 36.0f;
         if (CGRectContainsPoint(validTouchArea, point)) {
             _checked = !_checked;
             [self updateCheckBoxImage];
-//            if ([_delegate respondsToSelector:@selector(checkeStateChange:)]) {
-//                [_delegate checkeStateChange:_checked];
-//            }
             if (_delegate && [_delegate respondsToSelector:@selector(checkeStateChange:withObject:)]) {
                 [_delegate checkeStateChange:_checked withObject:self];
             }
@@ -125,8 +140,48 @@ static const CGFloat kHeight = 36.0f;
 
 - (UIImage *) checkBoxImage:(BOOL)isChecked
 {
-    NSString *suffix = !isChecked ? @"normal" : @"cancel";
-    NSString *imageName = [NSString stringWithFormat:@"add_story_to_local_category_%@.png", suffix];
+    NSString *imageName=nil;
+    switch (self.index) {
+        case -1:
+            if (isChecked) {
+                imageName=@"answer_judge_false_selected.png";
+            }else{
+                imageName=@"answer_judge_false_normal.png";
+            }
+            break;
+        case 0:
+            if (isChecked) {
+                imageName=@"answer_judge_true_selected.png";
+            }else{
+                imageName=@"answer_judge_true_normal.png";
+            }
+            break;
+        case 1:
+            imageName=@"answer_a.png";
+            break;
+        case 2:
+            imageName=@"answer_b.png";
+            break;
+        case 3:
+            imageName=@"answer_c.png";
+            break;
+        case 4:
+            imageName=@"answer_d.png";
+            break;
+        case 5:
+            imageName=@"answer_e.png";
+            break;
+        case 6:
+            imageName=@"answer_f.png";
+            break;
+        case 7:
+            imageName=@"answer_g.png";
+            break;
+        default:
+            break;
+    }
+//    NSString *suffix = !isChecked ? @"normal" : @"cancel";
+//    NSString *imageName = [NSString stringWithFormat:@"add_story_to_local_category_%@.png", suffix];
     return [UIImage imageNamed:imageName];
 }
 

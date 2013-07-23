@@ -26,7 +26,7 @@
 - (void)refreshUI{
     [super refreshUI];
     //options check view
-    EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, 0, 40, 40) checked:NO];
+    EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-170)/2, 0, 80, 40) checked:NO];
     rightCheckView.backgroundColor=[UIColor clearColor];
     rightCheckView.delegate=self;
     rightCheckView.exclusiveTouch=YES;
@@ -34,7 +34,7 @@
     [answerContainerView addSubview:rightCheckView];
     [rightCheckView release];
     
-    EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+10, 0, 40, 40) checked:NO];
+    EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+10, 0, 80, 40) checked:NO];
     wrongCheckView.backgroundColor=[UIColor clearColor];
     wrongCheckView.delegate=self;
     wrongCheckView.exclusiveTouch=YES;
