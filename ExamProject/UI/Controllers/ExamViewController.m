@@ -54,7 +54,7 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-//    [self clearPaperInfo];
+    [self clearPaperInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
