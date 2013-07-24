@@ -48,33 +48,34 @@
     self.navigationController.toolbar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     
     float width=CGRectGetWidth(self.navigationController.toolbar.frame)/3;
+    UIBarButtonItem*submitButton = [[[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)] autorelease];
+    self.navigationItem.rightBarButtonItem= submitButton;
+    
+    UIBarButtonItem *collectButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)] autorelease];
+    
+    UIBarButtonItem *flexibleSpace1 = [[[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                       target:nil
+                                       action:nil] autorelease];
+    
+    UIBarButtonItem *preButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)] autorelease];
+    preButton.width=width;
+    
+    UIBarButtonItem *flexibleSpace2 = [[[UIBarButtonItem alloc]
+                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                       target:nil
+                                       action:nil] autorelease];
+    
+    UIBarButtonItem *nextButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)] autorelease];
+    nextButton.width=width;
+    
+    [self.navigationController setToolbarHidden:NO animated:NO];
     if (displayTopicType==kDisplayTopicType_Default) {
-        UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
-        self.navigationItem.rightBarButtonItem= submitButton;
-        
-        UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)];
-        
-        UIBarButtonItem *flexibleSpace1 = [[UIBarButtonItem alloc]
-                                          initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                          target:nil
-                                          action:nil];
-        
-        UIBarButtonItem *preButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)];
-        preButton.width=width;
-        
-        UIBarButtonItem *flexibleSpace2 = [[UIBarButtonItem alloc]
-                                           initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                           target:nil
-                                           action:nil];
-        
-        UIBarButtonItem *nextButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)];
-        nextButton.width=width;
-        
-        [self.navigationController setToolbarHidden:NO animated:NO];
         [self setToolbarItems:[NSArray arrayWithObjects:preButton,flexibleSpace1,nextButton,flexibleSpace2,collectButton,nil]];
     }else{
-        [self.navigationController setToolbarHidden:YES animated:NO];
+        [self setToolbarItems:[NSArray arrayWithObjects:preButton,flexibleSpace1,nextButton,nil]];
     }
+    
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
