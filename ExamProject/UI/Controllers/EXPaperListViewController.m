@@ -14,6 +14,7 @@
 #import "EXNetDataManager.h"
 #import "EXDownloadManager.h"
 //#import "ASIHTTPRequest.h"
+#import "MBProgressHUD.h"
 
 @interface EXPaperListViewController ()<UITableViewDataSource,UITableViewDelegate,EXNetPaperDelegate>
 
@@ -53,6 +54,7 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:NOTIFICATION_PAPERS_DOWNLOAD_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -116,6 +118,7 @@
 
 #pragma mark 列表数据请求
 - (void)fetchData{
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     [[EXDownloadManager shareInstance] downloadPaperList];
 }
 
@@ -124,6 +127,7 @@
     [_netPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
     
     [_paperListView refresh];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
 }
 
 #pragma mark table view delegate
@@ -139,11 +143,11 @@
     static NSString *CellIdentifier = @"StoryListCell";
     EXNetPaperCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell==nil) {
-        cell=[[[EXNetPaperCell alloc] init] autorelease];
+        cell=[[[EXNetPaperCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
         cell.delegate=self;
-        if (indexPath.row<_netPaperList.count) {
-            cell.paperData=[_netPaperList objectAtIndex:indexPath.row];
-        }
+    }
+    if (indexPath.row<_netPaperList.count) {
+        cell.paperData=[_netPaperList objectAtIndex:indexPath.row];
     }
     
     return cell;
@@ -157,11 +161,17 @@
     }
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+    return NO;
+}
+
 
 #pragma mark EXNetPaperDelegate
 - (void)downloadNetPaper:(id)paper{
     [[EXDownloadManager shareInstance] downloadPaper:paper];
     [_paperListView refresh];
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
 }
 
 @end

@@ -19,6 +19,9 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        self.selectionStyle=UITableViewCellSelectionStyleNone;
+        self.accessoryType=UITableViewCellAccessoryNone;
+        self.editingAccessoryType=UITableViewCellEditingStyleNone;
     }
     return self;
 }
@@ -75,8 +78,8 @@
     _authorLabel.text=[_paperData objectForKey:@"author"];
     
     if (_downloadBtn==nil) {
-        _downloadBtn=[UIButton buttonWithType:UIButtonTypeContactAdd];
-        _downloadBtn.frame=CGRectMake(CGRectGetMaxX(_titleLabel.frame)+5, CGRectGetMinY(self.frame), 48, 48);
+        _downloadBtn=[UIButton buttonWithType:UIButtonTypeCustom];
+        _downloadBtn.frame=CGRectMake(CGRectGetMaxX(_titleLabel.frame)+25, CGRectGetMinY(self.frame), 48, 48);
         [_downloadBtn addTarget:self action:@selector(downloadItemClicked:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_downloadBtn];
     }
