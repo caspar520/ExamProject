@@ -116,7 +116,6 @@
 
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
-    
 }
 
 - (void)didReceiveMemoryWarning
@@ -190,7 +189,6 @@
 - (void)collectItemClicked:(id)sender{
 	_paperData.fav=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
-    [DBManager addPaper:_paperData];
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [alert show];
@@ -209,10 +207,11 @@
     //计算总成绩并判断答过的题是否有错误，有标记该试卷有错误
     __block NSInteger mark=0;
     if (_paperData.topics) {
-        [_paperData.topics enumerateObjectsUsingBlock:^(Topic *obj, NSUInteger idx, BOOL *stop) {
+        [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
             if (obj && ([obj.type integerValue]==1 || [obj.type integerValue]==2 || [obj.type integerValue]==3)) {
                 //先判断试题类型：只有选择题和判断题可以进行判断，简答暂不做判断
-                if (obj.analysis) {
+                NSLog(@"answer:%@,result:%@,score:%@",obj.selected,obj.analysis,obj.value);
+                if (obj.analysis && [obj.analysis integerValue]!=-100) {
                     if ([obj.analysis isEqualToString:obj.selected]) {
                         //正确
                         obj.wrong=[NSNumber numberWithBool:NO];
@@ -222,7 +221,6 @@
                         obj.wrong=[NSNumber numberWithBool:YES];
                         if ([_paperData.wrong boolValue]==NO) {
                             _paperData.wrong=[NSNumber numberWithBool:YES];
-                            [DBManager addPaper:_paperData];
                         }
                     }
                 }

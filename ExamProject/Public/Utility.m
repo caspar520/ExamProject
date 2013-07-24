@@ -63,7 +63,11 @@
                 }
             }
             tData.value = [[topicDic objectForKey:@"value"]stringValue];
-            tData.analysis = [topicDic objectForKey:@"analysis"];
+            if ([tData.type integerValue]==1 || [tData.type integerValue]==2 || [tData.type integerValue]==3) {
+                tData.analysis = [NSString stringWithFormat:@"%d",-100];
+            }else{
+                tData.analysis = [topicDic objectForKey:@"analysis"];
+            }
             tData.image = [topicDic objectForKey:@"image"];
             [topics addObject:tData];
             [tData release];

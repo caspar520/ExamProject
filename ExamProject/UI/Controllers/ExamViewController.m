@@ -58,11 +58,32 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
+    //每次都要清理数据库中的试题信息：总分、答过试题的答案
+    
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     //读数据
     [_localPaperList removeAllObjects];
     [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+    
+    for (PaperData *item in _localPaperList) {
+        if (item) {
+            NSArray *topics=item.topics;
+            if (topics) {
+                for (TopicData *topic in topics) {
+                    if (topic) {
+                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+                            topic.analysis=[NSString stringWithFormat:@"%d",-100];
+                        }else{
+                            topic.analysis=nil;
+                        }
+                    }
+                }
+            }
+            item.totalScore=[NSNumber numberWithInteger:0];
+            [DBManager addPaper:item];
+        }
+    }
     
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];

@@ -44,8 +44,9 @@
     
     self.title=@"考试结果";
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
-    
     self.navigationItem.leftBarButtonItem= backButton;
+    
+    [self.navigationController setToolbarHidden:YES animated:NO];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

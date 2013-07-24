@@ -100,6 +100,7 @@
 - (void)backwardItemClicked:(id)sender{
     if (self.navigationController) {
         [self.navigationController popViewControllerAnimated:YES];
+        [MBProgressHUD hideHUDForView:self.view animated:NO];
     }
 }
 
