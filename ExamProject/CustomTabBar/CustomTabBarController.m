@@ -74,6 +74,7 @@
     
     float originX = 0;
     UIImage *image = nil;
+    NSArray *tabbarTitles = [NSArray arrayWithObjects:@"考试",@"错题",@"收藏",@"更多", nil];
     for (int i = 0; i < 4; i++) {
         UIButton *bt = [[UIButton alloc]init];
         bt.frame = CGRectMake(originX,0,80,60);
@@ -91,23 +92,28 @@
             [bt setImage:image forState:UIControlStateSelected];
         }
         bt.tag = TAG_BUTTON_ORIGIN + i;
+        [bt addTarget:self action:@selector(tabTouchDown:) forControlEvents:UIControlEventTouchDown];
+        [bt addTarget:self action:@selector(tabTouchUp:) forControlEvents:UIControlEventTouchUpOutside];
         [bt addTarget:self action:@selector(tabChanged:) forControlEvents:UIControlEventTouchUpInside];
         [bt setExclusiveTouch:YES];
         [_tabBarItems addObject:bt];
         [bt release];
         
-        UILabel *tabBarTitle = [[UILabel alloc]initWithFrame:CGRectMake(originX, 0, 0, 0)];
-        tabBarTitle.tag = TAG_TABBAR_TITLE_ORIGIN+i;
-        
-        UIViewController *vc = [self.viewControllers objectAtIndex:i];
-        tabBarTitle.text = vc.title;
+        UILabel *tabBarTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, 80, 30)];
+        tabBarTitle.backgroundColor = [UIColor clearColor];
+        tabBarTitle.tag = TAG_TABBAR_TITLE_ORIGIN+i;        
+        tabBarTitle.text = [tabbarTitles objectAtIndex:i];
         tabBarTitle.textAlignment = NSTextAlignmentCenter;
+        tabBarTitle.font = [UIFont systemFontOfSize:12];
         tabBarTitle.textColor = [UIColor blackColor];
         [bt addSubview:tabBarTitle];
         [tabBarTitle release];
         
-        if (i == 0) 
+        if (i == 0) {
             bt.selected = YES;
+            bt.backgroundColor = [UIColor colorWithRed:0x62/255.0f green:0x9a/255.0f blue:0x27/255.0f alpha:1.0f];
+            tabBarTitle.textColor = [UIColor whiteColor];
+        }
         [_customTabBarView addSubview:bt];
         originX += 80;
         
@@ -124,10 +130,16 @@
         if ([view isKindOfClass:[UIButton class]]) {
             
             UIButton *bt = (UIButton *)view;
+            bt.backgroundColor = [UIColor clearColor];
+            UILabel *titleLabel = (UILabel *)[bt viewWithTag:(bt.tag-TAG_BUTTON_ORIGIN+TAG_TABBAR_TITLE_ORIGIN)];
+            titleLabel.textColor = [UIColor blackColor];
             bt.selected = NO;
         }
     }
     bt.selected = YES;
+    bt.backgroundColor = [UIColor colorWithRed:0x62/255.0f green:0x9a/255.0f blue:0x27/255.0f alpha:1.0f];
+    UILabel *titleLabel = (UILabel *)[bt viewWithTag:(bt.tag-TAG_BUTTON_ORIGIN+TAG_TABBAR_TITLE_ORIGIN)];
+    titleLabel.textColor = [UIColor whiteColor];
     
     int currentIndex = bt.tag - TAG_BUTTON_ORIGIN;
 	
@@ -137,6 +149,18 @@
         UINavigationController *navTabCtr = [self.viewControllers objectAtIndex:currentIndex];
         [navTabCtr popToRootViewControllerAnimated:YES];
     }
+}
+
+- (void)tabTouchDown:(UIButton *)btn
+{
+//    UILabel *titleLabel = (UILabel *)[btn viewWithTag:(btn.tag-TAG_BUTTON_ORIGIN+TAG_TABBAR_TITLE_ORIGIN)];
+//    titleLabel.textColor = [UIColor whiteColor];
+}
+
+- (void)tabTouchUp:(UIButton *)btn
+{
+    UILabel *titleLabel = (UILabel *)[btn viewWithTag:(btn.tag-TAG_BUTTON_ORIGIN+TAG_TABBAR_TITLE_ORIGIN)];
+    titleLabel.textColor = [UIColor blackColor];
 }
 
 - (void)hideTabBar{
