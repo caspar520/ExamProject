@@ -8,6 +8,8 @@
 
 #import "EXResultViewController.h"
 #import "PaperData.h"
+#import "TopicData.h"
+#import "DBManager.h"
 
 @interface EXResultViewController ()
 
@@ -134,6 +136,23 @@
     if(self.navigationController){
         [self.navigationController popToRootViewControllerAnimated:YES];
 	}
+}
+
+- (void)clearPaperInfo{
+    NSArray *topics=paperData.topics;
+    if (topics) {
+        for (TopicData *topic in topics) {
+            if (topic) {
+                if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+                    topic.analysis=[NSString stringWithFormat:@"%d",-100];
+                }else{
+                    topic.analysis=nil;
+                }
+            }
+        }
+    }
+    paperData.userScore=[NSNumber numberWithInteger:0];
+    [DBManager addPaper:paperData];
 }
 
 @end

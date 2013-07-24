@@ -36,6 +36,7 @@
     [_paperListView release];
     [_localPaperList release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self clearPaperInfo];
     [super dealloc];
 }
 
@@ -53,6 +54,7 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
+//    [self clearPaperInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -66,24 +68,7 @@
     [_localPaperList removeAllObjects];
     [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
     
-    for (PaperData *item in _localPaperList) {
-        if (item) {
-            NSArray *topics=item.topics;
-            if (topics) {
-                for (TopicData *topic in topics) {
-                    if (topic) {
-                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
-                            topic.analysis=[NSString stringWithFormat:@"%d",-100];
-                        }else{
-                            topic.analysis=nil;
-                        }
-                    }
-                }
-            }
-            item.totalScore=[NSNumber numberWithInteger:0];
-            [DBManager addPaper:item];
-        }
-    }
+//    [self clearPaperInfo];
     
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
@@ -107,6 +92,27 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)clearPaperInfo{
+    for (PaperData *item in _localPaperList) {
+        if (item) {
+            NSArray *topics=item.topics;
+            if (topics) {
+                for (TopicData *topic in topics) {
+                    if (topic) {
+                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+                            topic.analysis=[NSString stringWithFormat:@"%d",-100];
+                        }else{
+                            topic.analysis=nil;
+                        }
+                    }
+                }
+            }
+            item.userScore=[NSNumber numberWithInteger:0];
+            [DBManager addPaper:item];
+        }
+    }
 }
 
 
@@ -148,41 +154,6 @@
         examineController.displayTopicType=kDisplayTopicType_Default;
         examineController.paperData=paperMetaData;
     }
-}
-
-#pragma mark 测试用
-
-//测试添加试卷，json从本地读取
-- (void)testAddPaper
-{    
-    //解析本地json文件
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"hangyeceshi-1" ofType:@"json"];
-    NSData *data = [NSData dataWithContentsOfFile:path];
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-//    NSLog(@"result=%@", result);
-    
-    PaperData *paperData = [[PaperData alloc]init];
-    paperData.paperId = [NSNumber numberWithInt:[[result objectForKey:@"id"] intValue]];
-    paperData.title = [result objectForKey:@"title"];
-    paperData.desc = [result objectForKey:@"description"];
-    paperData.creator = [result objectForKey:@"creator"];
-    paperData.totalTime = [NSNumber numberWithInt:[[result objectForKey:@"totalTime"] intValue]];
-    paperData.totalScore = [NSNumber numberWithInt:[[result objectForKey:@"totalScore"] intValue]];
-    paperData.topicCount = [NSNumber numberWithInt:[[result objectForKey:@"topicCount"] intValue]];
-    paperData.passingScore = [NSNumber numberWithInt:[[result objectForKey:@"passingScore"] intValue]];
-    paperData.eliteScore = [NSNumber numberWithInt:[[result objectForKey:@"eliteScore"] intValue]];
-    
-    //添加试题
-//    paperData.topics = [self makeTopicsWithArray:[result objectForKey:@"topicList"]];
-    
-    [DBManager addPaper:paperData];
-    [paperData release];
-
-    //测试读数据库逻辑
-//    NSArray *allPapers = [DBManager fetchAllPapersFromDB];
-//    NSArray *collectedPapers = [DBManager fetchCollectedPapers];
-//    NSArray *wrongPapers = [DBManager fetchWrongPapers];
-//    NSLog(@"allPapers=%@ collectedPapers=%@ wrongPapers=%@",allPapers,collectedPapers,wrongPapers);
 }
 
 - (void)downloadPaperFinish:(NSNotification *)notification{

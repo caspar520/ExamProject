@@ -210,7 +210,7 @@
         [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
             if (obj && ([obj.type integerValue]==1 || [obj.type integerValue]==2 || [obj.type integerValue]==3)) {
                 //先判断试题类型：只有选择题和判断题可以进行判断，简答暂不做判断
-                NSLog(@"answer:%@,result:%@,score:%@",obj.selected,obj.analysis,obj.value);
+//                NSLog(@"answer:%@,result:%@,score:%@",obj.selected,obj.analysis,obj.value);
                 if (obj.analysis && [obj.analysis integerValue]!=-100) {
                     if ([obj.analysis isEqualToString:obj.selected]) {
                         //正确
@@ -234,12 +234,31 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
         if(self.navigationController){
+            [self clearPaperInfo];
+            
             AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
             CustomTabBarController *tabBarController=appDelegate.tabController;
             [tabBarController showTabBar];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+}
+
+- (void)clearPaperInfo{
+    NSArray *topics=_paperData.topics;
+    if (topics) {
+        for (TopicData *topic in topics) {
+            if (topic) {
+                if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+                    topic.analysis=[NSString stringWithFormat:@"%d",-100];
+                }else{
+                    topic.analysis=nil;
+                }
+            }
+        }
+    }
+    _paperData.userScore=[NSNumber numberWithInteger:0];
+    [DBManager addPaper:_paperData];
 }
 
 @end
