@@ -129,14 +129,8 @@
 //    } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             //进入关于
-            AboutViewController *aboutController = [[AboutViewController alloc]init];
+            AboutViewController *aboutController = [[[AboutViewController alloc]init] autorelease];
             [self.navigationController pushViewController:aboutController animated:YES];
-            [aboutController release];
-            
-            //隐藏TabBar
-            AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-            CustomTabBarController *tabBarController=appDelegate.tabController;
-            [tabBarController hideTabBar];
         }
 //    }
     

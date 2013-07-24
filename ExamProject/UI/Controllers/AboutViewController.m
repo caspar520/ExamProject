@@ -58,6 +58,16 @@
     [aboutContent2 release];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    //隐藏TabBar
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController hideTabBar];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

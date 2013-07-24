@@ -147,6 +147,7 @@ typedef enum
             UITextField *mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMaxX(mailTitleView.frame), 8 + 40*i, CGRectGetWidth(_inputBgView.frame)-CGRectGetWidth(mailTitleView.frame)-15, 30)];
             mailTextField.delegate = self;
             mailTextField.tag = i+INPUT_TAG;
+            mailTextField.returnKeyType = UIReturnKeyNext;
             mailTextField.backgroundColor = [UIColor clearColor];
             mailTextField.textAlignment = NSTextAlignmentLeft;
             mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -157,6 +158,9 @@ typedef enum
             //密码
             if (i == RegisterTag_Pwd || i == RegisterTag_PwdAgain) {
                 mailTextField.secureTextEntry = YES;
+                if (i == RegisterTag_PwdAgain) {
+                    mailTextField.returnKeyType = UIReturnKeyJoin;
+                }
             }
         }
     }
@@ -177,6 +181,15 @@ typedef enum
 #pragma mark - UITextFieldDelegate
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    if (textField.tag-INPUT_TAG == RegisterTag_Pwd
+        || textField.tag-INPUT_TAG == RegisterTag_PwdAgain) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.frame = CGRectMake(0, -60, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+        }];
+    } else {
+        self.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+    }
+    
     if (_delegate && [_delegate respondsToSelector:@selector(hideShowingPickerView)]) {
         [_delegate hideShowingPickerView];
     }
@@ -184,7 +197,39 @@ typedef enum
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
+//    if (textField == _mailTextField) {
+//        [_pwdTextField becomeFirstResponder];
+//    } else if (textField == _pwdTextField) {
+//        [textField resignFirstResponder];
+//        [self loginClicked:nil];
+//    } else {
+//        [textField resignFirstResponder];
+//    }
+    switch (textField.tag - INPUT_TAG) {
+        case RegisterTag_Mail:
+            [[_inputBgView viewWithTag:RegisterTag_Name+INPUT_TAG]becomeFirstResponder];
+            break;
+        case RegisterTag_Name:
+            [self modifyClicked:nil];
+            break;
+        case RegisterTag_Dept:
+            [[_inputBgView viewWithTag:RegisterTag_Pwd+INPUT_TAG]becomeFirstResponder];
+            break;
+        case RegisterTag_Pwd:
+            [[_inputBgView viewWithTag:RegisterTag_PwdAgain+INPUT_TAG]becomeFirstResponder];
+            break;
+        case RegisterTag_PwdAgain:
+            [textField resignFirstResponder];
+            [UIView animateWithDuration:0.3 animations:^{
+                self.frame = CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame));
+            }];
+            [self doRegister:nil];
+            [textField resignFirstResponder];
+            break;
+        default:
+            [textField resignFirstResponder];
+            break;
+    }
     return NO;
 }
 

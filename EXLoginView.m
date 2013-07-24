@@ -42,6 +42,7 @@
     
     _mailTextField = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(titleImgView.frame)+30, 260, 25)];
     _mailTextField.delegate = self;
+    _mailTextField.returnKeyType = UIReturnKeyNext;
     _mailTextField.backgroundColor = [UIColor clearColor];
     _mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
     _mailTextField.placeholder = @"请输入邮箱";
@@ -54,6 +55,7 @@
     
     _pwdTextField = [[UITextField alloc]initWithFrame:CGRectMake(CGRectGetMinX(_mailTextField.frame), CGRectGetMaxY(_mailTextField.frame)+10, 260, 25)];
     _pwdTextField.delegate = self;
+    _pwdTextField.returnKeyType = UIReturnKeyJoin;
     _pwdTextField.secureTextEntry = YES;
     _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.placeholder = @"请输入密码";
@@ -121,7 +123,6 @@
 - (void)loginClicked:(id)sender
 {
     //登录
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     if (![self checkInputAvailiable]) {
         return;
     }
@@ -134,7 +135,6 @@
 - (void)registerClicked:(id)sender
 {
     //注册
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     if (_delegate && [_delegate respondsToSelector:@selector(registerClicked)]) {
         [_delegate registerClicked];
     }
@@ -142,9 +142,7 @@
 
 - (void)autoLoginClicked:(id)sender
 {
-    //自动登录
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
+    //自动登录    
     BOOL isAutoLogin = [[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN];
     if (!isAutoLogin) {
         [sender setImage:[UIImage imageNamed:@"add_story_to_local_category_cancel.png"] forState:UIControlStateNormal];
@@ -158,7 +156,6 @@
 - (void)forgetPwdClicked:(id)sender
 {
     //忘记密码
-    NSLog(@"%s", __PRETTY_FUNCTION__);
     if (_delegate && [_delegate respondsToSelector:@selector(forgetPwdClicked)]) {
         [_delegate forgetPwdClicked];
     }
@@ -167,8 +164,14 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [textField resignFirstResponder];
-    
+    if (textField == _mailTextField) {
+        [_pwdTextField becomeFirstResponder];
+    } else if (textField == _pwdTextField) {
+        [textField resignFirstResponder];
+        [self loginClicked:nil];
+    } else {
+        [textField resignFirstResponder];
+    }
     return NO;
 }
 
