@@ -33,8 +33,16 @@
 - (void)refreshUI{
     [super refreshUI];
     optionTipLabel.text=@"输入答案";
+    if (shortAnswerBGView==nil) {
+        shortAnswerBGView=[[UIImageView alloc] initWithFrame:
+                            CGRectMake(0, 0, CGRectGetWidth(answerContainerView.frame)-20, CGRectGetHeight(answerContainerView.frame)-20)];
+        shortAnswerBGView.backgroundColor=[UIColor clearColor];
+        shortAnswerBGView.userInteractionEnabled=YES;
+        shortAnswerBGView.image=[UIImage imageNamed:@"topic_bg.png"];
+        [answerContainerView addSubview:shortAnswerBGView];
+    }
     if (answerTextView==nil) {
-        answerTextView=[[UITextView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(answerContainerView.frame)-20, CGRectGetHeight(answerContainerView.frame)-20)];
+        answerTextView=[[UITextView alloc] initWithFrame:CGRectMake(20, 15, CGRectGetWidth(answerContainerView.frame)-50, CGRectGetHeight(answerContainerView.frame)-50)];
         answerTextView.delegate = self;
         answerTextView.returnKeyType = UIReturnKeyDone;
         answerTextView.keyboardType = UIKeyboardTypeDefault;

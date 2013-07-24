@@ -29,6 +29,7 @@
     UITextView      *answerTextView;
     
     UIScrollView    *answerContainerView;
+    UIImageView     *shortAnswerBGView;
 }
 
 

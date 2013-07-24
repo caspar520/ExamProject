@@ -35,6 +35,7 @@
     [questionLabel release];
     [optionTipLabel release];
     [answerTextView release];
+    [shortAnswerBGView release];
     [answerContainerView release];
     [super dealloc];
 }
