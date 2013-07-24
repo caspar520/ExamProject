@@ -51,6 +51,8 @@
         orderLabel=[[UILabel alloc] initWithFrame:CGRectMake(10,10,50,30)];
         orderLabel.textColor=[UIColor blackColor];
         orderLabel.text=[NSString stringWithFormat:@"第%d题",index];
+        CGSize autoSize = [orderLabel sizeThatFits:CGSizeMake(0, 30)];
+        orderLabel.frame = CGRectMake(10, 10, autoSize.width, 30);
         orderLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
         orderLabel.textAlignment=UITextAlignmentLeft;
         [self addSubview:orderLabel];
@@ -60,7 +62,7 @@
         questionBackground=[[UIImageView alloc] initWithFrame:
                             CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(orderLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(orderLabel.frame),90)];
         questionBackground.backgroundColor=[UIColor clearColor];
-        questionBackground.image=[UIImage imageNamed:@"topic_bg.9.png"];
+        questionBackground.image=[UIImage imageNamed:@"topic_bg.png"];
         [self addSubview:questionBackground];
     }
 	

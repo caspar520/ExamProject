@@ -43,12 +43,13 @@
     [super viewDidLoad];
     self.title=@"考试";
     self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
+	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
     self.navigationItem.leftBarButtonItem= backButton;
+    self.navigationController.toolbar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     
     float width=CGRectGetWidth(self.navigationController.toolbar.frame)/3;
     if (displayTopicType==kDisplayTopicType_Default) {
-        UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"submit" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
+        UIBarButtonItem*submitButton = [[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)];
         self.navigationItem.rightBarButtonItem= submitButton;
         
         UIBarButtonItem *collectButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)];
@@ -99,6 +100,15 @@
     [tabBarController hideTabBar];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //返回回调
+    if ([self.navigationController.viewControllers indexOfObject:self]==NSNotFound) {
+        // back button was pressed.  We know this is true because self is no longer
+        // in the navigation stack.
+    }
+}
+
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
 }
@@ -106,9 +116,6 @@
 - (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-    CustomTabBarController *tabBarController=appDelegate.tabController;
-    [tabBarController showTabBar];
 }
 
 - (void)didReceiveMemoryWarning
@@ -228,6 +235,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex==1) {
         if(self.navigationController){
+            AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+            CustomTabBarController *tabBarController=appDelegate.tabController;
+            [tabBarController showTabBar];
             [self.navigationController popViewControllerAnimated:YES];
         }
     }

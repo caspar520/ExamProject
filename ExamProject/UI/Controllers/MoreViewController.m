@@ -82,17 +82,17 @@
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section;
 {
-    if (section == 0) {
-        return 1;
-    } else if (section == 1) {
+//    if (section == 0) {
+//        return 1;
+//    } else if (section == 1) {
         return 3;
-    }
-    return 0;
+//    }
+//    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -102,11 +102,12 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    if (indexPath.section == 0) {
-        cell.textLabel.text = @"帐号";
-    } else if (indexPath.section == 1) {
+//    if (indexPath.section == 0) {
+//        cell.textLabel.text = @"帐号";
+//    } else
+//    if (indexPath.section == 1) {
         cell.textLabel.text = [_cellNames objectAtIndex:indexPath.row];
-    }
+//    }
     
     return cell;
 }
@@ -114,18 +115,18 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        //进入帐号
-        RegisterViewController *registerController = [[RegisterViewController alloc]initWithUserData:[DBManager getDefaultUserData]];
-        registerController.modifyMode = YES;
-        [self.navigationController pushViewController:registerController animated:YES];
-        [registerController release];
-        
-        //隐藏TabBar
-        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-        CustomTabBarController *tabBarController=appDelegate.tabController;
-        [tabBarController hideTabBar];	
-    } else if (indexPath.section == 1) {
+//    if (indexPath.section == 0) {
+//        //进入帐号
+//        RegisterViewController *registerController = [[RegisterViewController alloc]initWithUserData:[DBManager getDefaultUserData]];
+//        registerController.modifyMode = YES;
+//        [self.navigationController pushViewController:registerController animated:YES];
+//        [registerController release];
+//        
+//        //隐藏TabBar
+//        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+//        CustomTabBarController *tabBarController=appDelegate.tabController;
+//        [tabBarController hideTabBar];	
+//    } else if (indexPath.section == 1) {
         if (indexPath.row == 2) {
             //进入关于
             AboutViewController *aboutController = [[AboutViewController alloc]init];
@@ -137,7 +138,7 @@
             CustomTabBarController *tabBarController=appDelegate.tabController;
             [tabBarController hideTabBar];
         }
-    }
+//    }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
