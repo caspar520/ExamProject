@@ -71,6 +71,10 @@
     }
     
     [_paperListView refresh];
+    
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
 }
 
 - (void)viewDidAppear:(BOOL)animated{
