@@ -64,6 +64,15 @@
 }
 
 #pragma mark UITextViewDelegate
+-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    NSString *returnChar = [[NSString alloc]initWithFormat:@"%c",0x000A];
+    if ([text isEqualToString:returnChar]) {
+        [answerTextView resignFirstResponder];
+    }
+    [returnChar release];
+    return YES;
+}
+
 - (void)textViewDidBeginEditing:(UITextView *)textView{
     [answerTextView becomeFirstResponder];
     [self keyboardWillAppear];
