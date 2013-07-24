@@ -158,7 +158,7 @@
     }
     topic.topicId = topicData.topicId;
     topic.question = topicData.question;
-    topic.type = topicData.type;
+    topic.type = [NSNumber numberWithInt:[topicData.type integerValue]];
     topic.answers = topicData.answers;
     topic.corrects = topicData.corrects;
     topic.selected = topicData.selected;

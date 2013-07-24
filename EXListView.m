@@ -32,6 +32,9 @@
 		[_tableView setDelegate:delegate];
  		[_tableView setDataSource:delegate];
  		[self addSubview: _tableView];
+        
+        _tableView.tableHeaderView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 10)] autorelease];
+        _tableView.tableFooterView = [[[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(_tableView.frame), 30)] autorelease];
     }
     [_tableView reloadData];
 }
