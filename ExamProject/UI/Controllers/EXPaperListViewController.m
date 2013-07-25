@@ -55,6 +55,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:NOTIFICATION_PAPERS_DOWNLOAD_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshList:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -128,6 +129,10 @@
     [_netPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
     
     [_paperListView refresh];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+}
+
+- (void)downloadFailure:(NSNotification *)notification{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
 }
 
