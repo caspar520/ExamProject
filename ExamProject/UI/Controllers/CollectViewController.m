@@ -70,9 +70,33 @@
     
     [_paperListView refresh];
     
+    if ([_collectedPaperList count] > 0) {
+        [self showNullView:YES];
+    } else {
+        [self showNullView:NO];
+    }
+    
     AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
     CustomTabBarController *tabBarController=appDelegate.tabController;
     [tabBarController showTabBar];
+}
+
+- (void)showNullView:(BOOL)isHidden
+{
+    if (_nullView == nil && !isHidden) {
+        _nullView = [[UIImageView alloc]initWithFrame:CGRectMake(94, 40, 132, 132)];
+        _nullView.image = [UIImage imageNamed:@"list_null.png"];
+        [self.view addSubview:_nullView];
+    }
+    _nullView.hidden = isHidden;
+    if (_nullLabel == nil && !isHidden) {
+        _nullLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_nullView.frame)+10, 320, 30)];
+        _nullLabel.text = @"你还没有收藏!";
+        _nullLabel.textAlignment = NSTextAlignmentCenter;
+        _nullLabel.font = [UIFont systemFontOfSize:14];
+        [self.view addSubview:_nullLabel];
+    }
+    _nullLabel.hidden = isHidden;
 }
 
 - (void)didReceiveMemoryWarning

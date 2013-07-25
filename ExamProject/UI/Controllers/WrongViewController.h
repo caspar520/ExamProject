@@ -13,6 +13,9 @@
 @interface WrongViewController : UIViewController{
     EXListView              *_paperListView;
     NSMutableArray          *_wrongPaperList;
+    
+    UIImageView             *_nullView;
+    UILabel                 *_nullLabel;
 }
 
 @end

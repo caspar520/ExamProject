@@ -13,6 +13,9 @@
 @interface CollectViewController : UIViewController{
     EXListView              *_paperListView;
     NSMutableArray          *_collectedPaperList;
+    
+    UIImageView             *_nullView;
+    UILabel                 *_nullLabel;
 }
 
 @end
