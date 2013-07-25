@@ -189,6 +189,7 @@
 - (void)collectItemClicked:(id)sender{
 	_paperData.fav=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
+    [DBManager addPaper:_paperData];
     
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [alert show];
@@ -227,6 +228,7 @@
             }
         }];
         _paperData.userScore=[NSNumber numberWithInteger:mark];
+        [DBManager addPaper:_paperData];
     }
 }
 

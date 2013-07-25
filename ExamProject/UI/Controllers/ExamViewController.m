@@ -56,7 +56,7 @@
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
-    [self clearPaperInfo];
+//    [self clearPaperInfo];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -70,7 +70,7 @@
     [_localPaperList removeAllObjects];
     [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
     
-//    [self clearPaperInfo];
+    [self clearPaperInfo];
     
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
