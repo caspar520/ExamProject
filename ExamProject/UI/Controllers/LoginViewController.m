@@ -135,7 +135,7 @@
         userData.fullName = [responsePostBody objectForKey:@"fullName"];
         [DBManager addUser:userData];
         [userData release];
-        NSLog(@"responsePostBody = %@", responsePostBody);
+//        NSLog(@"responsePostBody = %@", responsePostBody);
         
         //保存帐户密码到keychain中
         NSString *userName = [responsePostBody objectForKey:@"email"];
@@ -152,9 +152,9 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
-    
-    NSLog(@"errorCode=%d", [[request error] code]);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    
+//    NSLog(@"errorCode=%d", [[request error] code]);
     
     [[Progress sharedInstance]hide:YES];
     

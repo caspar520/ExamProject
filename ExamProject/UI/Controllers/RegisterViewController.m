@@ -199,7 +199,7 @@
 #pragma mark - ASIHTTPRequestDelegate
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
 //    NSLog(@"[request responseStatusMessage] = %@ responseStatusCode = %d", [request responseStatusMessage], [request responseStatusCode]);
 //    NSLog(@"responseString = %@", [request responseString]);
     
@@ -227,9 +227,9 @@
 
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-    NSLog(@"%s", __PRETTY_FUNCTION__);
+//    NSLog(@"%s", __PRETTY_FUNCTION__);
     
-    NSLog(@"errorCode=%d", [[request error] code]);
+//    NSLog(@"errorCode=%d", [[request error] code]);
     
     [[Progress sharedInstance]hide:YES];
     
