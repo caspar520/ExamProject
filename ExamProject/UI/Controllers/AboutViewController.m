@@ -41,7 +41,7 @@
     
     UITextView *urlTextView = [[UITextView alloc]initWithFrame:CGRectMake(CGRectGetMinX(aboutContent1.frame)-8, CGRectGetMaxY(aboutContent1.frame)-12, 300, 30)];
     urlTextView.backgroundColor = [UIColor clearColor];
-    urlTextView.textAlignment = NSTextAlignmentLeft;
+    urlTextView.textAlignment = UITextAlignmentLeft;
     urlTextView.text = @"http://www.yuyang.gov.cn";
     urlTextView.font = [UIFont systemFontOfSize:14];
     urlTextView.editable = NO;

@@ -103,7 +103,7 @@
         tabBarTitle.backgroundColor = [UIColor clearColor];
         tabBarTitle.tag = TAG_TABBAR_TITLE_ORIGIN+i;        
         tabBarTitle.text = [tabbarTitles objectAtIndex:i];
-        tabBarTitle.textAlignment = NSTextAlignmentCenter;
+        tabBarTitle.textAlignment = UITextAlignmentCenter;
         tabBarTitle.font = [UIFont systemFontOfSize:12];
         tabBarTitle.textColor = [UIColor blackColor];
         [bt addSubview:tabBarTitle];

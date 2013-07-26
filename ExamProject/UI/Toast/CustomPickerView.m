@@ -124,7 +124,7 @@
     }
 	[aView setOpaque:TRUE];
 	[aView setBackgroundColor:[UIColor clearColor]];
-    [aView setTextAlignment:NSTextAlignmentCenter];
+    [aView setTextAlignment:UITextAlignmentCenter];
     if (component == 0) {
         aView.text = [_allCities objectAtIndex:row];
     } else if (component == 1) {

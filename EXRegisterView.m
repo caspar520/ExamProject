@@ -115,7 +115,7 @@ typedef enum
         UILabel *mailTitleView = [[UILabel alloc]initWithFrame:CGRectMake(10, 40*i, 55, 40)];
         mailTitleView.backgroundColor = [UIColor clearColor];
         mailTitleView.textColor = [UIColor blackColor];
-        mailTitleView.textAlignment = NSTextAlignmentLeft;
+        mailTitleView.textAlignment = UITextAlignmentLeft;
         mailTitleView.font = [UIFont systemFontOfSize:20];
         mailTitleView.text = [registerNames objectAtIndex:i];
         CGSize autoSize = [mailTitleView sizeThatFits:CGSizeMake(0, 20)];
@@ -131,7 +131,7 @@ typedef enum
             }
             _regionLabel.backgroundColor = [UIColor clearColor];
             _regionLabel.textColor = [UIColor colorWithRed:0xA4/255.0f green:0xA4/255.0f blue:0xA4/255.0f alpha:1.0f];
-            _regionLabel.textAlignment = NSTextAlignmentLeft;
+            _regionLabel.textAlignment = UITextAlignmentLeft;
             _regionLabel.font = [UIFont systemFontOfSize:17];
             _regionLabel.text = [registerPlaceholderNames objectAtIndex:i];
             [_inputBgView addSubview:_regionLabel];
@@ -149,7 +149,7 @@ typedef enum
             mailTextField.tag = i+INPUT_TAG;
             mailTextField.returnKeyType = UIReturnKeyNext;
             mailTextField.backgroundColor = [UIColor clearColor];
-            mailTextField.textAlignment = NSTextAlignmentLeft;
+            mailTextField.textAlignment = UITextAlignmentLeft;
             mailTextField.autocapitalizationType = UITextAutocapitalizationTypeNone;
             mailTextField.placeholder = [registerPlaceholderNames objectAtIndex:i];
             [_inputBgView addSubview:mailTextField];

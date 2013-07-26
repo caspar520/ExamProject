@@ -97,7 +97,7 @@
     if (_nullLabel == nil && !isHidden) {
         _nullLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(_nullView.frame)+10, 320, 30)];
         _nullLabel.text = @"你还没有错题!";
-        _nullLabel.textAlignment = NSTextAlignmentCenter;
+        _nullLabel.textAlignment = UITextAlignmentCenter;
         _nullLabel.font = [UIFont systemFontOfSize:14];
         [self.view addSubview:_nullLabel];
     }
