@@ -38,6 +38,7 @@
 - (void)dealloc
 {
     [_loginView release];
+    [_splashView release];
     [_keychainItemWrapper release];
     
     [super dealloc];
@@ -48,13 +49,45 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor clearColor];
     
     _loginView = [[EXLoginView alloc]initWithFrame:CGRectMake(0, 0, 320, SCREEN_HEIGHT)];
     _loginView.delegate = self;
     _loginView.backgroundColor = [UIColor colorWithRed:0x8e/255.0f green:0xcb/255.0f blue:0x49/255.0f alpha:1.0f];
     [self.view addSubview:_loginView];
     
+    UITapGestureRecognizer *tapRecognize = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapClicked)];
+    tapRecognize.numberOfTapsRequired = 1;
+    [_loginView addGestureRecognizer:tapRecognize];
+    [tapRecognize release];
+    
+    if (_needShowSplash) {
+        [[UIApplication sharedApplication]setStatusBarHidden:YES];
+        
+        _splashView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+        _splashView.image = [UIImage imageNamed:@"splash.png"];
+        [self.view addSubview:_splashView];
+        
+        [self performSelector:@selector(removeSplash) withObject:nil afterDelay:2.0f];
+    }
+    
+}
+
+//移除闪屏
+- (void)removeSplash
+{
+    [[UIApplication sharedApplication]setStatusBarHidden:NO];
+    
+    _splashView.hidden = YES;
+    [_splashView removeFromSuperview];
+    [_splashView release];
+    _splashView = nil;
+}
+
+- (void)tapClicked
+{
+    [_loginView.mailTextField resignFirstResponder];
+    [_loginView.pwdTextField resignFirstResponder];
 }
 
 - (void)viewWillAppear:(BOOL)animated

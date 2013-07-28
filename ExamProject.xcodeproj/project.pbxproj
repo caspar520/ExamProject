@@ -18,6 +18,7 @@
 		30137202179B762300F2BFCE /* EXDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 301371FF179B762300F2BFCE /* EXDownloadManager.m */; };
 		30137203179B762300F2BFCE /* EXNetDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 30137201179B762300F2BFCE /* EXNetDataManager.m */; };
 		3013720E179BAD4500F2BFCE /* toast_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3013720D179BAD4500F2BFCE /* toast_bg.png */; };
+		3017D49717A4E02800AF9719 /* splash.png in Resources */ = {isa = PBXBuildFile; fileRef = 3017D49617A4E02800AF9719 /* splash.png */; };
 		301A74B41797C30600CCB95D /* CustomTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B31797C30600CCB95D /* CustomTabBarController.m */; };
 		301A74BA1797C51700CCB95D /* KPStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B71797C51700CCB95D /* KPStore.m */; };
 		301A74BB1797C51700CCB95D /* NSManagedObject+ActiveRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = 301A74B91797C51700CCB95D /* NSManagedObject+ActiveRecord.m */; };
@@ -143,6 +144,7 @@
 		30137200179B762300F2BFCE /* EXNetDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetDataManager.h; sourceTree = "<group>"; };
 		30137201179B762300F2BFCE /* EXNetDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetDataManager.m; sourceTree = "<group>"; };
 		3013720D179BAD4500F2BFCE /* toast_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = toast_bg.png; sourceTree = "<group>"; };
+		3017D49617A4E02800AF9719 /* splash.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = splash.png; sourceTree = "<group>"; };
 		301A74B21797C30600CCB95D /* CustomTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTabBarController.h; sourceTree = "<group>"; };
 		301A74B31797C30600CCB95D /* CustomTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTabBarController.m; sourceTree = "<group>"; };
 		301A74B61797C51700CCB95D /* KPStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KPStore.h; sourceTree = "<group>"; };
@@ -470,6 +472,7 @@
 		309A4BF8179E5A7B00776409 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				3017D49617A4E02800AF9719 /* splash.png */,
 				309A4BF9179E5A9C00776409 /* login_logo.png */,
 				309A4BFB179E5C7400776409 /* gray_button_bg_normal.png */,
 				309A4C05179E79F800776409 /* gray_button_bg_press.png */,
@@ -770,6 +773,7 @@
 				9C790CC0179E431A0077621B /* list_null.png in Resources */,
 				9C790CC3179E431A0077621B /* tabBarItem_selected_2.png in Resources */,
 				9C790CC1179E431A0077621B /* tabBarItem_selected_4.png in Resources */,
+				3017D49717A4E02800AF9719 /* splash.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
