@@ -38,7 +38,7 @@
     [_nullView release];
     [_nullLabel release];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self clearPaperInfo];
+//    [self clearPaperInfo];
     [super dealloc];
 }
 
@@ -70,7 +70,7 @@
     [_localPaperList removeAllObjects];
     [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
     
-    [self clearPaperInfo];
+//    [self clearPaperInfo];
     
     if (_paperListView==nil) {
         _paperListView=[[EXListView alloc] initWithFrame:self.view.frame];
