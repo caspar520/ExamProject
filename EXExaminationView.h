@@ -30,6 +30,7 @@
     
     UIScrollView    *answerContainerView;
     UIImageView     *shortAnswerBGView;
+    UILabel         *shortAnswerLabel;
 }
 
 

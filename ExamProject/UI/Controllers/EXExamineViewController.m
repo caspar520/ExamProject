@@ -211,7 +211,6 @@
         [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
             if (obj && ([obj.type integerValue]==1 || [obj.type integerValue]==2 || [obj.type integerValue]==3)) {
                 //先判断试题类型：只有选择题和判断题可以进行判断，简答暂不做判断
-//                NSLog(@"answer:%@,result:%@,score:%@",obj.selected,obj.analysis,obj.value);
                 if (obj.analysis && [obj.analysis integerValue]!=-100) {
                     if ([obj.analysis isEqualToString:obj.selected]) {
                         //正确

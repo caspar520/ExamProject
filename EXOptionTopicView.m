@@ -28,13 +28,11 @@
     //options check view
     NSArray *optionsArray=[self.metaData.answers componentsSeparatedByString:@"|"];
     if (optionsArray) {
-        if (answerContainerView.contentSize.height<optionsArray.count*50) {
-            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, (optionsArray.count+1)*50);
-        }
+        NSInteger height=2;
         for (NSString *obj in optionsArray) {
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
-                EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, idx*50+2, 45, 45) checked:NO];
+                EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, height, 45, 45) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
@@ -43,19 +41,26 @@
                 [answerContainerView addSubview:checkView];
                 [checkView release];
                 
-                UILabel *optionLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(checkView.frame)+8,idx*50+2,200,45)];
+                UILabel *optionLabel=[[UILabel alloc] init];
                 optionLabel.textColor=[UIColor blackColor];
-                optionLabel.text=obj;
+                CGSize size=[obj sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(200, MAXFLOAT) lineBreakMode:NSLineBreakByWordWrapping];
+                if (size.height<50) {
+                    size.height=50;
+                }
+                optionLabel.frame=CGRectMake(CGRectGetMaxX(checkView.frame)+8, height, 200, size.height);
                 optionLabel.backgroundColor=[UIColor clearColor];
                 optionLabel.textAlignment=UITextAlignmentLeft;
+                optionLabel.numberOfLines=0;
                 optionLabel.text=obj;
                 [answerContainerView addSubview:optionLabel];
                 [optionLabel release];
+                
+                height+=size.height+2;
             }
         }
         
-        if (answerContainerView.contentSize.height<50*optionsArray.count) {
-            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 50*optionsArray.count);
+        if (answerContainerView.contentSize.height<height) {
+            answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, height);
         }
     }
 }

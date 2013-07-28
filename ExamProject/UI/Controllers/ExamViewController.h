@@ -16,6 +16,8 @@
     
     UIImageView             *_nullView;
     UILabel                 *_nullLabel;
+    
+    PaperData               *_selectedPaper;
 }
 
 @end

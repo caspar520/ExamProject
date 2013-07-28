@@ -37,6 +37,7 @@
     [answerTextView release];
     [shortAnswerBGView release];
     [answerContainerView release];
+    [shortAnswerLabel release];
     [super dealloc];
 }
 
