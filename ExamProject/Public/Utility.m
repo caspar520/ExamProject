@@ -56,7 +56,11 @@
                 //正确答案
                 if ([[answer objectForKey:@"isCorrect"]boolValue]) {
                     if (tData.selected == nil) {
-                        tData.selected = [NSString stringWithFormat:@"%u",[answers indexOfObject:answer]];
+                        if ([tData.type integerValue]==3) {
+                            tData.selected = [NSString stringWithFormat:@"%d",0-[answers indexOfObject:answer]];
+                        }else{
+                            tData.selected = [NSString stringWithFormat:@"%u",[answers indexOfObject:answer]];
+                        }
                     } else {
                         tData.selected = [tData.selected stringByAppendingFormat:@"|%u",[answers indexOfObject:answer]];
                     }

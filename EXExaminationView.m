@@ -77,7 +77,6 @@
         questionLabel.numberOfLines=3;
         [self addSubview:questionLabel];
     }
-	
 	if (optionTipLabel==nil) {
         optionTipLabel=[[UILabel alloc] initWithFrame:
                         CGRectMake(CGRectGetMinX(orderLabel.frame),CGRectGetMaxY(questionBackground.frame)+5,70,30)];
@@ -108,7 +107,7 @@
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
-                    result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
+                    result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index-1];
                     break;
                 }
             }
@@ -119,7 +118,7 @@
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
                     if (result==nil || result.length==0) {
-                        result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
+                        result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index-1];
                     }else{
                         result=[result stringByAppendingString:[NSString stringWithFormat:@"|%d",((EXCheckOptionView *)item).index]];
                     }
