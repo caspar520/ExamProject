@@ -15,6 +15,11 @@
 {
     EXLoginView         *_loginView;
     KeychainItemWrapper *_keychainItemWrapper;
+    BOOL                _needShowSplash;
+    
+    UIImageView         *_splashView;
 }
+
+@property (nonatomic,assign)BOOL needShowSplash;
 
 @end

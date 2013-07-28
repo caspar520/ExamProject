@@ -45,7 +45,8 @@
     }
     
     //若未登录 展示登录界面
-    if (![[BusinessCenter sharedInstance]isLogin]) {
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN]
+        || ![[BusinessCenter sharedInstance]isLogin]) {
         [self initRegisterPage];
     }
     
@@ -126,6 +127,7 @@
 - (void)initRegisterPage
 {
     LoginViewController *loginViewController = [[LoginViewController alloc]init];
+    loginViewController.needShowSplash = YES;
     UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
     [loginViewController release];
     [_tabController presentModalViewController:navController animated:NO];
