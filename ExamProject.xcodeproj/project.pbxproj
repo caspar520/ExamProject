@@ -120,6 +120,7 @@
 		9CC1941D179A2ACE00781922 /* EXPaperListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC1941C179A2ACE00781922 /* EXPaperListViewController.m */; };
 		9CC19421179A2CE300781922 /* EXPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19420179A2CE300781922 /* EXPaperCell.m */; };
 		9CC19424179A36C200781922 /* EXNetPaperCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CC19423179A36C200781922 /* EXNetPaperCell.m */; };
+		9CD1976A17A50E1100EC5E8A /* splash@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CD1976917A50E1100EC5E8A /* splash@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -298,6 +299,7 @@
 		9CC19420179A2CE300781922 /* EXPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXPaperCell.m; sourceTree = "<group>"; };
 		9CC19422179A36C200781922 /* EXNetPaperCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXNetPaperCell.h; sourceTree = "<group>"; };
 		9CC19423179A36C200781922 /* EXNetPaperCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXNetPaperCell.m; sourceTree = "<group>"; };
+		9CD1976917A50E1100EC5E8A /* splash@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "splash@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +474,7 @@
 		309A4BF8179E5A7B00776409 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				9CD1976917A50E1100EC5E8A /* splash@2x.png */,
 				3017D49617A4E02800AF9719 /* splash.png */,
 				309A4BF9179E5A9C00776409 /* login_logo.png */,
 				309A4BFB179E5C7400776409 /* gray_button_bg_normal.png */,
@@ -774,6 +777,7 @@
 				9C790CC3179E431A0077621B /* tabBarItem_selected_2.png in Resources */,
 				9C790CC1179E431A0077621B /* tabBarItem_selected_4.png in Resources */,
 				3017D49717A4E02800AF9719 /* splash.png in Resources */,
+				9CD1976A17A50E1100EC5E8A /* splash@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
