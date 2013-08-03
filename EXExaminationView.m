@@ -120,7 +120,7 @@
                     if (result==nil || result.length==0) {
                         result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index-1];
                     }else{
-                        result=[result stringByAppendingString:[NSString stringWithFormat:@"|%d",((EXCheckOptionView *)item).index]];
+                        result=[result stringByAppendingString:[NSString stringWithFormat:@"|%d",((EXCheckOptionView *)item).index-1]];
                     }
                 }
             }

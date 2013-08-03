@@ -26,18 +26,32 @@
 - (void)refreshUI{
     [super refreshUI];
     //options check view
+    //获得上一次的答题情况
+    NSArray *components=[self.metaData.analysis componentsSeparatedByString:@"|"];
+    
     NSArray *optionsArray=[self.metaData.answers componentsSeparatedByString:@"|"];
     if (optionsArray) {
         NSInteger height=2;
         for (NSString *obj in optionsArray) {
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
+                
+                BOOL isChecked=NO;
+                if (components && components.count>0) {
+                    for (NSString *item in components) {
+                        if (item && [item integerValue]==idx) {
+                            isChecked=YES;
+                        }
+                    }
+                }
                 EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, height, 45, 45) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
                 checkView.delegate=self;
                 checkView.exclusiveTouch=YES;
                 checkView.index=idx+1;
                 checkView.enabled=YES;
+                checkView.checked=isChecked;
+                [checkView updateCheckBoxImage];
                 [answerContainerView addSubview:checkView];
                 [checkView release];
                 

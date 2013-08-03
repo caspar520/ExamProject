@@ -32,5 +32,6 @@
 @property (nonatomic,assign)int     index;
 
 - (id) initWithFrame:(CGRect)aFrame checked:(BOOL)aChecked;
+- (void) updateCheckBoxImage;
 
 @end

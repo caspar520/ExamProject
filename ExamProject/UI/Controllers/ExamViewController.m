@@ -175,13 +175,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //需要判断是否答过，如果答过直接进入答题界面，否则弹出选择框
-//    id paperMetaData=[_localPaperList objectAtIndex:indexPath.row];
-//    if (paperMetaData) {
-//        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-//        [self.navigationController pushViewController:examineController animated:YES];
-//        examineController.displayTopicType=kDisplayTopicType_Default;
-//        examineController.paperData=paperMetaData;
-//    }
     if ([self judgeIsPaperUsed:[_localPaperList objectAtIndex:indexPath.row]]) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"试卷已经提交过" delegate:self cancelButtonTitle:@"查看结果" otherButtonTitles:@"重新考试", nil];
         [alert show];
@@ -237,20 +230,22 @@
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex==0) {
-        EXResultViewController *resultController=[[EXResultViewController alloc] init];
-        resultController.paperData=_selectedPaper;
-        [self.navigationController pushViewController:resultController animated:YES];
-    }else if (buttonIndex==1){
+//    if (buttonIndex==0) {
+//        EXResultViewController *resultController=[[EXResultViewController alloc] init];
+//        resultController.paperData=_selectedPaper;
+//        [self.navigationController pushViewController:resultController animated:YES];
+        
+//    }else
+    if (buttonIndex==1){
         if (_selectedPaper) {
             [self clearPaperInfo];
-            
-            EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-            [self.navigationController pushViewController:examineController animated:YES];
-            examineController.displayTopicType=kDisplayTopicType_Default;
-            examineController.paperData=_selectedPaper;
         }
     }
+    
+    EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:examineController animated:YES];
+    examineController.displayTopicType=kDisplayTopicType_Default;
+    examineController.paperData=_selectedPaper;
 }
 
 @end
