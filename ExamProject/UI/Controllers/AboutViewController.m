@@ -49,11 +49,11 @@
 //    [self.view addSubview:urlTextView];
 //    [urlTextView release];
     
-    UILabel *aboutContent2 = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(aboutContent1.frame), 300, 240)];
-    aboutContent2.backgroundColor = [UIColor clearColor];
+    UILabel *aboutContent2 = [[UILabel alloc]initWithFrame:CGRectMake(10, CGRectGetMaxY(aboutContent1.frame), 300, 200)];
+    aboutContent2.backgroundColor = [UIColor grayColor];
     aboutContent2.numberOfLines = 0;
     aboutContent2.font = [UIFont systemFontOfSize:14];
-    aboutContent2.text = @"电话：\n(+86)0912-3525024\n\n申明：\n此版本适用于iOS5.1以上版本操作系统手机，对于在使用其他操作系统的手机上使用本软件，出现的任何问题，不承担任何责任。本软件的下载，安装和使用完全免费，不收取任何费用，下载，使用过程中产生的GPRS数据流量费用，由运营商收取。";
+    aboutContent2.text = @"申明：\n此版本适用于iOS5.1以上版本操作系统手机，对于在使用其他操作系统的手机上使用本软件，出现的任何问题，不承担任何责任。本软件的下载，安装和使用完全免费，不收取任何费用，下载，使用过程中产生的GPRS数据流量费用，由运营商收取。";
     [self.view addSubview:aboutContent2];
     [aboutContent2 release];
 }
