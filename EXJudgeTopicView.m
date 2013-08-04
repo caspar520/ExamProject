@@ -26,20 +26,44 @@
 - (void)refreshUI{
     [super refreshUI];
     //options check view
+    NSArray *components=[self.metaData.analysis componentsSeparatedByString:@"|"];
+    BOOL isChecked=NO;
+    
     EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-200-40)/2, 10, 100, 40) checked:NO];
     rightCheckView.backgroundColor=[UIColor clearColor];
     rightCheckView.delegate=self;
     rightCheckView.exclusiveTouch=YES;
     rightCheckView.index=0;
     [answerContainerView addSubview:rightCheckView];
+    
+    if (components && components.count>0) {
+        for (NSString *item in components) {
+            if (item && [item integerValue]==rightCheckView.index) {
+                isChecked=YES;
+            }
+        }
+    }
+    rightCheckView.checked=isChecked;
+    [rightCheckView updateCheckBoxImage];
     [rightCheckView release];
     
+    isChecked=NO;
     EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+40, 10, 100, 40) checked:NO];
     wrongCheckView.backgroundColor=[UIColor clearColor];
     wrongCheckView.delegate=self;
     wrongCheckView.exclusiveTouch=YES;
     wrongCheckView.index=-1;
     [answerContainerView addSubview:wrongCheckView];
+    
+    if (components && components.count>0) {
+        for (NSString *item in components) {
+            if (item && [item integerValue]==wrongCheckView.index) {
+                isChecked=YES;
+            }
+        }
+    }
+    wrongCheckView.checked=isChecked;
+    [wrongCheckView updateCheckBoxImage];
     [wrongCheckView release];
     
     if (answerContainerView.contentSize.height<45*2) {

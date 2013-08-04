@@ -188,6 +188,7 @@
             [self.navigationController pushViewController:examineController animated:YES];
             examineController.displayTopicType=kDisplayTopicType_Default;
             examineController.paperData=paperMetaData;
+            examineController.isNotOnAnswering=NO;
         }
     }
 }
@@ -236,16 +237,18 @@
 //        [self.navigationController pushViewController:resultController animated:YES];
         
 //    }else
+    EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
     if (buttonIndex==1){
         if (_selectedPaper) {
             [self clearPaperInfo];
         }
     }
-    
-    EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
     [self.navigationController pushViewController:examineController animated:YES];
     examineController.displayTopicType=kDisplayTopicType_Default;
     examineController.paperData=_selectedPaper;
+    if (buttonIndex==1) {
+        examineController.isNotOnAnswering=NO;
+    }
 }
 
 @end

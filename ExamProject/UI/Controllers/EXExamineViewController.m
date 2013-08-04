@@ -23,6 +23,7 @@
 
 @synthesize paperData=_paperData;
 @synthesize displayTopicType;
+@synthesize isNotOnAnswering;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -48,8 +49,11 @@
     self.navigationController.toolbar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     
     float width=CGRectGetWidth(self.navigationController.toolbar.frame)/3;
-    UIBarButtonItem*submitButton = [[[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)] autorelease];
-    self.navigationItem.rightBarButtonItem= submitButton;
+    
+    if (displayTopicType==kDisplayTopicType_Default) {
+        UIBarButtonItem*submitButton = [[[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)] autorelease];
+        self.navigationItem.rightBarButtonItem= submitButton;
+    }
     
     UIBarButtonItem *collectButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)] autorelease];
     
@@ -84,7 +88,7 @@
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
     }
-    
+    isNotOnAnswering=YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -157,8 +161,8 @@
 
 #pragma mark 按钮点击事件
 - (void)backwardItemClicked:(id)sender{
-    if (displayTopicType==kDisplayTopicType_Default) {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"你正在考试，要返回主界面吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
+    if (displayTopicType==kDisplayTopicType_Default && isNotOnAnswering==NO) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"返回将清除考试纪录，要保存考试纪录请先提交，确定继续返回吗？" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确认", nil];
         [alert show];
         [alert release];
     }else{

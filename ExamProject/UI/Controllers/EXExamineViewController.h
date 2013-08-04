@@ -17,5 +17,6 @@
 
 @property (nonatomic,retain)PaperData          *paperData;
 @property (nonatomic,assign)DisplayTopicType    displayTopicType;
+@property (nonatomic,assign)BOOL                isNotOnAnswering;
 
 @end
