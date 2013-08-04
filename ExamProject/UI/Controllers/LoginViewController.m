@@ -38,7 +38,6 @@
 - (void)dealloc
 {
     [_loginView release];
-    [_splashView release];
     [_keychainItemWrapper release];
     
     [super dealloc];
@@ -61,27 +60,6 @@
     [_loginView addGestureRecognizer:tapRecognize];
     [tapRecognize release];
     
-    if (_needShowSplash) {
-        [[UIApplication sharedApplication]setStatusBarHidden:YES];
-        
-        _splashView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        _splashView.image = [UIImage imageNamed:@"splash.png"];
-        [self.view addSubview:_splashView];
-        
-        [self performSelector:@selector(removeSplash) withObject:nil afterDelay:2.0f];
-    }
-    
-}
-
-//移除闪屏
-- (void)removeSplash
-{
-    [[UIApplication sharedApplication]setStatusBarHidden:NO];
-    
-    _splashView.hidden = YES;
-    [_splashView removeFromSuperview];
-    [_splashView release];
-    _splashView = nil;
 }
 
 - (void)tapClicked

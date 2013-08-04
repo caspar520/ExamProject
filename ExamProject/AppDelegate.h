@@ -12,6 +12,9 @@
 @class CustomTabBarController;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
+{
+    UIImageView *_splashView;       //闪屏
+}
 
 @property (strong, nonatomic) UIWindow *window;
 

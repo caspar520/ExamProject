@@ -44,6 +44,9 @@
         [[NSUserDefaults standardUserDefaults]synchronize];
     }
     
+    //显示闪屏
+    [self showSplash];
+    
     //若未登录 展示登录界面
     if (![[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN]
         || ![[BusinessCenter sharedInstance]isLogin]) {
@@ -127,11 +130,36 @@
 - (void)initRegisterPage
 {
     LoginViewController *loginViewController = [[LoginViewController alloc]init];
-    loginViewController.needShowSplash = YES;
     UINavigationController *navController = [[UINavigationController alloc]initWithRootViewController:loginViewController];
     [loginViewController release];
     [_tabController presentModalViewController:navController animated:NO];
     [navController release];
 }
+
+- (void)showSplash
+{
+    [[UIApplication sharedApplication]setStatusBarHidden:YES];
+    
+    if (_splashView == nil) {
+        _splashView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    }
+    
+    _splashView.image = [UIImage imageNamed:@"splash.png"];
+    [_window addSubview:_splashView];
+    
+    [self performSelector:@selector(removeSplash) withObject:nil afterDelay:2.0f];
+}
+
+//移除闪屏
+- (void)removeSplash
+{
+    [[UIApplication sharedApplication]setStatusBarHidden:NO];
+    
+    _splashView.hidden = YES;
+    [_splashView removeFromSuperview];
+    [_splashView release];
+    _splashView = nil;
+}
+
 
 @end
