@@ -15,13 +15,18 @@
 @interface Topic : NSManagedObject <TopicDataProtocol>
 
 @property (nonatomic,retain) Paper *paper;
+@property (nonatomic, assign) NSSet *answers;
 
 @end
-
 
 @interface Topic (CoreDataGeneratedAccessors)
 
 - (void)addPaperObject:(Paper *)value;
 - (void)removePaperObject:(Paper *)value;
+
+- (void)addAnswersObject:(Topic *)object;
+- (void)removeAnswersObject:(Topic *)object;
+- (void)addAnswers:(NSSet *)objects;
+- (void)removeAnswers:(NSSet *)objects;
 
 @end

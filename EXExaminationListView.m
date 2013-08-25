@@ -59,13 +59,13 @@
             if (obj) {
                 NSInteger idx=[_dataArray indexOfObject:obj];
                 EXExaminationView *view=nil;
-                if ([obj.type integerValue]==1 || [obj.type integerValue]==2) {
-                    view= [[EXOptionTopicView alloc] init];
-                }else if ([obj.type integerValue]==3){
-                    view= [[EXJudgeTopicView alloc] init];
-                }else{
-                    view= [[EXShortAnswerTopicView alloc] init];
-                }
+//                if ([obj.type integerValue]==1 || [obj.type integerValue]==2) {
+//                    view= [[EXOptionTopicView alloc] init];
+//                }else if ([obj.type integerValue]==3){
+//                    view= [[EXJudgeTopicView alloc] init];
+//                }else{
+//                    view= [[EXShortAnswerTopicView alloc] init];
+//                }
                 view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
                 view.delegate=delegate;
                 view.index=idx+1;
@@ -107,7 +107,7 @@
     if (index<_dataArray.count) {
         TopicData *topic=[_dataArray objectAtIndex:index];
         if (topic) {
-            topic.favourite=[NSNumber numberWithBool:YES];
+//            topic.favourite=[NSNumber numberWithBool:YES];
         }
     }
     

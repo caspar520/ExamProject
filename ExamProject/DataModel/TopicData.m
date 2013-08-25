@@ -8,36 +8,41 @@
 
 #import "TopicData.h"
 #import "Topic.h"
+#import "AnswerData.h"
+#import "Answer.h"
 
 @implementation TopicData
 
 @synthesize topicId;
-@synthesize question;
-@synthesize type;
-@synthesize answers;
-@synthesize corrects;
-@synthesize selected;
-@synthesize analysis;
-@synthesize value;
-@synthesize image;
-@synthesize favourite;
-@synthesize wrong;
+@synthesize topicQuestion;
+@synthesize topicType;
+@synthesize topicAnalysis;
+@synthesize topicValue;
+@synthesize topicImage;
 
 - (id)initWithTopic:(Topic *)topic
 {
     self = [super init];
     if (self) {
         self.topicId = topic.topicId;
-        self.question = topic.question;
-        self.type = topic.type;
-        self.answers = topic.answers;
-        self.corrects = topic.corrects;
-        self.selected = topic.selected;
-        self.analysis = topic.analysis;
-        self.value = topic.value;
-        self.image = topic.image;
-        self.favourite = topic.favourite;
-        self.wrong = topic.wrong;
+        self.topicQuestion = topic.topicQuestion;
+        self.topicType = topic.topicType;
+        self.topicAnalysis = topic.topicAnalysis;
+        self.topicValue = topic.topicValue;
+        self.topicImage = topic.topicImage;
+        
+        //将数据以AnswerData的形式传递出去
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"content" ascending:YES];
+        NSArray *sortedArray = [topic.answers sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+        [sortDescriptor release];
+        
+        NSMutableArray *answerDataArray = [[[NSMutableArray alloc]initWithCapacity:0] autorelease];
+        for (Answer *answer in sortedArray) {
+            AnswerData *answerData = [[AnswerData alloc]initWithAnswer:answer];
+            [answerDataArray addObject:answerData];
+            [answerData release];
+        }
+        self.answers = answerDataArray;
     }
     return self;
 }
@@ -45,16 +50,13 @@
 - (void)dealloc
 {
     [topicId release];
-    [question release];
-    [type release];
-    [answers release];
-    [corrects release];
-    [selected release];
-    [analysis release];
-    [value release];
-    [image release];
-    [favourite release];
-    [wrong release];
+    [topicQuestion release];
+    [topicType release];
+    [topicAnalysis release];
+    [topicValue release];
+    [topicImage release];
+    
+    [_answers release];
     
     [super dealloc];
 }

@@ -117,23 +117,23 @@
 - (void)clearWrongPapersClicked:(id)sender{
     if (_wrongPaperList) {
         [_wrongPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
-            if (obj) {
-                if ([obj.wrong boolValue]==YES) {
-                    obj.wrong=[NSNumber numberWithBool:NO];
-                    NSArray *topics=obj.topics;
-                    if (topics) {
-                        for (TopicData *topic in topics) {
-                            if (topic) {
-                                if ([topic.wrong boolValue]==YES) {
-                                    topic.wrong=[NSNumber numberWithBool:NO];
-                                }
-                            }
-                        }
-                    }
-                }
-                
-                [DBManager addPaper:obj];
-            }
+//            if (obj) {
+//                if ([obj.wrong boolValue]==YES) {
+//                    obj.wrong=[NSNumber numberWithBool:NO];
+//                    NSArray *topics=obj.topics;
+//                    if (topics) {
+//                        for (TopicData *topic in topics) {
+//                            if (topic) {
+//                                if ([topic.wrong boolValue]==YES) {
+//                                    topic.wrong=[NSNumber numberWithBool:NO];
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                
+//                [DBManager addPaper:obj];
+//            }
         }];
     }
     [_wrongPaperList removeAllObjects];

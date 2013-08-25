@@ -123,22 +123,22 @@
 
 - (void)clearPaperInfo{
     for (PaperData *item in _localPaperList) {
-        if (item) {
-            NSArray *topics=item.topics;
-            if (topics) {
-                for (TopicData *topic in topics) {
-                    if (topic) {
-                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
-                            topic.analysis=[NSString stringWithFormat:@"%d",-100];
-                        }else{
-                            topic.analysis=nil;
-                        }
-                    }
-                }
-            }
-            item.userScore=[NSNumber numberWithInteger:0];
-            [DBManager addPaper:item];
-        }
+//        if (item) {
+//            NSArray *topics=item.topics;
+//            if (topics) {
+//                for (TopicData *topic in topics) {
+//                    if (topic) {
+//                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+//                            topic.analysis=[NSString stringWithFormat:@"%d",-100];
+//                        }else{
+//                            topic.analysis=nil;
+//                        }
+//                    }
+//                }
+//            }
+//            item.userScore=[NSNumber numberWithInteger:0];
+//            [DBManager addPaper:item];
+//        }
     }
 }
 
@@ -202,30 +202,30 @@
 - (BOOL)judgeIsPaperUsed:(PaperData *)aPaper{
     BOOL result=NO;
     
-    if (aPaper) {
-        if ([aPaper.userScore integerValue]>0) {
-            result=YES;
-        }else{
-            NSArray *topics=aPaper.topics;
-            if (topics) {
-                for (TopicData *topic in topics) {
-                    if (topic) {
-                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
-                            if (![topic.analysis isEqualToString:[NSString stringWithFormat:@"%d",-100]]) {
-                                result=YES;
-                                break;
-                            }
-                        }else{
-                            if (topic.analysis) {
-                                result=YES;
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    if (aPaper) {
+//        if ([aPaper.userScore integerValue]>0) {
+//            result=YES;
+//        }else{
+//            NSArray *topics=aPaper.topics;
+//            if (topics) {
+//                for (TopicData *topic in topics) {
+//                    if (topic) {
+//                        if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
+//                            if (![topic.analysis isEqualToString:[NSString stringWithFormat:@"%d",-100]]) {
+//                                result=YES;
+//                                break;
+//                            }
+//                        }else{
+//                            if (topic.analysis) {
+//                                result=YES;
+//                                break;
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
     
     return result;
 }

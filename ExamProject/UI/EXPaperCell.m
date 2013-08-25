@@ -46,7 +46,7 @@
         
         [self addSubview:titleLabel];
     }
-    titleLabel.text=_paperData.title;
+//    titleLabel.text=_paperData.title;
     
     if (authorLabel==nil) {
         authorLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(titleLabel.frame)+7, CGRectGetWidth(self.frame)-80, 12)];
@@ -56,7 +56,7 @@
         authorLabel.font=[UIFont systemFontOfSize:12];
         [self addSubview:authorLabel];
     }
-    authorLabel.text=_paperData.creator;
+//    authorLabel.text=_paperData.creator;
 }
 
 @end

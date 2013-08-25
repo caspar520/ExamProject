@@ -12,20 +12,8 @@
 @implementation Paper
 
 @dynamic paperId;
-@dynamic title;
-@dynamic desc;
-@dynamic creator;
-@dynamic totalTime;
-@dynamic totalScore;
-@dynamic topicCount;
-@dynamic passingScore;
-@dynamic eliteScore;
-@dynamic userScore;
-@dynamic fav;
-@dynamic wrong;
-@dynamic sequence;
-@dynamic addtime;
-@dynamic url;
+@dynamic paperName;
+@dynamic paperStatus;
 @dynamic topics;
 
 + (void)initialize

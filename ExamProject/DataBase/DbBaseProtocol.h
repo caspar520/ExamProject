@@ -12,23 +12,30 @@
 
 @end
 
+@protocol ExamDataProtocol <NSObject>
+
+@property (nonatomic, retain) NSNumber * examId;            //考试Id
+@property (nonatomic, retain) NSNumber * examTotalTm;       //考试总时间
+@property (nonatomic, retain) NSNumber * examBeginTm;       //考试开始时间
+@property (nonatomic, retain) NSNumber * examEndTm;         //考试结束时间
+@property (nonatomic, retain) NSNumber * examTimes;         //参加考试次数
+@property (nonatomic, retain) NSNumber * examPassing;       //考试及格分数
+@property (nonatomic, retain) NSNumber * examPassingAgainFlg;           //1:及格后可以再考试    2:及格后不能再考试
+@property (nonatomic, retain) NSNumber * examSubmitDisplayAnswerFlg;    ////0：交卷之后不立即显示成绩1：交卷之后立即显示成绩
+@property (nonatomic, retain) NSNumber * examPublishAnswerFlg;          //允许考生查看卷子和答案
+@property (nonatomic, retain) NSNumber * examPublishResultTm;           //考试成绩发布时间
+@property (nonatomic, retain) NSNumber * examDisableMinute;             //分钟后禁止考生参加
+@property (nonatomic, retain) NSNumber * examDisableSubmit;             //分钟内禁止考生交卷
+@property (nonatomic, retain) NSNumber * updateTm;                      //更新时间戳
+@property (nonatomic, retain) NSNumber * createTm;                      //创建时间(通过创建时间和考试Id唯一确定一条数据),不要更新此属性
+
+@end
+
 @protocol PaperDataProtocol <NSObject>
 
 @property (nonatomic, retain) NSNumber * paperId;          //试卷ID
-@property (nonatomic, retain) NSString * title;            //试卷标题
-@property (nonatomic, retain) NSString * desc;             //试卷描述
-@property (nonatomic, retain) NSString * creator;       // 试卷创建者
-@property (nonatomic, retain) NSNumber * totalTime;     // 试卷答题时间
-@property (nonatomic, retain) NSNumber * totalScore;    // 试卷总分
-@property (nonatomic, retain) NSNumber * topicCount;    // 试卷题目数
-@property (nonatomic, retain) NSNumber * passingScore;  // 及格分数
-@property (nonatomic, retain) NSNumber * eliteScore;    // 优秀分数
-@property (nonatomic, retain) NSNumber * userScore;     //用户得分
-@property (nonatomic, retain) NSNumber * fav;           // 是否存在收藏
-@property (nonatomic, retain) NSNumber * wrong;         // 是否存在错题
-@property (nonatomic, retain) NSNumber * sequence;      // 排序
-@property (nonatomic, retain) NSString * addtime;       // 添加时间
-@property (nonatomic, retain) NSString * url;
+@property (nonatomic, retain) NSString * paperName;        //试卷名称
+@property (nonatomic, retain) NSNumber * paperStatus;      //试卷状态
 
 @end
 
@@ -45,16 +52,19 @@
 @protocol TopicDataProtocol <NSObject>
 
 @property (nonatomic, retain) NSNumber * topicId;       //试题Id
-@property (nonatomic, retain) NSString * question;      // 试题题目
-@property (nonatomic, retain) NSNumber * type;          //试题类型 试题类型 1:单选 2:多选 3:判断 4:简答
-@property (nonatomic, retain) NSString * answers;       //试题答案选项(选项1|选项2),判断题此行无数据,简答题此行为答案
-@property (nonatomic, retain) NSString * corrects;      //试题答案实体,此项数据库中不存储
-@property (nonatomic, retain) NSString * selected;      //试题正确选项 单选题(0,1,2,3),多选题(0|1),判断题(-1为错 0为对),简答题此行无数据
-@property (nonatomic, retain) NSString * analysis;      //考生选择的答案 填写形式与corrects字段一样
-@property (nonatomic, retain) NSString * value;         // 试题分值
-@property (nonatomic, retain) NSString * image;         //试题图片
-@property (nonatomic, retain) NSNumber * favourite;     // 收藏
-@property (nonatomic, retain) NSNumber * wrong;         // 错题标记
+@property (nonatomic, retain) NSString * topicQuestion; //试题题目
+@property (nonatomic, retain) NSNumber * topicType;     //试题类型 试题类型 1:单选 2:多选 3:判断 4:简答
+@property (nonatomic, retain) NSString * topicAnalysis; //这是答案分析内容，在显示单条题目时显示此内容。
+@property (nonatomic, retain) NSString * topicValue;    // 试题分值
+@property (nonatomic, retain) NSString * topicImage;    //试题图片
+
+@end
+
+@protocol AnswerDataProtocol <NSObject>
+
+@property (nonatomic, retain) NSString * content;       //试题答案选项
+@property (nonatomic, retain) NSNumber * isCorrect;     //试题答案是否正确
+@property (nonatomic, retain) NSNumber * isSelected;    //已选择答案
 
 @end
 

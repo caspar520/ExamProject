@@ -109,20 +109,20 @@
     if (_collectedPaperList) {
         [_collectedPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
             if (obj) {
-                if ([obj.fav boolValue] ==YES) {
-                    obj.fav=[NSNumber numberWithBool:NO];
-                    NSArray *topics=obj.topics;
-                    if (topics) {
-                        for (TopicData *topic in topics) {
-                            if (topic) {
-                                if ([topic.favourite boolValue]==YES) {
-                                    topic.favourite=[NSNumber numberWithBool:NO];
-                                }
-                            }
-                        }
-                    }
-                }
-                [DBManager addPaper:obj];
+//                if ([obj.fav boolValue] ==YES) {
+//                    obj.fav=[NSNumber numberWithBool:NO];
+//                    NSArray *topics=obj.topics;
+//                    if (topics) {
+//                        for (TopicData *topic in topics) {
+//                            if (topic) {
+//                                if ([topic.favourite boolValue]==YES) {
+//                                    topic.favourite=[NSNumber numberWithBool:NO];
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//                [DBManager addPaper:obj];
             }
         }];
     }

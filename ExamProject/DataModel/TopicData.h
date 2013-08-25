@@ -14,6 +14,8 @@
 
 @interface TopicData : NSObject <TopicDataProtocol>
 
+@property (nonatomic, retain) NSArray *answers;
+
 - (id)initWithTopic:(Topic *)topic;
 
 @end

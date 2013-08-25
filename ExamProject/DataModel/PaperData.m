@@ -14,41 +14,16 @@
 @implementation PaperData
 
 @synthesize paperId;
-@synthesize title;
-@synthesize desc;
-@synthesize creator;
-@synthesize totalTime;
-@synthesize totalScore;
-@synthesize topicCount;
-@synthesize passingScore;
-@synthesize eliteScore;
-@synthesize userScore;
-@synthesize fav;
-@synthesize wrong;
-@synthesize sequence;
-@synthesize addtime;
-@synthesize url;
-@synthesize topics;
+@synthesize paperName;
+@synthesize paperStatus;
 
 - (id)initWithPaper:(Paper *)aPaper
 {
     self = [super init];
     if (self) {
         self.paperId = aPaper.paperId;
-        self.title = aPaper.title;
-        self.desc = aPaper.desc;
-        self.creator = aPaper.creator;
-        self.totalTime = aPaper.totalTime;
-        self.totalScore = aPaper.totalScore;
-        self.topicCount = aPaper.topicCount;
-        self.passingScore = aPaper.passingScore;
-        self.eliteScore = aPaper.eliteScore;
-        self.userScore = aPaper.userScore;
-        self.fav = aPaper.fav;
-        self.wrong = aPaper.wrong;
-        self.sequence = aPaper.sequence;
-        self.addtime = aPaper.addtime;
-        self.url = aPaper.url;
+        self.paperName = aPaper.paperName;
+        self.paperStatus = aPaper.paperStatus;
         
         //先按照topicId升序排列
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"topicId" ascending:YES];
@@ -70,21 +45,8 @@
 - (void)dealloc
 {
     [paperId release];
-    [title release];
-    [desc release];
-    [creator release];
-    [totalTime release];
-    [totalScore release];
-    [topicCount release];
-    [passingScore release];
-    [eliteScore release];
-    [userScore release];
-    [fav release];
-    [wrong release];
-    [sequence release];
-    [addtime release];
-    [url release];
-    [topics release];
+    [paperName release];
+    [paperStatus release];
     
     [super dealloc];
 }

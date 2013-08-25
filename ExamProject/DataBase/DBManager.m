@@ -112,20 +112,8 @@
         aPaper = [Paper createNewObject];
     }
     aPaper.paperId = paperData.paperId;
-    aPaper.title = paperData.title;
-    aPaper.desc = paperData.desc;
-    aPaper.creator = paperData.creator;
-    aPaper.totalTime = paperData.totalTime;
-    aPaper.totalScore = paperData.totalScore;
-    aPaper.topicCount = paperData.topicCount;
-    aPaper.passingScore = paperData.passingScore;
-    aPaper.eliteScore = paperData.eliteScore;
-    aPaper.userScore = paperData.userScore;
-    aPaper.fav = paperData.fav;
-    aPaper.wrong = paperData.wrong;
-    aPaper.sequence = paperData.sequence;
-    aPaper.addtime = paperData.addtime;
-    aPaper.url = paperData.url;
+    aPaper.paperName = paperData.paperName;
+    aPaper.paperStatus = paperData.paperStatus;
     
     NSSet *topics = [DBManager addTopicsWithArray:paperData.topics];
     [aPaper addTopics:topics];
@@ -157,16 +145,11 @@
         topic = [Topic createNewObject];
     }
     topic.topicId = topicData.topicId;
-    topic.question = topicData.question;
-    topic.type = [NSNumber numberWithInt:[topicData.type integerValue]];
-    topic.answers = topicData.answers;
-    topic.corrects = topicData.corrects;
-    topic.selected = topicData.selected;
-    topic.analysis = topicData.analysis;
-    topic.value = topicData.value;
-    topic.image = topicData.image;
-    topic.favourite = topicData.favourite;
-    topic.wrong = topicData.wrong;
+    topic.topicQuestion = topicData.topicQuestion;
+    topic.topicType = topicData.topicType;
+    topic.topicAnalysis = topicData.topicAnalysis;
+    topic.topicValue = topicData.topicValue;
+    topic.topicImage = topicData.topicImage;
 
     return topic;
 }

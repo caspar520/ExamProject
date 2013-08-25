@@ -12,16 +12,13 @@
 @implementation Topic
 
 @dynamic topicId;
-@dynamic question;
-@dynamic type;
-@dynamic answers;
-@dynamic corrects;
-@dynamic selected;
-@dynamic analysis;
-@dynamic value;
-@dynamic image;
-@dynamic favourite;
-@dynamic wrong;
+@dynamic topicQuestion;
+@dynamic topicType;
+@dynamic topicAnalysis;
+@dynamic topicValue;
+@dynamic topicImage;
+
 @dynamic paper;
+@dynamic answers;
 
 @end
