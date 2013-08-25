@@ -105,6 +105,40 @@
     return paper;
 }
 
+//添加考试
++ (Exam *)addExam:(ExamData *)examData
+{
+    //考试每次都会创建一个新的记录
+    Exam *aExam = [Exam createNewObject];
+    aExam.examId = examData.examId;
+    aExam.examTotalTm = examData.examTotalTm;
+    aExam.examBeginTm = examData.examBeginTm;
+    aExam.examTimes = examData.examTimes;
+    aExam.examPassing = examData.examPassing;
+    aExam.examPassingAgainFlg = examData.examPassingAgainFlg;
+    aExam.examSubmitDisplayAnswerFlg = examData.examSubmitDisplayAnswerFlg;
+    aExam.examPublishAnswerFlg = examData.examPublishAnswerFlg;
+    aExam.examPublishResultTm = examData.examPublishResultTm;
+    aExam.examDisableMinute = examData.examDisableMinute;
+    aExam.examDisableSubmit = examData.examDisableSubmit;
+    aExam.updateTm = examData.updateTm;
+    aExam.createTm = examData.createTm;
+    
+    NSSet *papers = [DBManager addPapersWithArray:examData.papers];
+    [aExam addPapers:papers];
+    
+    [Exam save];
+    
+    return aExam;
+}
+
+
+//取得所有已提交考试
++ (NSArray *)fetchALlExamsFromDB
+{
+    return nil;
+}
+
 + (Paper *)addPaper:(PaperData *)paperData
 {
     Paper *aPaper = [DBManager getPaperByID:[paperData.paperId intValue]];
@@ -118,9 +152,18 @@
     NSSet *topics = [DBManager addTopicsWithArray:paperData.topics];
     [aPaper addTopics:topics];
     
-    [Paper save];
-    
     return aPaper;
+}
+
++ (NSSet *)addPapersWithArray:(NSArray *)papers
+{
+    NSMutableSet *tSet = [NSMutableSet setWithCapacity:0];
+    for (PaperData *paperData in papers) {
+        Paper *paper = [DBManager addPaper:paperData];
+        [tSet addObject:paper];
+    }
+    
+    return tSet;
 }
 
 #pragma mark - Topic
@@ -161,8 +204,29 @@
         Topic *topic = [DBManager addTopic:topicData];
         [tSet addObject:topic];
     }
-    [Topic save];
     
+    return tSet;
+}
+
+//添加答案
++ (Answer *)addAnswer:(AnswerData *)anserData
+{
+    Answer *answer = [Answer createNewObject];
+    answer.content = anserData.content;
+    answer.isCorrect = anserData.isCorrect;
+    answer.isSelected = anserData.isSelected;
+
+    return answer;
+}
+
+//批量添加答案
++ (NSSet *)addAnsersWithArray:(NSArray *)answers
+{
+    NSMutableSet *tSet = [NSMutableSet setWithCapacity:0];
+    for (AnswerData *answerData in answers) {
+        Answer *answer = [DBManager addAnswer:answerData];
+        [tSet addObject:answer];
+    }
     return tSet;
 }
 
