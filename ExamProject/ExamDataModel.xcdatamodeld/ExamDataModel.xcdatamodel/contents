@@ -21,7 +21,7 @@
         <attribute name="examTimes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examTotalTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="papers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Paper" inverseName="exam" inverseEntity="Paper" syncable="YES"/>
+        <relationship name="papers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Paper" inverseName="exam" inverseEntity="Paper" syncable="YES"/>
     </entity>
     <entity name="Paper" representedClassName="Paper" syncable="YES">
         <attribute name="paperId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -37,7 +37,7 @@
         <attribute name="topicQuestion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topicType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="topicValue" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="answers" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Answer" inverseName="topic" inverseEntity="Answer" syncable="YES"/>
+        <relationship name="answers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Answer" inverseName="topic" inverseEntity="Answer" syncable="YES"/>
         <relationship name="paper" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Paper" inverseName="topics" inverseEntity="Paper" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">

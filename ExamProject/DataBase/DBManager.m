@@ -8,6 +8,7 @@
 
 #import "DBManager.h"
 #import "PaperData.h"
+#import <objc/runtime.h>
 
 @interface DBManager ()
 
@@ -22,6 +23,14 @@
 @end
 
 @implementation DBManager
+
+
+//取得所有已提交考试
++ (NSArray *)fetchALlExamsFromDB
+{
+    NSArray *result = [DBManager readAllExams];
+    return [DBManager examDataWithExams:result];
+}
 
 + (NSArray *)fetchAllPapersFromDB
 {
@@ -43,6 +52,11 @@
     return [DBManager paperDataWithPapers:result];
 }
 
++ (NSArray *)readAllExams
+{
+    return [DBManager readExamsWithCondition:nil];
+}
+
 + (NSArray *)readAllPapers
 {
     return [DBManager readPapersWithCondition:nil];
@@ -58,6 +72,25 @@
 + (NSArray *)readCollectedPapers
 {
     return [DBManager readPapersWithCondition:@"fav=YES"];
+}
+
+//根据条件取得相应的考试
++ (NSArray *)readExamsWithCondition:(NSString *)condition
+{
+    NSFetchRequest *request = [Exam defaultFetchRequest];
+    
+    if (condition && ![@"" isEqualToString:condition]) {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:condition];
+        [request setPredicate:predicate];
+    }
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"examId"
+                                                                   ascending:NO];
+    [request setSortDescriptors: [NSArray arrayWithObject:sortDescriptor]];
+    [sortDescriptor release];
+    
+    NSArray *result = [Exam executeFetchRequest:request error:nil];
+    return result;
 }
 
 //根据条件取得相应的试卷
@@ -79,30 +112,16 @@
     return result;
 }
 
-
-#pragma mark - Paper
-+ (NSArray *)paperDataWithPapers:(NSArray *)papers
+#pragma mark - Exam
++ (NSArray *)examDataWithExams:(NSArray *)exams
 {
     NSMutableArray *resultData = [[NSMutableArray alloc]initWithCapacity:0];
-    for (Paper *paper in papers) {
-        PaperData *paperData = [[PaperData alloc]initWithPaper:paper];
-        [resultData addObject:paperData];
-        [paperData release];
+    for (Exam *exam in exams) {
+        ExamData *examData = [[ExamData alloc]initWithExam:exam];
+        [resultData addObject:examData];
+        [examData release];
     }
     return [resultData autorelease];
-}
-
-+ (Paper *)getPaperByID:(int)paperId
-{
-    NSFetchRequest *fetchRequest = [Paper defaultFetchRequest];
-    
-    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"paperId = %d", paperId]];
-    NSArray *result = [Paper executeFetchRequest:fetchRequest error:nil];
-    Paper *paper = nil;
-    if ([result count] > 0) {
-        paper = [result objectAtIndex:0];
-    }
-    return paper;
 }
 
 //添加考试
@@ -132,11 +151,29 @@
     return aExam;
 }
 
-
-//取得所有已提交考试
-+ (NSArray *)fetchALlExamsFromDB
+#pragma mark - Paper
++ (NSArray *)paperDataWithPapers:(NSArray *)papers
 {
-    return nil;
+    NSMutableArray *resultData = [[NSMutableArray alloc]initWithCapacity:0];
+    for (Paper *paper in papers) {
+        PaperData *paperData = [[PaperData alloc]initWithPaper:paper];
+        [resultData addObject:paperData];
+        [paperData release];
+    }
+    return [resultData autorelease];
+}
+
++ (Paper *)getPaperByID:(int)paperId
+{
+    NSFetchRequest *fetchRequest = [Paper defaultFetchRequest];
+    
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"paperId = %d", paperId]];
+    NSArray *result = [Paper executeFetchRequest:fetchRequest error:nil];
+    Paper *paper = nil;
+    if ([result count] > 0) {
+        paper = [result objectAtIndex:0];
+    }
+    return paper;
 }
 
 + (Paper *)addPaper:(PaperData *)paperData
@@ -193,6 +230,9 @@
     topic.topicAnalysis = topicData.topicAnalysis;
     topic.topicValue = topicData.topicValue;
     topic.topicImage = topicData.topicImage;
+    
+    NSSet *answers = [DBManager addAnsersWithArray:topicData.answers];
+    [topic addAnswers:answers];
 
     return topic;
 }
@@ -284,6 +324,85 @@
 {
     [User deleteAllObjects];
     [User save];
+}
+
+//测试接口
++ (void)testDB
+{
+    //保存
+    ExamData *examData = [[ExamData alloc]init];
+    examData.examId = @1;
+    examData.examTotalTm = @7200;
+    examData.examBeginTm = @1376064000;
+    examData.examEndTm = @1377878400;
+    examData.examTimes = @2;
+    examData.examPassing = @60;
+    examData.examPassingAgainFlg = @1;
+    examData.examSubmitDisplayAnswerFlg = @1;
+    examData.examPublishAnswerFlg = @1;
+    examData.examPublishResultTm = @1377964800;
+    examData.examDisableMinute = @1200;
+    examData.examDisableSubmit = @1200;
+    examData.updateTm = @1377984800;
+    
+    PaperData *paperData = [[PaperData alloc]init];
+    paperData.paperId = @1;
+    paperData.paperName = @"单选多选测试卷";
+    paperData.paperStatus = @1;
+    
+    TopicData *topicData = [[TopicData alloc]init];
+    topicData.topicId = @1;
+    topicData.topicQuestion = @"人体合理膳食的原则之一是(   )";
+    topicData.topicType = @1;
+    topicData.topicValue = @10;
+    topicData.topicAnalysis = @"这是答案分析内容，在显示单条题目时显示此内容。";
+    
+    AnswerData *answerData = [[AnswerData alloc]init];
+    answerData.content = @"A．多吃鱼、肉类等荤食品";
+    answerData.isCorrect = @NO;
+    answerData.isSelected = @NO;
+    
+    NSArray *answers = [NSArray arrayWithObject:answerData];
+    [answerData release];
+    topicData.answers = answers;
+    
+    NSArray *topics = [NSArray arrayWithObject:topicData];
+    [topicData release];
+    paperData.topics = topics;
+    
+    NSArray *papers = [NSArray arrayWithObject:paperData];
+    [paperData release];
+    examData.papers = papers;
+    
+    [DBManager addExam:examData];
+    [examData release];
+
+    //遍历所有属性
+    int i;
+    int propertyCount = 0;
+    
+    
+    
+    //        id propertyValue = ;
+    
+    //读取
+    NSArray *allExams = [DBManager fetchALlExamsFromDB];
+    for (ExamData *examData in allExams) {
+        
+        objc_property_t *propertyList = class_copyPropertyList([ExamData class], &propertyCount);
+        for ( i=0; i < propertyCount; i++ ) {
+            objc_property_t *thisProperty = propertyList + i;
+            const char* charf = property_getName(*thisProperty);
+            NSString *propertyName = [NSString stringWithUTF8String:charf];
+            id var = [examData valueForKey:propertyName];
+            NSLog(@"ExamData.%@: '%@'", propertyName, var);
+        }
+        
+        for (PaperData *paperData in examData.papers) {
+            
+        }
+    }
+//    NSLog(@"%@",allExams);
 }
 
 @end

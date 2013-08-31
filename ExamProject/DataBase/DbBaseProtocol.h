@@ -55,7 +55,7 @@
 @property (nonatomic, retain) NSString * topicQuestion; //试题题目
 @property (nonatomic, retain) NSNumber * topicType;     //试题类型 试题类型 1:单选 2:多选 3:判断 4:简答
 @property (nonatomic, retain) NSString * topicAnalysis; //这是答案分析内容，在显示单条题目时显示此内容。
-@property (nonatomic, retain) NSString * topicValue;    // 试题分值
+@property (nonatomic, retain) NSNumber * topicValue;    // 试题分值
 @property (nonatomic, retain) NSString * topicImage;    //试题图片
 
 @end

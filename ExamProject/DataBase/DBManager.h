@@ -40,4 +40,6 @@
 + (NSString *)getRegisterUserName;                  //获取注册用户名
 + (void)deleteAllUser;                              //删除用户信息
 
++ (void)testDB;
+
 @end

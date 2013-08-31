@@ -58,6 +58,9 @@
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
     }
 //    [self clearPaperInfo];
+    
+    //数据库测试
+    [DBManager testDB];
 }
 
 - (void)viewWillAppear:(BOOL)animated{

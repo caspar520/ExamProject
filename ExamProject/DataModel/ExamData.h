@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import "DbBaseProtocol.h"
 
+@class Exam;
+
 @interface ExamData : NSObject<ExamDataProtocol>
 
 @property (nonatomic,retain) NSArray *papers;
+
+- (id)initWithExam:(Exam *)aExam;
 
 @end
