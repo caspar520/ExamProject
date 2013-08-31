@@ -397,10 +397,6 @@
             id var = [examData valueForKey:propertyName];
             NSLog(@"ExamData.%@: '%@'", propertyName, var);
         }
-        
-        for (PaperData *paperData in examData.papers) {
-            
-        }
     }
 //    NSLog(@"%@",allExams);
 }
