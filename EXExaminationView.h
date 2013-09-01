@@ -31,6 +31,9 @@
     UIScrollView    *answerContainerView;
     UIImageView     *shortAnswerBGView;
     UILabel         *shortAnswerLabel;
+    
+    UILabel         *answerAnalysisTip;
+    UILabel         *answerAnalysisLabel;
 }
 
 

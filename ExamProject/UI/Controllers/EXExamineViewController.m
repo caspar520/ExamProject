@@ -35,7 +35,11 @@
 }
 
 - (void)dealloc{
+    [_examMSGBarView release];
     [_examineListView release];
+    [_paperCountLabel release];
+    [_examLeftTime release];
+    [_examDuration release];
     [super dealloc];
 }
 
@@ -81,6 +85,7 @@
     }
     
     
+    
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
         _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-62)];
@@ -88,6 +93,48 @@
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
     }
+
+    
+    if (_examMSGBarView==nil) {
+        _examMSGBarView=[[UIView alloc] initWithFrame:CGRectMake(CGRectGetHeight(self.view.frame)-40, 0, CGRectGetWidth(self.view.frame), 40)];
+        _examMSGBarView.backgroundColor=[UIColor grayColor];
+        
+        [self.view addSubview:_examMSGBarView];
+    }
+    
+    if (_paperCountLabel==nil) {
+        _paperCountLabel= [[UILabel alloc] initWithFrame:CGRectMake(5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _paperCountLabel.textColor=[UIColor blackColor];
+        _paperCountLabel.textAlignment=UITextAlignmentLeft;
+        _paperCountLabel.backgroundColor=[UIColor clearColor];
+        _paperCountLabel.font=[UIFont systemFontOfSize:18];
+        
+        [_examMSGBarView addSubview:_paperCountLabel];
+    }
+    _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",2];
+    
+    if (_examLeftTime==nil) {
+        _examLeftTime= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_paperCountLabel.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _examLeftTime.textColor=[UIColor blackColor];
+        _examLeftTime.textAlignment=UITextAlignmentLeft;
+        _examLeftTime.backgroundColor=[UIColor clearColor];
+        _examLeftTime.font=[UIFont systemFontOfSize:18];
+        
+        [_examMSGBarView addSubview:_examLeftTime];
+    }
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：%d",2];
+    
+    if (_examDuration==nil) {
+        _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _examDuration.textColor=[UIColor blackColor];
+        _examDuration.textAlignment=UITextAlignmentLeft;
+        _examDuration.backgroundColor=[UIColor clearColor];
+        _examDuration.font=[UIFont systemFontOfSize:18];
+        
+        [_examMSGBarView addSubview:_examDuration];
+    }
+    _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",2];
+    
     isNotOnAnswering=YES;
 }
 

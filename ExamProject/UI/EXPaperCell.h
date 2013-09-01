@@ -11,7 +11,10 @@
 @class PaperData;
 
 @interface EXPaperCell : UITableViewCell{
-    UILabel         *titleLabel;
+    UILabel         *examTitleLabel;
+    UILabel         *examTypeLabel;
+    UILabel         *examDurationLabel;
+    UILabel         *examMSGLabel;                   //考试须知
     UILabel         *authorLabel;
 }
 

@@ -38,6 +38,8 @@
     [shortAnswerBGView release];
     [answerContainerView release];
     [shortAnswerLabel release];
+    [answerAnalysisTip release];
+    [answerAnalysisLabel release];
     [super dealloc];
 }
 

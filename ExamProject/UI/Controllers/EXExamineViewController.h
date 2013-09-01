@@ -13,6 +13,11 @@
 
 @interface EXExamineViewController : UIViewController{
     EXExaminationListView       *_examineListView;
+    
+    UIView                      *_examMSGBarView;
+    UILabel                     *_paperCountLabel;
+    UILabel                     *_examLeftTime;
+    UILabel                     *_examDuration;
 }
 
 @property (nonatomic,retain)PaperData          *paperData;

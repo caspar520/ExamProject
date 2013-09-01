@@ -16,7 +16,10 @@
 #import "EXListView.h"
 #import "EXPaperCell.h"
 #import "EXExamineViewController.h"
+#import "EXNetDataManager.h"
 #import "EXResultViewController.h"
+#import "EXDownloadManager.h"
+#import "MBProgressHUD.h"
 
 @interface ExamViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
@@ -48,11 +51,13 @@
     [super viewDidLoad];
     self.view.backgroundColor=[UIColor whiteColor];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 	// Do any additional setup after loading the view.
-    self.title=@"考试";
-    UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
-    self.navigationItem.rightBarButtonItem= addPaperButton;
+    self.title=@"考试列表";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperFinish:) name:NOTIFICATION_PAPERS_DOWNLOAD_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
+//    UIBarButtonItem *addPaperButton = [[UIBarButtonItem alloc] initWithTitle:@"添加试卷" style:UIBarButtonItemStyleBordered target:self action:@selector(addPaperItemClicked:)];
+//    self.navigationItem.rightBarButtonItem= addPaperButton;
     
     if (_localPaperList==nil) {
         _localPaperList=[[NSMutableArray alloc] initWithCapacity:0];
@@ -71,8 +76,8 @@
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     //读数据
-    [_localPaperList removeAllObjects];
-    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+//    [_localPaperList removeAllObjects];
+//    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
     
 //    [self clearPaperInfo];
     
@@ -83,13 +88,23 @@
         [self.view addSubview:_paperListView];
     }
     
-    [_paperListView refresh];
+//    [_paperListView refresh];
+//    
+//    if ([_localPaperList count] > 0) {
+//        [self showNullView:YES];
+//    } else {
+//        [self showNullView:NO];
+//    }
     
-    if ([_localPaperList count] > 0) {
-        [self showNullView:YES];
-    } else {
-        [self showNullView:NO];
+    if ([EXNetDataManager shareInstance].netPaperDataArray==nil || [EXNetDataManager shareInstance].netPaperDataArray.count==0) {
+        [self fetchData];
+    }else{
+        [_localPaperList removeAllObjects];
+        [_localPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
+        
+        [_paperListView refresh];
     }
+     
 }
 
 - (void)showNullView:(BOOL)isHidden
@@ -118,10 +133,33 @@
     [tabBarController showTabBar];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark 请求数据
+- (void)fetchData{
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    [[EXDownloadManager shareInstance] downloadPaperList];
+}
+
+- (void)downloadPaperFinish:(NSNotification *)notification{
+    [_localPaperList removeAllObjects];
+    [_localPaperList addObjectsFromArray:[EXNetDataManager shareInstance].netPaperDataArray];
+    
+    [_paperListView refresh];
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+}
+
+- (void)downloadFailure:(NSNotification *)notification{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
 }
 
 - (void)clearPaperInfo{
@@ -156,7 +194,7 @@
 
 #pragma mark table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 60.0f;
+    return 100.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -177,6 +215,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    /*
     //需要判断是否答过，如果答过直接进入答题界面，否则弹出选择框
     if ([self judgeIsPaperUsed:[_localPaperList objectAtIndex:indexPath.row]]) {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"试卷已经提交过" delegate:self cancelButtonTitle:@"查看结果" otherButtonTitles:@"重新考试", nil];
@@ -194,13 +233,33 @@
             examineController.isNotOnAnswering=NO;
         }
     }
+     */
+    
+    //每次进入前需要判断考试的examStatus信息（1:可用，2:编辑，3:禁用）,如果不为1则进入时弹出强提示框，提示不能进入
+    NSInteger tExamStatus=1;
+    if (tExamStatus==1) {
+        id paperMetaData=nil;
+        paperMetaData=[_localPaperList objectAtIndex:indexPath.row];
+        if (paperMetaData) {
+            EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+            [self.navigationController pushViewController:examineController animated:YES];
+            examineController.displayTopicType=kDisplayTopicType_Default;
+            examineController.paperData=paperMetaData;
+            examineController.isNotOnAnswering=NO;
+        }
+    }else{
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"试卷暂时不可用" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }
+    
 }
 
-- (void)downloadPaperFinish:(NSNotification *)notification{
-    [_localPaperList removeAllObjects];
-    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
-    [_paperListView refresh];
-}
+//- (void)downloadPaperFinish:(NSNotification *)notification{
+//    [_localPaperList removeAllObjects];
+//    [_localPaperList addObjectsFromArray:[DBManager fetchAllPapersFromDB]];
+//    [_paperListView refresh];
+//}
 
 - (BOOL)judgeIsPaperUsed:(PaperData *)aPaper{
     BOOL result=NO;
@@ -240,6 +299,7 @@
 //        [self.navigationController pushViewController:resultController animated:YES];
         
 //    }else
+    /*
     EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
     if (buttonIndex==1){
         if (_selectedPaper) {
@@ -252,6 +312,9 @@
     if (buttonIndex==1) {
         examineController.isNotOnAnswering=NO;
     }
+     */
+    
+    
 }
 
 @end
