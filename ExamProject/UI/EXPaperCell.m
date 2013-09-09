@@ -31,7 +31,7 @@
     [super dealloc];
 }
 
-- (void)setPaperData:(PaperData *)paperData{
+- (void)setPaperData:(ExamData *)paperData{
     if (_paperData!=paperData) {
         [_paperData release];
         _paperData=[paperData retain];
@@ -60,7 +60,7 @@
         
         [self addSubview:examTypeLabel];
     }
-    //examTypeLabel.text=[NSString stringWithFormat:@"考试分类：%@",_paperData.title];
+    //examTypeLabel.text=[NSString stringWithFormat:@"考试分类：%@",_paperData.t];
     
     if (examDurationLabel==nil) {
         examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examTypeLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 90, 20)];
@@ -84,16 +84,6 @@
         [self addSubview:examMSGLabel];
     }
     //examMSGLabel.text=[NSString stringWithFormat:@"考试须知：%@",_paperData.title];
-    
-//    if (authorLabel==nil) {
-//        authorLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+7, CGRectGetWidth(self.frame)-80, 12)];
-//        authorLabel.textColor=[UIColor blackColor];
-//        authorLabel.textAlignment=UITextAlignmentLeft;
-//        authorLabel.backgroundColor=[UIColor clearColor];
-//        authorLabel.font=[UIFont systemFontOfSize:12];
-//        [self addSubview:authorLabel];
-//    }
-//    authorLabel.text=_paperData.creator;
 }
 
 @end

@@ -18,6 +18,7 @@
 @synthesize delegate;
 @synthesize metaData=_metaData;
 @synthesize index;
+@synthesize isDisplayAnswer=_isDisplayAnswer;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -38,7 +39,8 @@
     [shortAnswerBGView release];
     [answerContainerView release];
     [shortAnswerLabel release];
-    [answerAnalysisTip release];
+    [answerAnalysisTipLabel release];
+    [answerAnalysisBackground release];
     [answerAnalysisLabel release];
     [super dealloc];
 }

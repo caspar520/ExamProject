@@ -17,11 +17,16 @@
 #define AUTO_LOGIN              @"isAutoLogin"      //自动登录开关
 
 //brown...............................
-#define NET_PAPERDATA_URL       @"http://xiaotu.net/examjson/examlist.json"
+#define LOCAL_PAPERFILE_URL     @"paperList.json"
+#define LOCAL_EXAMFILE_URL      @"examList.json"
+//#define NET_PAPERDATA_URL       @"http://www.kanbook.cn/Papr/getpaprlist"
+#define NET_PAPERDATA_URL         @"http://down.xiaotu.net/paperList0.json"
+#define NET_EXAMDATA_URL        @"http://www.kanbook.cn/exam/getexamlist"
 
 
 
 //通知
+#define NOTIFICATION_EXAM_DOWNLOAD_FINISH       @"downloadExamListFinish"
 #define NOTIFICATION_PAPERS_DOWNLOAD_FINISH     @"papersDownloadedFinish"
 #define NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH @"specialPaperDownloadedFinish"
 #define NOTIFICATION_DOWNLOAD_FAILURE           @"downloadFailure"

@@ -45,7 +45,7 @@
     }
     
     //显示闪屏
-    [self showSplash];
+    //[self showSplash];
     
     //若未登录 展示登录界面
     if (![[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN]

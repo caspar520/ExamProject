@@ -8,10 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@class  ASIHTTPRequest;
+@class  ASIFormDataRequest;
 
 @interface EXDownloadManager : NSObject{
-    ASIHTTPRequest      *request;
+    ASIFormDataRequest      *request;
 }
 
 + (EXDownloadManager *)shareInstance;
@@ -22,5 +22,9 @@
 //download method
 - (void)downloadPaper:(id)paper;
 - (void)downloadPaperList;
+
+//新的
+- (void)downloadExamList;
+- (void)downloadPaperList:(NSInteger)pExamID;
 
 @end

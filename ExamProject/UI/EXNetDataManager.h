@@ -13,6 +13,9 @@
 + (EXNetDataManager *)shareInstance;
 + (void)destroyInstance;
 
-@property (nonatomic,retain)NSMutableArray  *netPaperDataArray;
+@property (nonatomic,retain)NSMutableArray      *netPaperDataArray;
+@property (nonatomic,retain)NSMutableArray      *netExamDataArray;
+@property (nonatomic,retain)NSMutableDictionary *paperListInExam;
+@property (nonatomic,assign)int                 examStatus;
 
 @end

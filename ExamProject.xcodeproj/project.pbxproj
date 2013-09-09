@@ -70,6 +70,7 @@
 		9C05B8D21799636E008E937D /* add_story_to_local_category_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C05B8D01799636E008E937D /* add_story_to_local_category_normal.png */; };
 		9C05B8D5179965E1008E937D /* EXExaminationListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8D4179965E1008E937D /* EXExaminationListView.m */; };
 		9C05B8D8179966C9008E937D /* EXExamineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C05B8D7179966C9008E937D /* EXExamineViewController.m */; };
+		9C0E4BD317DB1F8F00D84184 /* EXExamineRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C0E4BD217DB1F8F00D84184 /* EXExamineRecordViewController.m */; };
 		9C1BF6AA17ACCCAC00C6AD52 /* UITextField+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 9C1BF6A917ACCCAC00C6AD52 /* UITextField+Placeholder.m */; };
 		9C252C6F179BC69700E8E69C /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBAF260179BC442009BA64E /* libz.1.2.5.dylib */; };
 		9C252C70179BC69F00E8E69C /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CBAF262179BC48A009BA64E /* libxml2.dylib */; };
@@ -113,6 +114,7 @@
 		9CACE909179AAE14007509EF /* EXShortAnswerTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE908179AAE14007509EF /* EXShortAnswerTopicView.m */; };
 		9CACE90D179ABF21007509EF /* examlist.json in Resources */ = {isa = PBXBuildFile; fileRef = 9CACE90C179ABF21007509EF /* examlist.json */; };
 		9CACE910179ACCF9007509EF /* EXResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE90F179ACCF9007509EF /* EXResultViewController.m */; };
+		9CB3F1EE17DB113200BD2385 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9CB3F1ED17DB113200BD2385 /* QuartzCore.framework */; };
 		9CBAF257179BC435009BA64E /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBAF242179BC435009BA64E /* ASIAuthenticationDialog.m */; };
 		9CBAF258179BC435009BA64E /* ASIDataCompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBAF245179BC435009BA64E /* ASIDataCompressor.m */; };
 		9CBAF259179BC435009BA64E /* ASIDataDecompressor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CBAF247179BC435009BA64E /* ASIDataDecompressor.m */; };
@@ -234,6 +236,8 @@
 		9C05B8D4179965E1008E937D /* EXExaminationListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXExaminationListView.m; sourceTree = SOURCE_ROOT; };
 		9C05B8D6179966C9008E937D /* EXExamineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXExamineViewController.h; sourceTree = "<group>"; };
 		9C05B8D7179966C9008E937D /* EXExamineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXExamineViewController.m; sourceTree = "<group>"; };
+		9C0E4BD117DB1F8F00D84184 /* EXExamineRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXExamineRecordViewController.h; sourceTree = "<group>"; };
+		9C0E4BD217DB1F8F00D84184 /* EXExamineRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXExamineRecordViewController.m; sourceTree = "<group>"; };
 		9C1BF6A817ACCCAC00C6AD52 /* UITextField+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextField+Placeholder.h"; sourceTree = SOURCE_ROOT; };
 		9C1BF6A917ACCCAC00C6AD52 /* UITextField+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextField+Placeholder.m"; sourceTree = SOURCE_ROOT; };
 		9C252C71179BC6E300E8E69C /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -284,6 +288,7 @@
 		9CACE90C179ABF21007509EF /* examlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = examlist.json; sourceTree = "<group>"; };
 		9CACE90E179ACCF9007509EF /* EXResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXResultViewController.h; sourceTree = "<group>"; };
 		9CACE90F179ACCF9007509EF /* EXResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXResultViewController.m; sourceTree = "<group>"; };
+		9CB3F1ED17DB113200BD2385 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		9CBAF241179BC435009BA64E /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		9CBAF242179BC435009BA64E /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		9CBAF243179BC435009BA64E /* ASICacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASICacheDelegate.h; sourceTree = "<group>"; };
@@ -322,6 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9CB3F1EE17DB113200BD2385 /* QuartzCore.framework in Frameworks */,
 				9C252C76179BC75E00E8E69C /* MobileCoreServices.framework in Frameworks */,
 				9C252C74179BC71A00E8E69C /* SystemConfiguration.framework in Frameworks */,
 				9C252C72179BC6E300E8E69C /* CFNetwork.framework in Frameworks */,
@@ -467,6 +473,8 @@
 				9CACE90F179ACCF9007509EF /* EXResultViewController.m */,
 				30F02641179C622000508326 /* AboutViewController.h */,
 				30F02642179C622000508326 /* AboutViewController.m */,
+				9C0E4BD117DB1F8F00D84184 /* EXExamineRecordViewController.h */,
+				9C0E4BD217DB1F8F00D84184 /* EXExamineRecordViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -515,6 +523,7 @@
 		30BDBECA1797C17A008F0578 = {
 			isa = PBXGroup;
 			children = (
+				9CB3F1ED17DB113200BD2385 /* QuartzCore.framework */,
 				30BDBEDC1797C17A008F0578 /* ExamProject */,
 				30BDBED51797C17A008F0578 /* Frameworks */,
 				30BDBED41797C17A008F0578 /* Products */,
@@ -889,6 +898,7 @@
 				30E1AFDF17C9A4C200AFA987 /* Exam.m in Sources */,
 				30BBDF6D17C9D81A00BA6BF1 /* Answer.m in Sources */,
 				30BBDF7317C9D8E400BA6BF1 /* AnswerData.m in Sources */,
+				9C0E4BD317DB1F8F00D84184 /* EXExamineRecordViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,8 +8,10 @@
 
 #import "EXDownloadManager.h"
 #import "EXNetDataManager.h"
-#import "ASIHTTPRequest.h"
+#import "ASIFormDataRequest.h"
 #import "PaperData.h"
+#import "DBManager.h"
+#import "UserData.h"
 #import "DBManager.h"
 
 static EXDownloadManager *instance=nil;
@@ -58,7 +60,7 @@ static EXDownloadManager *instance=nil;
     //判断有没有，如果没有则直接去下载
     NSURL *url = [NSURL URLWithString:[paper objectForKey:@"url"]];
     [self cancelRequest];
-    request = [[ASIHTTPRequest alloc] initWithURL:url];
+    request = [[ASIFormDataRequest alloc] initWithURL:url];
     [request setTimeOutSeconds:10];
     request.numberOfTimesToRetryOnTimeout = 2;
     request.delegate = self;
@@ -78,7 +80,7 @@ static EXDownloadManager *instance=nil;
     
     NSURL *url=[NSURL URLWithString:NET_PAPERDATA_URL];
     [self cancelRequest];
-    request = [[ASIHTTPRequest alloc] initWithURL:url];
+    request = [[ASIFormDataRequest alloc] initWithURL:url];
     [request setTimeOutSeconds:10];
     request.numberOfTimesToRetryOnTimeout = 2;
     request.delegate = self;
@@ -94,37 +96,86 @@ static EXDownloadManager *instance=nil;
     [request startAsynchronous];
 }
 
+#pragma mark 下载接口
+- (void)downloadPaperList:(NSInteger)pExamID{
+    NSURL *url=[NSURL URLWithString:NET_PAPERDATA_URL];
+    [self cancelRequest];
+    request = [[ASIFormDataRequest alloc] initWithURL:url];
+    [request setTimeOutSeconds:10];
+    request.numberOfTimesToRetryOnTimeout = 2;
+    request.delegate = self;
+    
+    [request setPostValue:[NSNumber numberWithInteger:pExamID] forKey:@"examId"];
+    
+    NSString *destinatePath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_PAPERFILE_URL];
+    
+    [request setDownloadDestinationPath:destinatePath];
+    [ASIHTTPRequest showNetworkActivityIndicator];
+    [request startAsynchronous];
+}
+
+- (void)downloadExamList{
+    NSURL *url=[NSURL URLWithString:NET_EXAMDATA_URL];
+    [self cancelRequest];
+    request = [[ASIFormDataRequest alloc] initWithURL:url];
+    [request setTimeOutSeconds:10];
+    request.numberOfTimesToRetryOnTimeout = 2;
+    request.delegate = self;
+    
+    UserData *tUserData=[DBManager getDefaultUserData];
+    
+    if ([tUserData.userId integerValue]) {
+        [request setPostValue:tUserData.userId forKey:@"userId"];
+        
+        NSString *destinatePath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+        destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_EXAMFILE_URL];
+        
+        [request setDownloadDestinationPath:destinatePath];
+        [ASIHTTPRequest showNetworkActivityIndicator];
+        [request startAsynchronous];
+    }else{
+        [self cancelRequest];
+    }
+    
+}
+
 
 #pragma mark 下载回调
 - (void)requestFinished:(ASIHTTPRequest *)request{
     [ASIHTTPRequest hideNetworkActivityIndicator];
     //下载成功后的回调
     NSString *requestURL=[request.url absoluteString];
-    if ([requestURL isEqualToString:NET_PAPERDATA_URL]) {
+    if ([requestURL isEqualToString:NET_EXAMDATA_URL]) {
         //下载试卷列表
         NSString *destinatePath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSArray *components=[NET_PAPERDATA_URL componentsSeparatedByString:@"/"];
-        if (components && components.count>0) {
-            destinatePath=[destinatePath stringByAppendingPathComponent:[components lastObject]];
-        }
+        destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_EXAMFILE_URL];
         NSData *data = [NSData dataWithContentsOfFile:destinatePath];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        [EXNetDataManager shareInstance].netPaperDataArray=[result objectForKey:@"arrayData"];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_PAPERS_DOWNLOAD_FINISH object:nil];
-    }else{
+        [EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
+        [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
+        NSLog(@"exam list data:%@",result);
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
+    }
+    else if([requestURL isEqualToString:NET_PAPERDATA_URL]){
         NSString *destinatePath=[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-        NSArray *components=[requestURL componentsSeparatedByString:@"/"];
-        if (components && components.count>0) {
-            destinatePath=[destinatePath stringByAppendingPathComponent:[components lastObject]];
-        }
+        destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_PAPERFILE_URL];
         NSData *paperJson= [NSData dataWithContentsOfFile:destinatePath];
-        PaperData *paper=[Utility convertJSONToPaperData:paperJson];
-        paper.topics=[Utility convertJSONToTopicData:paperJson];
-        [DBManager addPaper:paper];
+        
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:paperJson options:kNilOptions error:nil];
+//        NSMutableDictionary *examPaperInfo=[NSMutableArray arrayWithArray:[result objectForKey:@"data"]];
+//        [[EXNetDataManager shareInstance].paperListInExam setValue:examPaperInfo forKey:[NSString stringWithFormat:@"%@",[examPaperInfo objectForKey:@"id"]]];
+        NSLog(@"paper list data:%@",result);
+        
+//        PaperData *paper=[Utility convertJSONToPaperData:paperJson];
+//        paper.topics=[Utility convertJSONToTopicData:paperJson];
+//        [DBManager addPaper:paper];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     }
+    
+    //新的
+    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request{

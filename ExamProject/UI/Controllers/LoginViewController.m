@@ -139,14 +139,14 @@
     
     if ([[responsePostBody objectForKey:@"result"]boolValue]) {
         UserData *userData = [[UserData alloc]init];
-        userData.userId = [responsePostBody objectForKey:@"id"];
+        userData.userId = [NSNumber numberWithInt:[[responsePostBody objectForKey:@"id"] intValue]];
         userData.regionId = [NSNumber numberWithInt:[[responsePostBody objectForKey:@"regionId"] intValue]];
         userData.email = [responsePostBody objectForKey:@"email"];
         userData.deptName = [responsePostBody objectForKey:@"deptName"];
         userData.fullName = [responsePostBody objectForKey:@"fullName"];
         [DBManager addUser:userData];
         [userData release];
-//        NSLog(@"responsePostBody = %@", responsePostBody);
+        NSLog(@"login responsePostBody = %@", responsePostBody);
         
         //保存帐户密码到keychain中
         NSString *userName = [responsePostBody objectForKey:@"email"];

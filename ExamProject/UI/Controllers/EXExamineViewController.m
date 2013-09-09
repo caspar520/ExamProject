@@ -14,14 +14,19 @@
 #import "CustomTabBarController.h"
 #import "AppDelegate.h"
 #import "DBManager.h"
+#import "EXNetDataManager.h"
+#import "EXDownloadManager.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
+
+- (void)fetchData;
 
 @end
 
 @implementation EXExamineViewController
 
 @synthesize paperData=_paperData;
+@synthesize examData=_examData;
 @synthesize displayTopicType;
 @synthesize isNotOnAnswering;
 
@@ -58,33 +63,6 @@
         UIBarButtonItem*submitButton = [[[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)] autorelease];
         self.navigationItem.rightBarButtonItem= submitButton;
     }
-    
-    UIBarButtonItem *collectButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(collectItemClicked:)] autorelease];
-    
-    UIBarButtonItem *flexibleSpace1 = [[[UIBarButtonItem alloc]
-                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                       target:nil
-                                       action:nil] autorelease];
-    
-    UIBarButtonItem *preButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRewind target:self action:@selector(preItemClicked:)] autorelease];
-    preButton.width=width;
-    
-    UIBarButtonItem *flexibleSpace2 = [[[UIBarButtonItem alloc]
-                                       initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
-                                       target:nil
-                                       action:nil] autorelease];
-    
-    UIBarButtonItem *nextButton = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFastForward target:self action:@selector(nextItemClicked:)] autorelease];
-    nextButton.width=width;
-    
-    [self.navigationController setToolbarHidden:NO animated:NO];
-    if (displayTopicType==kDisplayTopicType_Default) {
-        [self setToolbarItems:[NSArray arrayWithObjects:preButton,flexibleSpace1,nextButton,flexibleSpace2,collectButton,nil]];
-    }else{
-        [self setToolbarItems:[NSArray arrayWithObjects:preButton,flexibleSpace1,nextButton,nil]];
-    }
-    
-    
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
@@ -175,6 +153,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+//拉取考试的试卷数据
+- (void)fetchData{
+    [[EXDownloadManager shareInstance] downloadPaperList:[[_examData objectForKey:@"id"] integerValue]];
+}
+
 #pragma mark set方法
 - (void)setPaperData:(PaperData *)paperData{
     if (_paperData != paperData) {
@@ -184,6 +167,7 @@
     _examineListView.dipalyTopicType=displayTopicType;
     
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
+    
     if (displayTopicType==kDisplayTopicType_Default) {
         [selectedArray addObjectsFromArray:_paperData.topics];
     }else if (displayTopicType==kDisplayTopicType_Wrong){
@@ -202,6 +186,54 @@
 //                }
             }];
         }
+    }else if (displayTopicType==kDisplayTopicType_Record){
+        //答题记录
+        
+    }
+    _examineListView.dataArray=selectedArray;
+}
+
+- (void)setExamData:(NSDictionary *)examData{
+    if (_examData != examData) {
+        [_examData release];
+        _examData =[examData retain];
+    }
+    _examineListView.dipalyTopicType=displayTopicType;
+    
+    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
+    
+    //判断考试的试卷数据是否已经存在
+    if ([[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",[_examData objectForKey:@"id"]]]) {
+        //存在
+        NSDictionary *papersDic=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",[_examData objectForKey:@"id"]]];
+        //NSArray *papers=[papersDic objectForKey:@"paperList"];
+    }else{
+        //不存在
+        [self fetchData];
+    }
+    
+    
+    if (displayTopicType==kDisplayTopicType_Default) {
+        [selectedArray addObjectsFromArray:_paperData.topics];
+    }else if (displayTopicType==kDisplayTopicType_Wrong){
+        if (_paperData.topics) {
+            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                //                if (obj && [obj.wrong boolValue]==YES) {
+                //                    [selectedArray addObject:obj];
+                //                }
+            }];
+        }
+    }else if (displayTopicType==kDisplayTopicType_Collected){
+        if (_paperData.topics) {
+            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                //                if (obj && [obj.favourite boolValue]==YES) {
+                //                    [selectedArray addObject:obj];
+                //                }
+            }];
+        }
+    }else if (displayTopicType==kDisplayTopicType_Record){
+        //答题记录
+        
     }
     _examineListView.dataArray=selectedArray;
 }

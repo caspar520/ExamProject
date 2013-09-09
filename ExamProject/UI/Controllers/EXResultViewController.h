@@ -17,6 +17,9 @@
     UILabel         *resultLabel;
     
     UILabel         *resultTipLabel;
+    
+    //new version
+    UIScrollView    *answerSheet;
 }
 
 @property (nonatomic,retain)PaperData       *paperData;

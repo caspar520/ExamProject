@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class PaperData;
+@class ExamData;
 
 @interface EXPaperCell : UITableViewCell{
     UILabel         *examTitleLabel;
@@ -18,6 +18,6 @@
     UILabel         *authorLabel;
 }
 
-@property (nonatomic,retain)PaperData      *paperData;
+@property (nonatomic,retain)ExamData      *paperData;
 
 @end

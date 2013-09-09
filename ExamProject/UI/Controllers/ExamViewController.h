@@ -13,6 +13,7 @@
 @interface ExamViewController : UIViewController{
     EXListView              *_paperListView;
     NSMutableArray          *_localPaperList;
+    NSMutableArray          *_examList;
     
     UIImageView             *_nullView;
     UILabel                 *_nullLabel;

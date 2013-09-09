@@ -27,19 +27,22 @@
     UILabel         *questionLabel;
     UILabel         *optionTipLabel;
     UITextView      *answerTextView;
+    UILabel         *answerAnalysisTipLabel;
+    UIImageView     *answerAnalysisBackground;
+    UILabel         *answerAnalysisLabel;
     
     UIScrollView    *answerContainerView;
     UIImageView     *shortAnswerBGView;
     UILabel         *shortAnswerLabel;
     
-    UILabel         *answerAnalysisTip;
-    UILabel         *answerAnalysisLabel;
+    BOOL            _isDisplayAnswer;
 }
 
 
 @property (nonatomic,assign)id<EXQuestionDelegate>	delegate;
 @property (nonatomic,retain)TopicData         		*metaData;
 @property (nonatomic,assign)NSInteger				index;
+@property (nonatomic,assign)BOOL                    isDisplayAnswer;
 
 - (void)refreshUI;
 - (void)updateSelectedResult;

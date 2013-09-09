@@ -278,6 +278,7 @@
         user = [User createNewObject];
     }
     user.email = userData.email;
+    user.userId=userData.userId;
     user.fullName = userData.fullName;
     user.regionId = userData.regionId;
     user.deptName = userData.deptName;

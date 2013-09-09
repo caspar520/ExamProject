@@ -13,6 +13,8 @@ static EXNetDataManager *instance=nil;
 @implementation EXNetDataManager
 
 @synthesize netPaperDataArray;
+@synthesize netExamDataArray;
+@synthesize examStatus;
 
 + (EXNetDataManager *)shareInstance{
     if (instance==nil) {
@@ -37,6 +39,7 @@ static EXNetDataManager *instance=nil;
 
 - (void)dealloc{
     [netPaperDataArray release];
+    [netExamDataArray release];
     [super dealloc];
 }
 
