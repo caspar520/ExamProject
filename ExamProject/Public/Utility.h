@@ -15,5 +15,6 @@
 + (PaperData *)convertJSONToPaperData:(NSData *)data;
 + (NSArray *)convertJSONToTopicData:(NSData *)data;
 + (NSString *)md5:(NSString *)str;     //md5加密
++ (NSArray *)convertJSONToExamData:(NSData *)data;
 
 @end

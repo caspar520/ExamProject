@@ -9,6 +9,7 @@
 #import "Utility.h"
 #import "PaperData.h"
 #import "TopicData.h"
+#import "ExamData.h"
 #import <CommonCrypto/CommonDigest.h>
 
 #define CHUNK_SIZE 1024
@@ -78,6 +79,37 @@
         }
     }
     return topics;
+}
+
++ (NSArray *)convertJSONToExamData:(NSData *)data
+{
+    NSMutableArray *result=[[NSMutableArray alloc] initWithCapacity:0];;
+    
+    if (data) {
+        NSArray *tExamDicArray=[Utility convertJSONToExamData:data];
+        if (tExamDicArray) {
+            [tExamDicArray enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    ExamData *examItem=[[ExamData alloc] init];
+                    examItem.examId=[NSNumber numberWithInteger:[[obj objectForKey:@"id"] integerValue]];
+                    examItem.examCategory=[obj objectForKey:@"category"];
+                    examItem.examCreator=[obj objectForKey:@"creater"];
+                    examItem.examBeginTm=[NSNumber numberWithLongLong:[[obj objectForKey:@"beginTm"] longLongValue]];
+                    examItem.examEndTm=[NSNumber numberWithLongLong:[[obj objectForKey:@"endTm"] longLongValue]];
+                    examItem.examTitle=[obj objectForKey:@"name"];
+                    examItem.examNotice=[obj objectForKey:@"notice"];
+                    examItem.examStatus=[NSNumber numberWithInteger:[[obj objectForKey:@"status"] integerValue]];
+                    examItem.examTotalTm=[NSNumber numberWithInteger:[[obj objectForKey:@"totalTm"] integerValue]];
+                    
+                    [result addObject:examItem];
+                    [examItem release];
+                }
+            }];
+        }
+    }
+    
+    
+    return result;
 }
 
 + (NSString *)md5:(NSString *)str

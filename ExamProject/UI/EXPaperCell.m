@@ -12,6 +12,7 @@
 @implementation EXPaperCell
 
 @synthesize paperData=_paperData;
+@synthesize examData=_examData;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -28,6 +29,8 @@
     [examMSGLabel release];
     [examDurationLabel release];
     [authorLabel release];
+    [_examData release];
+    [_paperData release];
     [super dealloc];
 }
 

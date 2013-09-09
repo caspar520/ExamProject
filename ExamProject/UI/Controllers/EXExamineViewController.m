@@ -16,6 +16,7 @@
 #import "DBManager.h"
 #import "EXNetDataManager.h"
 #import "EXDownloadManager.h"
+#import "MBProgressHUD.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
@@ -63,6 +64,9 @@
         UIBarButtonItem*submitButton = [[[UIBarButtonItem alloc] initWithTitle:@"提交" style:UIBarButtonItemStyleBordered target:self action:@selector(submitExaminationItemClicked:)] autorelease];
         self.navigationItem.rightBarButtonItem= submitButton;
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
@@ -153,9 +157,22 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 拉取数据
 //拉取考试的试卷数据
 - (void)fetchData{
     [[EXDownloadManager shareInstance] downloadPaperList:[[_examData objectForKey:@"id"] integerValue]];
+}
+
+- (void)downloadPaperListFinish:(NSNotification *)notification{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
+    //fetch the papers data success of some examination：resove the exam info to the exam object
+    
+    //[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%d",[[_examData objectForKey:@"id"] integerValue]]];
+}
+
+- (void)downloadFailure:(NSNotification *)notification{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
 }
 
 #pragma mark set方法
@@ -212,7 +229,7 @@
         [self fetchData];
     }
     
-    
+    /*
     if (displayTopicType==kDisplayTopicType_Default) {
         [selectedArray addObjectsFromArray:_paperData.topics];
     }else if (displayTopicType==kDisplayTopicType_Wrong){
@@ -236,6 +253,7 @@
         
     }
     _examineListView.dataArray=selectedArray;
+     */
 }
 
 #pragma mark 按钮点击事件
@@ -254,8 +272,7 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
     [self markPaper];
-    //批改试卷完成后需要上传服务器：暂不做
-    //跳转到成绩界面
+    //批改试卷完成后需要上传服务器：根据标记是否跳转到考试结果页面
     EXResultViewController *resultController=[[EXResultViewController alloc] init];
     resultController.paperData=self.paperData;
     [self.navigationController pushViewController:resultController animated:YES];

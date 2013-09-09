@@ -153,7 +153,8 @@ static EXDownloadManager *instance=nil;
         NSData *data = [NSData dataWithContentsOfFile:destinatePath];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         [EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
-        [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
+        //[EXNetDataManager shareInstance].netExamDataArray=[Utility convertJSONToExamData:[result objectForKey:@"data"]];
+        //[EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
         NSLog(@"exam list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
     }
@@ -175,7 +176,7 @@ static EXDownloadManager *instance=nil;
     }
     
     //新的
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
+    //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request{

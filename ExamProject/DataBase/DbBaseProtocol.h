@@ -29,6 +29,13 @@
 @property (nonatomic, retain) NSNumber * updateTm;                      //更新时间戳
 @property (nonatomic, retain) NSNumber * createTm;                      //创建时间(通过创建时间和考试Id唯一确定一条数据),不要更新此属性
 
+//added by brown    
+@property (nonatomic, copy) NSString * examCategory;                    //考试分类
+@property (nonatomic, copy) NSString * examCreator;                     //创建者
+@property (nonatomic, copy) NSString * examTitle;                       //标题
+@property (nonatomic, retain) NSNumber * examStatus;                    //试卷状态
+@property (nonatomic, copy) NSString * examNotice;                      //通知信息：暂时不知道有什么用
+
 @end
 
 @protocol PaperDataProtocol <NSObject>

@@ -18,6 +18,7 @@
     UILabel         *authorLabel;
 }
 
-@property (nonatomic,retain)ExamData      *paperData;
+@property (nonatomic,retain)ExamData        *paperData;
+@property (nonatomic,retain)ExamData        *examData;
 
 @end
