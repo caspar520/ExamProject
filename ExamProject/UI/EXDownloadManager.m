@@ -152,9 +152,9 @@ static EXDownloadManager *instance=nil;
         destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_EXAMFILE_URL];
         NSData *data = [NSData dataWithContentsOfFile:destinatePath];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        [EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
-        //[EXNetDataManager shareInstance].netExamDataArray=[Utility convertJSONToExamData:[result objectForKey:@"data"]];
-        //[EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
+        //[EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
+        [EXNetDataManager shareInstance].netExamDataArray=(NSMutableArray *)[Utility convertJSONToExamData:data];
+        [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
         NSLog(@"exam list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
     }

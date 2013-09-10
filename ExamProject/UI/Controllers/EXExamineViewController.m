@@ -17,6 +17,7 @@
 #import "EXNetDataManager.h"
 #import "EXDownloadManager.h"
 #import "MBProgressHUD.h"
+#import "ExamData.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
@@ -160,7 +161,7 @@
 #pragma mark 拉取数据
 //拉取考试的试卷数据
 - (void)fetchData{
-    [[EXDownloadManager shareInstance] downloadPaperList:[[_examData objectForKey:@"id"] integerValue]];
+    [[EXDownloadManager shareInstance] downloadPaperList:[_examData.examId integerValue]];
 }
 
 - (void)downloadPaperListFinish:(NSNotification *)notification{
@@ -176,41 +177,8 @@
 }
 
 #pragma mark set方法
-- (void)setPaperData:(PaperData *)paperData{
-    if (_paperData != paperData) {
-        [_paperData release];
-        _paperData =[paperData retain];
-    }
-    _examineListView.dipalyTopicType=displayTopicType;
-    
-    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
-    
-    if (displayTopicType==kDisplayTopicType_Default) {
-        [selectedArray addObjectsFromArray:_paperData.topics];
-    }else if (displayTopicType==kDisplayTopicType_Wrong){
-        if (_paperData.topics) {
-            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
-//                if (obj && [obj.wrong boolValue]==YES) {
-//                    [selectedArray addObject:obj];
-//                }
-            }];
-        }
-    }else if (displayTopicType==kDisplayTopicType_Collected){
-        if (_paperData.topics) {
-            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
-//                if (obj && [obj.favourite boolValue]==YES) {
-//                    [selectedArray addObject:obj];
-//                }
-            }];
-        }
-    }else if (displayTopicType==kDisplayTopicType_Record){
-        //答题记录
-        
-    }
-    _examineListView.dataArray=selectedArray;
-}
 
-- (void)setExamData:(NSDictionary *)examData{
+- (void)setExamData:(ExamData *)examData{
     if (_examData != examData) {
         [_examData release];
         _examData =[examData retain];
@@ -220,9 +188,9 @@
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
     
     //判断考试的试卷数据是否已经存在
-    if ([[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",[_examData objectForKey:@"id"]]]) {
+    if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
         //存在
-        NSDictionary *papersDic=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",[_examData objectForKey:@"id"]]];
+        NSDictionary *papersDic=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
         //NSArray *papers=[papersDic objectForKey:@"paperList"];
     }else{
         //不存在

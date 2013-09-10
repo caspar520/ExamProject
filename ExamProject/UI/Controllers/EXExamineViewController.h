@@ -24,8 +24,7 @@
 }
 
 @property (nonatomic,retain)PaperData           *paperData;
-//@property (nonatomic,retain)ExamData            *examData;
-@property (nonatomic,retain)NSDictionary        *examData;
+@property (nonatomic,retain)ExamData            *examData;
 @property (nonatomic,assign)DisplayTopicType    displayTopicType;
 @property (nonatomic,assign)BOOL                isNotOnAnswering;
 

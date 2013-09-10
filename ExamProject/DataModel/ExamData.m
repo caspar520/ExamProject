@@ -28,6 +28,13 @@
 @synthesize updateTm;
 @synthesize createTm;
 
+//added by brown
+@synthesize examCategory;
+@synthesize examCreator;
+@synthesize examTitle;
+@synthesize examStatus;
+@synthesize examNotice;
+
 - (id)initWithExam:(Exam *)aExam
 {
     self = [super init];

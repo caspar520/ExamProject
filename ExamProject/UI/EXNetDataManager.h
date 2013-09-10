@@ -16,6 +16,7 @@
 @property (nonatomic,retain)NSMutableArray      *netPaperDataArray;
 @property (nonatomic,retain)NSMutableArray      *netExamDataArray;
 @property (nonatomic,retain)NSMutableDictionary *paperListInExam;
+@property (nonatomic,retain)NSMutableDictionary *topicsListInPaper;
 @property (nonatomic,assign)int                 examStatus;
 
 @end
