@@ -15,6 +15,8 @@ static EXNetDataManager *instance=nil;
 @synthesize netPaperDataArray;
 @synthesize netExamDataArray;
 @synthesize examStatus;
+@synthesize paperListInExam;
+@synthesize topicsListInPaper;
 
 + (EXNetDataManager *)shareInstance{
     if (instance==nil) {
@@ -32,7 +34,8 @@ static EXNetDataManager *instance=nil;
     self=[super init];
     if (self) {
         //TODO:initializations
-        
+        paperListInExam=[[NSMutableDictionary alloc] init];
+        topicsListInPaper=[[NSMutableDictionary alloc] init];
     }
     return self;
 }
@@ -40,6 +43,8 @@ static EXNetDataManager *instance=nil;
 - (void)dealloc{
     [netPaperDataArray release];
     [netExamDataArray release];
+    [paperListInExam release];
+    [topicsListInPaper release];
     [super dealloc];
 }
 

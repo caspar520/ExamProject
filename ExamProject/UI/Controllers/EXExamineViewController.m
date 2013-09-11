@@ -66,7 +66,7 @@
         self.navigationItem.rightBarButtonItem= submitButton;
     }
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
     
 	// Do any additional setup after loading the view.
@@ -168,8 +168,8 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
     //fetch the papers data success of some examination：resove the exam info to the exam object
-    
-    //[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%d",[[_examData objectForKey:@"id"] integerValue]]];
+    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%d",[_examData.examId integerValue]]];
+    _examineListView.dataArray=papers;
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
@@ -186,20 +186,24 @@
     _examineListView.dipalyTopicType=displayTopicType;
     
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
-    
     //判断考试的试卷数据是否已经存在
-    if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
-        //存在
-        NSDictionary *papersDic=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
-        //NSArray *papers=[papersDic objectForKey:@"paperList"];
-    }else{
-        //不存在
-        [self fetchData];
-    }
-    
-    /*
     if (displayTopicType==kDisplayTopicType_Default) {
-        [selectedArray addObjectsFromArray:_paperData.topics];
+        if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
+            //存在
+            NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
+            
+            if (papers) {
+                [papers enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
+                    if (obj) {
+                        [selectedArray addObjectsFromArray:obj.topics];
+                    }
+                }];
+            }
+        }else{
+            //不存在
+            [self fetchData];
+        }
+        
     }else if (displayTopicType==kDisplayTopicType_Wrong){
         if (_paperData.topics) {
             [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
@@ -220,8 +224,8 @@
         //答题记录
         
     }
+    
     _examineListView.dataArray=selectedArray;
-     */
 }
 
 #pragma mark 按钮点击事件
@@ -239,11 +243,15 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
-    [self markPaper];
+    //根据需求判断是否跳转到答题结果界面，清理EXNetDataManager中的试卷的考试记录
+    //[self markPaper];
+    
+    
+    
     //批改试卷完成后需要上传服务器：根据标记是否跳转到考试结果页面
-    EXResultViewController *resultController=[[EXResultViewController alloc] init];
-    resultController.paperData=self.paperData;
-    [self.navigationController pushViewController:resultController animated:YES];
+//    EXResultViewController *resultController=[[EXResultViewController alloc] init];
+//    resultController.paperData=self.paperData;
+//    [self.navigationController pushViewController:resultController animated:YES];
 }
 
 - (void)nextItemClicked:(id)sender{
@@ -256,13 +264,13 @@
 
 - (void)collectItemClicked:(id)sender{
 //	_paperData.fav=[NSNumber numberWithBool:YES];
-    [_examineListView collectionTopic];
-    [DBManager addPaper:_paperData];
+//    [_examineListView collectionTopic];
+//    [DBManager addPaper:_paperData];
     
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-    [alert show];
-    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
-    [alert release];
+//    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//    [alert show];
+//    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
+//    [alert release];
 }
 
 - (void)removeAlertTip:(id)object{

@@ -75,7 +75,7 @@
 	if (questionLabel==nil) {
         questionLabel=[[UILabel alloc] initWithFrame:CGRectMake(30, CGRectGetMinY(questionBackground.frame)+4, CGRectGetWidth(questionBackground.frame)-25, CGRectGetHeight(questionBackground.frame)-22)];
         questionLabel.textColor=[UIColor blackColor];
-//        questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.question];
+        questionLabel.text=[NSString stringWithFormat:@"%@",_metaData.topicQuestion];
         questionLabel.backgroundColor=[UIColor clearColor];
         questionLabel.textAlignment=UITextAlignmentLeft;
         questionLabel.numberOfLines=3;

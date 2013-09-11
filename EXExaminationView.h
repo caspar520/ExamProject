@@ -12,6 +12,8 @@
 
 @protocol EXQuestionDelegate
 
+- (void)confirmSelectOption:(NSInteger)pIndex withObject:(id)pObj;
+
 @optional
 - (void)selectOption:(NSInteger)pIndex withObject:(id)pObj;
 - (void)cancelOption:(NSInteger)pIndex withObject:(id)pObj;
@@ -34,6 +36,7 @@
     UIScrollView    *answerContainerView;
     UIImageView     *shortAnswerBGView;
     UILabel         *shortAnswerLabel;
+    UIButton        *confirmAnswerBtn;
     
     BOOL            _isDisplayAnswer;
 }

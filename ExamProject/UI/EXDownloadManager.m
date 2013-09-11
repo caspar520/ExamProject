@@ -164,6 +164,12 @@ static EXDownloadManager *instance=nil;
         NSData *paperJson= [NSData dataWithContentsOfFile:destinatePath];
         
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:paperJson options:kNilOptions error:nil];
+        NSString *tExamID=[NSString stringWithFormat:@"%@",[[result objectForKey:@"data"] objectForKey:@"id"]];
+        NSMutableArray *papers=(NSMutableArray *)[Utility convertJSONToPaperData:paperJson];
+        [[EXNetDataManager shareInstance].paperListInExam setValue:papers forKey:tExamID];
+        
+        
+        
 //        NSMutableDictionary *examPaperInfo=[NSMutableArray arrayWithArray:[result objectForKey:@"data"]];
 //        [[EXNetDataManager shareInstance].paperListInExam setValue:examPaperInfo forKey:[NSString stringWithFormat:@"%@",[examPaperInfo objectForKey:@"id"]]];
         NSLog(@"paper list data:%@",result);

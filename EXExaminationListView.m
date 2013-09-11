@@ -7,7 +7,6 @@
 //
 
 #import "EXExaminationListView.h"
-#import "EXExaminationView.h"
 #import "TopicData.h"
 #import "EXOptionTopicView.h"
 #import "EXJudgeTopicView.h"
@@ -60,30 +59,30 @@
             if (obj) {
                 NSInteger idx=[_dataArray indexOfObject:obj];
                 EXExaminationView *view=nil;
-//                if ([obj.type integerValue]==1 || [obj.type integerValue]==2) {
-//                    view= [[EXOptionTopicView alloc] init];
-//                }else if ([obj.type integerValue]==3){
-//                    view= [[EXJudgeTopicView alloc] init];
-//                }else{
-//                    view= [[EXShortAnswerTopicView alloc] init];
-//                }
-                //临时
-                int type=[_dataArray indexOfObject:obj]%4;
-                if (type==1 || type==2) {
+                if ([obj.topicType integerValue]==1 || [obj.topicType integerValue]==2) {
                     view= [[EXOptionTopicView alloc] init];
-                }else if (type==3){
+                }else if ([obj.topicType integerValue]==3){
                     view= [[EXJudgeTopicView alloc] init];
                 }else{
                     view= [[EXShortAnswerTopicView alloc] init];
                 }
-                if (dipalyTopicType!=kDisplayTopicType_Default) {
-                    view.isDisplayAnswer=YES;
-                }
+                //临时
+//                int type=[_dataArray indexOfObject:obj]%4;
+//                if (type==1 || type==2) {
+//                    view= [[EXOptionTopicView alloc] init];
+//                }else if (type==3){
+//                    view= [[EXJudgeTopicView alloc] init];
+//                }else{
+//                    view= [[EXShortAnswerTopicView alloc] init];
+//                }
+//                if (dipalyTopicType!=kDisplayTopicType_Default) {
+//                    view.isDisplayAnswer=YES;
+//                }
                 
                 
                 
                 view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
-                view.delegate=delegate;
+                view.delegate=self;
                 view.index=idx+1;
                 view.metaData=obj;
                 view.tag=idx;
@@ -94,6 +93,10 @@
         }
     }
     [_scrollView setContentOffset:CGPointMake(currentIndex*CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
+}
+
+- (void)confirmSelectOption:(NSInteger)pIndex withObject:(id)pObj{
+    [self nextTopic];
 }
 
 - (void)preTopic{

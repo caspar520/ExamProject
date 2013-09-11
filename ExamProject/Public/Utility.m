@@ -41,7 +41,6 @@
             }];
         }
         
-        //NSString *tExamID=[NSString stringWithFormat:@"%@",[tExamPaperInfoDic objectForKey:@"id"]];
         NSArray *papers=[tExamPaperInfoDic objectForKey:@"paperList"];
         if (papers) {
             [papers enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
