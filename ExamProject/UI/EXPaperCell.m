@@ -8,6 +8,7 @@
 
 #import "EXPaperCell.h"
 #import "PaperData.h"
+#import "ExamData.h"
 
 @implementation EXPaperCell
 
@@ -52,7 +53,7 @@
         
         [self addSubview:examTitleLabel];
     }
-//    examTitleLabel.text=_paperData.title;
+    examTitleLabel.text=_examData.examTitle;
     
     if (examTypeLabel==nil) {
         examTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, CGRectGetWidth(self.frame)-120, 20)];
@@ -63,7 +64,7 @@
         
         [self addSubview:examTypeLabel];
     }
-    //examTypeLabel.text=[NSString stringWithFormat:@"考试分类：%@",_paperData.t];
+    examTypeLabel.text=[NSString stringWithFormat:@"考试分类：%@",_examData.examCategory];
     
     if (examDurationLabel==nil) {
         examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examTypeLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 90, 20)];
@@ -74,7 +75,7 @@
         
         [self addSubview:examDurationLabel];
     }
-    //examDurationLabel.text=[NSString stringWithFormat:@"时长：%@",_paperData.title];
+    examDurationLabel.text=[NSString stringWithFormat:@"时长：%@",_examData.examTotalTm];
     
     if (examMSGLabel==nil) {
         examMSGLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(examTypeLabel.frame), CGRectGetMaxY(examTypeLabel.frame)+5, CGRectGetWidth(self.frame)-10, 20)];
@@ -86,7 +87,7 @@
         
         [self addSubview:examMSGLabel];
     }
-    //examMSGLabel.text=[NSString stringWithFormat:@"考试须知：%@",_paperData.title];
+    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，＋须知",_examData.examBeginTm,_examData.examEndTm];
 }
 
 @end

@@ -35,6 +35,8 @@
 @property (nonatomic, copy) NSString * examTitle;                       //标题
 @property (nonatomic, retain) NSNumber * examStatus;                    //试卷状态
 @property (nonatomic, copy) NSString * examNotice;                      //通知信息：暂时不知道有什么用
+@property (nonatomic, retain)NSNumber *examIsCollected;                 //试卷是否有试题呗收藏
+@property (nonatomic, retain)NSNumber *examIsHasWrong;                  //答过的试卷是否存在错题
 
 @end
 
@@ -64,6 +66,10 @@
 @property (nonatomic, retain) NSString * topicAnalysis; //这是答案分析内容，在显示单条题目时显示此内容。
 @property (nonatomic, retain) NSNumber * topicValue;    // 试题分值
 @property (nonatomic, retain) NSString * topicImage;    //试题图片
+
+//added by brown
+@property (nonatomic, retain) NSNumber * topicIsCollected;  //试题是否呗收藏
+@property (nonatomic, retain) NSNumber * topicIsWrong;      //试题是否答错
 
 @end
 

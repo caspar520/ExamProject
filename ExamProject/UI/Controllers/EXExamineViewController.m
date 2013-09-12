@@ -21,6 +21,8 @@
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
+- (void)triggerExamTimer;
+- (void)destroyExamTimer;
 - (void)fetchData;
 
 @end
@@ -158,6 +160,15 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark 定时器
+- (void)triggerExamTimer{
+    
+}
+
+- (void)destroyExamTimer{
+    
+}
+
 #pragma mark 拉取数据
 //拉取考试的试卷数据
 - (void)fetchData{
@@ -205,24 +216,42 @@
         }
         
     }else if (displayTopicType==kDisplayTopicType_Wrong){
-        if (_paperData.topics) {
-            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
-                //                if (obj && [obj.wrong boolValue]==YES) {
-                //                    [selectedArray addObject:obj];
-                //                }
+        if (_examData.papers) {
+            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                if (pObj) {
+                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                        if (obj && [obj.topicIsWrong boolValue]==YES) {
+                            [selectedArray addObject:obj];
+                        }
+                    }];
+                }
             }];
         }
     }else if (displayTopicType==kDisplayTopicType_Collected){
-        if (_paperData.topics) {
-            [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
-                //                if (obj && [obj.favourite boolValue]==YES) {
-                //                    [selectedArray addObject:obj];
-                //                }
+        if (_examData.papers) {
+            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                if (pObj) {
+                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                        if (obj && [obj.topicIsCollected boolValue]==YES) {
+                            [selectedArray addObject:obj];
+                        }
+                    }];
+                }
             }];
         }
     }else if (displayTopicType==kDisplayTopicType_Record){
         //答题记录
-        
+        if (_examData.papers) {
+            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                if (pObj) {
+                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                        if (obj) {
+                            [selectedArray addObject:obj];
+                        }
+                    }];
+                }
+            }];
+        }
     }
     
     _examineListView.dataArray=selectedArray;
