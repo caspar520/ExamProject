@@ -21,7 +21,7 @@
 + (NSArray *)convertJSONToPaperData:(NSData *)data{
     NSMutableArray *result=[NSMutableArray arrayWithCapacity:0];
     
-    __block ExamData *exam=nil;
+    //__block ExamData *exam=nil;
     if (data) { 
         NSDictionary *tExamPaper=[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         NSDictionary *tExamPaperInfoDic=[tExamPaper objectForKey:@"data"];
@@ -39,7 +39,7 @@
                     obj.examDisableSubmit=[NSNumber numberWithInt:[[tExamPaperInfoDic objectForKey:@"disableSubmit"] intValue]];
                     obj.updateTm=[NSNumber numberWithLongLong:[[tExamPaperInfoDic objectForKey:@"updateTm"] longLongValue]];
                     
-                    exam=obj;
+                    //exam=obj;
                 }
             }];
         }
@@ -52,7 +52,8 @@
                     paperData.paperId = [NSNumber numberWithInt:[[obj objectForKey:@"id"] intValue]];
                     paperData.paperName = [obj objectForKey:@"name"];
                     paperData.paperStatus = [NSNumber numberWithInt:[[obj objectForKey:@"status"] intValue]];
-                    paperData.topics=[Utility convertJSONToTopicData:obj];
+                    paperData.topics=[[Utility convertJSONToTopicData:obj] retain];
+                    NSLog(@"paper(%@) topic count:%d",paperData.paperId,paperData.topics.count);
                     
                     [result addObject:paperData];
                     [paperData release];
@@ -60,10 +61,10 @@
             }];
         }
     }
-    if (exam) {
-        exam.papers=result;
-    }
-    
+//    if (exam) {
+//        exam.papers=result;
+//    }
+    NSLog(@"paper count:%d",result.count);
     return result;
 }
 
@@ -106,7 +107,7 @@
             }];
         }
     }
-    
+    NSLog(@"topic count:%d",topics.count);
     return topics;
 }
 

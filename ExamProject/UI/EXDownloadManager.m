@@ -167,7 +167,7 @@ static EXDownloadManager *instance=nil;
         NSString *tExamID=[NSString stringWithFormat:@"%@",[[result objectForKey:@"data"] objectForKey:@"id"]];
         NSMutableArray *papers=(NSMutableArray *)[Utility convertJSONToPaperData:paperJson];
         [[EXNetDataManager shareInstance].paperListInExam setValue:papers forKey:tExamID];
-        
+        NSLog(@"paper list in exam key:%@",tExamID);
         
         
 //        NSMutableDictionary *examPaperInfo=[NSMutableArray arrayWithArray:[result objectForKey:@"data"]];
@@ -180,9 +180,6 @@ static EXDownloadManager *instance=nil;
         
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     }
-    
-    //新的
-    //[[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request{

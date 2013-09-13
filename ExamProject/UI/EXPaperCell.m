@@ -35,10 +35,10 @@
     [super dealloc];
 }
 
-- (void)setPaperData:(ExamData *)paperData{
-    if (_paperData!=paperData) {
-        [_paperData release];
-        _paperData=[paperData retain];
+- (void)setExamData:(ExamData *)examData{
+    if (_examData!=examData) {
+        [_examData release];
+        _examData=[examData retain];
     }
     [self refreshUI];
 }

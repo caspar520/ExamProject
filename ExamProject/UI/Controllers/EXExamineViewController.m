@@ -179,8 +179,23 @@
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
     //fetch the papers data success of some examination：resove the exam info to the exam object
-    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%d",[_examData.examId integerValue]]];
-    _examineListView.dataArray=papers;
+    
+    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
+    if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
+        //存在
+        NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
+        NSLog(@"paper count in exam controller:%d",papers.count);
+        if (papers) {
+            for (PaperData *obj in papers) {
+                if (obj) {
+                    NSLog(@"paper() topic count in view controller:%d",obj.topics.count);
+                    //[selectedArray addObjectsFromArray:obj.topics];
+                }
+            }
+        }
+    }
+    NSLog(@"topic count in exam(%@):%d",_examData.examId,selectedArray.count);
+    _examineListView.dataArray=selectedArray;
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
@@ -199,6 +214,7 @@
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
     //判断考试的试卷数据是否已经存在
     if (displayTopicType==kDisplayTopicType_Default) {
+        NSLog(@"exam data id:%@",_examData.examId);
         if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
             //存在
             NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
@@ -254,6 +270,7 @@
         }
     }
     
+    NSLog(@"topic count in exam(%@)2:%d",_examData.examId,selectedArray.count);
     _examineListView.dataArray=selectedArray;
 }
 

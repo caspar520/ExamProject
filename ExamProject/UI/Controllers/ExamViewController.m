@@ -185,7 +185,7 @@
     if (cell==nil) {
         cell=[[[EXPaperCell alloc] init] autorelease];
         if (indexPath.row<_examList.count) {
-            cell.paperData=[_examList objectAtIndex:indexPath.row];
+            cell.examData=[_examList objectAtIndex:indexPath.row];
         }
     }
     
