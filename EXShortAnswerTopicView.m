@@ -33,40 +33,40 @@
 - (void)refreshUI{
     [super refreshUI];
     optionTipLabel.text=@"答案提示";
-//    CGSize size=[self.metaData.answers sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(CGRectGetWidth(answerContainerView.frame)-50, MAXFLOAT)];
-//    if (shortAnswerBGView==nil) {
-//        shortAnswerBGView=[[UIImageView alloc] initWithFrame:
-//                            CGRectMake(0, 0, CGRectGetWidth(answerContainerView.frame)-20, size.height+50)];
-//        shortAnswerBGView.backgroundColor=[UIColor clearColor];
-//        shortAnswerBGView.userInteractionEnabled=YES;
-//        shortAnswerBGView.image=[UIImage imageNamed:@"topic_bg.png"];
-//        [answerContainerView addSubview:shortAnswerBGView];
-//    }
-//    if (answerTextView==nil) {
-//        answerTextView=[[UITextView alloc] initWithFrame:CGRectMake(20, 15, CGRectGetWidth(answerContainerView.frame)-50, CGRectGetHeight(answerContainerView.frame)-50)];
-//        answerTextView.delegate = self;
-//        answerTextView.returnKeyType = UIReturnKeyDone;
-//        answerTextView.keyboardType = UIKeyboardTypeDefault;
-//        answerTextView.backgroundColor = [UIColor clearColor];
-//        answerTextView.font = [UIFont systemFontOfSize:20];
-//        answerTextView.alpha=1.0;
-//        answerTextView.editable=YES;
-//        [answerContainerView addSubview:answerTextView];
-//    }
-//    
-//    if (shortAnswerLabel==nil) {
-//        shortAnswerLabel=[[UILabel alloc] init];
-//        shortAnswerLabel.textColor=[UIColor blackColor];
-//        shortAnswerLabel.frame=CGRectMake(20, 15, CGRectGetWidth(answerContainerView.frame)-50, size.height);
-//        shortAnswerLabel.backgroundColor=[UIColor clearColor];
-//        shortAnswerLabel.textAlignment=UITextAlignmentLeft;
-//        shortAnswerLabel.numberOfLines=0;
-//        shortAnswerLabel.text=self.metaData.answers;
-//        [answerContainerView addSubview:shortAnswerLabel];
-//    }
-//    if (answerContainerView.contentSize.height<size.height+30) {
-//        answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, size.height+30);
-//    }
+    CGSize size=[self.metaData.topicAnalysis sizeWithFont:[UIFont systemFontOfSize:20] constrainedToSize:CGSizeMake(CGRectGetWidth(answerContainerView.frame)-50, MAXFLOAT)];
+    if (shortAnswerBGView==nil) {
+        shortAnswerBGView=[[UIImageView alloc] initWithFrame:
+                            CGRectMake(0, 0, CGRectGetWidth(answerContainerView.frame)-20, size.height+50)];
+        shortAnswerBGView.backgroundColor=[UIColor clearColor];
+        shortAnswerBGView.userInteractionEnabled=YES;
+        shortAnswerBGView.image=[UIImage imageNamed:@"topic_bg.png"];
+        [answerContainerView addSubview:shortAnswerBGView];
+    }
+    if (answerTextView==nil) {
+        answerTextView=[[UITextView alloc] initWithFrame:CGRectMake(20, 15, CGRectGetWidth(answerContainerView.frame)-50, CGRectGetHeight(answerContainerView.frame)-50)];
+        answerTextView.delegate = self;
+        answerTextView.returnKeyType = UIReturnKeyDone;
+        answerTextView.keyboardType = UIKeyboardTypeDefault;
+        answerTextView.backgroundColor = [UIColor clearColor];
+        answerTextView.font = [UIFont systemFontOfSize:20];
+        answerTextView.alpha=1.0;
+        answerTextView.editable=YES;
+        [answerContainerView addSubview:answerTextView];
+    }
+    
+    if (shortAnswerLabel==nil) {
+        shortAnswerLabel=[[UILabel alloc] init];
+        shortAnswerLabel.textColor=[UIColor blackColor];
+        shortAnswerLabel.frame=CGRectMake(20, 15, CGRectGetWidth(answerContainerView.frame)-50, size.height);
+        shortAnswerLabel.backgroundColor=[UIColor clearColor];
+        shortAnswerLabel.textAlignment=UITextAlignmentLeft;
+        shortAnswerLabel.numberOfLines=0;
+        shortAnswerLabel.text=self.metaData.topicAnalysis;
+        [answerContainerView addSubview:shortAnswerLabel];
+    }
+    if (answerContainerView.contentSize.height<size.height+30) {
+        answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, size.height+30);
+    }
 }
 
 #pragma mark keyBoard Event

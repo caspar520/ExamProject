@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "TopicData.h"
+#import "AnswerData.h"
 #import "EXCheckOptionView.h"
 
 @protocol EXQuestionDelegate
@@ -49,5 +50,6 @@
 
 - (void)refreshUI;
 - (void)updateSelectedResult;
+- (void)confirmItemClicked:(id)sender;
 
 @end

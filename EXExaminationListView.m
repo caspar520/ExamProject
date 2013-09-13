@@ -66,20 +66,9 @@
                 }else{
                     view= [[EXShortAnswerTopicView alloc] init];
                 }
-                //临时
-//                int type=[_dataArray indexOfObject:obj]%4;
-//                if (type==1 || type==2) {
-//                    view= [[EXOptionTopicView alloc] init];
-//                }else if (type==3){
-//                    view= [[EXJudgeTopicView alloc] init];
-//                }else{
-//                    view= [[EXShortAnswerTopicView alloc] init];
-//                }
-//                if (dipalyTopicType!=kDisplayTopicType_Default) {
-//                    view.isDisplayAnswer=YES;
-//                }
-                
-                
+                if (dipalyTopicType!=kDisplayTopicType_Default) {
+                    view.isDisplayAnswer=YES;
+                }
                 
                 view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
                 view.delegate=self;

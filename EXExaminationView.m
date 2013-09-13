@@ -146,4 +146,10 @@
 //    _metaData.analysis=result;
 }
 
+- (void)confirmItemClicked:(id)sender{
+    if(self.delegate && [self.delegate respondsToSelector:@selector(confirmSelectOption:withObject:)]) {
+        [self.delegate confirmSelectOption:index withObject:self];
+    }
+}
+
 @end

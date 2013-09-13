@@ -26,49 +26,76 @@
 - (void)refreshUI{
     [super refreshUI];
     //options check view
-//    NSArray *components=[self.metaData.analysis componentsSeparatedByString:@"|"];
-//    BOOL isChecked=NO;
-//    
-//    EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-200-40)/2, 10, 100, 40) checked:NO];
-//    rightCheckView.backgroundColor=[UIColor clearColor];
-//    rightCheckView.delegate=self;
-//    rightCheckView.exclusiveTouch=YES;
-//    rightCheckView.index=0;
-//    [answerContainerView addSubview:rightCheckView];
-//    
-//    if (components && components.count>0) {
-//        for (NSString *item in components) {
-//            if (item && [item integerValue]==rightCheckView.index) {
-//                isChecked=YES;
-//            }
-//        }
-//    }
-//    rightCheckView.checked=isChecked;
-//    [rightCheckView updateCheckBoxImage];
-//    [rightCheckView release];
-//    
-//    isChecked=NO;
-//    EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+40, 10, 100, 40) checked:NO];
-//    wrongCheckView.backgroundColor=[UIColor clearColor];
-//    wrongCheckView.delegate=self;
-//    wrongCheckView.exclusiveTouch=YES;
-//    wrongCheckView.index=-1;
-//    [answerContainerView addSubview:wrongCheckView];
-//    
-//    if (components && components.count>0) {
-//        for (NSString *item in components) {
-//            if (item && [item integerValue]==wrongCheckView.index) {
-//                isChecked=YES;
-//            }
-//        }
-//    }
-//    wrongCheckView.checked=isChecked;
-//    [wrongCheckView updateCheckBoxImage];
-//    [wrongCheckView release];
-//    
-//    if (answerContainerView.contentSize.height<45*2) {
-//        answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, 45*2);
-//    }
+    NSArray *components=self.metaData.answers;
+    BOOL isChecked=NO;
+    
+    EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-200-40)/2, 10, 100, 40) checked:NO];
+    rightCheckView.backgroundColor=[UIColor clearColor];
+    rightCheckView.delegate=self;
+    rightCheckView.exclusiveTouch=YES;
+    rightCheckView.index=0;
+    [answerContainerView addSubview:rightCheckView];
+    
+    if (components && components.count>0) {
+        isChecked=[((AnswerData *)[components objectAtIndex:0]).isSelected boolValue];
+    }
+    rightCheckView.checked=isChecked;
+    [rightCheckView updateCheckBoxImage];
+    [rightCheckView release];
+    
+    isChecked=NO;
+    EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+40, 10, 100, 40) checked:NO];
+    wrongCheckView.backgroundColor=[UIColor clearColor];
+    wrongCheckView.delegate=self;
+    wrongCheckView.exclusiveTouch=YES;
+    wrongCheckView.index=-1;
+    [answerContainerView addSubview:wrongCheckView];
+    
+    if (components && components.count>1) {
+        isChecked=[((AnswerData *)[components objectAtIndex:1]).isSelected boolValue];
+    }
+    wrongCheckView.checked=isChecked;
+    [wrongCheckView updateCheckBoxImage];
+    [wrongCheckView release];
+    
+    float height=CGRectGetHeight(wrongCheckView.frame)+20;
+    if (_isDisplayAnswer==YES) {
+        if (answerAnalysisTipLabel==nil) {
+            answerAnalysisTipLabel=[[UILabel alloc] initWithFrame:CGRectMake(0,height+20,80,30)];
+            answerAnalysisTipLabel.textColor=[UIColor blackColor];
+            answerAnalysisTipLabel.text=@"答题解析";
+            answerAnalysisTipLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
+            answerAnalysisTipLabel.textAlignment=UITextAlignmentLeft;
+            [answerContainerView addSubview:answerAnalysisTipLabel];
+        }
+        height+=CGRectGetHeight(answerAnalysisTipLabel.frame)+25;
+        
+        if (answerAnalysisBackground==nil) {
+            answerAnalysisBackground=[[UIImageView alloc] initWithFrame:
+                                      CGRectMake(CGRectGetMinX(answerAnalysisTipLabel.frame)-10,CGRectGetMaxY(answerAnalysisTipLabel.frame)+5,CGRectGetWidth(self.frame)-2*CGRectGetMinX(answerAnalysisTipLabel.frame),90)];
+            answerAnalysisBackground.backgroundColor=[UIColor clearColor];
+            answerAnalysisBackground.image=[UIImage imageNamed:@"topic_bg.png"];
+            [answerContainerView addSubview:answerAnalysisBackground];
+        }
+        
+        height+=CGRectGetHeight(answerAnalysisBackground.frame)+5;
+        
+        if (answerAnalysisLabel==nil) {
+            answerAnalysisLabel=[[UILabel alloc] initWithFrame:CGRectMake(25, 5, CGRectGetWidth(answerAnalysisBackground.frame)-40, CGRectGetHeight(answerAnalysisBackground.frame)-22)];
+            answerAnalysisLabel.textColor=[UIColor blackColor];
+            answerAnalysisLabel.text=self.metaData.topicAnalysis;
+            answerAnalysisLabel.numberOfLines=0;
+            answerAnalysisLabel.textAlignment=UITextAlignmentLeft;
+            answerAnalysisLabel.backgroundColor=[UIColor clearColor];
+            [answerAnalysisBackground addSubview:answerAnalysisLabel];
+        }
+    }
+    height+=10;
+    
+    if (answerContainerView.contentSize.height<height) {
+        answerContainerView.contentSize=CGSizeMake(answerContainerView.contentSize.width, height);
+    }
+
 }
 
 #pragma mark EXCheckBoxDelegate
@@ -77,17 +104,17 @@
     EXCheckOptionView *sender=(EXCheckOptionView *)obj;
     NSArray *subViews=[answerContainerView subviews];
     
-//    if ([self.metaData.type integerValue]==3) {
-//        //单选:取消其它按纽的选中状态
-//        for (UIView *item in subViews) {
-//            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-//                ((EXCheckOptionView *)item).enabled=YES;
-//                if (item != sender) {
-//                    ((EXCheckOptionView *)item).checked=NO;
-//                }
-//            }
-//        }
-//    }
+    if ([self.metaData.topicType integerValue]==3) {
+        //单选:取消其它按纽的选中状态
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                ((EXCheckOptionView *)item).enabled=YES;
+                if (item != sender) {
+                    ((EXCheckOptionView *)item).checked=NO;
+                }
+            }
+        }
+    }
     
     [self updateSelectedResult];
 }
