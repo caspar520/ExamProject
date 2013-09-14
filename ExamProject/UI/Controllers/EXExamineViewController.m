@@ -371,6 +371,7 @@
 //    resultController.examTime=_currentExamTime;
 //    resultController.examData=self.examData;
 //    [self.navigationController pushViewController:resultController animated:YES];
+    
 }
 
 - (void)backToPreViewAfterSubmitted:(id)object{
@@ -399,6 +400,10 @@
 //    [alert show];
 //    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
 //    [alert release];
+    
+    
+    //added by magic
+    
 }
 
 - (void)removeAlertTip:(id)object{
