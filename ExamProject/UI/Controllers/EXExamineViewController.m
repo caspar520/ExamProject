@@ -363,8 +363,6 @@
     NSData *parameter=[self markAndConstructResultParameter];
     [[EXDownloadManager shareInstance] submitExamData:parameter];
     
-    //[self markPaper];
-    
     //销毁定时器，停止倒计时
     [self destroyExamTimer];
     

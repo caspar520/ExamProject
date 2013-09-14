@@ -22,12 +22,16 @@ static const CGFloat kHeight = 36.0f;
 @synthesize checked=_checked;
 @synthesize delegate=_delegate;
 @synthesize index=_index;
+@synthesize checkStatus;
+@synthesize isRightMultStatus;
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        checkStatus=kCheckSatus_Normal;
+        isRightMultStatus=YES;
     }
     return self;
 }
@@ -159,57 +163,148 @@ static const CGFloat kHeight = 36.0f;
     NSString *imageName=nil;
     switch (_index) {
         case -1:
-            if (isChecked) {
-                imageName=@"answer_judge_false_selected.png";
-            }else{
-                imageName=@"answer_judge_false_normal.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_judge_false_selected.png";
+                }else{
+                    imageName=@"answer_judge_false_normal.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_judge_false_selected.png";
+                    }else{
+                        imageName=@"answer_judge_false_selected_wrong.png";
+                    }
+                }else{
+                    imageName=@"answer_judge_false_normal.png";
+                }
             }
             break;
         case 0:
-            if (isChecked) {
-                imageName=@"answer_judge_true_selected.png";
-            }else{
-                imageName=@"answer_judge_true_normal.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_judge_true_selected.png";
+                }else{
+                    imageName=@"answer_judge_true_normal.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_judge_true_selected.png";
+                    }else{
+                        imageName=@"answer_judge_true_selected_wrong.png";
+                    }
+                }else{
+                    imageName=@"answer_judge_true_normal.png";
+                }
             }
             break;
         case 1:
-            if (isChecked) {
-                imageName=@"answer_a.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_a.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_a.png";
+                    }else{
+                        imageName=@"answer_a_wrong.png";
+                    }
+                }
             }
-            
             break;
         case 2:
-            if (isChecked) {
-                imageName=@"answer_b.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_b.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_b.png";
+                    }else{
+                        imageName=@"answer_b_wrong.png";
+                    }
+                }
             }
             
             break;
         case 3:
-            if (isChecked) {
-                imageName=@"answer_c.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_c.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_c.png";
+                    }else{
+                        imageName=@"answer_c_wrong.png";
+                    }
+                }
             }
             
             break;
         case 4:
-            if (isChecked) {
-                imageName=@"answer_d.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_d.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_d.png";
+                    }else{
+                        imageName=@"answer_d_wrong.png";
+                    }
+                }
             }
-            
             break;
         case 5:
-            if (isChecked) {
-                imageName=@"answer_e.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_e.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_e.png";
+                    }else{
+                        imageName=@"answer_e_wrong.png";
+                    }
+                }
             }
-            
             break;
         case 6:
-            if (isChecked) {
-                imageName=@"answer_f.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_f.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_f.png";
+                    }else{
+                        imageName=@"answer_f_wrong.png";
+                    }
+                }
             }
             break;
         case 7:
-            if (isChecked) {
-                imageName=@"answer_g.png";
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_g.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_g.png";
+                    }else{
+                        imageName=@"answer_g_wrong.png";
+                    }
+                }
             }
             break;
         default:

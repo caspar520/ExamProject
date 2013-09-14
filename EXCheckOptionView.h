@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum{
+    kCheckSatus_Normal=0,
+    kCheckSatus_Mult,
+}CheckStatus;
+
 @protocol EXCheckBoxDelegate <NSObject>
 
 @optional
@@ -30,6 +35,9 @@
 @property (nonatomic,assign)id     delegate;
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic,assign)int     index;
+@property (nonatomic,assign)BOOL    isRightMultStatus;
+@property (nonatomic,assign)CheckStatus checkStatus;
+
 
 - (id) initWithFrame:(CGRect)aFrame checked:(BOOL)aChecked;
 - (void) updateCheckBoxImage;

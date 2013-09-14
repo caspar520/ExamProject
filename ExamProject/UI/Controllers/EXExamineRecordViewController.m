@@ -99,6 +99,7 @@
 //        [selectedArray addObject:obj];
 //    }
     
+    
     _examineListView.dataArray=selectedArray;
 }
 

@@ -28,6 +28,7 @@
     //options check view
     NSArray *components=self.metaData.answers;
     BOOL isChecked=NO;
+    BOOL isRight=YES;
     
     EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-200-40)/2, 10, 100, 40) checked:NO];
     rightCheckView.backgroundColor=[UIColor clearColor];
@@ -38,8 +39,16 @@
     
     if (components && components.count>0) {
         isChecked=[((AnswerData *)[components objectAtIndex:0]).isSelected boolValue];
+        isRight=[((AnswerData *)[components objectAtIndex:0]).isCorrect boolValue];
     }
     rightCheckView.checked=isChecked;
+    if (_isDisplayAnswer) {
+        //显示答案
+        rightCheckView.checkStatus=kCheckSatus_Mult;
+    }
+    if (isChecked && isRight==NO) {
+        rightCheckView.isRightMultStatus=NO;
+    }
     [rightCheckView updateCheckBoxImage];
     [rightCheckView release];
     
@@ -53,8 +62,16 @@
     
     if (components && components.count>1) {
         isChecked=[((AnswerData *)[components objectAtIndex:1]).isSelected boolValue];
+        isRight=[((AnswerData *)[components objectAtIndex:1]).isCorrect boolValue];
     }
     wrongCheckView.checked=isChecked;
+    if (_isDisplayAnswer) {
+        //显示答案
+        wrongCheckView.checkStatus=kCheckSatus_Mult;
+    }
+    if (isChecked && isRight==NO) {
+        wrongCheckView.isRightMultStatus=NO;
+    }
     [wrongCheckView updateCheckBoxImage];
     [wrongCheckView release];
     

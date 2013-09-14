@@ -115,7 +115,7 @@
     if (index<_dataArray.count) {
         TopicData *topic=[_dataArray objectAtIndex:index];
         if (topic) {
-            topic.topicIsCollected=[NSNumber numberWithBool:YES];
+            //topic.topicIsCollected=[NSNumber numberWithBool:YES];
         }
     }
 }

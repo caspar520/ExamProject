@@ -42,6 +42,13 @@
                 checkView.index=idx+1;
                 checkView.enabled=YES;
                 checkView.checked=isChecked;
+                if (_isDisplayAnswer) {
+                    //显示答案
+                    checkView.checkStatus=kCheckSatus_Mult;
+                }
+                if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
+                    checkView.isRightMultStatus=NO;
+                }
                 [checkView updateCheckBoxImage];
                 [answerContainerView addSubview:checkView];
                 [checkView release];
