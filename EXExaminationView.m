@@ -96,54 +96,60 @@
                              CGRectMake(CGRectGetMinX(orderLabel.frame),
                                         CGRectGetMaxY(optionTipLabel.frame)+5,
                                         CGRectGetWidth(self.frame),
-                                        CGRectGetHeight(self.frame)-(CGRectGetMaxY(optionTipLabel.frame)+5))];
+                                        CGRectGetHeight(self.frame)-(CGRectGetMaxY(optionTipLabel.frame)+68))];
         answerContainerView.scrollEnabled=YES;
         answerContainerView.backgroundColor=[UIColor clearColor];
         [self addSubview:answerContainerView];
+    }
+    
+    if (confirmAnswerBtn==nil) {
+        confirmAnswerBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+        [confirmAnswerBtn setTitle:@"确认" forState:UIControlStateNormal];
+        confirmAnswerBtn.frame=CGRectMake((CGRectGetWidth(self.frame)-60)/2, CGRectGetMaxY(answerContainerView.frame)+5, 60, 35);
+        [confirmAnswerBtn addTarget:self action:@selector(confirmItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:confirmAnswerBtn];
     }
 }
 
 //实时更新选择活这判断的答案
 - (void)updateSelectedResult{
-//    NSArray *subViews=[answerContainerView subviews];
-//    if ([_metaData.type integerValue]==1) {
-//        //单选题
-//        for (UIView *item in subViews) {
-//            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-//                if (((EXCheckOptionView *)item).checked==YES) {
-//                    result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index-1];
-//                    break;
-//                }
-//            }
-//        }
-//    }else if ([_metaData.type integerValue]==2){
-//        //多选题
-//        for (UIView *item in subViews) {
-//            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-//                if (((EXCheckOptionView *)item).checked==YES) {
-//                    if (result==nil || result.length==0) {
-//                        result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index-1];
-//                    }else{
-//                        result=[result stringByAppendingString:[NSString stringWithFormat:@"|%d",((EXCheckOptionView *)item).index-1]];
-//                    }
-//                }
-//            }
-//        }
-//    }else if([_metaData.type integerValue]==3){
-//        //判断题
-//        for (UIView *item in subViews) {
-//            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-//                if (((EXCheckOptionView *)item).checked==YES) {
-//                    result=[NSString stringWithFormat:@"%d",((EXCheckOptionView *)item).index];
-//                    break;
-//                }
-//            }
-//        }
-//    }else{
-//        //简单题
-//        result=answerTextView.text;
-//    }
-//    _metaData.analysis=result;
+    NSArray *subViews=[answerContainerView subviews];
+    if ([_metaData.topicType integerValue]==1) {
+        //单选题
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                if (((EXCheckOptionView *)item).checked==YES) {
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    answer.isSelected=[NSNumber numberWithBool:YES];
+                    break;
+                }
+            }
+        }
+    }else if ([_metaData.topicType integerValue]==2){
+        //多选题
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                if (((EXCheckOptionView *)item).checked==YES) {
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    answer.isSelected=[NSNumber numberWithBool:YES];
+                }
+            }
+        }
+    }else if([_metaData.topicType integerValue]==3){
+        //判断题
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                if (((EXCheckOptionView *)item).checked==YES) {
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    answer.isSelected=[NSNumber numberWithBool:YES];
+                    break;
+                }
+            }
+        }
+    }else{
+        //简单题
+        result=answerTextView.text;
+    }
 }
 
 - (void)confirmItemClicked:(id)sender{

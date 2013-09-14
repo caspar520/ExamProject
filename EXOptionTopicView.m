@@ -96,9 +96,7 @@
             }
         }else{
             //确认按钮
-            if (confirmAnswerBtn==nil) {
-                
-            }
+            
         }
         height+=10;
         

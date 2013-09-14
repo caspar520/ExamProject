@@ -19,7 +19,7 @@
 @implementation Utility
 
 + (NSArray *)convertJSONToPaperData:(NSData *)data{
-    NSMutableArray *result=[NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *result=[[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     
     //__block ExamData *exam=nil;
     if (data) { 
@@ -48,12 +48,12 @@
         if (papers) {
             [papers enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL *stop) {
                 if (obj) {
-                    PaperData *paperData = [[[PaperData alloc]init] autorelease];
+                    PaperData *paperData = [[PaperData alloc]init];
                     paperData.paperId = [NSNumber numberWithInt:[[obj objectForKey:@"id"] intValue]];
                     paperData.paperName = [obj objectForKey:@"name"];
                     paperData.paperStatus = [NSNumber numberWithInt:[[obj objectForKey:@"status"] intValue]];
-                    paperData.topics=[[Utility convertJSONToTopicData:obj] retain];
-                    NSLog(@"paper(%@) topic count:%d",paperData.paperId,paperData.topics.count);
+                    paperData.topics=[Utility convertJSONToTopicData:obj];
+                    //NSLog(@"paper(%@) topic count:%d",paperData.paperId,paperData.topics.count);
                     
                     [result addObject:paperData];
                     [paperData release];
@@ -64,12 +64,11 @@
 //    if (exam) {
 //        exam.papers=result;
 //    }
-    NSLog(@"paper count:%d",result.count);
     return result;
 }
 
 + (NSArray *)convertJSONToTopicData:(NSDictionary *)data{
-    NSMutableArray *topics = [[NSMutableArray alloc]initWithCapacity:0];
+    NSMutableArray *topics = [[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     
     if (data) {
         NSArray *topicDicArray=[data objectForKey:@"topicList"];
@@ -85,7 +84,7 @@
                     tData.topicValue = [NSNumber numberWithInt:[[obj objectForKey:@"value"] intValue]];
                     tData.topicImage = [obj objectForKey:@"image"];
                     
-                    NSMutableArray *answerArray=[NSMutableArray arrayWithCapacity:0];
+                    NSMutableArray *optionArray=[NSMutableArray arrayWithCapacity:0];
                     NSArray *answers = [obj objectForKey:@"answerList"];
                     if (answers) {
                         [answers enumerateObjectsUsingBlock:^(NSDictionary *answerObj, NSUInteger tIdx, BOOL *tStop) {
@@ -95,12 +94,13 @@
                                 answer.isCorrect=[answerObj objectForKey:@"correct"];
                                 answer.isSelected=[NSNumber numberWithBool:NO];
                                 
-                                [answerArray addObject:answer];
+                                [optionArray addObject:answer];
                                 [answer release];
                             }
                         }];
                     }
                     
+                    tData.answers=optionArray;
                     [topics addObject:tData];
                     [tData release];
                 }

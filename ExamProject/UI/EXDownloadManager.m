@@ -155,7 +155,7 @@ static EXDownloadManager *instance=nil;
         //[EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
         [EXNetDataManager shareInstance].netExamDataArray=(NSMutableArray *)[Utility convertJSONToExamData:data];
         [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
-        NSLog(@"exam list data:%@",result);
+        //NSLog(@"exam list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
     }
     else if([requestURL isEqualToString:NET_PAPERDATA_URL]){
@@ -166,18 +166,9 @@ static EXDownloadManager *instance=nil;
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:paperJson options:kNilOptions error:nil];
         NSString *tExamID=[NSString stringWithFormat:@"%@",[[result objectForKey:@"data"] objectForKey:@"id"]];
         NSMutableArray *papers=(NSMutableArray *)[Utility convertJSONToPaperData:paperJson];
-        [[EXNetDataManager shareInstance].paperListInExam setValue:papers forKey:tExamID];
-        NSLog(@"paper list in exam key:%@",tExamID);
+        [[EXNetDataManager shareInstance].paperListInExam setObject:papers forKey:tExamID];
         
-        
-//        NSMutableDictionary *examPaperInfo=[NSMutableArray arrayWithArray:[result objectForKey:@"data"]];
-//        [[EXNetDataManager shareInstance].paperListInExam setValue:examPaperInfo forKey:[NSString stringWithFormat:@"%@",[examPaperInfo objectForKey:@"id"]]];
-        NSLog(@"paper list data:%@",result);
-        
-//        PaperData *paper=[Utility convertJSONToPaperData:paperJson];
-//        paper.topics=[Utility convertJSONToTopicData:paperJson];
-//        [DBManager addPaper:paper];
-        
+        //NSLog(@"paper list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     }
 }

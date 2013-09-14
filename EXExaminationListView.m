@@ -31,7 +31,7 @@
         _scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         _scrollView.showsVerticalScrollIndicator=YES;
         _scrollView.clipsToBounds = YES;
-        _scrollView.scrollEnabled = YES;
+        _scrollView.scrollEnabled = NO;
         _scrollView.pagingEnabled = YES;
         [self addSubview:_scrollView];
     }
@@ -94,7 +94,7 @@
             [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x-CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
             _scrollView.scrollEnabled=NO;
         } completion:^(BOOL finished) {
-            _scrollView.scrollEnabled=YES;
+            _scrollView.scrollEnabled=NO;
         }];
     }
 }
@@ -105,7 +105,7 @@
             [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x+CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
             _scrollView.scrollEnabled=NO;
         } completion:^(BOOL finished) {
-            _scrollView.scrollEnabled=YES;
+            _scrollView.scrollEnabled=NO;
         }];
     }
 }
@@ -118,8 +118,6 @@
             topic.topicIsCollected=[NSNumber numberWithBool:YES];
         }
     }
-    
-    
 }
 
 

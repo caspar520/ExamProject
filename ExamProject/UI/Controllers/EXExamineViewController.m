@@ -59,7 +59,8 @@
     self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
     self.navigationItem.leftBarButtonItem= backButton;
-    self.navigationController.toolbar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
+   // self.navigationController.toolbar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
+    [self.navigationController.toolbar setHidden:YES];
     
     float width=CGRectGetWidth(self.navigationController.toolbar.frame)/3;
     
@@ -73,7 +74,7 @@
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-62)];
+        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame))];
         _examineListView.backgroundColor=[UIColor clearColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
@@ -184,17 +185,14 @@
     if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
         //存在
         NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
-        NSLog(@"paper count in exam controller:%d",papers.count);
         if (papers) {
             for (PaperData *obj in papers) {
-                if (obj) {
-                    NSLog(@"paper() topic count in view controller:%d",obj.topics.count);
-                    //[selectedArray addObjectsFromArray:obj.topics];
+                if (obj && obj.topics) {
+                    [selectedArray addObjectsFromArray:obj.topics];
                 }
             }
         }
     }
-    NSLog(@"topic count in exam(%@):%d",_examData.examId,selectedArray.count);
     _examineListView.dataArray=selectedArray;
 }
 
@@ -214,7 +212,6 @@
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
     //判断考试的试卷数据是否已经存在
     if (displayTopicType==kDisplayTopicType_Default) {
-        NSLog(@"exam data id:%@",_examData.examId);
         if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
             //存在
             NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
@@ -270,7 +267,6 @@
         }
     }
     
-    NSLog(@"topic count in exam(%@)2:%d",_examData.examId,selectedArray.count);
     _examineListView.dataArray=selectedArray;
 }
 
