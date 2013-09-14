@@ -30,3 +30,5 @@
 #define NOTIFICATION_PAPERS_DOWNLOAD_FINISH     @"papersDownloadedFinish"
 #define NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH @"specialPaperDownloadedFinish"
 #define NOTIFICATION_DOWNLOAD_FAILURE           @"downloadFailure"
+#define NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS   @"submitExamDataSuccess"
+#define NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE   @"submitExamDataFailure"

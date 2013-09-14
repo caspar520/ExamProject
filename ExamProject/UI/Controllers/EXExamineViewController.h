@@ -21,6 +21,10 @@
     
     //examination info：just for exam type
     NSTimer                     *_examTimer;        //倒计时用:除非推出或者提交，否则不可停止该倒计时器
+    NSInteger                   _currentExamTime;
+    BOOL                        _isExamSubmitted;
+    NSInteger                   _beginExamTime;
+    NSInteger                   _submitExamTime;
 }
 
 @property (nonatomic,retain)PaperData           *paperData;

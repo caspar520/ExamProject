@@ -109,6 +109,7 @@
 		9CA3F3A1179940DC0052C8FE /* EXExaminationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A0179940DC0052C8FE /* EXExaminationView.m */; };
 		9CA3F3A4179940FE0052C8FE /* EXMoreConfigureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */; };
 		9CA3F3A71799412C0052C8FE /* EXSubmitView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F3A61799412C0052C8FE /* EXSubmitView.m */; };
+		9CA4FE2B17E45555001AC23E /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA4FE2A17E45555001AC23E /* JSONKit.m */; };
 		9CACE903179AADB4007509EF /* EXOptionTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE902179AADB4007509EF /* EXOptionTopicView.m */; };
 		9CACE906179AADD7007509EF /* EXJudgeTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE905179AADD7007509EF /* EXJudgeTopicView.m */; };
 		9CACE909179AAE14007509EF /* EXShortAnswerTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CACE908179AAE14007509EF /* EXShortAnswerTopicView.m */; };
@@ -279,6 +280,8 @@
 		9CA3F3A3179940FE0052C8FE /* EXMoreConfigureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXMoreConfigureView.m; sourceTree = SOURCE_ROOT; };
 		9CA3F3A51799412C0052C8FE /* EXSubmitView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXSubmitView.h; sourceTree = SOURCE_ROOT; };
 		9CA3F3A61799412C0052C8FE /* EXSubmitView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXSubmitView.m; sourceTree = SOURCE_ROOT; };
+		9CA4FE2917E45555001AC23E /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		9CA4FE2A17E45555001AC23E /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		9CACE901179AADB4007509EF /* EXOptionTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXOptionTopicView.h; sourceTree = SOURCE_ROOT; };
 		9CACE902179AADB4007509EF /* EXOptionTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXOptionTopicView.m; sourceTree = SOURCE_ROOT; };
 		9CACE904179AADD7007509EF /* EXJudgeTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXJudgeTopicView.h; sourceTree = SOURCE_ROOT; };
@@ -347,6 +350,7 @@
 		301371B7179AFFBA00F2BFCE /* OpenSource */ = {
 			isa = PBXGroup;
 			children = (
+				9CA4FE2817E45555001AC23E /* JSONKit */,
 				9CBAF240179BC435009BA64E /* ASIHttpRequest */,
 				301371B8179AFFBA00F2BFCE /* Keychain */,
 			);
@@ -648,6 +652,15 @@
 			path = Resource;
 			sourceTree = "<group>";
 		};
+		9CA4FE2817E45555001AC23E /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				9CA4FE2917E45555001AC23E /* JSONKit.h */,
+				9CA4FE2A17E45555001AC23E /* JSONKit.m */,
+			);
+			path = JSONKit;
+			sourceTree = "<group>";
+		};
 		9CACE900179AAD6B007509EF /* TopicView */ = {
 			isa = PBXGroup;
 			children = (
@@ -899,6 +912,7 @@
 				30BBDF6D17C9D81A00BA6BF1 /* Answer.m in Sources */,
 				30BBDF7317C9D8E400BA6BF1 /* AnswerData.m in Sources */,
 				9C0E4BD317DB1F8F00D84184 /* EXExamineRecordViewController.m in Sources */,
+				9CA4FE2B17E45555001AC23E /* JSONKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

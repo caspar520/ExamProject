@@ -11,6 +11,7 @@
 #import "PaperData.h"
 #import "AppDelegate.h"
 #import "TopicData.h"
+#import "ExamData.h"
 
 @interface EXExamineRecordViewController ()
 
@@ -80,6 +81,23 @@
         [selectedArray addObject:obj];
     }
     
+    
+    _examineListView.dataArray=selectedArray;
+}
+
+- (void)setExamData:(ExamData *)examData{
+    if (_examData != examData) {
+        [_examData release];
+        _examData =[examData retain];
+    }
+    _examineListView.dipalyTopicType=kDisplayTopicType_Record;
+    
+    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:10];
+    //从数据库中读取考试考试记录
+//    for (int i=0; i<10; i++) {
+//        TopicData *obj=[[TopicData alloc] init];
+//        [selectedArray addObject:obj];
+//    }
     
     _examineListView.dataArray=selectedArray;
 }

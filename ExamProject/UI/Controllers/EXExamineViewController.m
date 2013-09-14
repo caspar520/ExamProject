@@ -18,11 +18,15 @@
 #import "EXDownloadManager.h"
 #import "MBProgressHUD.h"
 #import "ExamData.h"
+#import "JSONKit.h"
 
 @interface EXExamineViewController ()<EXQuestionDelegate,UIScrollViewDelegate>
 
 - (void)triggerExamTimer;
 - (void)destroyExamTimer;
+- (void)timeCountIncrease;
+- (void)backToPreViewAfterSubmitted;
+- (NSData *)markAndConstructResultParameter;
 - (void)fetchData;
 
 @end
@@ -56,6 +60,10 @@
 {
     [super viewDidLoad];
     self.title=@"考试";
+    _examTimer=nil;
+    _currentExamTime=0;
+    _isExamSubmitted=NO;
+    
     self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
 	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
     self.navigationItem.leftBarButtonItem= backButton;
@@ -71,6 +79,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE object:nil];
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
@@ -127,15 +137,21 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    NSMutableArray *questions=[NSMutableArray arrayWithCapacity:0];
-    
-    if (_examineListView) {
-        _examineListView.dataArray=questions;
+    if (NO==_isExamSubmitted) {
+        NSMutableArray *questions=[NSMutableArray arrayWithCapacity:0];
+        
+        if (_examineListView) {
+            _examineListView.dataArray=questions;
+        }
+        
+        AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+        CustomTabBarController *tabBarController=appDelegate.tabController;
+        [tabBarController hideTabBar];
+    }else{
+        if(self.navigationController){
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
-    
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-    CustomTabBarController *tabBarController=appDelegate.tabController;
-    [tabBarController hideTabBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -163,11 +179,33 @@
 
 #pragma mark 定时器
 - (void)triggerExamTimer{
-    
+    if (_examTimer == nil) {
+        _examTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timeCountIncrease) userInfo:nil repeats:YES];
+        [[NSRunLoop currentRunLoop] addTimer:_examTimer forMode:NSDefaultRunLoopMode];
+    }
 }
 
 - (void)destroyExamTimer{
+    if (_examTimer) {
+        [_examTimer invalidate];
+        _examTimer=nil;
+    }
+    _currentExamTime=0;
+}
+
+- (void)timeCountIncrease{
+    _currentExamTime++;
     
+    NSInteger tMinute=_currentExamTime/60;
+    NSInteger tSecond=_currentExamTime%60;
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：%2d:%2d",tMinute,tSecond];
+    
+    //判断是否考试时间到
+    NSInteger tExamTotalTime=[_examData.examTotalTm integerValue]*60;
+    
+    if (_currentExamTime>=tExamTotalTime) {
+        [self submitExaminationItemClicked:nil];
+    }
 }
 
 #pragma mark 拉取数据
@@ -176,6 +214,7 @@
     [[EXDownloadManager shareInstance] downloadPaperList:[_examData.examId integerValue]];
 }
 
+#pragma mark 通知事件
 - (void)downloadPaperListFinish:(NSNotification *)notification{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
     
@@ -196,10 +235,38 @@
         _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
     }
     _examineListView.dataArray=selectedArray;
+    
+    //[self triggerExamTimer];
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
     [MBProgressHUD hideHUDForView:self.view animated:NO];
+}
+
+- (void)submitExamDataSuccess:(NSNotification *)notification{
+    if ([_examData.examSubmitDisplayAnswerFlg integerValue]==1) {
+        //show the exam result and save the exam result to DB
+        EXResultViewController *resultController=[[EXResultViewController alloc] init];
+        resultController.examTime=_currentExamTime;
+        resultController.examData=self.examData;
+        [self.navigationController pushViewController:resultController animated:YES];
+    }else{
+        //提示提交成功
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"提交考试数据成功" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alert show];
+        [self performSelector:@selector(backToPreViewAfterSubmitted:) withObject:alert afterDelay:2];
+        [alert release];
+    }
+    
+    _isExamSubmitted=YES;
+}
+
+- (void)submitExamDataFailure:(NSNotification *)notification{
+    //提示提交失败
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"提交考试数据失败，请检查网络后重新提交" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [alert show];
+    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
+    [alert release];
 }
 
 #pragma mark set方法
@@ -227,6 +294,8 @@
             }
             _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",papers.count];
             _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
+            
+            [self triggerExamTimer];
         }else{
             //不存在
             [self fetchData];
@@ -290,14 +359,29 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
     //根据需求判断是否跳转到答题结果界面，清理EXNetDataManager中的试卷的考试记录
+    //submit the exam result to server
+    NSData *parameter=[self markAndConstructResultParameter];
+    [[EXDownloadManager shareInstance] submitExamData:parameter];
+    
     //[self markPaper];
     
+    //销毁定时器，停止倒计时
+    [self destroyExamTimer];
     
-    
-    //批改试卷完成后需要上传服务器：根据标记是否跳转到考试结果页面
+    //临时
 //    EXResultViewController *resultController=[[EXResultViewController alloc] init];
-//    resultController.paperData=self.paperData;
+//    resultController.examTime=_currentExamTime;
+//    resultController.examData=self.examData;
 //    [self.navigationController pushViewController:resultController animated:YES];
+}
+
+- (void)backToPreViewAfterSubmitted:(id)object{
+    [self removeAlertTip:nil];
+    [self clearPaperInfo];
+    
+    if(self.navigationController){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)nextItemClicked:(id)sender{
@@ -365,6 +449,8 @@
             [self.navigationController popViewControllerAnimated:YES];
         }
     }
+    
+    [self destroyExamTimer];
 }
 
 - (void)clearPaperInfo{
@@ -388,6 +474,71 @@
             }
         }
     }
+}
+
+#pragma mark 构造上报参数
+- (NSData *)markAndConstructResultParameter{
+    NSMutableDictionary *result=[NSMutableDictionary dictionary];
+    [result setValue:[NSNumber numberWithInt:[_examData.examStatus integerValue]] forKey:@"status"];
+    
+    UserData *tUserData=[DBManager getDefaultUserData];
+    NSMutableDictionary *dataDic=[NSMutableDictionary dictionaryWithCapacity:0];
+    [dataDic setValue:[NSNumber numberWithInt:[tUserData.userId integerValue]] forKey:@"userId"];
+    [dataDic setValue:[NSNumber numberWithInt:[_examData.examId integerValue]] forKey:@"examId"];
+    [dataDic setValue:[NSNumber numberWithInt:_currentExamTime] forKey:@"usedTm"];
+    [dataDic setValue:[NSNumber numberWithInt:_beginExamTime] forKey:@"beginTm"];
+    [dataDic setValue:[NSNumber numberWithInt:_submitExamTime] forKey:@"submitTm"];
+    
+    NSInteger tScore=0;
+    NSMutableArray *topicsList=[NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
+    if (papers) {
+        [papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+            if (pObj) {
+                NSMutableDictionary *tParameter=[[NSMutableDictionary alloc] initWithCapacity:0];
+                if (pObj.topics) {
+                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                        if (tObj) {
+                            [tParameter setValue:[NSNumber numberWithInt:[tObj.topicId integerValue]] forKey:@"id"];
+                            [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
+                            [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
+                            __block NSString *optionParameter=@"";
+                            if (tObj.answers) {
+                                [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *aObj, NSUInteger aIdx, BOOL *aStop) {
+                                    if (aObj) {
+                                        if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
+                                            if (optionParameter.length>0) {
+                                                optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
+                                            }else{
+                                                optionParameter=[optionParameter stringByAppendingString:@"true"];
+                                            }
+                                        }else{
+                                            if (optionParameter.length>0) {
+                                                optionParameter=[optionParameter stringByAppendingString:@"|*|false"];
+                                            }else{
+                                                optionParameter=[optionParameter stringByAppendingString:@"false"];
+                                            }
+                                        }
+                                    }
+                                }];
+                            }
+                            [tParameter setValue:optionParameter forKey:@"option"];
+                        }
+                    }];
+                }
+                
+                [topicsList addObject:tParameter];
+                [tParameter release];
+            }
+        }];
+    }
+    
+    [dataDic setValue:topicsList forKey:@"topicList"];
+    [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
+    [result setValue:dataDic forKey:@"data"];
+    
+    NSData *parameter=[result JSONData];
+    return parameter;
 }
 
 @end

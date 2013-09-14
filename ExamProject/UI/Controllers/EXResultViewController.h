@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class PaperData;
+@class PaperData,ExamData;
 
 @interface EXResultViewController : UIViewController{
     UILabel         *titleLabel;
     UILabel         *authorLabel;
-    UILabel         *markLabel;
     UILabel         *resultLabel;
     
     UILabel         *resultTipLabel;
@@ -23,5 +22,7 @@
 }
 
 @property (nonatomic,retain)PaperData       *paperData;
+@property (nonatomic,retain)ExamData        *examData;
+@property (nonatomic,assign)NSInteger       examTime;           //考试的用时
 
 @end

@@ -137,6 +137,9 @@ static EXDownloadManager *instance=nil;
     }else{
         [self cancelRequest];
     }
+}
+
+- (void)submitExamData:(NSData *)pData{
     
 }
 
@@ -168,7 +171,7 @@ static EXDownloadManager *instance=nil;
         NSMutableArray *papers=(NSMutableArray *)[Utility convertJSONToPaperData:paperJson];
         [[EXNetDataManager shareInstance].paperListInExam setObject:papers forKey:tExamID];
         
-        //NSLog(@"paper list data:%@",result);
+        NSLog(@"paper list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     }
 }
