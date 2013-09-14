@@ -74,16 +74,15 @@
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame))];
+        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame)-35)];
         _examineListView.backgroundColor=[UIColor clearColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
     }
-
     
     if (_examMSGBarView==nil) {
-        _examMSGBarView=[[UIView alloc] initWithFrame:CGRectMake(CGRectGetHeight(self.view.frame)-40, 0, CGRectGetWidth(self.view.frame), 40)];
-        _examMSGBarView.backgroundColor=[UIColor grayColor];
+        _examMSGBarView=[[UIView alloc] initWithFrame:CGRectMake(0,CGRectGetHeight(self.view.frame)-100, CGRectGetWidth(self.view.frame), 40)];
+        _examMSGBarView.backgroundColor=[UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
         
         [self.view addSubview:_examMSGBarView];
     }
@@ -93,33 +92,34 @@
         _paperCountLabel.textColor=[UIColor blackColor];
         _paperCountLabel.textAlignment=UITextAlignmentLeft;
         _paperCountLabel.backgroundColor=[UIColor clearColor];
-        _paperCountLabel.font=[UIFont systemFontOfSize:18];
+        _paperCountLabel.font=[UIFont systemFontOfSize:16];
         
         [_examMSGBarView addSubview:_paperCountLabel];
     }
-    _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",2];
+    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
+    _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量："];
     
     if (_examLeftTime==nil) {
         _examLeftTime= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_paperCountLabel.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
         _examLeftTime.textColor=[UIColor blackColor];
         _examLeftTime.textAlignment=UITextAlignmentLeft;
         _examLeftTime.backgroundColor=[UIColor clearColor];
-        _examLeftTime.font=[UIFont systemFontOfSize:18];
+        _examLeftTime.font=[UIFont systemFontOfSize:16];
         
         [_examMSGBarView addSubview:_examLeftTime];
     }
-    _examLeftTime.text=[NSString stringWithFormat:@"用时：%d",2];
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：%d",0];
     
     if (_examDuration==nil) {
         _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
         _examDuration.textColor=[UIColor blackColor];
         _examDuration.textAlignment=UITextAlignmentLeft;
         _examDuration.backgroundColor=[UIColor clearColor];
-        _examDuration.font=[UIFont systemFontOfSize:18];
+        _examDuration.font=[UIFont systemFontOfSize:16];
         
         [_examMSGBarView addSubview:_examDuration];
     }
-    _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",2];
+    _examDuration.text=[NSString stringWithFormat:@"时间："];
     
     isNotOnAnswering=YES;
 }
@@ -192,6 +192,8 @@
                 }
             }
         }
+        _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",papers.count];
+        _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
     }
     _examineListView.dataArray=selectedArray;
 }
@@ -223,6 +225,8 @@
                     }
                 }];
             }
+            _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",papers.count];
+            _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
         }else{
             //不存在
             [self fetchData];
@@ -364,20 +368,26 @@
 }
 
 - (void)clearPaperInfo{
-//    NSArray *topics=_paperData.topics;
-//    if (topics) {
-//        for (TopicData *topic in topics) {
-//            if (topic) {
-//                if ([topic.type integerValue]==1 || [topic.type integerValue]==2 || [topic.type integerValue]==3) {
-//                    topic.analysis=[NSString stringWithFormat:@"%d",-100];
-//                }else{
-//                    topic.analysis=nil;
-//                }
-//            }
-//        }
-//    }
-//    _paperData.userScore=[NSNumber numberWithInteger:0];
-//    [DBManager addPaper:_paperData];
+    NSArray *topics=_paperData.topics;
+    if (topics) {
+        for (TopicData *topic in topics) {
+            if (topic) {
+                if ([topic.topicType integerValue]==1 || [topic.topicType integerValue]==2 || [topic.topicType integerValue]==3) {
+                    //选择题和判断题
+                    if (topic.answers) {
+                        [topic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                            if (obj) {
+                                obj.isSelected = [NSNumber numberWithBool:NO];
+                            }
+                        }];
+                    }
+                }else{
+                    //简单题
+                    
+                }
+            }
+        }
+    }
 }
 
 @end

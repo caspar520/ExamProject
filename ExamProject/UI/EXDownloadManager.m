@@ -155,7 +155,7 @@ static EXDownloadManager *instance=nil;
         //[EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
         [EXNetDataManager shareInstance].netExamDataArray=(NSMutableArray *)[Utility convertJSONToExamData:data];
         [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
-        //NSLog(@"exam list data:%@",result);
+        NSLog(@"exam list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_EXAM_DOWNLOAD_FINISH object:nil];
     }
     else if([requestURL isEqualToString:NET_PAPERDATA_URL]){

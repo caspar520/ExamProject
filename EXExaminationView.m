@@ -42,6 +42,7 @@
     [answerAnalysisTipLabel release];
     [answerAnalysisBackground release];
     [answerAnalysisLabel release];
+    [questionTypeLabel release];
     [super dealloc];
 }
 
@@ -62,6 +63,25 @@
         orderLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
         orderLabel.textAlignment=UITextAlignmentLeft;
         [self addSubview:orderLabel];
+    }
+    
+    if (questionTypeLabel==nil) {
+        questionTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(orderLabel.frame)+10,10,50,30)];
+        questionTypeLabel.textColor=[UIColor blackColor];
+        if ([_metaData.topicType integerValue]==1) {
+            questionTypeLabel.text=[NSString stringWithFormat:@"单选题"];
+        }else if([_metaData.topicType integerValue]==2){
+            questionTypeLabel.text=[NSString stringWithFormat:@"多选题"];
+        }else if ([_metaData.topicType integerValue]==3){
+            questionTypeLabel.text=[NSString stringWithFormat:@"判断题"];
+        }else{
+            questionTypeLabel.text=[NSString stringWithFormat:@"简答题"];
+        }
+        CGSize autoSize = [questionTypeLabel sizeThatFits:CGSizeMake(0, 30)];
+        questionTypeLabel.frame = CGRectMake(CGRectGetMaxX(orderLabel.frame)+10, 10, autoSize.width, 30);
+        questionTypeLabel.backgroundColor=[UIColor colorWithPatternImage:[UIImage imageNamed:@"topic_index_bg.png"]];
+        questionTypeLabel.textAlignment=UITextAlignmentLeft;
+        [self addSubview:questionTypeLabel];
     }
 	
 	if (questionBackground==nil) {
@@ -148,7 +168,7 @@
         }
     }else{
         //简单题
-        result=answerTextView.text;
+        
     }
 }
 

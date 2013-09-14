@@ -27,6 +27,7 @@
     
     UILabel         *orderLabel;
     UIImageView     *questionBackground;
+    UILabel         *questionTypeLabel;
     UILabel         *questionLabel;
     UILabel         *optionTipLabel;
     UITextView      *answerTextView;

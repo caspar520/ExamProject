@@ -53,7 +53,6 @@
                     paperData.paperName = [obj objectForKey:@"name"];
                     paperData.paperStatus = [NSNumber numberWithInt:[[obj objectForKey:@"status"] intValue]];
                     paperData.topics=[Utility convertJSONToTopicData:obj];
-                    //NSLog(@"paper(%@) topic count:%d",paperData.paperId,paperData.topics.count);
                     
                     [result addObject:paperData];
                     [paperData release];
@@ -107,13 +106,13 @@
             }];
         }
     }
-    NSLog(@"topic count:%d",topics.count);
+
     return topics;
 }
 
 + (NSArray *)convertJSONToExamData:(NSData *)data
 {
-    NSMutableArray *result=[[NSMutableArray alloc] initWithCapacity:0];;
+    NSMutableArray *result=[[NSMutableArray alloc] initWithCapacity:0];
     
     if (data) {
         NSDictionary *tExamDic=[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
