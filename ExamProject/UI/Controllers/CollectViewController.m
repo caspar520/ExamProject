@@ -56,7 +56,7 @@
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     [_collectedPaperList removeAllObjects];
-    [_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
+    //[_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
     
     if (_paperListView==nil) {
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;

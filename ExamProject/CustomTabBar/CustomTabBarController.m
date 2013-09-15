@@ -74,10 +74,10 @@
     
     float originX = 0;
     UIImage *image = nil;
-    NSArray *tabbarTitles = [NSArray arrayWithObjects:@"考试",@"错题",@"收藏",@"更多", nil];
-    for (int i = 0; i < 4; i++) {
+    NSArray *tabbarTitles = [NSArray arrayWithObjects:@"考试",@"错题",@"收藏",@"记录",@"更多", nil];
+    for (int i = 0; i < 5; i++) {
         UIButton *bt = [[UIButton alloc]init];
-        bt.frame = CGRectMake(originX,0,80,60);
+        bt.frame = CGRectMake(originX,0,64,60);
 //        UIViewController *vc = [self.viewControllers objectAtIndex:i];
 //        
 //        [bt setTitle:vc.title forState:UIControlStateNormal];
@@ -99,7 +99,7 @@
         [_tabBarItems addObject:bt];
         [bt release];
         
-        UILabel *tabBarTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, 80, 30)];
+        UILabel *tabBarTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, 64, 30)];
         tabBarTitle.backgroundColor = [UIColor clearColor];
         tabBarTitle.tag = TAG_TABBAR_TITLE_ORIGIN+i;        
         tabBarTitle.text = [tabbarTitles objectAtIndex:i];
@@ -115,7 +115,7 @@
             tabBarTitle.textColor = [UIColor whiteColor];
         }
         [_customTabBarView addSubview:bt];
-        originX += 80;
+        originX += 64;
         
         //调整位置
         [bt setImageEdgeInsets:UIEdgeInsetsMake(5, 25, 31, 25)];       

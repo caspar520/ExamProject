@@ -61,7 +61,7 @@
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     [_wrongPaperList removeAllObjects];
-    [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
+    //[_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
     
     if (_paperListView==nil) {
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;

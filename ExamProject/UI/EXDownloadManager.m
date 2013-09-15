@@ -155,7 +155,6 @@ static EXDownloadManager *instance=nil;
         destinatePath=[destinatePath stringByAppendingPathComponent:LOCAL_EXAMFILE_URL];
         NSData *data = [NSData dataWithContentsOfFile:destinatePath];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
-        //[EXNetDataManager shareInstance].netExamDataArray=[result objectForKey:@"data"];
         [EXNetDataManager shareInstance].netExamDataArray=(NSMutableArray *)[Utility convertJSONToExamData:data];
         [EXNetDataManager shareInstance].examStatus=[[result objectForKey:@"status"] intValue];
         NSLog(@"exam list data:%@",result);

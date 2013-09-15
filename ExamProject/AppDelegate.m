@@ -17,6 +17,7 @@
 #import "MoreViewController.h"
 #import "LoginViewController.h"
 #import "BusinessCenter.h"
+#import "EXExamineRecordViewController.h"
 
 @interface AppDelegate () <UITabBarControllerDelegate>
 
@@ -104,13 +105,19 @@
     navController3.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController3 release];
     
-    MoreViewController * tabBarController4 = [[MoreViewController alloc] init];
-    tabBarController4.title = @"更多";
+    EXExamineRecordViewController * tabBarController4 = [[EXExamineRecordViewController alloc] init];
+    tabBarController4.title = @"考试记录";
     UINavigationController* navController4 = [[UINavigationController alloc] initWithRootViewController:tabBarController4];
     navController4.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
     [tabBarController4 release];
     
-    NSArray *subTabControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4, nil];
+    MoreViewController * tabBarController5 = [[MoreViewController alloc] init];
+    tabBarController5.title = @"更多";
+    UINavigationController* navController5 = [[UINavigationController alloc] initWithRootViewController:tabBarController5];
+    navController5.navigationBar.tintColor = [UIColor colorWithRed:0x74/255.0f green:0xa2/255.0f blue:0x40/255.0f alpha:1.0f];
+    [tabBarController5 release];
+    
+    NSArray *subTabControllers = [NSArray arrayWithObjects:navController1, navController2, navController3, navController4,navController5, nil];
     CustomTabBarController * customTabController = [[CustomTabBarController alloc] init];
     self.tabController = customTabController;
     [customTabController release];
@@ -123,6 +130,7 @@
     [navController1 release];
     [navController2 release];
     [navController3 release];
+    [navController4 release];
     [navController4 release];
     
 }

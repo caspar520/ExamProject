@@ -106,8 +106,6 @@
         }
     }
     
-    
-    
     UILabel *markTipLabel=[[UILabel alloc] initWithFrame:CGRectMake(15,20,50,30)];
     markTipLabel.textColor=[UIColor blackColor];
     markTipLabel.textAlignment=UITextAlignmentLeft;
@@ -272,10 +270,10 @@
 - (void)topicOrderInAnswerSheetClicked:(UIButton *)sender
 {
     //跳转到试卷列表：显示考试的详细结果
-    EXExamineRecordViewController *examineController=[[[EXExamineRecordViewController alloc] init] autorelease];
-    [self.navigationController pushViewController:examineController animated:YES];
-    examineController.currentIndex=sender.tag-1;
-    examineController.examData=examData;
+//    EXExamineRecordViewController *examineController=[[[EXExamineRecordViewController alloc] init] autorelease];
+//    [self.navigationController pushViewController:examineController animated:YES];
+//    examineController.currentIndex=sender.tag-1;
+//    examineController.examData=examData;
 }
 
 - (void)backwardItemClicked:(id)sender{
