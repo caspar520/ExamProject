@@ -7,18 +7,20 @@
 //
 
 #import "EXExamineRecordViewController.h"
-#import "EXExaminationListView.h"
+#import "EXListView.h"
 #import "PaperData.h"
 #import "AppDelegate.h"
 #import "TopicData.h"
 #import "ExamData.h"
+#import "EXRecordCell.h"
+#import "EXExamineViewController.h"
+#import "DBManager.h"
 
-@interface EXExamineRecordViewController ()
+@interface EXExamineRecordViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @end
 
 @implementation EXExamineRecordViewController
-@synthesize paperData=_paperData;
 @synthesize currentIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +34,7 @@
 
 - (void)dealloc{
     [_examineListView release];
+    [_examRecordList release];
     [super dealloc];
 }
 
@@ -41,14 +44,18 @@
     
     self.title=@"考试记录";
     self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
-    self.navigationItem.leftBarButtonItem= backButton;
+//	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
+//    self.navigationItem.leftBarButtonItem= backButton;
     self.navigationController.toolbar.hidden=YES;
 	// Do any additional setup after loading the view.
     
+    if (_examRecordList==nil) {
+        _examRecordList=[[NSMutableArray alloc] initWithCapacity:0];
+    }
+    
     if (_examineListView==nil) {
-        _examineListView=[[EXExaminationListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame))];
-        _examineListView.backgroundColor=[UIColor grayColor];
+        _examineListView=[[EXListView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-CGRectGetHeight(self.navigationController.navigationBar.frame))];
+        _examineListView.backgroundColor=[UIColor whiteColor];
         _examineListView.delegate=self;
         [self.view addSubview:_examineListView];
     }
@@ -57,9 +64,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     
-    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
-    CustomTabBarController *tabBarController=appDelegate.tabController;
-    [tabBarController hideTabBar];
+    [_examRecordList removeAllObjects];
+    [_examRecordList addObjectsFromArray:[DBManager fetchALlExamsFromDB]];
+    
+    [_examineListView refresh];
 }
 
 - (void)didReceiveMemoryWarning
@@ -68,44 +76,40 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)setPaperData:(PaperData *)paperData{
-    if (_paperData != paperData) {
-        [_paperData release];
-        _paperData =[paperData retain];
-    }
-    _examineListView.dipalyTopicType=kDisplayTopicType_Record;
-    
-    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:10];
-    for (int i=0; i<10; i++) {
-        TopicData *obj=[[TopicData alloc] init];
-        [selectedArray addObject:obj];
-    }
-    
-    
-    _examineListView.dataArray=selectedArray;
+
+#pragma mark table view delegate
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 55.0f;
 }
 
-- (void)setExamData:(ExamData *)examData{
-    if (_examData != examData) {
-        [_examData release];
-        _examData =[examData retain];
-    }
-    _examineListView.dipalyTopicType=kDisplayTopicType_Record;
-    
-    NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:10];
-    //从数据库中读取考试考试记录
-//    for (int i=0; i<10; i++) {
-//        TopicData *obj=[[TopicData alloc] init];
-//        [selectedArray addObject:obj];
-//    }
-    
-    
-    _examineListView.dataArray=selectedArray;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return _examRecordList.count;
 }
 
-- (void)backwardItemClicked:(id)sender{
-    if(self.navigationController){
-        [self.navigationController popViewControllerAnimated:YES];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *CellIdentifier = @"StoryListCell";
+    EXRecordCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    if (cell==nil) {
+        cell=[[[EXRecordCell alloc] init] autorelease];
+        cell.index=indexPath.row+1;
+        if (indexPath.row<_examRecordList.count) {
+            cell.examData=[_examRecordList objectAtIndex:indexPath.row];
+        }
+    }
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    //每次进入前需要判断考试的examStatus信息（1:可用，2:编辑，3:禁用）,如果不为1则进入时弹出强提示框，提示不能进入
+    id examMetaData=nil;
+    examMetaData=[_examRecordList objectAtIndex:indexPath.row];
+    if (examMetaData) {
+        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+        [self.navigationController pushViewController:examineController animated:YES];
+        examineController.displayTopicType=kDisplayTopicType_Record;
+        examineController.examData=examMetaData;
+        examineController.isNotOnAnswering=NO;
     }
 }
 

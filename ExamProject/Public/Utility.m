@@ -21,7 +21,7 @@
 + (NSArray *)convertJSONToPaperData:(NSData *)data{
     NSMutableArray *result=[[[NSMutableArray alloc] initWithCapacity:0] autorelease];
     
-    //__block ExamData *exam=nil;
+    __block ExamData *exam=nil;
     if (data) { 
         NSDictionary *tExamPaper=[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
         NSDictionary *tExamPaperInfoDic=[tExamPaper objectForKey:@"data"];
@@ -39,7 +39,7 @@
                     obj.examDisableSubmit=[NSNumber numberWithInt:[[tExamPaperInfoDic objectForKey:@"disableSubmit"] intValue]];
                     obj.updateTm=[NSNumber numberWithLongLong:[[tExamPaperInfoDic objectForKey:@"updateTm"] longLongValue]];
                     
-                    //exam=obj;
+                    exam=obj;
                 }
             }];
         }
@@ -60,9 +60,9 @@
             }];
         }
     }
-//    if (exam) {
-//        exam.papers=result;
-//    }
+    if (exam) {
+        exam.papers=result;
+    }
     return result;
 }
 

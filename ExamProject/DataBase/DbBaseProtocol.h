@@ -37,6 +37,7 @@
 @property (nonatomic, copy) NSString * examNotice;                      //通知信息：暂时不知道有什么用
 @property (nonatomic, retain)NSNumber *examIsCollected;                 //试卷是否有试题呗收藏
 @property (nonatomic, retain)NSNumber *examIsHasWrong;                  //答过的试卷是否存在错题
+@property (nonatomic, retain)NSNumber *examUsingTm;                     //考试用时
 
 @end
 

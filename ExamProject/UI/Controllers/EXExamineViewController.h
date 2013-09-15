@@ -31,5 +31,6 @@
 @property (nonatomic,retain)ExamData            *examData;
 @property (nonatomic,assign)DisplayTopicType    displayTopicType;
 @property (nonatomic,assign)BOOL                isNotOnAnswering;
+@property (nonatomic,assign)int                 currentIndex;
 
 @end

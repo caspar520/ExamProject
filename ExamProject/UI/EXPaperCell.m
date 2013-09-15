@@ -87,7 +87,7 @@
         
         [self addSubview:examMSGLabel];
     }
-    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，＋须知",_examData.examBeginTm,_examData.examEndTm];
+    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",_examData.examBeginTm,_examData.examEndTm,_examData.examNotice];
 }
 
 @end

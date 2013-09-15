@@ -37,6 +37,7 @@
 @synthesize examData=_examData;
 @synthesize displayTopicType;
 @synthesize isNotOnAnswering;
+@synthesize currentIndex;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -508,6 +509,7 @@
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
                             __block NSString *optionParameter=@"";
+                            __block isWrong=false;
                             if (tObj.answers) {
                                 [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *aObj, NSUInteger aIdx, BOOL *aStop) {
                                     if (aObj) {

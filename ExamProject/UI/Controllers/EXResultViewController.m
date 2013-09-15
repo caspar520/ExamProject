@@ -14,6 +14,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "EXExamineRecordViewController.h"
 #import "EXNetDataManager.h"
+#import "EXExamineViewController.h"
 
 #define ANSWERSHEET_COUNT_PER_LINE  8                   //每行的序号数量
 
@@ -270,10 +271,12 @@
 - (void)topicOrderInAnswerSheetClicked:(UIButton *)sender
 {
     //跳转到试卷列表：显示考试的详细结果
-//    EXExamineRecordViewController *examineController=[[[EXExamineRecordViewController alloc] init] autorelease];
-//    [self.navigationController pushViewController:examineController animated:YES];
-//    examineController.currentIndex=sender.tag-1;
-//    examineController.examData=examData;
+    EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+    [self.navigationController pushViewController:examineController animated:YES];
+    examineController.currentIndex=sender.tag-1;
+    examineController.displayTopicType=kDisplayTopicType_Record;
+    examineController.isNotOnAnswering=YES;
+    examineController.examData=examData;
 }
 
 - (void)backwardItemClicked:(id)sender{

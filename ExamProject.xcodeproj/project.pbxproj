@@ -105,6 +105,7 @@
 		9C790CC4179E431A0077621B /* tabBarItem_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CAD179E431A0077621B /* tabBarItem_2.png */; };
 		9C790CC6179E4F940077621B /* topic_index_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CC5179E4F940077621B /* topic_index_bg.png */; };
 		9C790CC8179EA5BE0077621B /* topic_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CC7179EA5BE0077621B /* topic_bg.png */; };
+		9CA0DEE117E55D4F00AE42FC /* EXRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0DEE017E55D4E00AE42FC /* EXRecordCell.m */; };
 		9CA295D217E5552E0039C9BE /* tabBarItem_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CA295D017E5552E0039C9BE /* tabBarItem_5.png */; };
 		9CA295D317E5552E0039C9BE /* tabBarItem_selected_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CA295D117E5552E0039C9BE /* tabBarItem_selected_5.png */; };
 		9CA3F39E179940A40052C8FE /* EXListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA3F39D179940A40052C8FE /* EXListView.m */; };
@@ -283,6 +284,8 @@
 		9C790CAD179E431A0077621B /* tabBarItem_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarItem_2.png; sourceTree = "<group>"; };
 		9C790CC5179E4F940077621B /* topic_index_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_index_bg.png; sourceTree = "<group>"; };
 		9C790CC7179EA5BE0077621B /* topic_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_bg.png; sourceTree = "<group>"; };
+		9CA0DEDF17E55D4E00AE42FC /* EXRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRecordCell.h; sourceTree = "<group>"; };
+		9CA0DEE017E55D4E00AE42FC /* EXRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRecordCell.m; sourceTree = "<group>"; };
 		9CA295D017E5552E0039C9BE /* tabBarItem_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarItem_5.png; sourceTree = "<group>"; };
 		9CA295D117E5552E0039C9BE /* tabBarItem_selected_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarItem_selected_5.png; sourceTree = "<group>"; };
 		9CA3F39C179940A30052C8FE /* EXListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXListView.h; sourceTree = SOURCE_ROOT; };
@@ -753,6 +756,8 @@
 				9CC19420179A2CE300781922 /* EXPaperCell.m */,
 				9CC19422179A36C200781922 /* EXNetPaperCell.h */,
 				9CC19423179A36C200781922 /* EXNetPaperCell.m */,
+				9CA0DEDF17E55D4E00AE42FC /* EXRecordCell.h */,
+				9CA0DEE017E55D4E00AE42FC /* EXRecordCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -957,6 +962,7 @@
 				30BBDF7317C9D8E400BA6BF1 /* AnswerData.m in Sources */,
 				9C0E4BD317DB1F8F00D84184 /* EXExamineRecordViewController.m in Sources */,
 				9CA4FE2B17E45555001AC23E /* JSONKit.m in Sources */,
+				9CA0DEE117E55D4F00AE42FC /* EXRecordCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
