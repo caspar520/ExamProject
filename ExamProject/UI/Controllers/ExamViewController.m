@@ -124,8 +124,8 @@
 
 #pragma mark 请求数据
 - (void)fetchData{
-    //[MBProgressHUD showHUDAddedTo:self.view animated:NO];
-    //[[EXDownloadManager shareInstance] downloadExamList];
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    [[EXDownloadManager shareInstance] downloadExamList];
 }
 
 - (void)downloadPExamListFinish:(NSNotification *)notification{
