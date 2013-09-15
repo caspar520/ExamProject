@@ -107,7 +107,6 @@
         
         [_examMSGBarView addSubview:_paperCountLabel];
     }
-    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
     _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量："];
     
     if (_examLeftTime==nil) {
@@ -338,7 +337,7 @@
             }];
         }
     }
-    
+    _examineListView.currentIndex=currentIndex;
     _examineListView.dataArray=selectedArray;
 }
 
@@ -358,23 +357,24 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
     [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+    
     //save result to the DB
     _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
     _examData.createTm=[NSDate date];
     [DBManager addExam:_examData];
     
     //submit the exam result to server
-    NSData *parameter=[self markAndConstructResultParameter];
-    [[EXDownloadManager shareInstance] submitExamData:parameter];
+//    NSData *parameter=[self markAndConstructResultParameter];
+//    [[EXDownloadManager shareInstance] submitExamData:parameter];
     
     //销毁定时器，停止倒计时
     [self destroyExamTimer];
     
     //临时
-//    [self clearPaperInfo];
-//    if(self.navigationController){
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
+    EXResultViewController *resultController=[[EXResultViewController alloc] init];
+    resultController.examTime=_currentExamTime;
+    resultController.examData=self.examData;
+    [self.navigationController pushViewController:resultController animated:YES];
 }
 
 - (void)backToPreViewAfterSubmitted:(id)object{

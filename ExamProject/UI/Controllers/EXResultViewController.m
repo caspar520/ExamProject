@@ -87,10 +87,12 @@
     __block NSInteger mark=0;
     float topicCount=0;
     __block NSInteger rightCount=0;
+    NSMutableArray *tTopicArray=[NSMutableArray arrayWithCapacity:0];
     if (examData.papers) {
         for (PaperData *obj in examData.papers) {
             if (obj && obj.topics) {
                 topicCount+=obj.topics.count;
+                [tTopicArray addObjectsFromArray:obj.topics];
                 [obj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
                     if (tObj && ([tObj.topicType integerValue]==1 || [tObj.topicType integerValue]==2 || [tObj.topicType integerValue]==3)) {
                         __block BOOL isWrong=NO;
@@ -235,16 +237,17 @@
                                                CGRectGetWidth(self.view.frame)-CGRectGetMinX(answerSheetTipLabel.frame)*2,
                                                CGRectGetHeight(self.view.frame)-(CGRectGetMaxY(answerSheetTipLabel.frame)+5)-5)];
     answerSheet.scrollEnabled=YES;
-    answerSheet.backgroundColor=[UIColor grayColor];
+    answerSheet.backgroundColor=[UIColor clearColor];
     [self.view addSubview:answerSheet];
     
     //初始化answer sheet的内容，首先获取试题的数量
-    unsigned int tTopicsCount=100;
-    
-    unsigned int tLines=tTopicsCount/ANSWERSHEET_COUNT_PER_LINE;
-    tLines=tTopicsCount%ANSWERSHEET_COUNT_PER_LINE?(tLines+1):tLines;
+    unsigned int tLines=topicCount/ANSWERSHEET_COUNT_PER_LINE;
+    tLines=(int)topicCount%ANSWERSHEET_COUNT_PER_LINE?(tLines+1):tLines;
     for (int lIndex=0; lIndex<tLines; lIndex++ ) {
         for (int vIndex=0; vIndex<ANSWERSHEET_COUNT_PER_LINE; vIndex++) {
+            if(lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex>=topicCount){
+                break;
+            }
             UIButton *topicOrder=[UIButton buttonWithType:UIButtonTypeCustom];
             topicOrder.tag=lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1;
             [topicOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -254,13 +257,27 @@
             topicOrder.layer.borderWidth=1;
             
             //根据答题是否正确设置背景颜色
-            int tType=vIndex%3;
-            if (tType==0) {
-                topicOrder.backgroundColor=[UIColor greenColor];
-            }else if(tType==1){
-                topicOrder.backgroundColor=[UIColor redColor];
-            }else{
-                topicOrder.backgroundColor=[UIColor whiteColor];
+            topicOrder.backgroundColor=[UIColor whiteColor];
+            if (lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex<tTopicArray.count) {
+                TopicData *tTopic=[tTopicArray objectAtIndex:lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex];
+                if (tTopic && tTopic.answers) {
+                    __block BOOL isWrong=NO;
+                    [tTopic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                        if (obj) {
+                            if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
+                                || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
+                                //正确选项没有被选择或者错误选项被选择了改题都算是答错
+                                isWrong=YES;
+                                *stop=YES;
+                            }
+                        }
+                    }];
+                    if (isWrong==NO) {
+                        topicOrder.backgroundColor=[UIColor greenColor];
+                    }else if(isWrong==YES){
+                        topicOrder.backgroundColor=[UIColor redColor];
+                    }
+                }
             }
             
             [topicOrder addTarget:self action:@selector(topicOrderInAnswerSheetClicked:) forControlEvents:UIControlEventTouchUpInside];
