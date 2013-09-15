@@ -124,8 +124,10 @@
                     examItem.examId=[NSNumber numberWithInteger:[[obj objectForKey:@"id"] integerValue]];
                     examItem.examCategory=[obj objectForKey:@"category"];
                     examItem.examCreator=[obj objectForKey:@"creater"];
-                    examItem.examBeginTm=[NSNumber numberWithLongLong:[[obj objectForKey:@"beginTm"] longLongValue]];
-                    examItem.examEndTm=[NSNumber numberWithLongLong:[[obj objectForKey:@"endTm"] longLongValue]];
+                    examItem.examBeginTm=[NSDate dateWithTimeIntervalSince1970:[[obj objectForKey:@"beginTm"] doubleValue]];
+                    //[NSNumber numberWithLongLong:[[obj objectForKey:@"beginTm"] longLongValue]];
+                    examItem.examEndTm=[NSDate dateWithTimeIntervalSince1970:[[obj objectForKey:@"endTm"] doubleValue]];
+                    //[NSNumber numberWithLongLong:[[obj objectForKey:@"endTm"] longLongValue]];
                     examItem.examTitle=[obj objectForKey:@"name"];
                     examItem.examNotice=[obj objectForKey:@"notice"];
                     examItem.examStatus=[NSNumber numberWithInteger:[[obj objectForKey:@"status"] integerValue]];

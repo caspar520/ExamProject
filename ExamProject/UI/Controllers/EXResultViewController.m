@@ -87,7 +87,6 @@
     __block NSInteger mark=0;
     float topicCount=0;
     __block NSInteger rightCount=0;
-    //NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",examData.examId]];
     if (examData.papers) {
         for (PaperData *obj in examData.papers) {
             if (obj && obj.topics) {

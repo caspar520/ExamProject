@@ -60,7 +60,7 @@
         examTypeLabel.textColor=[UIColor blackColor];
         examTypeLabel.textAlignment=UITextAlignmentLeft;
         examTypeLabel.backgroundColor=[UIColor clearColor];
-        examTypeLabel.font=[UIFont systemFontOfSize:18];
+        examTypeLabel.font=[UIFont systemFontOfSize:16];
         
         [self addSubview:examTypeLabel];
     }
@@ -71,7 +71,7 @@
         examDurationLabel.textColor=[UIColor blackColor];
         examDurationLabel.textAlignment=UITextAlignmentLeft;
         examDurationLabel.backgroundColor=[UIColor clearColor];
-        examDurationLabel.font=[UIFont systemFontOfSize:18];
+        examDurationLabel.font=[UIFont systemFontOfSize:16];
         
         [self addSubview:examDurationLabel];
     }
@@ -83,11 +83,17 @@
         examMSGLabel.textAlignment=UITextAlignmentLeft;
         examMSGLabel.numberOfLines=0;
         examMSGLabel.backgroundColor=[UIColor clearColor];
-        examMSGLabel.font=[UIFont systemFontOfSize:18];
+        examMSGLabel.font=[UIFont systemFontOfSize:14];
         
         [self addSubview:examMSGLabel];
     }
-    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",_examData.examBeginTm,_examData.examEndTm,_examData.examNotice];
+    NSDateFormatter *formater = [[ NSDateFormatter alloc] init];
+    [formater setDateFormat:@"yyyy-MM-dd HH:mm"];
+    NSString * beginTime = [formater stringFromDate:_examData.examBeginTm];
+    NSString * endTime = [formater stringFromDate:_examData.examEndTm];
+    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",beginTime,endTime,_examData.examNotice];
+    [formater release];
+    NSLog(@"----------须知：%@",examMSGLabel.text);
 }
 
 @end

@@ -140,7 +140,16 @@ static EXDownloadManager *instance=nil;
 }
 
 - (void)submitExamData:(NSData *)pData{
+    NSURL *url=[NSURL URLWithString:NET_SUBMIT_EXAM_DATA];
+    [self cancelRequest];
+    request = [[ASIFormDataRequest alloc] initWithURL:url];
+    [request setTimeOutSeconds:10];
+    request.numberOfTimesToRetryOnTimeout = 2;
+    request.delegate = self;
     
+    [request setPostValue:pData forKey:@"data"];
+    [ASIHTTPRequest showNetworkActivityIndicator];
+    [request startAsynchronous];
 }
 
 
@@ -172,13 +181,26 @@ static EXDownloadManager *instance=nil;
         
         NSLog(@"paper list data:%@",result);
         [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
+    }else if([requestURL isEqualToString:NET_SUBMIT_EXAM_DATA]){
+        NSData *respondData=[request responseData];
+        NSDictionary *result = [NSJSONSerialization JSONObjectWithData:respondData options:kNilOptions error:nil];
+        if (result && [result objectForKey:@"status"] && [[result objectForKey:@"status"] intValue]==1) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS object:nil];
+        }else{
+            [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE object:nil];
+        }
     }
 }
 
 - (void)requestFailed:(ASIHTTPRequest *)request{
     [ASIHTTPRequest hideNetworkActivityIndicator];
     //下载失败
-    [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
+    NSString *requestURL=[request.url absoluteString];
+    if([requestURL isEqualToString:NET_SUBMIT_EXAM_DATA]){
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE object:nil];
+    }else{
+        [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
+    }
 }
 
 @end

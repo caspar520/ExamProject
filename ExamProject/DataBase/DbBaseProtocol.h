@@ -16,8 +16,8 @@
 
 @property (nonatomic, retain) NSNumber * examId;            //考试Id
 @property (nonatomic, retain) NSNumber * examTotalTm;       //考试总时间
-@property (nonatomic, retain) NSNumber * examBeginTm;       //考试开始时间
-@property (nonatomic, retain) NSNumber * examEndTm;         //考试结束时间
+@property (nonatomic, retain) NSDate   * examBeginTm;       //考试开始时间
+@property (nonatomic, retain) NSDate   * examEndTm;         //考试结束时间
 @property (nonatomic, retain) NSNumber * examTimes;         //参加考试次数
 @property (nonatomic, retain) NSNumber * examPassing;       //考试及格分数
 @property (nonatomic, retain) NSNumber * examPassingAgainFlg;           //1:及格后可以再考试    2:及格后不能再考试
@@ -27,7 +27,7 @@
 @property (nonatomic, retain) NSNumber * examDisableMinute;             //分钟后禁止考生参加
 @property (nonatomic, retain) NSNumber * examDisableSubmit;             //分钟内禁止考生交卷
 @property (nonatomic, retain) NSNumber * updateTm;                      //更新时间戳
-@property (nonatomic, retain) NSNumber * createTm;                      //创建时间(通过创建时间和考试Id唯一确定一条数据),不要更新此属性
+@property (nonatomic, retain) NSDate * createTm;                      //创建时间(通过创建时间和考试Id唯一确定一条数据),不要更新此属性
 
 //added by brown    
 @property (nonatomic, copy) NSString * examCategory;                    //考试分类

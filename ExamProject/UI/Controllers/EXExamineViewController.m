@@ -80,8 +80,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_SOME_PAPER_DOWNLOAD_FINISH object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_DOWNLOAD_FAILURE object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadPaperListFinish:) name:NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(downloadFailure:) name:NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submitExamDataSuccess:) name:NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(submitExamDataFailure:) name:NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE object:nil];
     
 	// Do any additional setup after loading the view.
     if (_examineListView==nil) {
@@ -212,6 +212,7 @@
 #pragma mark 拉取数据
 //拉取考试的试卷数据
 - (void)fetchData{
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     [[EXDownloadManager shareInstance] downloadPaperList:[_examData.examId integerValue]];
 }
 
@@ -234,7 +235,7 @@
     }
     _examineListView.dataArray=selectedArray;
     
-    [self triggerExamTimer];
+    //[self triggerExamTimer];
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
@@ -242,6 +243,8 @@
 }
 
 - (void)submitExamDataSuccess:(NSNotification *)notification{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
     if ([_examData.examSubmitDisplayAnswerFlg integerValue]==1) {
         //show the exam result and save the exam result to DB
         EXResultViewController *resultController=[[EXResultViewController alloc] init];
@@ -260,6 +263,8 @@
 }
 
 - (void)submitExamDataFailure:(NSNotification *)notification{
+    [MBProgressHUD hideHUDForView:self.view animated:NO];
+    
     //提示提交失败
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"提交考试数据失败，请检查网络后重新提交" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [alert show];
@@ -289,7 +294,7 @@
             _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
             _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
             
-            [self triggerExamTimer];
+            //[self triggerExamTimer];
         }else{
             //不存在
             [self fetchData];
@@ -352,8 +357,10 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
+    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     //save result to the DB
     _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
+    _examData.createTm=[NSDate date];
     [DBManager addExam:_examData];
     
     //submit the exam result to server
@@ -364,14 +371,14 @@
     [self destroyExamTimer];
     
     //临时
-    [self clearPaperInfo];
-    if(self.navigationController){
-        [self.navigationController popViewControllerAnimated:YES];
-    }
+//    [self clearPaperInfo];
+//    if(self.navigationController){
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
 }
 
 - (void)backToPreViewAfterSubmitted:(id)object{
-    [self removeAlertTip:nil];
+    [self removeAlertTip:object];
     [self clearPaperInfo];
     
     if(self.navigationController){
@@ -487,6 +494,7 @@
         _examData.examIsCollected=[NSNumber numberWithBool:NO];
         _examData.examIsHasWrong=[NSNumber numberWithBool:NO];
         _examData.examUsingTm=[NSNumber numberWithInt:0];
+        _examData.createTm=[NSNumber numberWithLong:0];
     }
 }
 
@@ -505,9 +513,8 @@
     
     NSInteger tScore=0;
     NSMutableArray *topicsList=[NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
-    if (papers) {
-        [papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+    if (_examData.papers) {
+        [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
             if (pObj) {
                 NSMutableDictionary *tParameter=[[NSMutableDictionary alloc] initWithCapacity:0];
                 if (pObj.topics) {

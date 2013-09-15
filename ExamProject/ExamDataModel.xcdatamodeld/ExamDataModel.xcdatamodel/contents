@@ -8,12 +8,12 @@
     </entity>
     <entity name="Exam" representedClassName="Exam" syncable="YES">
         <attribute name="createTm" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="examBeginTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="examBeginTm" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="examCategory" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="examCreator" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="examDisableMinute" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examDisableSubmit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="examEndTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="examEndTm" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="examId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examIsCollected" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="examIsHasWrong" optional="YES" attributeType="Boolean" syncable="YES"/>
