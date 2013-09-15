@@ -143,6 +143,15 @@
     aExam.updateTm = examData.updateTm;
     aExam.createTm = examData.createTm;
     
+    //added by brown
+    aExam.examCategory=examData.examCategory;
+    aExam.examCreator=examData.examCreator;
+    aExam.examTitle=examData.examTitle;
+    aExam.examStatus=examData.examStatus;
+    aExam.examIsCollected=examData.examIsCollected;
+    aExam.examIsHasWrong=examData.examIsHasWrong;
+    aExam.examUsingTm=examData.examUsingTm;
+    
     NSSet *papers = [DBManager addPapersWithArray:examData.papers];
     [aExam addPapers:papers];
     
@@ -230,6 +239,10 @@
     topic.topicAnalysis = topicData.topicAnalysis;
     topic.topicValue = topicData.topicValue;
     topic.topicImage = topicData.topicImage;
+    
+    //added by brown
+    topic.topicIsCollected=topicData.topicIsCollected;
+    topic.topicIsWrong=topicData.topicIsWrong;
     
     NSSet *answers = [DBManager addAnsersWithArray:topicData.answers];
     [topic addAnswers:answers];

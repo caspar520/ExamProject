@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="12C3104" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCorrect" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -9,17 +9,25 @@
     <entity name="Exam" representedClassName="Exam" syncable="YES">
         <attribute name="createTm" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="examBeginTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="examCategory" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="examCreator" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="examDisableMinute" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examDisableSubmit" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examEndTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="examId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="examIsCollected" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="examIsHasWrong" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="examNotice" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="examPassing" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examPassingAgainFlg" optional="YES" attributeType="Integer 32" syncable="YES"/>
         <attribute name="examPublishAnswerFlg" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examPublishResultTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="examStatus" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examSubmitDisplayAnswerFlg" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="examTimes" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="examTitle" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="examTotalTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="examUsingTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="papers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Paper" inverseName="exam" inverseEntity="Paper" syncable="YES"/>
     </entity>
@@ -34,6 +42,8 @@
         <attribute name="topicAnalysis" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topicId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="topicImage" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="topicIsCollected" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="topicIsWrong" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="topicQuestion" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="topicType" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="topicValue" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -49,9 +59,9 @@
     </entity>
     <elements>
         <element name="Answer" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Exam" positionX="160" positionY="192" width="128" height="270"/>
+        <element name="Exam" positionX="160" positionY="192" width="128" height="390"/>
         <element name="Paper" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="Topic" positionX="0" positionY="0" width="128" height="165"/>
+        <element name="Topic" positionX="0" positionY="0" width="128" height="195"/>
         <element name="User" positionX="0" positionY="0" width="128" height="120"/>
     </elements>
 </model>

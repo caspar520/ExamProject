@@ -44,8 +44,6 @@
     
     self.title=@"考试记录";
     self.view.frame=CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-//	UIBarButtonItem*backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleBordered target:self action:@selector(backwardItemClicked:)];
-//    self.navigationItem.leftBarButtonItem= backButton;
     self.navigationController.toolbar.hidden=YES;
 	// Do any additional setup after loading the view.
     
@@ -63,6 +61,10 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
+    CustomTabBarController *tabBarController=appDelegate.tabController;
+    [tabBarController showTabBar];
     
     [_examRecordList removeAllObjects];
     [_examRecordList addObjectsFromArray:[DBManager fetchALlExamsFromDB]];

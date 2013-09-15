@@ -222,22 +222,19 @@
     //fetch the papers data success of some examination：resove the exam info to the exam object
     
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
-    if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
+    if (_examData.papers && _examData.papers.count>0) {
         //存在
-        NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
-        if (papers) {
-            for (PaperData *obj in papers) {
-                if (obj && obj.topics) {
-                    [selectedArray addObjectsFromArray:obj.topics];
-                }
+        for (PaperData *obj in _examData.papers) {
+            if (obj && obj.topics) {
+                [selectedArray addObjectsFromArray:obj.topics];
             }
         }
-        _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",papers.count];
+        _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
         _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
     }
     _examineListView.dataArray=selectedArray;
     
-    //[self triggerExamTimer];
+    [self triggerExamTimer];
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
@@ -282,18 +279,14 @@
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
     //判断考试的试卷数据是否已经存在
     if (displayTopicType==kDisplayTopicType_Default) {
-        if ([EXNetDataManager shareInstance].paperListInExam && [[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]]) {
+        if (_examData.papers && _examData.papers.count>0) {
             //存在
-            NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",_examData.examId]];
-            
-            if (papers) {
-                [papers enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
-                    if (obj) {
-                        [selectedArray addObjectsFromArray:obj.topics];
-                    }
-                }];
-            }
-            _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",papers.count];
+            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    [selectedArray addObjectsFromArray:obj.topics];
+                }
+            }];
+            _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
             _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
             
             [self triggerExamTimer];
@@ -360,7 +353,8 @@
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
     //save result to the DB
-    
+    _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
+    [DBManager addExam:_examData];
     
     //submit the exam result to server
     NSData *parameter=[self markAndConstructResultParameter];
@@ -370,11 +364,10 @@
     [self destroyExamTimer];
     
     //临时
-//    EXResultViewController *resultController=[[EXResultViewController alloc] init];
-//    resultController.examTime=_currentExamTime;
-//    resultController.examData=self.examData;
-//    [self.navigationController pushViewController:resultController animated:YES];
-    
+    [self clearPaperInfo];
+    if(self.navigationController){
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (void)backToPreViewAfterSubmitted:(id)object{
@@ -386,6 +379,37 @@
     }
 }
 
+- (void)confirmSelectOption:(NSInteger)pIndex withObject:(id)pObj{
+    //判断选择是否正确
+    EXExaminationView *topicView=(EXExaminationView*)pObj;
+    TopicData *topic=topicView.metaData;
+    if (topic) {
+        __block BOOL isWrong=NO;
+        
+        if (topic.answers) {
+            [topic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                if (obj) {
+                    if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
+                        || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
+                        //正确选项没有被选择或者错误选项被选择了改题都算是答错
+                        isWrong=YES;
+                        *stop=YES;
+                    }
+                }
+            }];
+        }
+        
+        topic.topicIsWrong=[NSNumber numberWithBool:isWrong];
+        _examData.examIsHasWrong=[NSNumber numberWithBool:YES];
+        
+        //save the wrong topic into the DB
+        
+    }
+    
+    
+    [_examineListView nextTopic];
+}
+
 - (void)nextItemClicked:(id)sender{
     [_examineListView nextTopic];
 }
@@ -395,51 +419,20 @@
 }
 
 - (void)collectItemClicked:(id)sender{
-//	_paperData.fav=[NSNumber numberWithBool:YES];
-//    [_examineListView collectionTopic];
-//    [DBManager addPaper:_paperData];
+	_examData.examIsCollected=[NSNumber numberWithBool:YES];
+    [_examineListView collectionTopic];
+    [DBManager addExam:_examData];
     
-//    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//    [alert show];
-//    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
-//    [alert release];
-    
-    
-    //added by magic
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    [alert show];
+    [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
+    [alert release];
     
 }
 
 - (void)removeAlertTip:(id)object{
     if ([object isKindOfClass:[UIAlertView class]]) {
         [((UIAlertView *)object)dismissWithClickedButtonIndex:0 animated:YES];
-    }
-}
-
-//批改试卷
-- (void)markPaper{
-    //计算总成绩并判断答过的题是否有错误，有标记该试卷有错误
-    __block NSInteger mark=0;
-    if (_paperData.topics) {
-//        [_paperData.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
-//            if (obj && ([obj.type integerValue]==1 || [obj.type integerValue]==2 || [obj.type integerValue]==3)) {
-//                //先判断试题类型：只有选择题和判断题可以进行判断，简答暂不做判断
-//                if (obj.analysis && [obj.analysis integerValue]!=-100) {
-//                    if ([obj.analysis isEqualToString:obj.selected]) {
-//                        //正确
-//                        obj.wrong=[NSNumber numberWithBool:NO];
-//                        mark+=[obj.value integerValue];
-//                    }else{
-//                        //错误
-//                        obj.wrong=[NSNumber numberWithBool:YES];
-//                        if ([_paperData.wrong boolValue]==NO) {
-//                            _paperData.wrong=[NSNumber numberWithBool:YES];
-//                        }
-//                    }
-//                }
-//            }
-//        }];
-//        _paperData.userScore=[NSNumber numberWithInteger:mark];
-//        [DBManager addPaper:_paperData];
     }
 }
 
@@ -460,25 +453,40 @@
 }
 
 - (void)clearPaperInfo{
-    NSArray *topics=_paperData.topics;
-    if (topics) {
-        for (TopicData *topic in topics) {
-            if (topic) {
-                if ([topic.topicType integerValue]==1 || [topic.topicType integerValue]==2 || [topic.topicType integerValue]==3) {
-                    //选择题和判断题
-                    if (topic.answers) {
-                        [topic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
-                            if (obj) {
-                                obj.isSelected = [NSNumber numberWithBool:NO];
+    if (_examData) {
+        NSArray *papers=_examData.papers;
+        if (papers) {
+            for (PaperData *paper in papers) {
+                if (paper) {
+                    NSArray *topics=paper.topics;
+                    if (topics) {
+                        for (TopicData *topic in topics) {
+                            if (topic) {
+                                if ([topic.topicType integerValue]==1 || [topic.topicType integerValue]==2 || [topic.topicType integerValue]==3) {
+                                    //选择题和判断题
+                                    if (topic.answers) {
+                                        [topic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                                            if (obj) {
+                                                obj.isSelected = [NSNumber numberWithBool:NO];
+                                            }
+                                        }];
+                                    }
+                                    topic.topicIsWrong=[NSNumber numberWithBool:NO];
+                                    topic.topicIsCollected=[NSNumber numberWithBool:NO];
+                                }else{
+                                    //简单题
+                                    
+                                }
                             }
-                        }];
+                        }
                     }
-                }else{
-                    //简单题
-                    
                 }
             }
         }
+        
+        _examData.examIsCollected=[NSNumber numberWithBool:NO];
+        _examData.examIsHasWrong=[NSNumber numberWithBool:NO];
+        _examData.examUsingTm=[NSNumber numberWithInt:0];
     }
 }
 
@@ -509,9 +517,9 @@
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
                             __block NSString *optionParameter=@"";
-                            __block isWrong=false;
+                            __block BOOL isWrong=NO;
                             if (tObj.answers) {
-                                [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *aObj, NSUInteger aIdx, BOOL *aStop) {
+                                for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
                                         if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
                                             if (optionParameter.length>0) {
@@ -527,8 +535,19 @@
                                             }
                                         }
                                     }
+                                }
+                                [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                                    if (obj) {
+                                        if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
+                                            || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
+                                            //正确选项没有被选择或者错误选项被选择了改题都算是答错
+                                            isWrong=YES;
+                                            *stop=YES;
+                                        }
+                                    }
                                 }];
                             }
+                            [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
                             [tParameter setValue:optionParameter forKey:@"option"];
                         }
                     }];

@@ -71,7 +71,7 @@
                 }
                 
                 view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
-                view.delegate=self;
+                view.delegate=delegate;
                 view.index=idx+1;
                 view.metaData=obj;
                 view.tag=idx;
@@ -82,10 +82,6 @@
         }
     }
     [_scrollView setContentOffset:CGPointMake(currentIndex*CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
-}
-
-- (void)confirmSelectOption:(NSInteger)pIndex withObject:(id)pObj{
-    [self nextTopic];
 }
 
 - (void)preTopic{

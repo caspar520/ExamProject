@@ -21,4 +21,8 @@
 @dynamic paper;
 @dynamic answers;
 
+//added by brown
+@dynamic topicIsCollected;
+@dynamic topicIsWrong;
+
 @end

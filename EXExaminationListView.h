@@ -16,7 +16,7 @@ typedef enum{
     kDisplayTopicType_Record,               //答题记录 
 }DisplayTopicType;
 
-@interface EXExaminationListView : UIView<EXQuestionDelegate>{
+@interface EXExaminationListView : UIView{
     UIScrollView            *_scrollView;
 }
 

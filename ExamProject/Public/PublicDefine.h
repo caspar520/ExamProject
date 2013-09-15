@@ -22,6 +22,7 @@
 //#define NET_PAPERDATA_URL       @"http://www.kanbook.cn/Papr/getpaprlist"
 #define NET_PAPERDATA_URL         @"http://down.xiaotu.net/paperList0.json"
 #define NET_EXAMDATA_URL        @"http://www.kanbook.cn/exam/getexamlist"
+#define NET_SUBMIT_EXAM_DATA    @"http://www.kanbook.cn/score/addscore"
 
 
 

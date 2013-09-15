@@ -28,4 +28,14 @@
 
 @dynamic papers;
 
+//added by brown
+@dynamic examCategory;
+@dynamic examCreator;
+@dynamic examTitle;
+@dynamic examStatus;
+@dynamic examNotice;
+@dynamic examIsCollected;
+@dynamic examIsHasWrong;
+@dynamic examUsingTm;
+
 @end

@@ -20,6 +20,10 @@
 @synthesize topicValue;
 @synthesize topicImage;
 
+//added by brown
+@synthesize topicIsCollected;
+@synthesize topicIsWrong;
+
 - (id)initWithTopic:(Topic *)topic
 {
     self = [super init];
@@ -30,6 +34,10 @@
         self.topicAnalysis = topic.topicAnalysis;
         self.topicValue = topic.topicValue;
         self.topicImage = topic.topicImage;
+        
+        //added by brown
+        self.topicIsCollected=topic.topicIsCollected;
+        self.topicIsWrong=topic.topicIsWrong;
         
         //将数据以AnswerData的形式传递出去
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"content" ascending:YES];
@@ -55,6 +63,8 @@
     [topicAnalysis release];
     [topicValue release];
     [topicImage release];
+    [topicIsCollected release];
+    [topicIsWrong release];
     
     [_answers release];
     

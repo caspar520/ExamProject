@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "EXExaminationListView.h"
 
-@class EXExaminationListView,PaperData,ExamData;
+@class PaperData,ExamData;
 
-@interface EXExamineViewController : UIViewController{
+@interface EXExamineViewController : UIViewController<EXQuestionDelegate>{
     EXExaminationListView       *_examineListView;
     
     UIView                      *_examMSGBarView;

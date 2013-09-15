@@ -85,7 +85,8 @@
         
         [self addSubview:examUsingTmLabel];
     }
-    examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%@",_examData.examUsingTm];
+    //examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%@",_examData.examUsingTm];
+    examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%d",30];
 }
 
 @end

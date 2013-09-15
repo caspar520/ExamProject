@@ -34,6 +34,9 @@
 @synthesize examTitle;
 @synthesize examStatus;
 @synthesize examNotice;
+@synthesize examIsCollected;
+@synthesize examIsHasWrong;
+@synthesize examUsingTm;
 
 - (id)initWithExam:(Exam *)aExam
 {
@@ -52,6 +55,16 @@
         self.examDisableSubmit = aExam.examDisableSubmit;
         self.updateTm = aExam.updateTm;
         self.createTm = aExam.createTm;
+        
+        //added by brown
+        self.examCategory = aExam.examCategory;
+        self.examCreator = aExam.examCreator;
+        self.examTitle = aExam.examTitle;
+        self.examStatus = aExam.examStatus;
+        self.examNotice = aExam.examNotice;
+        self.examIsCollected = aExam.examIsCollected;
+        self.examIsHasWrong = aExam.examIsHasWrong;
+        self.examUsingTm = aExam.examUsingTm;
         
         //先按照topicId升序排列
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"paperId" ascending:YES];

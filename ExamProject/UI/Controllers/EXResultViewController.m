@@ -84,23 +84,29 @@
     }
     answerSheet=nil;
     //统计考试结果
-    NSInteger mark=0;
-    float topicCount=10;
-    NSInteger rightCount=3;
-    NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",examData.examId]];
-    if (papers) {
-        for (PaperData *obj in papers) {
+    __block NSInteger mark=0;
+    float topicCount=0;
+    __block NSInteger rightCount=0;
+    //NSMutableArray *papers=[[EXNetDataManager shareInstance].paperListInExam objectForKey:[NSString stringWithFormat:@"%@",examData.examId]];
+    if (examData.papers) {
+        for (PaperData *obj in examData.papers) {
             if (obj && obj.topics) {
                 topicCount+=obj.topics.count;
                 [obj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
                     if (tObj && ([tObj.topicType integerValue]==1 || [tObj.topicType integerValue]==2 || [tObj.topicType integerValue]==3)) {
+                        __block BOOL isWrong=NO;
                         [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *aObj, NSUInteger aIdx, BOOL *aStop) {
                             if (aObj) {
-                                if ([aObj.isSelected boolValue] && [aObj.isCorrect boolValue]) {
-                                    
+                                if (([aObj.isSelected boolValue]==NO && [aObj.isCorrect boolValue])
+                                    || ([aObj.isSelected boolValue] && [aObj.isCorrect boolValue]==NO)) {
+                                    isWrong=YES;
                                 }
                             }
                         }];
+                        if (isWrong==NO) {
+                            rightCount++;
+                            mark+=[tObj.topicValue integerValue];
+                        }
                     }
                 }];
             }
