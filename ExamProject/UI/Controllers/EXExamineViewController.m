@@ -358,7 +358,9 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
-    //根据需求判断是否跳转到答题结果界面，清理EXNetDataManager中的试卷的考试记录
+    //save result to the DB
+    
+    
     //submit the exam result to server
     NSData *parameter=[self markAndConstructResultParameter];
     [[EXDownloadManager shareInstance] submitExamData:parameter];
