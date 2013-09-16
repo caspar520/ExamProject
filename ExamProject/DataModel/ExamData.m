@@ -37,6 +37,7 @@
 @synthesize examIsCollected;
 @synthesize examIsHasWrong;
 @synthesize examUsingTm;
+@synthesize hasExamedCount;
 
 - (id)initWithExam:(Exam *)aExam
 {
@@ -65,6 +66,7 @@
         self.examIsCollected = aExam.examIsCollected;
         self.examIsHasWrong = aExam.examIsHasWrong;
         self.examUsingTm = aExam.examUsingTm;
+        self.hasExamedCount = aExam.hasExamedCount;
         
         //先按照topicId升序排列
         NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"paperId" ascending:YES];

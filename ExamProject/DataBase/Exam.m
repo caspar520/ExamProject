@@ -38,5 +38,6 @@
 @dynamic examIsCollected;
 @dynamic examIsHasWrong;
 @dynamic examUsingTm;
+@dynamic hasExamedCount;
 
 @end

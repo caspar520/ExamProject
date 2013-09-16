@@ -157,6 +157,7 @@
     aExam.examIsCollected=examData.examIsCollected;
     aExam.examIsHasWrong=examData.examIsHasWrong;
     aExam.examUsingTm=examData.examUsingTm;
+    aExam.hasExamedCount = examData.hasExamedCount;
     
     NSSet *papers = [DBManager addPapersWithArray:examData.papers];
     [aExam addPapers:papers];

@@ -494,7 +494,7 @@
         _examData.examIsCollected=[NSNumber numberWithBool:NO];
         _examData.examIsHasWrong=[NSNumber numberWithBool:NO];
         _examData.examUsingTm=[NSNumber numberWithInt:0];
-        _examData.createTm=[NSNumber numberWithLong:0];
+        _examData.createTm= [NSDate dateWithTimeIntervalSince1970:0];
     }
 }
 
