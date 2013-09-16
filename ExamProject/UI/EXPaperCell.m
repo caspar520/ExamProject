@@ -92,6 +92,8 @@
     NSString * beginTime = [formater stringFromDate:_examData.examBeginTm];
     NSString * endTime = [formater stringFromDate:_examData.examEndTm];
     examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",beginTime,endTime,_examData.examNotice];
+    CGSize autoSize = [examMSGLabel sizeThatFits:CGSizeMake(CGRectGetWidth(examMSGLabel.frame), 0)];
+    examMSGLabel.frame = CGRectMake(CGRectGetMinX(examMSGLabel.frame), CGRectGetMinY(examMSGLabel.frame), CGRectGetWidth(examMSGLabel.frame), autoSize.height);
     [formater release];
     NSLog(@"----------须知：%@",examMSGLabel.text);
 }
