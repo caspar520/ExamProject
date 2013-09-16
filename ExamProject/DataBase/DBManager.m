@@ -128,7 +128,13 @@
 + (Exam *)addExam:(ExamData *)examData
 {
     //考试每次都会创建一个新的记录
-    Exam *aExam = [Exam createNewObject];
+    NSArray *exams = [DBManager readExamsWithCondition:nil];
+    Exam *aExam = nil;
+    if ([exams count] > 0) {
+        aExam = [exams objectAtIndex:0];
+    } else {
+        aExam = [Exam createNewObject];
+    }
     aExam.examId = examData.examId;
     aExam.examTotalTm = examData.examTotalTm;
     aExam.examBeginTm = examData.examBeginTm;
@@ -288,10 +294,26 @@
     return tSet;
 }
 
+//通过topicID获得Topic对象
++ (Answer *)getAnswerByContent:(NSString *)content
+{
+    NSFetchRequest *fetchRequest = [Answer defaultFetchRequest];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"content = %@", content]];
+    NSArray *result = [Answer executeFetchRequest:fetchRequest error:nil];
+    Answer *answer = nil;
+    if ([result count] > 0) {
+        answer = [result objectAtIndex:0];
+    }
+    return answer;
+}
+
 //添加答案
 + (Answer *)addAnswer:(AnswerData *)anserData
 {
-    Answer *answer = [Answer createNewObject];
+    Answer *answer = [DBManager getAnswerByContent:anserData.content];
+    if (answer == nil) {
+        answer = [Answer createNewObject];
+    }
     answer.content = anserData.content;
     answer.isCorrect = anserData.isCorrect;
     answer.isSelected = anserData.isSelected;
@@ -374,8 +396,8 @@
     ExamData *examData = [[ExamData alloc]init];
     examData.examId = @1;
     examData.examTotalTm = @7200;
-    examData.examBeginTm = @1376064000;
-    examData.examEndTm = @1377878400;
+    examData.examBeginTm = [NSDate dateWithTimeIntervalSince1970:1376064000];
+    examData.examEndTm = [NSDate dateWithTimeIntervalSince1970:1377878400];
     examData.examTimes = @2;
     examData.examPassing = @60;
     examData.examPassingAgainFlg = @1;
@@ -416,7 +438,14 @@
     examData.papers = papers;
     
     [DBManager addExam:examData];
+    
+    
+    ExamResultData *examResult = [[ExamResultData alloc]init];
+    examResult.examId = examResult.examId;
+    examResult.examScore = @100;
+    [DBManager addExamResult:examResult];
     [examData release];
+    [examResult release];
 
     //遍历所有属性
     int i;

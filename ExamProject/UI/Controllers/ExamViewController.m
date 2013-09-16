@@ -83,6 +83,7 @@
         
         [_paperListView refresh];
     }
+    
 }
 
 - (void)showNullView:(BOOL)isHidden
