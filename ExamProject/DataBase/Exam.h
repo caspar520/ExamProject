@@ -15,6 +15,7 @@
 @interface Exam : NSManagedObject <ExamDataProtocol>
 
 @property (nonatomic, retain) NSSet * papers;
+@property (nonatomic, retain) NSSet * examResults;
 
 @end
 
@@ -25,5 +26,8 @@
 - (void)removePapersObject:(Paper *)object;
 - (void)addPapers:(NSSet *)objects;
 - (void)removePapers:(NSSet *)objects;
+
+- (void)addExamResults:(NSSet *)objects;
+- (void)removeExamResults:(NSSet *)objects;
 
 @end

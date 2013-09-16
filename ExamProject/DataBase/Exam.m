@@ -27,6 +27,7 @@
 @dynamic createTm;
 
 @dynamic papers;
+@dynamic examResults;
 
 //added by brown
 @dynamic examCategory;

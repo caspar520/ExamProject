@@ -15,12 +15,15 @@
 #import "UserData.h"
 #import "Exam.h"
 #import "ExamData.h"
+#import "ExamResult.h"
+#import "ExamResultData.h"
 #import "Answer.h"
 #import "AnswerData.h"
 
 @interface DBManager : NSObject
 
 + (Exam *)addExam:(ExamData *)examData;            //添加考试
++ (ExamResult *)addExamResult:(ExamResultData *)ExamResultData;     //添加考试成绩
 + (NSArray *)fetchALlExamsFromDB;                  //取得所有已提交考试
 
 + (Paper *)addPaper:(PaperData *)paperData;        //添加或者更新试卷

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="2061" systemVersion="12E55" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model name="" userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="1810" systemVersion="12F37" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Answer" representedClassName="Answer" syncable="YES">
         <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isCorrect" optional="YES" attributeType="Boolean" syncable="YES"/>
@@ -29,7 +29,13 @@
         <attribute name="examTotalTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="examUsingTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="examResults" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExamResult" inverseName="aExam" inverseEntity="ExamResult" syncable="YES"/>
         <relationship name="papers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Paper" inverseName="exam" inverseEntity="Paper" syncable="YES"/>
+    </entity>
+    <entity name="ExamResult" representedClassName="ExamResult" syncable="YES">
+        <attribute name="examId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="examScore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="aExam" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="examResults" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <entity name="Paper" representedClassName="Paper" syncable="YES">
         <attribute name="paperId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -59,9 +65,10 @@
     </entity>
     <elements>
         <element name="Answer" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Exam" positionX="160" positionY="192" width="128" height="390"/>
+        <element name="Exam" positionX="160" positionY="192" width="128" height="405"/>
         <element name="Paper" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Topic" positionX="0" positionY="0" width="128" height="195"/>
         <element name="User" positionX="0" positionY="0" width="128" height="120"/>
+        <element name="ExamResult" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>

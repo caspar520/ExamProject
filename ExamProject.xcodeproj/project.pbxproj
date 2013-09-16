@@ -59,6 +59,8 @@
 		30BDBEED1797C17A008F0578 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEEC1797C17A008F0578 /* Default-568h@2x.png */; };
 		30BDBEF01797C17A008F0578 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30BDBEEF1797C17A008F0578 /* ViewController.m */; };
 		30BDBEF31797C17A008F0578 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 30BDBEF11797C17A008F0578 /* ViewController.xib */; };
+		30D6366317E6AC8B00E6C21A /* ExamResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D6366217E6AC8B00E6C21A /* ExamResult.m */; };
+		30D6366617E6B16C00E6C21A /* ExamResultData.m in Sources */ = {isa = PBXBuildFile; fileRef = 30D6366517E6B16C00E6C21A /* ExamResultData.m */; };
 		30E1AFDB17C99E3400AFA987 /* ExamData.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E1AFDA17C99E3400AFA987 /* ExamData.m */; };
 		30E1AFDF17C9A4C200AFA987 /* Exam.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E1AFDE17C9A4C200AFA987 /* Exam.m */; };
 		30F0263C179C531200508326 /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 30F0263B179C531200508326 /* Toast.m */; };
@@ -230,6 +232,10 @@
 		30BDBEEE1797C17A008F0578 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		30BDBEEF1797C17A008F0578 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		30BDBEF21797C17A008F0578 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		30D6366117E6AC8B00E6C21A /* ExamResult.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamResult.h; sourceTree = "<group>"; };
+		30D6366217E6AC8B00E6C21A /* ExamResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamResult.m; sourceTree = "<group>"; };
+		30D6366417E6B16C00E6C21A /* ExamResultData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamResultData.h; sourceTree = "<group>"; };
+		30D6366517E6B16C00E6C21A /* ExamResultData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamResultData.m; sourceTree = "<group>"; };
 		30E1AFD917C99E3400AFA987 /* ExamData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExamData.h; sourceTree = "<group>"; };
 		30E1AFDA17C99E3400AFA987 /* ExamData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExamData.m; sourceTree = "<group>"; };
 		30E1AFDD17C9A4C200AFA987 /* Exam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Exam.h; sourceTree = "<group>"; };
@@ -435,6 +441,8 @@
 				306570F417990B9100347AD1 /* DBManager.m */,
 				30E1AFDD17C9A4C200AFA987 /* Exam.h */,
 				30E1AFDE17C9A4C200AFA987 /* Exam.m */,
+				30D6366117E6AC8B00E6C21A /* ExamResult.h */,
+				30D6366217E6AC8B00E6C21A /* ExamResult.m */,
 				301A74C81797E67700CCB95D /* Paper.h */,
 				301A74C91797E67700CCB95D /* Paper.m */,
 				301A74C51797E67700CCB95D /* User.h */,
@@ -458,6 +466,8 @@
 				301A74D41797E81500CCB95D /* TopicData.m */,
 				30E1AFD917C99E3400AFA987 /* ExamData.h */,
 				30E1AFDA17C99E3400AFA987 /* ExamData.m */,
+				30D6366417E6B16C00E6C21A /* ExamResultData.h */,
+				30D6366517E6B16C00E6C21A /* ExamResultData.m */,
 				30BBDF7117C9D8E400BA6BF1 /* AnswerData.h */,
 				30BBDF7217C9D8E400BA6BF1 /* AnswerData.m */,
 			);
@@ -963,6 +973,8 @@
 				9C0E4BD317DB1F8F00D84184 /* EXExamineRecordViewController.m in Sources */,
 				9CA4FE2B17E45555001AC23E /* JSONKit.m in Sources */,
 				9CA0DEE117E55D4F00AE42FC /* EXRecordCell.m in Sources */,
+				30D6366317E6AC8B00E6C21A /* ExamResult.m in Sources */,
+				30D6366617E6B16C00E6C21A /* ExamResultData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

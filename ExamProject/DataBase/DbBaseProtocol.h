@@ -41,6 +41,13 @@
 
 @end
 
+@protocol ExamResultDataProtocol <NSObject>
+
+@property (nonatomic, retain) NSNumber * examId;
+@property (nonatomic, retain) NSNumber * examScore;
+
+@end
+
 @protocol PaperDataProtocol <NSObject>
 
 @property (nonatomic, retain) NSNumber * paperId;          //试卷ID

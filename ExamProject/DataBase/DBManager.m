@@ -160,6 +160,33 @@
     return aExam;
 }
 
+//添加考试成绩
++ (ExamResult *)addExamResult:(ExamResultData *)examResultData
+{
+    //每次考试都会添加一个成绩
+    ExamResult *examResult = [ExamResult createNewObject];
+    examResult.examId = examResultData.examId;
+    examResult.examScore = examResultData.examScore;
+    
+    Exam *exam = [DBManager examWithExamID:examResult.examId];
+    [examResult addAExam:exam];
+    [examResult save];
+    return examResult;
+}
+
+//根据examId获得Exam
++ (Exam *)examWithExamID:(NSNumber *)examID
+{
+    NSFetchRequest *fetchRequest = [Exam defaultFetchRequest];
+    [fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"examId = %d", [examID integerValue]]];
+    NSArray *result = [Exam executeFetchRequest:fetchRequest error:nil];
+    Exam *exam = nil;
+    if ([result count] > 0) {
+        exam = [result objectAtIndex:0];
+    }
+    return exam;
+}
+
 #pragma mark - Paper
 + (NSArray *)paperDataWithPapers:(NSArray *)papers
 {
