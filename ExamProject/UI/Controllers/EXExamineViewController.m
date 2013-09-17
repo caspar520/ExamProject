@@ -374,6 +374,7 @@
     EXResultViewController *resultController=[[EXResultViewController alloc] init];
     resultController.examTime=_currentExamTime;
     resultController.examData=self.examData;
+    //resultController.examID=[_examData.examId integerValue];
     [self.navigationController pushViewController:resultController animated:YES];
 }
 
@@ -426,6 +427,7 @@
 }
 
 - (void)collectItemClicked:(id)sender{
+    /*
 	_examData.examIsCollected=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
     [DBManager addExam:_examData];
@@ -434,6 +436,7 @@
     [alert show];
     [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
     [alert release];
+     */
     
 }
 

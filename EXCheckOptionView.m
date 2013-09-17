@@ -307,6 +307,21 @@ static const CGFloat kHeight = 36.0f;
                 }
             }
             break;
+        case 8:
+            if (checkStatus==kCheckSatus_Normal) {
+                if (isChecked) {
+                    imageName=@"answer_h.png";
+                }
+            }else if (checkStatus==kCheckSatus_Mult){
+                if (isChecked) {
+                    if (isRightMultStatus) {
+                        imageName=@"answer_h.png";
+                    }else{
+                        imageName=@"answer_h_wrong.png";
+                    }
+                }
+            }
+            break;
         default:
             break;
     }

@@ -29,6 +29,7 @@
 @synthesize paperData;
 @synthesize examData;
 @synthesize examTime;
+@synthesize examID;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {

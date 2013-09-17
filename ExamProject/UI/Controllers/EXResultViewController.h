@@ -23,6 +23,7 @@
 
 @property (nonatomic,retain)PaperData       *paperData;
 @property (nonatomic,retain)ExamData        *examData;
+@property (nonatomic,assign)NSInteger       examID;
 @property (nonatomic,assign)NSInteger       examTime;           //考试的用时
 
 @end
