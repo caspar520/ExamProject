@@ -32,6 +32,23 @@
     return [DBManager examDataWithExams:result];
 }
 
+//取得所有错题试卷
++ (NSArray *)fetchAllExamsOfWrongTopics
+{
+    return [DBManager readAllWrongTopicExams];
+}
+
++ (NSArray *)fetchExamsWithExamId:(NSNumber *)examID
+{
+    return [DBManager readExamsWithCondition:[NSString stringWithFormat:@"SELF.examId=%d", [examID integerValue]]];
+}
+
+//取得所有收藏的试卷
++ (NSArray *)fetchAllCollectExams
+{
+    return [DBManager readExamsWithCondition:@"SELF.examIsCollected = YES"];
+}
+
 + (NSArray *)fetchAllPapersFromDB
 {
     NSArray *result = [DBManager readAllPapers];
@@ -55,6 +72,12 @@
 + (NSArray *)readAllExams
 {
     return [DBManager readExamsWithCondition:nil];
+}
+
+//取得所有有错题的考试
++ (NSArray *)readAllWrongTopicExams
+{
+    return [DBManager readExamsWithCondition:@"SELF.examIsHasWrong == YES"];
 }
 
 + (NSArray *)readAllPapers
@@ -128,13 +151,7 @@
 + (Exam *)addExam:(ExamData *)examData
 {
     //考试每次都会创建一个新的记录
-    NSArray *exams = [DBManager readExamsWithCondition:nil];
-    Exam *aExam = nil;
-    if ([exams count] > 0) {
-        aExam = [exams objectAtIndex:0];
-    } else {
-        aExam = [Exam createNewObject];
-    }
+    Exam *aExam = [Exam createNewObject];
     aExam.examId = examData.examId;
     aExam.examTotalTm = examData.examTotalTm;
     aExam.examBeginTm = examData.examBeginTm;
@@ -165,20 +182,6 @@
     [Exam save];
     
     return aExam;
-}
-
-//添加考试成绩
-+ (ExamResult *)addExamResult:(ExamResultData *)examResultData
-{
-    //每次考试都会添加一个成绩
-    ExamResult *examResult = [ExamResult createNewObject];
-    examResult.examId = examResultData.examId;
-    examResult.examScore = examResultData.examScore;
-    
-    Exam *exam = [DBManager examWithExamID:examResult.examId];
-    [examResult addAExam:exam];
-    [examResult save];
-    return examResult;
 }
 
 //根据examId获得Exam
@@ -221,10 +224,7 @@
 
 + (Paper *)addPaper:(PaperData *)paperData
 {
-    Paper *aPaper = [DBManager getPaperByID:[paperData.paperId intValue]];
-    if (aPaper == nil) {
-        aPaper = [Paper createNewObject];
-    }
+    Paper *aPaper = [Paper createNewObject];;
     aPaper.paperId = paperData.paperId;
     aPaper.paperName = paperData.paperName;
     aPaper.paperStatus = paperData.paperStatus;
@@ -263,10 +263,7 @@
 
 + (Topic *)addTopic:(TopicData *)topicData
 {
-    Topic *topic = [DBManager getTopicByID:[topicData.topicId intValue]];
-    if (topic == nil) {
-        topic = [Topic createNewObject];
-    }
+    Topic *topic = [Topic createNewObject];
     topic.topicId = topicData.topicId;
     topic.topicQuestion = topicData.topicQuestion;
     topic.topicType = topicData.topicType;
@@ -311,10 +308,7 @@
 //添加答案
 + (Answer *)addAnswer:(AnswerData *)anserData
 {
-    Answer *answer = [DBManager getAnswerByContent:anserData.content];
-    if (answer == nil) {
-        answer = [Answer createNewObject];
-    }
+    Answer *answer = answer = [Answer createNewObject];;
     answer.content = anserData.content;
     answer.isCorrect = anserData.isCorrect;
     answer.isSelected = anserData.isSelected;
@@ -439,14 +433,6 @@
     examData.papers = papers;
     
     [DBManager addExam:examData];
-    
-    
-    ExamResultData *examResult = [[ExamResultData alloc]init];
-    examResult.examId = examResult.examId;
-    examResult.examScore = @100;
-    [DBManager addExamResult:examResult];
-    [examData release];
-    [examResult release];
 
     //遍历所有属性
     int i;

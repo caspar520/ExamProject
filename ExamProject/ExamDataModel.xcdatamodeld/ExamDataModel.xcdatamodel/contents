@@ -30,13 +30,7 @@
         <attribute name="examUsingTm" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="hasExamedCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="updateTm" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <relationship name="examResults" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ExamResult" inverseName="aExam" inverseEntity="ExamResult" syncable="YES"/>
         <relationship name="papers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Paper" inverseName="exam" inverseEntity="Paper" syncable="YES"/>
-    </entity>
-    <entity name="ExamResult" representedClassName="ExamResult" syncable="YES">
-        <attribute name="examId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="examScore" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="aExam" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Exam" inverseName="examResults" inverseEntity="Exam" syncable="YES"/>
     </entity>
     <entity name="Paper" representedClassName="Paper" syncable="YES">
         <attribute name="paperId" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
@@ -66,10 +60,9 @@
     </entity>
     <elements>
         <element name="Answer" positionX="160" positionY="192" width="128" height="105"/>
-        <element name="Exam" positionX="160" positionY="192" width="128" height="420"/>
+        <element name="Exam" positionX="160" positionY="192" width="128" height="405"/>
         <element name="Paper" positionX="0" positionY="0" width="128" height="120"/>
         <element name="Topic" positionX="0" positionY="0" width="128" height="195"/>
         <element name="User" positionX="0" positionY="0" width="128" height="120"/>
-        <element name="ExamResult" positionX="160" positionY="192" width="128" height="90"/>
     </elements>
 </model>
