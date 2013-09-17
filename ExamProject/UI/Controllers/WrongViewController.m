@@ -61,7 +61,7 @@
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     [_wrongPaperList removeAllObjects];
-    //[_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
+    [_wrongPaperList addObjectsFromArray:[DBManager fetchAllExamsOfWrongTopics]];
     
     if (_paperListView==nil) {
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
@@ -116,11 +116,15 @@
 
 - (void)clearWrongPapersClicked:(id)sender{
     if (_wrongPaperList) {
-        [_wrongPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
-//            if (obj) {
-//                if ([obj.wrong boolValue]==YES) {
-//                    obj.wrong=[NSNumber numberWithBool:NO];
-//                    NSArray *topics=obj.topics;
+        [_wrongPaperList enumerateObjectsUsingBlock:^(ExamData *eObj, NSUInteger eIdx, BOOL *eStop) {
+            if (eObj) {
+                if ([eObj.examIsHasWrong boolValue]==YES) {
+                    eObj.examIsHasWrong=[NSNumber numberWithBool:NO];
+//                    NSArray
+//                    
+//                    
+//                    
+//                    NSArray *topics=eObj.topics;
 //                    if (topics) {
 //                        for (TopicData *topic in topics) {
 //                            if (topic) {
@@ -130,15 +134,15 @@
 //                            }
 //                        }
 //                    }
-//                }
-//                
-//                [DBManager addPaper:obj];
-//            }
+                }
+                
+                [DBManager addPaper:eObj];
+            }
         }];
     }
-    [_wrongPaperList removeAllObjects];
-    [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
-    [_paperListView refresh];
+//    [_wrongPaperList removeAllObjects];
+//    [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
+//    [_paperListView refresh];
 }
 
 #pragma mark table view delegate

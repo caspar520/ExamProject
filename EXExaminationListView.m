@@ -53,6 +53,14 @@
 }
 
 - (void)refreshUI{
+    if (_scrollView) {
+        NSArray *subViews=[_scrollView subviews];
+        for (UIView *item in subViews) {
+            if (item) {
+                [item removeFromSuperview];
+            }
+        }
+    }
     if (_dataArray) {
         _scrollView.contentSize=CGSizeMake(_dataArray.count*CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
         for (TopicData *obj in _dataArray) {
