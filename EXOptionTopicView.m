@@ -45,6 +45,7 @@
                 if (_isDisplayAnswer) {
                     //显示答案
                     checkView.checkStatus=kCheckSatus_Mult;
+                    checkView.enabled=NO;
                 }
                 if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
                     checkView.isRightMultStatus=NO;

@@ -139,7 +139,7 @@
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
-                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index-1];
                     answer.isSelected=[NSNumber numberWithBool:YES];
                     break;
                 }
@@ -150,7 +150,7 @@
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
-                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index-1];
                     answer.isSelected=[NSNumber numberWithBool:YES];
                 }
             }
@@ -160,7 +160,7 @@
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
-                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index];
+                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index+1];
                     answer.isSelected=[NSNumber numberWithBool:YES];
                     break;
                 }

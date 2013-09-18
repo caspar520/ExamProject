@@ -136,6 +136,11 @@
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    if (displayTopicType==kDisplayTopicType_Default) {
+        self.navigationItem.rightBarButtonItem.enabled=YES;
+    }else{
+        self.navigationItem.rightBarButtonItem.enabled=NO;
+    }
     
     if (NO==_isExamSubmitted) {
         NSMutableArray *questions=[NSMutableArray arrayWithCapacity:0];
@@ -234,7 +239,7 @@
     }
     _examineListView.dataArray=selectedArray;
     
-    //[self triggerExamTimer];
+    [self triggerExamTimer];
 }
 
 - (void)downloadFailure:(NSNotification *)notification{
@@ -278,6 +283,12 @@
         [_examData release];
         _examData =[examData retain];
     }
+    
+    if (displayTopicType==kDisplayTopicType_Default) {
+        self.navigationItem.rightBarButtonItem.enabled=YES;
+    }else{
+        self.navigationItem.rightBarButtonItem.enabled=NO;
+    }
     _examineListView.dipalyTopicType=displayTopicType;
     
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
@@ -293,7 +304,7 @@
             _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
             _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
             
-            //[self triggerExamTimer];
+            [self triggerExamTimer];
         }else{
             //不存在
             [self fetchData];
@@ -364,18 +375,18 @@
     [DBManager addExam:_examData];
     
     //submit the exam result to server
-//    NSData *parameter=[self markAndConstructResultParameter];
-//    [[EXDownloadManager shareInstance] submitExamData:parameter];
+    NSData *parameter=[self markAndConstructResultParameter];
+    [[EXDownloadManager shareInstance] submitExamData:parameter];
     
     //销毁定时器，停止倒计时
     [self destroyExamTimer];
     
     //临时
-    EXResultViewController *resultController=[[EXResultViewController alloc] init];
-    resultController.examTime=_currentExamTime;
-    resultController.examData=self.examData;
-    //resultController.examID=[_examData.examId integerValue];
-    [self.navigationController pushViewController:resultController animated:YES];
+//    EXResultViewController *resultController=[[EXResultViewController alloc] init];
+//    resultController.examTime=_currentExamTime;
+//    resultController.examData=self.examData;
+//    //resultController.examID=[_examData.examId integerValue];
+//    [self.navigationController pushViewController:resultController animated:YES];
 }
 
 - (void)backToPreViewAfterSubmitted:(id)object{

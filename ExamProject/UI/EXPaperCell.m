@@ -95,7 +95,6 @@
     CGSize autoSize = [examMSGLabel sizeThatFits:CGSizeMake(CGRectGetWidth(examMSGLabel.frame), 0)];
     examMSGLabel.frame = CGRectMake(CGRectGetMinX(examMSGLabel.frame), CGRectGetMinY(examMSGLabel.frame), CGRectGetWidth(examMSGLabel.frame), autoSize.height);
     [formater release];
-    NSLog(@"----------须知：%@",examMSGLabel.text);
 }
 
 @end
