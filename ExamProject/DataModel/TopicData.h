@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
 
 @class Topic;
 
 @interface TopicData : NSObject <TopicDataProtocol>
 
+@property (nonatomic,retain) NSManagedObjectID *objectID;
 @property (nonatomic, retain) NSArray *answers;
 
 - (id)initWithTopic:(Topic *)topic;

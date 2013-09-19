@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
 
 @class Paper;
 
 @interface PaperData : NSObject <PaperDataProtocol>
 
+@property (nonatomic,retain)NSManagedObjectID *objectID;
 @property (nonatomic, retain) NSArray *topics;
 
 - (id)initWithPaper:(Paper *)aPaper;

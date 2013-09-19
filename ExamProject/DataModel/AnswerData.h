@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
 
 @class TopicData;
@@ -14,6 +15,7 @@
 
 @interface AnswerData : NSObject <AnswerDataProtocol>
 
+@property (nonatomic,retain) NSManagedObjectID *objectID;
 @property (nonatomic, retain) TopicData *topic;
 
 - (id)initWithAnswer:(Answer *)answer;

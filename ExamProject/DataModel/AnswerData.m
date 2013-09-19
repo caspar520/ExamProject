@@ -20,6 +20,7 @@
 {
     self = [super init];
     if (self) {
+        self.objectID = answer.objectID;
         self.content = answer.content;
         self.isCorrect = answer.isCorrect;
         self.isSelected = answer.isSelected;

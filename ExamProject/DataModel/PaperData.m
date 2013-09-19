@@ -21,6 +21,7 @@
 {
     self = [super init];
     if (self) {
+        self.objectID = aPaper.objectID;
         self.paperId = aPaper.paperId;
         self.paperName = aPaper.paperName;
         self.paperStatus = aPaper.paperStatus;

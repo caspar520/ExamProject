@@ -7,12 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "DbBaseProtocol.h"
 
 @class Exam;
 
 @interface ExamData : NSObject<ExamDataProtocol>
 
+@property (nonatomic,retain) NSManagedObjectID *objectID;
 @property (nonatomic,retain) NSArray *papers;
 
 - (id)initWithExam:(Exam *)aExam;

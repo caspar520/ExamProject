@@ -28,6 +28,7 @@
 {
     self = [super init];
     if (self) {
+        self.objectID = topic.objectID;
         self.topicId = topic.topicId;
         self.topicQuestion = topic.topicQuestion;
         self.topicType = topic.topicType;

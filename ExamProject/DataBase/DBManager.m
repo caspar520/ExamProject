@@ -9,6 +9,7 @@
 #import "DBManager.h"
 #import "PaperData.h"
 #import <objc/runtime.h>
+#import "KPStore.h"
 
 @interface DBManager ()
 
@@ -184,6 +185,47 @@
     return aExam;
 }
 
++ (BOOL)updateExam:(ExamData *)examData
+{
+    BOOL success = NO;
+    Exam *aExam = (Exam*)[[KPStore sharedStore]objectWithID:examData.objectID];
+    if (aExam) {
+        aExam.examId = examData.examId;
+        aExam.examTotalTm = examData.examTotalTm;
+        aExam.examBeginTm = examData.examBeginTm;
+        aExam.examTimes = examData.examTimes;
+        aExam.examPassing = examData.examPassing;
+        aExam.examPassingAgainFlg = examData.examPassingAgainFlg;
+        aExam.examSubmitDisplayAnswerFlg = examData.examSubmitDisplayAnswerFlg;
+        aExam.examPublishAnswerFlg = examData.examPublishAnswerFlg;
+        aExam.examPublishResultTm = examData.examPublishResultTm;
+        aExam.examDisableMinute = examData.examDisableMinute;
+        aExam.examDisableSubmit = examData.examDisableSubmit;
+        aExam.updateTm = examData.updateTm;
+        aExam.createTm = examData.createTm;
+        
+        //added by brown
+        aExam.examCategory=examData.examCategory;
+        aExam.examCreator=examData.examCreator;
+        aExam.examTitle=examData.examTitle;
+        aExam.examStatus=examData.examStatus;
+        aExam.examIsCollected=examData.examIsCollected;
+        aExam.examIsHasWrong=examData.examIsHasWrong;
+        aExam.examUsingTm=examData.examUsingTm;
+        aExam.hasExamedCount = examData.hasExamedCount;
+        
+        //试卷等状态不更新
+        for (PaperData *paperData in examData.papers) {
+            [DBManager updatePaper:paperData];
+        }
+        [Exam save];
+        
+        success = YES;
+    }
+    
+    return success;
+}
+
 //根据examId获得Exam
 + (Exam *)examWithExamID:(NSNumber *)examID
 {
@@ -235,6 +277,24 @@
     return aPaper;
 }
 
+//更新试卷
++ (BOOL)updatePaper:(PaperData *)paperData
+{
+    BOOL success = NO;
+    Paper *aPaper = (Paper*)[[KPStore sharedStore]objectWithID:paperData.objectID];
+    if (aPaper) {
+        aPaper.paperId = paperData.paperId;
+        aPaper.paperName = paperData.paperName;
+        aPaper.paperStatus = paperData.paperStatus;
+        
+        for (TopicData *topicData in paperData.topics) {
+            [DBManager updateTopic:topicData];
+        }
+        success = YES;
+    }
+    return success;
+}
+
 + (NSSet *)addPapersWithArray:(NSArray *)papers
 {
     NSMutableSet *tSet = [NSMutableSet setWithCapacity:0];
@@ -279,6 +339,27 @@
     [topic addAnswers:answers];
 
     return topic;
+}
+
+//更新试题
++ (BOOL)updateTopic:(TopicData *)topicData
+{
+    BOOL success = NO;
+    Topic *aTopic = (Topic*)[[KPStore sharedStore]objectWithID:topicData.objectID];
+    if (aTopic) {
+        aTopic.topicId = topicData.topicId;
+        aTopic.topicQuestion = topicData.topicQuestion;
+        aTopic.topicType = topicData.topicType;
+        aTopic.topicAnalysis = topicData.topicAnalysis;
+        aTopic.topicValue = topicData.topicValue;
+        aTopic.topicImage = topicData.topicImage;
+        
+        //added by brown
+        aTopic.topicIsCollected=topicData.topicIsCollected;
+        aTopic.topicIsWrong=topicData.topicIsWrong;
+        success = YES;
+    }
+    return success;
 }
 
 + (NSSet *)addTopicsWithArray:(NSArray *)topics

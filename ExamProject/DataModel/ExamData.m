@@ -43,6 +43,7 @@
 {
     self = [super init];
     if (self) {
+        self.objectID = aExam.objectID;
         self.examId = aExam.examId;
         self.examTotalTm = aExam.examTotalTm;
         self.examBeginTm = aExam.examBeginTm;
