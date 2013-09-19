@@ -48,6 +48,7 @@
 
 - (void)setMetaData:(TopicData *)metaData{
 	if(_metaData != metaData){
+        [_metaData release];
 		_metaData=[metaData retain];
 	}
 	[self refreshUI];

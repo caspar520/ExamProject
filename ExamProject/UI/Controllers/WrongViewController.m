@@ -145,7 +145,7 @@
 
 #pragma mark table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50.0f;
+    return 55.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -167,7 +167,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"wrong exam list count:%d,selected row:%d",_wrongPaperList.count,indexPath.row);
+    //NSLog(@"wrong exam list count:%d,selected row:%d",_wrongPaperList.count,indexPath.row);
     ExamData *examMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
     if (examMetaData) {
         

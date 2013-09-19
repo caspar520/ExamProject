@@ -47,9 +47,9 @@
                     checkView.checkStatus=kCheckSatus_Mult;
                     checkView.enabled=NO;
                     
-                    if ([obj.isSelected boolValue]) {
-                        NSLog(@"check option index:%d",checkView.index);
-                    }
+//                    if ([obj.isSelected boolValue]) {
+//                        NSLog(@"check option index:%d",checkView.index);
+//                    }
                 }
                 if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
                     checkView.isRightMultStatus=NO;

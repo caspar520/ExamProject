@@ -118,7 +118,7 @@
         
         [_examMSGBarView addSubview:_examLeftTime];
     }
-    _examLeftTime.text=[NSString stringWithFormat:@"用时：%d",0];
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
     
     if (_examDuration==nil) {
         _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
@@ -205,7 +205,7 @@
     
     NSInteger tMinute=_currentExamTime/60;
     NSInteger tSecond=_currentExamTime%60;
-    _examLeftTime.text=[NSString stringWithFormat:@"用时：%2d:%2d",tMinute,tSecond];
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：%02d:%02d",tMinute,tSecond];
     
     //判断是否考试时间到
     NSInteger tExamTotalTime=[_examData.examTotalTm integerValue]*60;
@@ -328,7 +328,7 @@
     }else if (displayTopicType==kDisplayTopicType_Wrong){
         if (_examData.papers) {
             [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
-                if (pObj) {
+                if (pObj && pObj.topics) {
                     [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
                         if (obj && [obj.topicIsWrong boolValue]==YES) {
                             [selectedArray addObject:obj];
@@ -340,7 +340,7 @@
     }else if (displayTopicType==kDisplayTopicType_Collected){
         if (_examData.papers) {
             [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
-                if (pObj) {
+                if (pObj && pObj.topics) {
                     [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
                         if (obj && [obj.topicIsCollected boolValue]==YES) {
                             [selectedArray addObject:obj];
@@ -353,7 +353,7 @@
         //答题记录
         if (_examData.papers) {
             [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
-                if (pObj) {
+                if (pObj && pObj.topics) {
                     [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
                         if (obj) {
                             [selectedArray addObject:obj];
@@ -402,6 +402,29 @@
         _examData.createTm=[NSDate date];
         [DBManager addExam:_examData];
         
+        //临时
+        if (_examData.papers) {
+            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                if (pObj) {
+                    if (pObj.topics) {
+                        [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                            if (tObj) {
+                                if (tObj.answers) {
+                                    for (AnswerData *aObj in tObj.answers) {
+                                        if (aObj) {
+                                            if ([aObj.isSelected boolValue]) {
+                                                NSLog(@"examing selected option index:%d",[tObj.answers indexOfObject:aObj]);
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }];
+                    }
+                }
+            }];
+        }
+        
         //submit the exam result to server
         NSData *parameter=[self markAndConstructResultParameter];
         [[EXDownloadManager shareInstance] submitExamData:parameter];
@@ -437,9 +460,9 @@
         if (topic.answers) {
             for (AnswerData *obj in topic.answers) {
                 if (obj) {
-                    if ([obj.isSelected boolValue]) {
-                        NSLog(@"selected option index:%d",[topic.answers indexOfObject:obj]);
-                    }
+//                    if ([obj.isSelected boolValue]) {
+//                        NSLog(@"selected option index:%d",[topic.answers indexOfObject:obj]);
+//                    }
                     if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                         || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                         //正确选项没有被选择或者错误选项被选择了改题都算是答错
@@ -573,9 +596,6 @@
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
-                                        if ([aObj.isSelected boolValue]) {
-                                            NSLog(@"submit selected option index:%d",[tObj.answers indexOfObject:aObj]);
-                                        }
                                         if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
@@ -617,7 +637,7 @@
     [dataDic setValue:topicsList forKey:@"topicList"];
     [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
     [result setValue:dataDic forKey:@"data"];
-    NSLog(@"result:%@",result);
+    //NSLog(@"result:%@",result);
     NSData *parameter=[result JSONData];
     return parameter;
 }

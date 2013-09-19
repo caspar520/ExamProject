@@ -104,7 +104,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     //每次进入前需要判断考试的examStatus信息（1:可用，2:编辑，3:禁用）,如果不为1则进入时弹出强提示框，提示不能进入
-    id examMetaData=nil;
+    ExamData *examMetaData=nil;
     examMetaData=[_examRecordList objectAtIndex:indexPath.row];
     if (examMetaData) {
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
@@ -112,6 +112,29 @@
         examineController.displayTopicType=kDisplayTopicType_Record;
         examineController.isNotOnAnswering=NO;
         examineController.examData=examMetaData;
+    }
+    
+    //临时
+    if (examMetaData.papers) {
+        [examMetaData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+            if (pObj) {
+                if (pObj.topics) {
+                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                        if (tObj) {
+                            if (tObj.answers) {
+                                for (AnswerData *aObj in tObj.answers) {
+                                    if (aObj) {
+                                        if ([aObj.isSelected boolValue]) {
+                                            NSLog(@"record selected option index:%d",[tObj.answers indexOfObject:aObj]);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }];
+                }
+            }
+        }];
     }
 }
 
