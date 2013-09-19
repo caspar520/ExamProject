@@ -160,7 +160,12 @@
         for (UIView *item in subViews) {
             if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                 if (((EXCheckOptionView *)item).checked==YES) {
-                    AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index+1];
+                    AnswerData *answer=nil;
+                    if (((EXCheckOptionView *)item).index==0) {
+                        answer=[_metaData.answers objectAtIndex:0];
+                    }else if (((EXCheckOptionView *)item).index==-1){
+                        answer=[_metaData.answers objectAtIndex:1];
+                    }
                     answer.isSelected=[NSNumber numberWithBool:YES];
                     break;
                 }

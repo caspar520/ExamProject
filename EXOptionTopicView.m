@@ -46,6 +46,10 @@
                     //显示答案
                     checkView.checkStatus=kCheckSatus_Mult;
                     checkView.enabled=NO;
+                    
+                    if ([obj.isSelected boolValue]) {
+                        NSLog(@"check option index:%d",checkView.index);
+                    }
                 }
                 if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
                     checkView.isRightMultStatus=NO;
@@ -118,7 +122,7 @@
 - (void)checkeStateChange:(BOOL)isChecked withObject:(id)obj{
     EXCheckOptionView *sender=(EXCheckOptionView *)obj;
     NSArray *subViews=[answerContainerView subviews];
-    
+    //NSLog(@"check option index:%d",sender.index);
     if ([self.metaData.topicType integerValue]==1) {
         //单选:取消其它按纽的选中状态
         for (UIView *item in subViews) {

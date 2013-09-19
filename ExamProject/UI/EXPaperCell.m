@@ -14,12 +14,14 @@
 
 @synthesize paperData=_paperData;
 @synthesize examData=_examData;
+@synthesize isExamType=_isExamType;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
+        _isExamType=YES;
     }
     return self;
 }
@@ -67,7 +69,7 @@
     examTypeLabel.text=[NSString stringWithFormat:@"考试分类：%@",_examData.examCategory];
     
     if (examDurationLabel==nil) {
-        examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examTypeLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 90, 20)];
+        examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examTypeLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 110, 20)];
         examDurationLabel.textColor=[UIColor blackColor];
         examDurationLabel.textAlignment=UITextAlignmentLeft;
         examDurationLabel.backgroundColor=[UIColor clearColor];
@@ -75,26 +77,28 @@
         
         [self addSubview:examDurationLabel];
     }
-    examDurationLabel.text=[NSString stringWithFormat:@"时长：%@",_examData.examTotalTm];
+    examDurationLabel.text=[NSString stringWithFormat:@"时长：%d分钟",[_examData.examTotalTm intValue]/60];
     
-    if (examMSGLabel==nil) {
-        examMSGLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(examTypeLabel.frame), CGRectGetMaxY(examTypeLabel.frame)+5, CGRectGetWidth(self.frame)-10, 20)];
-        examMSGLabel.textColor=[UIColor blackColor];
-        examMSGLabel.textAlignment=UITextAlignmentLeft;
-        examMSGLabel.numberOfLines=0;
-        examMSGLabel.backgroundColor=[UIColor clearColor];
-        examMSGLabel.font=[UIFont systemFontOfSize:14];
-        
-        [self addSubview:examMSGLabel];
+    if (_isExamType) {
+        if (examMSGLabel==nil) {
+            examMSGLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(examTypeLabel.frame), CGRectGetMaxY(examTypeLabel.frame)+5, CGRectGetWidth(self.frame)-10, 20)];
+            examMSGLabel.textColor=[UIColor blackColor];
+            examMSGLabel.textAlignment=UITextAlignmentLeft;
+            examMSGLabel.numberOfLines=0;
+            examMSGLabel.backgroundColor=[UIColor clearColor];
+            examMSGLabel.font=[UIFont systemFontOfSize:14];
+            
+            [self addSubview:examMSGLabel];
+        }
+        NSDateFormatter *formater = [[ NSDateFormatter alloc] init];
+        [formater setDateFormat:@"yyyy-MM-dd HH:mm"];
+        NSString * beginTime = [formater stringFromDate:_examData.examBeginTm];
+        NSString * endTime = [formater stringFromDate:_examData.examEndTm];
+        examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",beginTime,endTime,_examData.examNotice];
+        CGSize autoSize = [examMSGLabel sizeThatFits:CGSizeMake(CGRectGetWidth(examMSGLabel.frame), 0)];
+        examMSGLabel.frame = CGRectMake(CGRectGetMinX(examMSGLabel.frame), CGRectGetMinY(examMSGLabel.frame), CGRectGetWidth(examMSGLabel.frame), autoSize.height);
+        [formater release];
     }
-    NSDateFormatter *formater = [[ NSDateFormatter alloc] init];
-    [formater setDateFormat:@"yyyy-MM-dd HH:mm"];
-    NSString * beginTime = [formater stringFromDate:_examData.examBeginTm];
-    NSString * endTime = [formater stringFromDate:_examData.examEndTm];
-    examMSGLabel.text=[NSString stringWithFormat:@"考试须知：此次考试的时间为%@开始，到%@结束，%@",beginTime,endTime,_examData.examNotice];
-    CGSize autoSize = [examMSGLabel sizeThatFits:CGSizeMake(CGRectGetWidth(examMSGLabel.frame), 0)];
-    examMSGLabel.frame = CGRectMake(CGRectGetMinX(examMSGLabel.frame), CGRectGetMinY(examMSGLabel.frame), CGRectGetWidth(examMSGLabel.frame), autoSize.height);
-    [formater release];
 }
 
 @end

@@ -173,7 +173,7 @@
 
 #pragma mark table view delegate
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 110.0f;
+    return 115.0f;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -197,25 +197,36 @@
     //每次进入前需要判断考试的examStatus信息（1:可用，2:编辑，3:禁用）,如果不为1则进入时弹出强提示框，提示不能进入
     NSInteger tExamStatus=[EXNetDataManager shareInstance].examStatus;
     if (tExamStatus==1) {
-        id examMetaData=nil;
+        ExamData *examMetaData=nil;
         examMetaData=[_examList objectAtIndex:indexPath.row];
         if (examMetaData) {
-            EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-            [self.navigationController pushViewController:examineController animated:YES];
-            examineController.displayTopicType=kDisplayTopicType_Default;
-            examineController.examData=examMetaData;
-            examineController.isNotOnAnswering=NO;
+            //判断是否符合提交条件
+            double beginExamTime=[examMetaData.examBeginTm timeIntervalSince1970];
+            double currentExamTime=[[NSDate date] timeIntervalSince1970];
+            int disableExamTime=[examMetaData.examDisableMinute integerValue];
+            if (examMetaData.examDisableMinute
+                && [examMetaData.examDisableMinute integerValue]>0
+                && currentExamTime-beginExamTime>=disableExamTime) {
+                //禁止考试
+                NSString *msg=[NSString stringWithFormat:@"开考%@分钟后禁止参加考试",examMetaData.examDisableMinute];
+                UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+                [alert show];
+                [alert release];
+            }else{
+                //可以考试
+                EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+                [self.navigationController pushViewController:examineController animated:YES];
+                examineController.displayTopicType=kDisplayTopicType_Default;
+                examineController.examData=examMetaData;
+                examineController.isNotOnAnswering=NO;
+            }
+            
         }
     }else{
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"试卷暂时不可用" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
         [alert show];
         [alert release];
     }
-    
-//    EXResultViewController *resultController=[[EXResultViewController alloc] init];
-//    resultController.paperData=_selectedPaper;
-//    [self.navigationController pushViewController:resultController animated:YES];
-//    [resultController release];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{

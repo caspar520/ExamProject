@@ -188,6 +188,8 @@
         _examTimer = [NSTimer timerWithTimeInterval:1 target:self selector:@selector(timeCountIncrease) userInfo:nil repeats:YES];
         [[NSRunLoop currentRunLoop] addTimer:_examTimer forMode:NSDefaultRunLoopMode];
     }
+    
+    _beginExamTime=[[NSDate date] timeIntervalSince1970];
 }
 
 - (void)destroyExamTimer{
@@ -209,7 +211,20 @@
     NSInteger tExamTotalTime=[_examData.examTotalTm integerValue]*60;
     
     if (_currentExamTime>=tExamTotalTime) {
-        [self submitExaminationItemClicked:nil];
+        //[self submitExaminationItemClicked:nil];
+        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        
+        //save result to the DB
+        _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
+        _examData.createTm=[NSDate date];
+        [DBManager addExam:_examData];
+        
+        //submit the exam result to server
+        NSData *parameter=[self markAndConstructResultParameter];
+        [[EXDownloadManager shareInstance] submitExamData:parameter];
+        
+        //销毁定时器，停止倒计时
+        [self destroyExamTimer];
     }
 }
 
@@ -235,7 +250,7 @@
             }
         }
         _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
-        _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
+        _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",[_examData.examTotalTm intValue]/60];
     }
     _examineListView.dataArray=selectedArray;
     
@@ -367,19 +382,33 @@
 
 //submit paper
 - (void)submitExaminationItemClicked:(id)sender{
-    [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-    
-    //save result to the DB
-    _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
-    _examData.createTm=[NSDate date];
-    [DBManager addExam:_examData];
-    
-    //submit the exam result to server
-    NSData *parameter=[self markAndConstructResultParameter];
-    [[EXDownloadManager shareInstance] submitExamData:parameter];
-    
-    //销毁定时器，停止倒计时
-    [self destroyExamTimer];
+    //判断是否允许交卷
+    double beginExamTime=[_examData.examBeginTm timeIntervalSince1970];
+    double currentExamTime=[[NSDate date] timeIntervalSince1970];
+    int disableExamTime=[_examData.examDisableSubmit integerValue];
+    if (_examData.examDisableSubmit
+        && [_examData.examDisableSubmit integerValue]>0
+        && currentExamTime-beginExamTime>=disableExamTime) {
+        //禁止考试
+        NSString *msg=[NSString stringWithFormat:@"开考%@分钟内禁止交卷",_examData.examDisableSubmit];
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:msg delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil];
+        [alert show];
+        [alert release];
+    }else{
+        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+        _submitExamTime=[[NSDate date] timeIntervalSince1970];
+        //save result to the DB
+        _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
+        _examData.createTm=[NSDate date];
+        [DBManager addExam:_examData];
+        
+        //submit the exam result to server
+        NSData *parameter=[self markAndConstructResultParameter];
+        [[EXDownloadManager shareInstance] submitExamData:parameter];
+        
+        //销毁定时器，停止倒计时
+        [self destroyExamTimer];
+    }
     
     //临时
 //    EXResultViewController *resultController=[[EXResultViewController alloc] init];
@@ -406,16 +435,19 @@
         __block BOOL isWrong=NO;
         
         if (topic.answers) {
-            [topic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+            for (AnswerData *obj in topic.answers) {
                 if (obj) {
+                    if ([obj.isSelected boolValue]) {
+                        NSLog(@"selected option index:%d",[topic.answers indexOfObject:obj]);
+                    }
                     if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                         || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                         //正确选项没有被选择或者错误选项被选择了改题都算是答错
                         isWrong=YES;
-                        *stop=YES;
+                        break;
                     }
                 }
-            }];
+            }
         }
         
         topic.topicIsWrong=[NSNumber numberWithBool:isWrong];
@@ -468,9 +500,8 @@
             [tabBarController showTabBar];
             [self.navigationController popViewControllerAnimated:YES];
         }
+        [self destroyExamTimer];
     }
-    
-    [self destroyExamTimer];
 }
 
 - (void)clearPaperInfo{
@@ -522,18 +553,18 @@
     [dataDic setValue:[NSNumber numberWithInt:[tUserData.userId integerValue]] forKey:@"userId"];
     [dataDic setValue:[NSNumber numberWithInt:[_examData.examId integerValue]] forKey:@"examId"];
     [dataDic setValue:[NSNumber numberWithInt:_currentExamTime] forKey:@"usedTm"];
-    [dataDic setValue:[NSNumber numberWithInt:_beginExamTime] forKey:@"beginTm"];
-    [dataDic setValue:[NSNumber numberWithInt:_submitExamTime] forKey:@"submitTm"];
+    [dataDic setValue:[NSNumber numberWithDouble:_beginExamTime] forKey:@"beginTm"];
+    [dataDic setValue:[NSNumber numberWithDouble:_submitExamTime] forKey:@"submitTm"];
     
     NSInteger tScore=0;
     NSMutableArray *topicsList=[NSMutableArray arrayWithCapacity:0];
     if (_examData.papers) {
         [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
             if (pObj) {
-                NSMutableDictionary *tParameter=[[NSMutableDictionary alloc] initWithCapacity:0];
                 if (pObj.topics) {
                     [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
                         if (tObj) {
+                            NSMutableDictionary *tParameter=[[NSMutableDictionary alloc] initWithCapacity:0];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicId integerValue]] forKey:@"id"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
@@ -542,6 +573,9 @@
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
+                                        if ([aObj.isSelected boolValue]) {
+                                            NSLog(@"submit selected option index:%d",[tObj.answers indexOfObject:aObj]);
+                                        }
                                         if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
@@ -570,12 +604,12 @@
                             }
                             [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
                             [tParameter setValue:optionParameter forKey:@"option"];
+                            
+                            [topicsList addObject:tParameter];
+                            [tParameter release];
                         }
                     }];
                 }
-                
-                [topicsList addObject:tParameter];
-                [tParameter release];
             }
         }];
     }
@@ -583,7 +617,7 @@
     [dataDic setValue:topicsList forKey:@"topicList"];
     [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
     [result setValue:dataDic forKey:@"data"];
-    
+    NSLog(@"result:%@",result);
     NSData *parameter=[result JSONData];
     return parameter;
 }

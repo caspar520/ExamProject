@@ -110,8 +110,8 @@
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         [self.navigationController pushViewController:examineController animated:YES];
         examineController.displayTopicType=kDisplayTopicType_Record;
-        examineController.examData=examMetaData;
         examineController.isNotOnAnswering=NO;
+        examineController.examData=examMetaData;
     }
 }
 

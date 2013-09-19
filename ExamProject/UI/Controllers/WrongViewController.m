@@ -120,29 +120,27 @@
             if (eObj) {
                 if ([eObj.examIsHasWrong boolValue]==YES) {
                     eObj.examIsHasWrong=[NSNumber numberWithBool:NO];
-//                    NSArray
-//                    
-//                    
-//                    
-//                    NSArray *topics=eObj.topics;
-//                    if (topics) {
-//                        for (TopicData *topic in topics) {
-//                            if (topic) {
-//                                if ([topic.wrong boolValue]==YES) {
-//                                    topic.wrong=[NSNumber numberWithBool:NO];
-//                                }
-//                            }
-//                        }
-//                    }
+                    if (eObj.papers) {
+                        [eObj.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                            if (pObj && pObj.topics) {
+                                [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                                    if (tObj) {
+                                        tObj.topicIsWrong=[NSNumber numberWithBool:NO];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+                    
+                    [DBManager updateExam:eObj];
+                    *eStop=YES;
                 }
-                
-                [DBManager addPaper:eObj];
             }
         }];
     }
-//    [_wrongPaperList removeAllObjects];
-//    [_wrongPaperList addObjectsFromArray:[DBManager fetchWrongPapers]];
-//    [_paperListView refresh];
+    [_wrongPaperList removeAllObjects];
+    [_wrongPaperList addObjectsFromArray:[DBManager fetchAllExamsOfWrongTopics]];
+    [_paperListView refresh];
 }
 
 #pragma mark table view delegate
@@ -160,7 +158,8 @@
     if (cell==nil) {
         cell=[[[EXPaperCell alloc] init] autorelease];
         if (indexPath.row<_wrongPaperList.count) {
-            cell.paperData=[_wrongPaperList objectAtIndex:indexPath.row];
+            cell.isExamType=NO;
+            cell.examData=[_wrongPaperList objectAtIndex:indexPath.row];
         }
     }
     
@@ -168,8 +167,9 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PaperData *paperMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
-    if (paperMetaData) {
+    NSLog(@"wrong exam list count:%d,selected row:%d",_wrongPaperList.count,indexPath.row);
+    ExamData *examMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
+    if (examMetaData) {
         
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
         CustomTabBarController *tabBarController=appDelegate.tabController;
@@ -178,7 +178,7 @@
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         examineController.displayTopicType=kDisplayTopicType_Wrong;
         [self.navigationController pushViewController:examineController animated:YES];
-        examineController.paperData=paperMetaData;
+        examineController.examData=examMetaData;
     }
 }
 

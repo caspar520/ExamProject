@@ -80,7 +80,7 @@
     examTitleLabel.text=[NSString stringWithFormat:@"%d.%@",index,_examData.examTitle];
     
     if (examDurationLabel==nil) {
-        examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(examTitleLabel.frame), CGRectGetMaxY(examTitleLabel.frame)+5, 160, 20)];
+        examDurationLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(examTitleLabel.frame), CGRectGetMaxY(examTitleLabel.frame)+5, 155, 20)];
         examDurationLabel.textColor=[UIColor blackColor];
         examDurationLabel.textAlignment=UITextAlignmentLeft;
         examDurationLabel.backgroundColor=[UIColor clearColor];
@@ -95,7 +95,7 @@
     [formater release];
     
     if (examMarkLabel==nil) {
-        examMarkLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examDurationLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 65, 20)];
+        examMarkLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examDurationLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 60, 20)];
         examMarkLabel.textColor=[UIColor blackColor];
         examMarkLabel.textAlignment=UITextAlignmentLeft;
         examMarkLabel.numberOfLines=0;
@@ -107,7 +107,7 @@
     examMarkLabel.text=[NSString stringWithFormat:@"得分：%d",mark];
     
     if (examUsingTmLabel==nil) {
-        examUsingTmLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examMarkLabel.frame)+15, CGRectGetMaxY(examTitleLabel.frame)+5, 65, 20)];
+        examUsingTmLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(examMarkLabel.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, 90, 20)];
         examUsingTmLabel.textColor=[UIColor blackColor];
         examUsingTmLabel.textAlignment=UITextAlignmentLeft;
         examUsingTmLabel.numberOfLines=0;
@@ -116,7 +116,11 @@
         
         [self addSubview:examUsingTmLabel];
     }
-    examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%@",_examData.examUsingTm];
+    if ([_examData.examUsingTm integerValue]/60>=1) {
+        examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%d分钟",[_examData.examUsingTm integerValue]/60];
+    }else{
+        examUsingTmLabel.text=[NSString stringWithFormat:@"用时：%@秒",_examData.examUsingTm];
+    }
 }
 
 @end

@@ -56,7 +56,7 @@
     [self.navigationController setToolbarHidden:YES animated:NO];
     
     [_collectedPaperList removeAllObjects];
-    //[_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
+    [_collectedPaperList addObjectsFromArray:[DBManager fetchAllCollectExams]];
     
     if (_paperListView==nil) {
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
@@ -107,28 +107,30 @@
 
 - (void)clearCollectedPapersClicked:(id)sender{
     if (_collectedPaperList) {
-        [_collectedPaperList enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
-            if (obj) {
-//                if ([obj.fav boolValue] ==YES) {
-//                    obj.fav=[NSNumber numberWithBool:NO];
-//                    NSArray *topics=obj.topics;
-//                    if (topics) {
-//                        for (TopicData *topic in topics) {
-//                            if (topic) {
-//                                if ([topic.favourite boolValue]==YES) {
-//                                    topic.favourite=[NSNumber numberWithBool:NO];
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//                [DBManager addPaper:obj];
+        [_collectedPaperList enumerateObjectsUsingBlock:^(ExamData *eObj, NSUInteger eIdx, BOOL *eStop) {
+            if (eObj) {
+                if ([eObj.examIsCollected boolValue] ==YES) {
+                    eObj.examIsCollected=[NSNumber numberWithBool:NO];
+                    if (eObj.papers) {
+                        [eObj.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+                            if (pObj && pObj.topics) {
+                                [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                                    if (tObj) {
+                                        tObj.topicIsCollected=[NSNumber numberWithBool:NO];
+                                    }
+                                }];
+                            }
+                        }];
+                    }
+                }
+                [DBManager updateExam:eObj];
+                *eStop=YES;
             }
         }];
     }
     
     [_collectedPaperList removeAllObjects];
-    [_collectedPaperList addObjectsFromArray:[DBManager fetchCollectedPapers]];
+    [_collectedPaperList addObjectsFromArray:[DBManager fetchAllCollectExams]];
     [_paperListView refresh];
 }
 
@@ -147,7 +149,8 @@
     if (cell==nil) {
         cell=[[[EXPaperCell alloc] init] autorelease];
         if (indexPath.row<_collectedPaperList.count) {
-            cell.paperData=[_collectedPaperList objectAtIndex:indexPath.row];
+            cell.isExamType=NO;
+            cell.examData=[_collectedPaperList objectAtIndex:indexPath.row];
         }
     }
     
@@ -155,8 +158,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    PaperData *paperMetaData=[_collectedPaperList objectAtIndex:indexPath.row];
-    if (paperMetaData) {
+    ExamData *examMetaData=[_collectedPaperList objectAtIndex:indexPath.row];
+    if (examMetaData) {
         
         AppDelegate *appDelegate=[UIApplication sharedApplication].delegate;
         CustomTabBarController *tabBarController=appDelegate.tabController;
@@ -165,7 +168,7 @@
         EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
         examineController.displayTopicType=kDisplayTopicType_Collected;
         [self.navigationController pushViewController:examineController animated:YES];
-        examineController.paperData=paperMetaData;
+        examineController.examData=examMetaData;
     }
 }
 

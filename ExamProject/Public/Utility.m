@@ -38,6 +38,7 @@
                     obj.examDisableMinute=[NSNumber numberWithInt:[[tExamPaperInfoDic objectForKey:@"disableMinute"] intValue]];
                     obj.examDisableSubmit=[NSNumber numberWithInt:[[tExamPaperInfoDic objectForKey:@"disableSubmit"] intValue]];
                     obj.updateTm=[NSNumber numberWithLongLong:[[tExamPaperInfoDic objectForKey:@"updateTm"] longLongValue]];
+                    obj.examTotalTm=[NSNumber numberWithLongLong:[[tExamPaperInfoDic objectForKey:@"totalTm"] longLongValue]];
                     
                     exam=obj;
                 }

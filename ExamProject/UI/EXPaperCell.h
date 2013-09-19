@@ -20,5 +20,6 @@
 
 @property (nonatomic,retain)ExamData        *paperData;
 @property (nonatomic,retain)ExamData        *examData;
+@property (nonatomic,assign)BOOL            isExamType;
 
 @end

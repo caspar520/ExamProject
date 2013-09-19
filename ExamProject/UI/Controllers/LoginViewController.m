@@ -146,7 +146,6 @@
         userData.fullName = [responsePostBody objectForKey:@"fullName"];
         [DBManager addUser:userData];
         [userData release];
-        NSLog(@"login responsePostBody = %@", responsePostBody);
         
         //保存帐户密码到keychain中
         NSString *userName = [responsePostBody objectForKey:@"email"];
