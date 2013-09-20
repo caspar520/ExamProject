@@ -32,7 +32,6 @@
         for (AnswerData *obj in optionsArray) {
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
-                
                 BOOL isChecked=[obj.isSelected boolValue];
 
                 EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, height, 45, 45) checked:NO];

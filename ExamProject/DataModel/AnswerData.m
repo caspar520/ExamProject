@@ -15,6 +15,7 @@
 @synthesize content;
 @synthesize isCorrect;
 @synthesize isSelected;
+@synthesize orderIndex;
 
 - (id)initWithAnswer:(Answer *)answer
 {
@@ -24,6 +25,7 @@
         self.content = answer.content;
         self.isCorrect = answer.isCorrect;
         self.isSelected = answer.isSelected;
+        self.orderIndex=answer.orderIndex;
     }
     return self;
 }
@@ -33,6 +35,7 @@
     [content release];
     [isCorrect release];
     [isSelected release];
+    [orderIndex release];
     
     [super dealloc];
 }

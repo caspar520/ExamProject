@@ -14,5 +14,6 @@
 @dynamic isCorrect;
 @dynamic isSelected;
 @dynamic topic;
+@dynamic orderIndex;
 
 @end

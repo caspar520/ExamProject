@@ -93,6 +93,7 @@
                                 answer.content=[answerObj objectForKey:@"content"];
                                 answer.isCorrect=[answerObj objectForKey:@"correct"];
                                 answer.isSelected=[NSNumber numberWithBool:NO];
+                                answer.orderIndex=[NSNumber numberWithInt:tIdx];
                                 
                                 [optionArray addObject:answer];
                                 [answer release];

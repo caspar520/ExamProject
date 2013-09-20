@@ -36,18 +36,21 @@
 //取得所有错题试卷
 + (NSArray *)fetchAllExamsOfWrongTopics
 {
-    return [DBManager readAllWrongTopicExams];
+    NSArray *result = [DBManager readAllWrongTopicExams];
+    return [DBManager examDataWithExams:result];
 }
 
 + (NSArray *)fetchExamsWithExamId:(NSNumber *)examID
 {
-    return [DBManager readExamsWithCondition:[NSString stringWithFormat:@"SELF.examId=%d", [examID integerValue]]];
+    NSArray *result = [DBManager readExamsWithCondition:[NSString stringWithFormat:@"SELF.examId=%d", [examID integerValue]]];
+    return [DBManager examDataWithExams:result];
 }
 
 //取得所有收藏的试卷
 + (NSArray *)fetchAllCollectExams
 {
-    return [DBManager readExamsWithCondition:@"SELF.examIsCollected = YES"];
+    NSArray *result = [DBManager readExamsWithCondition:@"SELF.examIsCollected = YES"];
+    return [DBManager examDataWithExams:result];
 }
 
 + (NSArray *)fetchAllPapersFromDB
@@ -302,7 +305,6 @@
         Paper *paper = [DBManager addPaper:paperData];
         [tSet addObject:paper];
     }
-    
     return tSet;
 }
 
@@ -393,6 +395,7 @@
     answer.content = anserData.content;
     answer.isCorrect = anserData.isCorrect;
     answer.isSelected = anserData.isSelected;
+    answer.orderIndex = anserData.orderIndex;
 
     return answer;
 }

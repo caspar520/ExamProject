@@ -402,29 +402,6 @@
         _examData.createTm=[NSDate date];
         [DBManager addExam:_examData];
         
-        //临时
-        if (_examData.papers) {
-            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
-                if (pObj) {
-                    if (pObj.topics) {
-                        [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
-                            if (tObj) {
-                                if (tObj.answers) {
-                                    for (AnswerData *aObj in tObj.answers) {
-                                        if (aObj) {
-                                            if ([aObj.isSelected boolValue]) {
-                                                NSLog(@"examing selected option index:%d",[tObj.answers indexOfObject:aObj]);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }];
-                    }
-                }
-            }];
-        }
-        
         //submit the exam result to server
         NSData *parameter=[self markAndConstructResultParameter];
         [[EXDownloadManager shareInstance] submitExamData:parameter];

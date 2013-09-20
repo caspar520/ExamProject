@@ -87,6 +87,7 @@
 @property (nonatomic, retain) NSString * content;       //试题答案选项
 @property (nonatomic, retain) NSNumber * isCorrect;     //试题答案是否正确
 @property (nonatomic, retain) NSNumber * isSelected;    //已选择答案
+@property (nonatomic, retain) NSNumber * orderIndex;    //选项的顺序索引
 
 @end
 

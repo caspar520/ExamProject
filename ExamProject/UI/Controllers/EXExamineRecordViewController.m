@@ -113,29 +113,6 @@
         examineController.isNotOnAnswering=NO;
         examineController.examData=examMetaData;
     }
-    
-    //临时
-    if (examMetaData.papers) {
-        [examMetaData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
-            if (pObj) {
-                if (pObj.topics) {
-                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
-                        if (tObj) {
-                            if (tObj.answers) {
-                                for (AnswerData *aObj in tObj.answers) {
-                                    if (aObj) {
-                                        if ([aObj.isSelected boolValue]) {
-                                            NSLog(@"record selected option index:%d",[tObj.answers indexOfObject:aObj]);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }];
-                }
-            }
-        }];
-    }
 }
 
 @end

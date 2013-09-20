@@ -167,7 +167,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    //NSLog(@"wrong exam list count:%d,selected row:%d",_wrongPaperList.count,indexPath.row);
+    NSLog(@"wrong exam list count:%d,selected row:%d",_wrongPaperList.count,indexPath.row);
     ExamData *examMetaData=[_wrongPaperList objectAtIndex:indexPath.row];
     if (examMetaData) {
         

@@ -41,7 +41,7 @@
         self.topicIsWrong=topic.topicIsWrong;
         
         //将数据以AnswerData的形式传递出去
-        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"content" ascending:YES];
+        NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc]initWithKey:@"orderIndex" ascending:YES];
         NSArray *sortedArray = [topic.answers sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
         [sortDescriptor release];
         
