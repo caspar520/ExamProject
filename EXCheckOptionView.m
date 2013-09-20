@@ -31,7 +31,6 @@ static const CGFloat kHeight = 36.0f;
     if (self) {
         // Initialization code
         checkStatus=kCheckSatus_Normal;
-        isRightMultStatus=YES;
     }
     return self;
 }
@@ -44,6 +43,7 @@ static const CGFloat kHeight = 36.0f;
     _checked = aChecked;
     self.enabled = YES;
     _index=-10;
+    isRightMultStatus=YES;
     
     self.userInteractionEnabled = YES;
     self.backgroundColor = [UIColor clearColor];

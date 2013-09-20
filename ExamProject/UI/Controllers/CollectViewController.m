@@ -124,7 +124,7 @@
                     }
                 }
                 [DBManager updateExam:eObj];
-                *eStop=YES;
+                //*eStop=YES;
             }
         }];
     }
