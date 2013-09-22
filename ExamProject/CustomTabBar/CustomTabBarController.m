@@ -77,7 +77,7 @@
     NSArray *tabbarTitles = [NSArray arrayWithObjects:@"考试",@"错题",@"收藏",@"记录",@"更多", nil];
     for (int i = 0; i < 5; i++) {
         UIButton *bt = [[UIButton alloc]init];
-        bt.frame = CGRectMake(originX,0,64,60);
+        bt.frame = CGRectMake(originX,0,72,60);
 //        UIViewController *vc = [self.viewControllers objectAtIndex:i];
 //        
 //        [bt setTitle:vc.title forState:UIControlStateNormal];
