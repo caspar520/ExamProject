@@ -123,12 +123,19 @@
         [self addSubview:answerContainerView];
     }
     
-    if (confirmAnswerBtn==nil) {
-        confirmAnswerBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [confirmAnswerBtn setTitle:@"确认" forState:UIControlStateNormal];
-        confirmAnswerBtn.frame=CGRectMake((CGRectGetWidth(self.frame)-60)/2, CGRectGetMaxY(answerContainerView.frame)+5, 60, 35);
-        [confirmAnswerBtn addTarget:self action:@selector(confirmItemClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:confirmAnswerBtn];
+    if ([_metaData.topicType integerValue]==2) {
+        if (confirmAnswerBtn==nil) {
+            confirmAnswerBtn=[UIButton buttonWithType:UIButtonTypeRoundedRect];
+            [confirmAnswerBtn setTitle:@"确认" forState:UIControlStateNormal];
+            confirmAnswerBtn.frame=CGRectMake((CGRectGetWidth(self.frame)-60)/2, CGRectGetMaxY(answerContainerView.frame)+5, 60, 35);
+            [confirmAnswerBtn addTarget:self action:@selector(confirmItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:confirmAnswerBtn];
+        }
+    }else{
+        answerContainerView.frame=CGRectMake(CGRectGetMinX(orderLabel.frame),
+                                             CGRectGetMaxY(optionTipLabel.frame)+5,
+                                             CGRectGetWidth(self.frame),
+                                             CGRectGetHeight(self.frame)-(CGRectGetMaxY(optionTipLabel.frame)+30));
     }
 }
 

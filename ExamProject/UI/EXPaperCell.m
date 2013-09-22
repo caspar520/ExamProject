@@ -77,7 +77,12 @@
         
         [self addSubview:examDurationLabel];
     }
-    examDurationLabel.text=[NSString stringWithFormat:@"时长：%d分钟",[_examData.examTotalTm intValue]/60];
+    if ([_examData.examTotalTm intValue]>0) {
+        examDurationLabel.text=[NSString stringWithFormat:@"时长：%d分钟",[_examData.examTotalTm intValue]/60];
+    }else{
+        examDurationLabel.text=[NSString stringWithFormat:@"时长：%@",@"不限"];
+    }
+    
     
     if (_isExamType) {
         if (examMSGLabel==nil) {

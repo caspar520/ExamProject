@@ -31,7 +31,7 @@
         _scrollView.indicatorStyle = UIScrollViewIndicatorStyleWhite;
         _scrollView.showsVerticalScrollIndicator=YES;
         _scrollView.clipsToBounds = YES;
-        _scrollView.scrollEnabled = NO;
+        _scrollView.scrollEnabled = YES;
         _scrollView.pagingEnabled = YES;
         [self addSubview:_scrollView];
     }
@@ -49,6 +49,7 @@
         [_dataArray release];
         _dataArray=[dataArray retain];
     }
+    _scrollView.delegate=delegate;
     [self refreshUI];
 }
 
@@ -98,7 +99,7 @@
             [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x-CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
             _scrollView.scrollEnabled=NO;
         } completion:^(BOOL finished) {
-            _scrollView.scrollEnabled=NO;
+            _scrollView.scrollEnabled=YES;
         }];
     }
 }
@@ -109,7 +110,7 @@
             [_scrollView setContentOffset:CGPointMake(_scrollView.contentOffset.x+CGRectGetWidth(_scrollView.frame), _scrollView.contentOffset.y)];
             _scrollView.scrollEnabled=NO;
         } completion:^(BOOL finished) {
-            _scrollView.scrollEnabled=NO;
+            _scrollView.scrollEnabled=YES;
         }];
     }
 }
@@ -119,9 +120,14 @@
     if (index<_dataArray.count) {
         TopicData *topic=[_dataArray objectAtIndex:index];
         if (topic) {
-            //topic.topicIsCollected=[NSNumber numberWithBool:YES];
+            topic.topicIsCollected=[NSNumber numberWithBool:YES];
         }
     }
+}
+
+- (int)getCurrentTopicIndex{
+    currentIndex=_scrollView.contentOffset.x/CGRectGetWidth(_scrollView.frame);
+    return currentIndex;
 }
 
 

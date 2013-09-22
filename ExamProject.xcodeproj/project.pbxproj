@@ -106,6 +106,8 @@
 		9C790CC4179E431A0077621B /* tabBarItem_2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CAD179E431A0077621B /* tabBarItem_2.png */; };
 		9C790CC6179E4F940077621B /* topic_index_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CC5179E4F940077621B /* topic_index_bg.png */; };
 		9C790CC8179EA5BE0077621B /* topic_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C790CC7179EA5BE0077621B /* topic_bg.png */; };
+		9C9E086C17EE753100705E93 /* topic_favourite_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E086A17EE753100705E93 /* topic_favourite_normal.png */; };
+		9C9E086D17EE753100705E93 /* topic_favourite_selected.png in Resources */ = {isa = PBXBuildFile; fileRef = 9C9E086B17EE753100705E93 /* topic_favourite_selected.png */; };
 		9CA0DEE117E55D4F00AE42FC /* EXRecordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9CA0DEE017E55D4E00AE42FC /* EXRecordCell.m */; };
 		9CA295D217E5552E0039C9BE /* tabBarItem_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CA295D017E5552E0039C9BE /* tabBarItem_5.png */; };
 		9CA295D317E5552E0039C9BE /* tabBarItem_selected_5.png in Resources */ = {isa = PBXBuildFile; fileRef = 9CA295D117E5552E0039C9BE /* tabBarItem_selected_5.png */; };
@@ -289,6 +291,8 @@
 		9C790CAD179E431A0077621B /* tabBarItem_2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarItem_2.png; sourceTree = "<group>"; };
 		9C790CC5179E4F940077621B /* topic_index_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_index_bg.png; sourceTree = "<group>"; };
 		9C790CC7179EA5BE0077621B /* topic_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_bg.png; sourceTree = "<group>"; };
+		9C9E086A17EE753100705E93 /* topic_favourite_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_favourite_normal.png; sourceTree = "<group>"; };
+		9C9E086B17EE753100705E93 /* topic_favourite_selected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topic_favourite_selected.png; sourceTree = "<group>"; };
 		9CA0DEDF17E55D4E00AE42FC /* EXRecordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EXRecordCell.h; sourceTree = "<group>"; };
 		9CA0DEE017E55D4E00AE42FC /* EXRecordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EXRecordCell.m; sourceTree = "<group>"; };
 		9CA295D017E5552E0039C9BE /* tabBarItem_5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tabBarItem_5.png; sourceTree = "<group>"; };
@@ -652,6 +656,8 @@
 		9C05B8CE1799636E008E937D /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				9C9E086A17EE753100705E93 /* topic_favourite_normal.png */,
+				9C9E086B17EE753100705E93 /* topic_favourite_selected.png */,
 				309A4BF8179E5A7B00776409 /* Login */,
 				9C790CC5179E4F940077621B /* topic_index_bg.png */,
 				9C790CC7179EA5BE0077621B /* topic_bg.png */,
@@ -887,6 +893,8 @@
 				9CA295D317E5552E0039C9BE /* tabBarItem_selected_5.png in Resources */,
 				9CC7912E17E87A7700B25847 /* answer_h_wrong.png in Resources */,
 				9CC7912F17E87A7700B25847 /* answer_h.png in Resources */,
+				9C9E086C17EE753100705E93 /* topic_favourite_normal.png in Resources */,
+				9C9E086D17EE753100705E93 /* topic_favourite_selected.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1063,12 +1071,13 @@
 		30BDBEF71797C17A008F0578 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamProject/ExamProject-Prefix.pch";
 				INFOPLIST_FILE = "ExamProject/ExamProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1077,12 +1086,13 @@
 		30BDBEF81797C17A008F0578 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamProject/ExamProject-Prefix.pch";
 				INFOPLIST_FILE = "ExamProject/ExamProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};

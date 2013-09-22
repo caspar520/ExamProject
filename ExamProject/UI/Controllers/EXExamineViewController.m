@@ -99,37 +99,51 @@
     }
     
     if (_paperCountLabel==nil) {
-        _paperCountLabel= [[UILabel alloc] initWithFrame:CGRectMake(5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _paperCountLabel= [[UILabel alloc] initWithFrame:CGRectMake(5, 5, (CGRectGetWidth(self.view.frame)-70)/3, 30)];
         _paperCountLabel.textColor=[UIColor blackColor];
         _paperCountLabel.textAlignment=UITextAlignmentLeft;
         _paperCountLabel.backgroundColor=[UIColor clearColor];
-        _paperCountLabel.font=[UIFont systemFontOfSize:16];
+        _paperCountLabel.font=[UIFont systemFontOfSize:12];
         
         [_examMSGBarView addSubview:_paperCountLabel];
     }
-    _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量："];
+    _paperCountLabel.text=[NSString stringWithFormat:@"进度：0/0"];
     
     if (_examLeftTime==nil) {
-        _examLeftTime= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_paperCountLabel.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _examLeftTime= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_paperCountLabel.frame)+5, 5, (CGRectGetWidth(self.view.frame)-70)/3, 30)];
         _examLeftTime.textColor=[UIColor blackColor];
         _examLeftTime.textAlignment=UITextAlignmentLeft;
         _examLeftTime.backgroundColor=[UIColor clearColor];
-        _examLeftTime.font=[UIFont systemFontOfSize:16];
+        _examLeftTime.font=[UIFont systemFontOfSize:12];
         
         [_examMSGBarView addSubview:_examLeftTime];
     }
     _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
     
     if (_examDuration==nil) {
-        _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-10)/3, 30)];
+        _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-70)/3, 30)];
         _examDuration.textColor=[UIColor blackColor];
         _examDuration.textAlignment=UITextAlignmentLeft;
         _examDuration.backgroundColor=[UIColor clearColor];
-        _examDuration.font=[UIFont systemFontOfSize:16];
+        _examDuration.font=[UIFont systemFontOfSize:12];
         
         [_examMSGBarView addSubview:_examDuration];
     }
     _examDuration.text=[NSString stringWithFormat:@"时间："];
+    
+    if (_collectButton==nil) {
+        _collectButton=[UIButton buttonWithType:UIButtonTypeCustom];
+        if (displayTopicType==kDisplayTopicType_Default) {
+            [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_normal.png"] forState:UIControlStateNormal];
+            [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_selected.png"] forState:UIControlStateHighlighted];
+        }else{
+            [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_selected.png"] forState:UIControlStateNormal];
+            [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_normal.png"] forState:UIControlStateHighlighted];
+        }
+        _collectButton.frame=CGRectMake(CGRectGetMaxX(_examDuration.frame)+5, (CGRectGetHeight(_examMSGBarView.frame)-36)/2, 36, 36);
+        [_collectButton addTarget:self action:@selector(collectItemClicked:) forControlEvents:UIControlEventTouchUpInside];
+        [_examMSGBarView addSubview:_collectButton];
+    }
     
     isNotOnAnswering=YES;
 }
@@ -208,23 +222,25 @@
     _examLeftTime.text=[NSString stringWithFormat:@"用时：%02d:%02d",tMinute,tSecond];
     
     //判断是否考试时间到
-    NSInteger tExamTotalTime=[_examData.examTotalTm integerValue]*60;
+    NSInteger tExamTotalTime=[_examData.examTotalTm integerValue];
     
-    if (_currentExamTime>=tExamTotalTime) {
-        //[self submitExaminationItemClicked:nil];
-        [MBProgressHUD showHUDAddedTo:self.view animated:NO];
-        
-        //save result to the DB
-        _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
-        _examData.createTm=[NSDate date];
-        [DBManager addExam:_examData];
-        
-        //submit the exam result to server
-        NSData *parameter=[self markAndConstructResultParameter];
-        [[EXDownloadManager shareInstance] submitExamData:parameter];
-        
-        //销毁定时器，停止倒计时
-        [self destroyExamTimer];
+    if (tExamTotalTime>0) {
+        if (_currentExamTime>=tExamTotalTime) {
+            //[self submitExaminationItemClicked:nil];
+            [MBProgressHUD showHUDAddedTo:self.view animated:NO];
+            
+            //save result to the DB
+            _examData.examUsingTm=[NSNumber numberWithInt:_currentExamTime];
+            _examData.createTm=[NSDate date];
+            [DBManager addExam:_examData];
+            
+            //submit the exam result to server
+            NSData *parameter=[self markAndConstructResultParameter];
+            [[EXDownloadManager shareInstance] submitExamData:parameter];
+            
+            //销毁定时器，停止倒计时
+            [self destroyExamTimer];
+        }
     }
 }
 
@@ -249,10 +265,15 @@
                 [selectedArray addObjectsFromArray:obj.topics];
             }
         }
-        _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
-        _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",[_examData.examTotalTm intValue]/60];
     }
     _examineListView.dataArray=selectedArray;
+    int index=[_examineListView getCurrentTopicIndex];
+    _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,selectedArray.count];
+    if ([_examData.examTotalTm intValue]) {
+        _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",[_examData.examTotalTm intValue]/60];
+    }else{
+        _examDuration.text=[NSString stringWithFormat:@"时间：%@",@"不限"];
+    }
     
     [self triggerExamTimer];
 }
@@ -301,9 +322,16 @@
     
     if (displayTopicType==kDisplayTopicType_Default) {
         self.navigationItem.rightBarButtonItem.enabled=YES;
+        
+        [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_normal.png"] forState:UIControlStateNormal];
+        [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_selected.png"] forState:UIControlStateHighlighted];
     }else{
         self.navigationItem.rightBarButtonItem.enabled=NO;
-    }
+        
+        [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_selected.png"] forState:UIControlStateNormal];
+        [_collectButton setImage:[UIImage imageNamed:@"topic_favourite_normal.png"] forState:UIControlStateHighlighted];
+        _collectButton.enabled=NO;
+    }  
     _examineListView.dipalyTopicType=displayTopicType;
     
     NSMutableArray *selectedArray=[NSMutableArray arrayWithCapacity:0];
@@ -311,13 +339,18 @@
     if (displayTopicType==kDisplayTopicType_Default) {
         if (_examData.papers && _examData.papers.count>0) {
             //存在
-            [_examData.papers enumerateObjectsUsingBlock:^(PaperData *obj, NSUInteger idx, BOOL *stop) {
-                if (obj) {
+            for (PaperData *obj in _examData.papers) {
+                if (obj && obj.topics) {
                     [selectedArray addObjectsFromArray:obj.topics];
                 }
-            }];
-            _paperCountLabel.text=[NSString stringWithFormat:@"试卷数量：%d",_examData.papers.count];
-            _examDuration.text=[NSString stringWithFormat:@"时间：%@分钟",_examData.examTotalTm];
+            }
+            int index=[_examineListView getCurrentTopicIndex];
+            _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,selectedArray.count];
+            if ([_examData.examTotalTm intValue]) {
+                _examDuration.text=[NSString stringWithFormat:@"时间：%d分钟",[_examData.examTotalTm intValue]/60];
+            }else{
+                _examDuration.text=[NSString stringWithFormat:@"时间：%@",@"不限"];
+            }
             
             [self triggerExamTimer];
         }else{
@@ -470,16 +503,15 @@
 }
 
 - (void)collectItemClicked:(id)sender{
-    /*
+    
 	_examData.examIsCollected=[NSNumber numberWithBool:YES];
     [_examineListView collectionTopic];
-    [DBManager addExam:_examData];
+//    [DBManager addExam:_examData];
     
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"已经将改试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"提交后将该试题添加到收藏" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
     [alert show];
     [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
     [alert release];
-     */
     
 }
 
@@ -617,6 +649,12 @@
     //NSLog(@"result:%@",result);
     NSData *parameter=[result JSONData];
     return parameter;
+}
+
+#pragma mark UIScrollViewDelegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    int index=[_examineListView getCurrentTopicIndex];
+    _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,_examineListView.dataArray.count];
 }
 
 @end

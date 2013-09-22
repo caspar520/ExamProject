@@ -28,5 +28,6 @@ typedef enum{
 - (void)preTopic;
 - (void)nextTopic;
 - (void)collectionTopic;
+- (int)getCurrentTopicIndex;
 
 @end

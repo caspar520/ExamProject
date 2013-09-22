@@ -25,6 +25,7 @@
     BOOL                        _isExamSubmitted;
     double                   _beginExamTime;
     double                   _submitExamTime;
+    UIButton                    *_collectButton;
 }
 
 @property (nonatomic,retain)PaperData           *paperData;
