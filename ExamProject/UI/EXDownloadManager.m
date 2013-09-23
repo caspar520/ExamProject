@@ -139,7 +139,7 @@ static EXDownloadManager *instance=nil;
     }
 }
 
-- (void)submitExamData:(NSData *)pData{
+- (void)submitExamData:(id)pData{
     NSURL *url=[NSURL URLWithString:NET_SUBMIT_EXAM_DATA];
     [self cancelRequest];
     request = [[ASIFormDataRequest alloc] initWithURL:url];
@@ -184,6 +184,7 @@ static EXDownloadManager *instance=nil;
     }else if([requestURL isEqualToString:NET_SUBMIT_EXAM_DATA]){
         NSData *respondData=[request responseData];
         NSDictionary *result = [NSJSONSerialization JSONObjectWithData:respondData options:kNilOptions error:nil];
+        NSLog(@"result:%@,infot:%@",result,[result objectForKey:@"info"]);
         if (result && [result objectForKey:@"status"] && [[result objectForKey:@"status"] intValue]==1) {
             [[NSNotificationCenter defaultCenter] postNotificationName:NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS object:nil];
         }else{

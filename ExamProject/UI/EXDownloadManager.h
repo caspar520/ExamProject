@@ -26,6 +26,6 @@
 //新的
 - (void)downloadExamList;
 - (void)downloadPaperList:(NSInteger)pExamID;
-- (void)submitExamData:(NSData *)pData;
+- (void)submitExamData:(id)pData;
 
 @end

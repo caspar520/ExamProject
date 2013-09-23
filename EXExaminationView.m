@@ -183,6 +183,10 @@
         //简单题
         
     }
+    
+    if ([_metaData.topicType integerValue]==1 || [_metaData.topicType integerValue]==3) {
+        [self performSelector:@selector(confirmItemClicked:) withObject:nil afterDelay:0.5];
+    }
 }
 
 - (void)confirmItemClicked:(id)sender{

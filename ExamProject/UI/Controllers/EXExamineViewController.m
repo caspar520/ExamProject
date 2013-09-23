@@ -436,7 +436,7 @@
         [DBManager addExam:_examData];
         
         //submit the exam result to server
-        NSData *parameter=[self markAndConstructResultParameter];
+        id parameter=[self markAndConstructResultParameter];
         [[EXDownloadManager shareInstance] submitExamData:parameter];
         
         //销毁定时器，停止倒计时
@@ -490,8 +490,10 @@
         
     }
     
-    
     [_examineListView nextTopic];
+    
+    int index=[_examineListView getCurrentTopicIndex];
+    _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,_examineListView.dataArray.count];
 }
 
 - (void)nextItemClicked:(id)sender{
@@ -576,9 +578,9 @@
 }
 
 #pragma mark 构造上报参数
-- (NSData *)markAndConstructResultParameter{
+- (id)markAndConstructResultParameter{
     NSMutableDictionary *result=[NSMutableDictionary dictionary];
-    [result setValue:[NSNumber numberWithInt:[_examData.examStatus integerValue]] forKey:@"status"];
+//    [result setValue:[NSNumber numberWithInt:[_examData.examStatus integerValue]] forKey:@"status"];
     
     UserData *tUserData=[DBManager getDefaultUserData];
     NSMutableDictionary *dataDic=[NSMutableDictionary dictionaryWithCapacity:0];
@@ -632,7 +634,7 @@
                                 }];
                             }
                             [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
-                            [tParameter setValue:optionParameter forKey:@"option"];
+                            [tParameter setValue:optionParameter forKey:@"options"];
                             
                             [topicsList addObject:tParameter];
                             [tParameter release];
@@ -645,9 +647,9 @@
     
     [dataDic setValue:topicsList forKey:@"topicList"];
     [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
-    [result setValue:dataDic forKey:@"data"];
-    //NSLog(@"result:%@",result);
-    NSData *parameter=[result JSONData];
+    //[result setValue:dataDic forKey:@"data"];
+    NSLog(@"result:%@",[dataDic JSONString]);
+    id parameter=[dataDic JSONString];
     return parameter;
 }
 
