@@ -590,7 +590,7 @@
     [dataDic setValue:[NSNumber numberWithDouble:_beginExamTime] forKey:@"beginTm"];
     [dataDic setValue:[NSNumber numberWithDouble:_submitExamTime] forKey:@"submitTm"];
     
-    NSInteger tScore=0;
+    __block NSInteger tScore=0;
     NSMutableArray *topicsList=[NSMutableArray arrayWithCapacity:0];
     if (_examData.papers) {
         [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
@@ -604,10 +604,13 @@
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
                             __block NSString *optionParameter=@"";
                             __block BOOL isWrong=NO;
+                            BOOL isSelected=NO;
+                            
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
                                         if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
+                                            isSelected=YES;
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
                                             }else{
@@ -633,11 +636,14 @@
                                     }
                                 }];
                             }
-                            [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
-                            [tParameter setValue:optionParameter forKey:@"options"];
-                            
-                            [topicsList addObject:tParameter];
-                            [tParameter release];
+                            if (isSelected==YES) {
+                                tScore+=[tObj.topicValue integerValue];
+                                [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
+                                [tParameter setValue:optionParameter forKey:@"options"];
+                                
+                                [topicsList addObject:tParameter];
+                                [tParameter release];
+                            }
                         }
                     }];
                 }
@@ -648,7 +654,7 @@
     [dataDic setValue:topicsList forKey:@"topicList"];
     [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
     //[result setValue:dataDic forKey:@"data"];
-    NSLog(@"result:%@",[dataDic JSONString]);
+    //NSLog(@"result:%@",[dataDic JSONString]);
     id parameter=[dataDic JSONString];
     return parameter;
 }
