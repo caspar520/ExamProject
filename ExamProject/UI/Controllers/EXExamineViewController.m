@@ -470,9 +470,6 @@
         if (topic.answers) {
             for (AnswerData *obj in topic.answers) {
                 if (obj) {
-//                    if ([obj.isSelected boolValue]) {
-//                        NSLog(@"selected option index:%d",[topic.answers indexOfObject:obj]);
-//                    }
                     if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                         || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                         //正确选项没有被选择或者错误选项被选择了改题都算是答错

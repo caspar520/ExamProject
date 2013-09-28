@@ -40,7 +40,7 @@
                 checkView.exclusiveTouch=YES;
                 checkView.index=idx+1;
                 checkView.enabled=YES;
-                if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+                if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong || self.dipalyTopicType==kDisplayTopicType_Default) {
                     if ([obj.isCorrect boolValue]==NO) {
                         checkView.isRightMultStatus=NO;
                     }
@@ -50,18 +50,15 @@
                     }
                 }
                 
-                if (self.dipalyTopicType==kDisplayTopicType_Record || self.dipalyTopicType==kDisplayTopicType_Wrong) {
-                    checkView.checked=NO;
-                }else{
-                    checkView.checked=isChecked;
-                }
                 if (_isDisplayAnswer) {
                     //显示答案
                     checkView.checkStatus=kCheckSatus_Mult;
                     if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+                        checkView.checked=NO;
                         checkView.enabled=YES;
                     }else{
                         checkView.enabled=NO;
+                        checkView.checked=isChecked;
                     }
                 }
                 [checkView updateCheckBoxImage];

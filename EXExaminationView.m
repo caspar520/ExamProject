@@ -143,47 +143,54 @@
 //实时更新选择活这判断的答案
 - (void)updateSelectedResult{
     NSArray *subViews=[answerContainerView subviews];
-    if ([_metaData.topicType integerValue]==1) {
-        //单选题
-        for (UIView *item in subViews) {
-            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).checked==YES) {
+    if (self.dipalyTopicType==kDisplayTopicType_Default) {
+        if ([_metaData.topicType integerValue]==1) {
+            //单选题
+            for (UIView *item in subViews) {
+                if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                     AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index-1];
-                    answer.isSelected=[NSNumber numberWithBool:YES];
-                    break;
+                    if (((EXCheckOptionView *)item).checked==YES) {
+                        answer.isSelected=[NSNumber numberWithBool:YES];
+                    }else{
+                        answer.isSelected=[NSNumber numberWithBool:NO];
+                    }
                 }
             }
-        }
-    }else if ([_metaData.topicType integerValue]==2){
-        //多选题
-        for (UIView *item in subViews) {
-            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).checked==YES) {
+        }else if ([_metaData.topicType integerValue]==2){
+            //多选题
+            for (UIView *item in subViews) {
+                if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                     AnswerData *answer=[_metaData.answers objectAtIndex:((EXCheckOptionView *)item).index-1];
-                    answer.isSelected=[NSNumber numberWithBool:YES];
+                    if (((EXCheckOptionView *)item).checked==YES) {
+                        answer.isSelected=[NSNumber numberWithBool:YES];
+                    }else{
+                        answer.isSelected=[NSNumber numberWithBool:NO];
+                    }
                 }
             }
-        }
-    }else if([_metaData.topicType integerValue]==3){
-        //判断题
-        for (UIView *item in subViews) {
-            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
-                if (((EXCheckOptionView *)item).checked==YES) {
+        }else if([_metaData.topicType integerValue]==3){
+            //判断题
+            for (UIView *item in subViews) {
+                if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
                     AnswerData *answer=nil;
                     if (((EXCheckOptionView *)item).index==0) {
                         answer=[_metaData.answers objectAtIndex:0];
                     }else if (((EXCheckOptionView *)item).index==-1){
                         answer=[_metaData.answers objectAtIndex:1];
                     }
-                    answer.isSelected=[NSNumber numberWithBool:YES];
-                    break;
+                    if (((EXCheckOptionView *)item).checked==YES) {
+                        answer.isSelected=[NSNumber numberWithBool:YES];
+                    }else{
+                        answer.isSelected=[NSNumber numberWithBool:NO];
+                    }
                 }
             }
+        }else{
+            //简单题
+            
         }
-    }else{
-        //简单题
-        
     }
+    
     
     if ([_metaData.topicType integerValue]==1 || [_metaData.topicType integerValue]==3) {
         [self performSelector:@selector(confirmItemClicked:) withObject:nil afterDelay:0.5];

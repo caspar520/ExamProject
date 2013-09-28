@@ -45,12 +45,29 @@
     if (_isDisplayAnswer) {
         //显示答案
         rightCheckView.checkStatus=kCheckSatus_Mult;
+        if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+            rightCheckView.checked=NO;
+            rightCheckView.enabled=YES;
+        }else{
+            rightCheckView.enabled=NO;
+            rightCheckView.checked=isChecked;
+        }
     }
-    if (isChecked && isRight==NO) {
-        rightCheckView.isRightMultStatus=NO;
+    if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong || self.dipalyTopicType==kDisplayTopicType_Default) {
+        if (isRight==NO) {
+            rightCheckView.isRightMultStatus=NO;
+        }
+    }else if (self.dipalyTopicType==kDisplayTopicType_Record){
+        if (isChecked && isRight==NO) {
+            rightCheckView.isRightMultStatus=NO;
+        }
     }
     [rightCheckView updateCheckBoxImage];
     [rightCheckView release];
+    
+    
+    
+    
     
     isChecked=NO;
     EXCheckOptionView *wrongCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(rightCheckView.frame)+40, 10, 100, 40) checked:NO];
@@ -68,9 +85,22 @@
     if (_isDisplayAnswer) {
         //显示答案
         wrongCheckView.checkStatus=kCheckSatus_Mult;
+        if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+            wrongCheckView.checked=NO;
+            wrongCheckView.enabled=YES;
+        }else{
+            wrongCheckView.enabled=NO;
+            wrongCheckView.checked=isChecked;
+        }
     }
-    if (isChecked && isRight==NO) {
-        wrongCheckView.isRightMultStatus=NO;
+    if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong || self.dipalyTopicType==kDisplayTopicType_Default) {
+        if (isRight==NO) {
+            wrongCheckView.isRightMultStatus=NO;
+        }
+    }else if (self.dipalyTopicType==kDisplayTopicType_Record){
+        if (isChecked && isRight==NO) {
+            wrongCheckView.isRightMultStatus=NO;
+        }
     }
     [wrongCheckView updateCheckBoxImage];
     [wrongCheckView release];
