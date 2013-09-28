@@ -33,3 +33,11 @@
 #define NOTIFICATION_DOWNLOAD_FAILURE           @"downloadFailure"
 #define NOTIFICATION_SUBMIT_EXAM_DATA_SUCCESS   @"submitExamDataSuccess"
 #define NOTIFICATION_SUBMIT_EXAM_DATA_FAILURE   @"submitExamDataFailure"
+
+
+typedef enum{
+    kDisplayTopicType_Default=0,            //考试试题
+    kDisplayTopicType_Wrong,                //错题记录
+    kDisplayTopicType_Collected,            //收藏试题
+    kDisplayTopicType_Record,               //答题记录
+}DisplayTopicType;

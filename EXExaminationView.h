@@ -48,6 +48,7 @@
 @property (nonatomic,retain)TopicData         		*metaData;
 @property (nonatomic,assign)NSInteger				index;
 @property (nonatomic,assign)BOOL                    isDisplayAnswer;
+@property (nonatomic,assign)DisplayTopicType        dipalyTopicType;
 
 - (void)refreshUI;
 - (void)updateSelectedResult;

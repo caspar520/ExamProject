@@ -1088,14 +1088,14 @@
 		30BDBEF81797C17A008F0578 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: chao wang (W685D6G3N7)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: chao wang (W685D6G3N7)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ExamProject/ExamProject-Prefix.pch";
 				INFOPLIST_FILE = "ExamProject/ExamProject-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "B007FE21-7AB0-49AB-BAF2-1FC6593334E4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "B007FE21-7AB0-49AB-BAF2-1FC6593334E4";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

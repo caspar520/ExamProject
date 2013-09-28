@@ -19,6 +19,7 @@
 @synthesize metaData=_metaData;
 @synthesize index;
 @synthesize isDisplayAnswer=_isDisplayAnswer;
+@synthesize dipalyTopicType;
 
 - (id)initWithFrame:(CGRect)frame
 {

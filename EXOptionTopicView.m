@@ -40,14 +40,29 @@
                 checkView.exclusiveTouch=YES;
                 checkView.index=idx+1;
                 checkView.enabled=YES;
-                checkView.checked=isChecked;
+                if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+                    if ([obj.isCorrect boolValue]==NO) {
+                        checkView.isRightMultStatus=NO;
+                    }
+                }else if (self.dipalyTopicType==kDisplayTopicType_Record){
+                    if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
+                        checkView.isRightMultStatus=NO;
+                    }
+                }
+                
+                if (self.dipalyTopicType==kDisplayTopicType_Record || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+                    checkView.checked=NO;
+                }else{
+                    checkView.checked=isChecked;
+                }
                 if (_isDisplayAnswer) {
                     //显示答案
                     checkView.checkStatus=kCheckSatus_Mult;
-                    checkView.enabled=NO;
-                }
-                if ([obj.isSelected boolValue] && [obj.isCorrect boolValue]==NO) {
-                    checkView.isRightMultStatus=NO;
+                    if (self.dipalyTopicType==kDisplayTopicType_Collected || self.dipalyTopicType==kDisplayTopicType_Wrong) {
+                        checkView.enabled=YES;
+                    }else{
+                        checkView.enabled=NO;
+                    }
                 }
                 [checkView updateCheckBoxImage];
                 [answerContainerView addSubview:checkView];

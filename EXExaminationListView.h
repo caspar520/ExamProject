@@ -9,12 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "EXExaminationView.h"
 
-typedef enum{
-    kDisplayTopicType_Default=0,            //考试试题
-    kDisplayTopicType_Wrong,                //错题记录
-    kDisplayTopicType_Collected,            //收藏试题
-    kDisplayTopicType_Record,               //答题记录 
-}DisplayTopicType;
+//typedef enum{
+//    kDisplayTopicType_Default=0,            //考试试题
+//    kDisplayTopicType_Wrong,                //错题记录
+//    kDisplayTopicType_Collected,            //收藏试题
+//    kDisplayTopicType_Record,               //答题记录 
+//}DisplayTopicType;
 
 @interface EXExaminationListView : UIView{
     UIScrollView            *_scrollView;

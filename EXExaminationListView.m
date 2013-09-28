@@ -78,6 +78,7 @@
                 if (dipalyTopicType!=kDisplayTopicType_Default) {
                     view.isDisplayAnswer=YES;
                 }
+                view.dipalyTopicType=dipalyTopicType;
                 
                 view.frame=CGRectMake(idx*CGRectGetWidth(_scrollView.frame) +CGRectGetMinX(_scrollView.frame), CGRectGetMinY(_scrollView.frame), CGRectGetWidth(_scrollView.frame), CGRectGetHeight(_scrollView.frame));
                 view.delegate=delegate;

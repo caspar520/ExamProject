@@ -609,8 +609,10 @@
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
-                                        if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
+                                        if ([aObj.isSelected boolValue]) {
                                             isSelected=YES;
+                                        }
+                                        if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
                                             }else{
@@ -637,7 +639,9 @@
                                 }];
                             }
                             if (isSelected==YES) {
-                                tScore+=[tObj.topicValue integerValue];
+                                if (isWrong==NO) {
+                                    tScore+=[tObj.topicValue integerValue];
+                                }
                                 [tParameter setValue:[NSNumber numberWithBool:isWrong] forKey:@"mistake"];
                                 [tParameter setValue:optionParameter forKey:@"options"];
                                 
