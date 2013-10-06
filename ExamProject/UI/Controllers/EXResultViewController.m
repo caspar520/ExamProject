@@ -16,7 +16,7 @@
 #import "EXNetDataManager.h"
 #import "EXExamineViewController.h"
 
-#define ANSWERSHEET_COUNT_PER_LINE  8                   //每行的序号数量
+#define ANSWERSHEET_COUNT_PER_LINE  6                   //每行的序号数量
 
 @interface EXResultViewController ()
 
@@ -219,7 +219,13 @@
     answerDurationLabel.textAlignment=UITextAlignmentLeft;
     answerDurationLabel.backgroundColor=[UIColor clearColor];
     answerDurationLabel.font=[UIFont systemFontOfSize:18];
-    [answerDurationLabel setText:[NSString stringWithFormat:@"%d分钟",examTime]];
+    
+    //不足一分钟显示30秒
+    if (examTime < 1) {
+        [answerDurationLabel setText:@"30秒"];
+    } else {
+        [answerDurationLabel setText:[NSString stringWithFormat:@"%d分钟",examTime]];
+    }
     [self.view addSubview:answerDurationLabel];
     [answerDurationLabel release];
     
@@ -253,7 +259,7 @@
             topicOrder.tag=lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1;
             [topicOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [topicOrder setTitle:[NSString stringWithFormat:@"%d",topicOrder.tag] forState:UIControlStateNormal];
-            topicOrder.frame=CGRectMake(1+vIndex*36,1+lIndex*20, 36, 20);
+            topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*20, 46, 20);
             topicOrder.layer.borderColor=[UIColor blackColor].CGColor;
             topicOrder.layer.borderWidth=1;
             

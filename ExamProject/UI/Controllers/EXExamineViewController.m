@@ -119,6 +119,11 @@
         [_examMSGBarView addSubview:_examLeftTime];
     }
     _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
+    if (displayTopicType == kDisplayTopicType_Wrong) {
+        _examLeftTime.hidden = YES;
+    } else {
+        _examLeftTime.hidden = NO;
+    }
     
     if (_examDuration==nil) {
         _examDuration= [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(_examLeftTime.frame)+5, 5, (CGRectGetWidth(self.view.frame)-70)/3, 30)];
@@ -130,6 +135,12 @@
         [_examMSGBarView addSubview:_examDuration];
     }
     _examDuration.text=[NSString stringWithFormat:@"时间："];
+    _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
+    if (displayTopicType == kDisplayTopicType_Wrong) {
+        _examDuration.hidden = YES;
+    } else {
+        _examDuration.hidden = NO;
+    }
     
     if (_collectButton==nil) {
         _collectButton=[UIButton buttonWithType:UIButtonTypeCustom];
