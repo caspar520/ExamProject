@@ -30,6 +30,14 @@
     BOOL isChecked=NO;
     BOOL isRight=YES;
     
+    BOOL isSelected=NO;
+    for (AnswerData *obj in components) {
+        if (obj && [obj.isSelected boolValue]==YES) {
+            isSelected=YES;
+            break;
+        }
+    }
+    
     EXCheckOptionView *rightCheckView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake((CGRectGetWidth(self.frame)-200-40)/2, 10, 100, 40) checked:NO];
     rightCheckView.backgroundColor=[UIColor clearColor];
     rightCheckView.delegate=self;
@@ -41,6 +49,12 @@
         isChecked=[((AnswerData *)[components objectAtIndex:0]).isSelected boolValue];
         isRight=[((AnswerData *)[components objectAtIndex:0]).isCorrect boolValue];
     }
+    if (self.dipalyTopicType==kDisplayTopicType_Record) {
+        if ([((AnswerData *)[components objectAtIndex:0]).isCorrect boolValue]==YES && isSelected==YES) {
+            isChecked=YES;
+        }
+    }
+    
     rightCheckView.checked=isChecked;
     if (_isDisplayAnswer) {
         //显示答案
@@ -81,6 +95,12 @@
         isChecked=[((AnswerData *)[components objectAtIndex:1]).isSelected boolValue];
         isRight=[((AnswerData *)[components objectAtIndex:1]).isCorrect boolValue];
     }
+    if (self.dipalyTopicType==kDisplayTopicType_Record) {
+        if ([((AnswerData *)[components objectAtIndex:1]).isCorrect boolValue]==YES && isSelected==YES) {
+            isChecked=YES;
+        }
+    }
+    
     wrongCheckView.checked=isChecked;
     if (_isDisplayAnswer) {
         //显示答案
