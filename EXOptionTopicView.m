@@ -34,7 +34,7 @@
                 NSInteger idx=[optionsArray indexOfObject:obj];
                 BOOL isChecked=[obj.isSelected boolValue];
                 if (self.dipalyTopicType==kDisplayTopicType_Record) {
-                    if ([obj.isCorrect boolValue]==YES) {
+                    if ([obj.isCorrect boolValue]==YES && [obj.isSelected boolValue]==YES) {
                         isChecked=YES;
                     }
                 }
