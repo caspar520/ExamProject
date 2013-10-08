@@ -358,6 +358,7 @@
     if (displayTopicType==kDisplayTopicType_Default) {
         if (_examData.papers && _examData.papers.count>0) {
             //存在
+            [self clearPaperInfo];
             for (PaperData *obj in _examData.papers) {
                 if (obj && obj.topics) {
                     [selectedArray addObjectsFromArray:obj.topics];

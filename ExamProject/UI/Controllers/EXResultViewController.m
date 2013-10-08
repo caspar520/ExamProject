@@ -256,8 +256,8 @@
             }
             UIButton *topicOrder=[UIButton buttonWithType:UIButtonTypeCustom];
             [topicOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-            [topicOrder setTitle:[NSString stringWithFormat:@"%d",topicOrder.tag] forState:UIControlStateNormal];
-            topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*20, 46, 30);
+            [topicOrder setTitle:[NSString stringWithFormat:@"%d",lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1] forState:UIControlStateNormal];
+            topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*30, 46, 30);
             topicOrder.layer.borderColor=[UIColor blackColor].CGColor;
             topicOrder.layer.borderWidth=1;
             
