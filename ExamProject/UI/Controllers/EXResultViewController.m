@@ -220,11 +220,10 @@
     answerDurationLabel.backgroundColor=[UIColor clearColor];
     answerDurationLabel.font=[UIFont systemFontOfSize:18];
     
-    //不足一分钟显示30秒
-    if (examTime < 1) {
-        [answerDurationLabel setText:@"30秒"];
+    if (examTime <60) {
+        [answerDurationLabel setText:[NSString stringWithFormat:@"%d秒",examTime]];
     } else {
-        [answerDurationLabel setText:[NSString stringWithFormat:@"%d分钟",examTime]];
+        [answerDurationLabel setText:[NSString stringWithFormat:@"%d分钟",examTime/60]];
     }
     [self.view addSubview:answerDurationLabel];
     [answerDurationLabel release];

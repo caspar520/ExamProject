@@ -215,6 +215,7 @@
     }
     
     _beginExamTime=[[NSDate date] timeIntervalSince1970];
+    _currentExamTime=0;
 }
 
 - (void)destroyExamTimer{
@@ -222,12 +223,11 @@
         [_examTimer invalidate];
         _examTimer=nil;
     }
-    _currentExamTime=0;
+    //_currentExamTime=0;
 }
 
 - (void)timeCountIncrease{
     _currentExamTime++;
-    
     NSInteger tMinute=_currentExamTime/60;
     NSInteger tSecond=_currentExamTime%60;
     _examLeftTime.text=[NSString stringWithFormat:@"用时：%02d:%02d",tMinute,tSecond];
