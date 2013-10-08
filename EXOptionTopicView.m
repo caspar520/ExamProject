@@ -33,6 +33,11 @@
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
                 BOOL isChecked=[obj.isSelected boolValue];
+                if (self.dipalyTopicType==kDisplayTopicType_Record) {
+                    if ([obj.isCorrect boolValue]==YES) {
+                        isChecked=YES;
+                    }
+                }
 
                 EXCheckOptionView *checkView=[[EXCheckOptionView alloc] initWithFrame:CGRectMake(5, height, 45, 45) checked:NO];
                 checkView.backgroundColor=[UIColor clearColor];
@@ -129,7 +134,6 @@
 - (void)checkeStateChange:(BOOL)isChecked withObject:(id)obj{
     EXCheckOptionView *sender=(EXCheckOptionView *)obj;
     NSArray *subViews=[answerContainerView subviews];
-    //NSLog(@"check option index:%d",sender.index);
     if ([self.metaData.topicType integerValue]==1) {
         //单选:取消其它按纽的选中状态
         for (UIView *item in subViews) {
@@ -138,6 +142,17 @@
                 if (item != sender) {
                     ((EXCheckOptionView *)item).checked=NO;
                 }
+            }
+        }
+    }
+    if (self.dipalyTopicType==kDisplayTopicType_Wrong || self.dipalyTopicType==kDisplayTopicType_Collected) {
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                AnswerData *answer=[self.metaData.answers objectAtIndex:((EXCheckOptionView *)item).index-1];
+                if ([answer.isCorrect boolValue]) {
+                    ((EXCheckOptionView *)item).checked=YES;
+                }
+                [(EXCheckOptionView *)item updateCheckBoxImage];
             }
         }
     }

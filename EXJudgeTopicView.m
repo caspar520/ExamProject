@@ -163,6 +163,23 @@
         }
     }
     
+    if (self.dipalyTopicType==kDisplayTopicType_Wrong || self.dipalyTopicType==kDisplayTopicType_Collected) {
+        for (UIView *item in subViews) {
+            if (item && [item isKindOfClass:[EXCheckOptionView class]]) {
+                AnswerData *answer=nil;
+                if (((EXCheckOptionView *)item).index==0) {
+                    answer=[self.metaData.answers objectAtIndex:0];
+                }else if (((EXCheckOptionView *)item).index==-1){
+                    answer=[self.metaData.answers objectAtIndex:1];
+                }
+                if ([answer.isCorrect boolValue]) {
+                    ((EXCheckOptionView *)item).checked=YES;
+                }
+                [(EXCheckOptionView *)item updateCheckBoxImage];
+            }
+        }
+    }
+    
     [self updateSelectedResult];
 }
 

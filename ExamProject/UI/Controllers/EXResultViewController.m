@@ -256,7 +256,6 @@
                 break;
             }
             UIButton *topicOrder=[UIButton buttonWithType:UIButtonTypeCustom];
-            topicOrder.tag=lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1;
             [topicOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [topicOrder setTitle:[NSString stringWithFormat:@"%d",topicOrder.tag] forState:UIControlStateNormal];
             topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*20, 46, 20);
@@ -269,8 +268,12 @@
                 TopicData *tTopic=[tTopicArray objectAtIndex:lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex];
                 if (tTopic && tTopic.answers) {
                     __block BOOL isWrong=NO;
+                    __block BOOL isSelected=NO;
                     [tTopic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
                         if (obj) {
+                            if ([obj.isSelected boolValue]) {
+                                isSelected=YES;
+                            }
                             if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                                 || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                                 //正确选项没有被选择或者错误选项被选择了改题都算是答错
@@ -279,10 +282,16 @@
                             }
                         }
                     }];
-                    if (isWrong==NO) {
-                        topicOrder.backgroundColor=[UIColor greenColor];
-                    }else if(isWrong==YES){
-                        topicOrder.backgroundColor=[UIColor redColor];
+                    if (isSelected) {
+                        topicOrder.tag=lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1;
+                        if (isWrong==NO) {
+                            topicOrder.backgroundColor=[UIColor greenColor];
+                        }else if(isWrong==YES){
+                            topicOrder.backgroundColor=[UIColor redColor];
+                        }
+                    }else{
+                        topicOrder.tag=0;
+                        topicOrder.backgroundColor=[UIColor colorWithRed:133 green:133 blue:133 alpha:1];
                     }
                 }
             }
@@ -300,12 +309,25 @@
 - (void)topicOrderInAnswerSheetClicked:(UIButton *)sender
 {
     //跳转到试卷列表：显示考试的详细结果
-    EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
-    [self.navigationController pushViewController:examineController animated:YES];
-    examineController.currentIndex=sender.tag-1;
-    examineController.displayTopicType=kDisplayTopicType_Record;
-    examineController.isNotOnAnswering=YES;
-    examineController.examData=examData;
+    if (sender.tag<=0) {
+        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"提示" message:@"该试题没有做" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        [alert show];
+        [self performSelector:@selector(removeAlertTip:) withObject:alert afterDelay:2];
+        [alert release];
+    }else{
+        EXExamineViewController *examineController=[[[EXExamineViewController alloc] init] autorelease];
+        [self.navigationController pushViewController:examineController animated:YES];
+        examineController.currentIndex=sender.tag-1;
+        examineController.displayTopicType=kDisplayTopicType_Record;
+        examineController.isNotOnAnswering=YES;
+        examineController.examData=examData;
+    }
+}
+
+- (void)removeAlertTip:(id)object{
+    if ([object isKindOfClass:[UIAlertView class]]) {
+        [((UIAlertView *)object)dismissWithClickedButtonIndex:0 animated:YES];
+    }
 }
 
 - (void)backwardItemClicked:(id)sender{
