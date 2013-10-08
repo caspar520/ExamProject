@@ -150,6 +150,7 @@
         cell=[[[EXPaperCell alloc] init] autorelease];
         if (indexPath.row<_collectedPaperList.count) {
             cell.isExamType=NO;
+            cell.dipalyTopicType=kDisplayTopicType_Collected;
             cell.examData=[_collectedPaperList objectAtIndex:indexPath.row];
         }
     }

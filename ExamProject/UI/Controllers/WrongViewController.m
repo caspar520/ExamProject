@@ -159,6 +159,7 @@
         cell=[[[EXPaperCell alloc] init] autorelease];
         if (indexPath.row<_wrongPaperList.count) {
             cell.isExamType=NO;
+            cell.dipalyTopicType=kDisplayTopicType_Wrong;
             cell.examData=[_wrongPaperList objectAtIndex:indexPath.row];
         }
     }

@@ -9,12 +9,14 @@
 #import "EXPaperCell.h"
 #import "PaperData.h"
 #import "ExamData.h"
+#import "TopicData.h"
 
 @implementation EXPaperCell
 
 @synthesize paperData=_paperData;
 @synthesize examData=_examData;
 @synthesize isExamType=_isExamType;
+@synthesize dipalyTopicType=_dipalyTopicType;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -55,7 +57,25 @@
         
         [self addSubview:examTitleLabel];
     }
-    examTitleLabel.text=_examData.examTitle;
+    if (_dipalyTopicType==kDisplayTopicType_Collected || _dipalyTopicType==kDisplayTopicType_Wrong) {
+        __block int count=0;
+        [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+            if (pObj && pObj.topics) {
+                [pObj.topics enumerateObjectsUsingBlock:^(TopicData *obj, NSUInteger idx, BOOL *stop) {
+                    if (obj) {
+                        if (_dipalyTopicType==kDisplayTopicType_Collected && [obj.topicIsCollected boolValue]==YES) {
+                            count++;
+                        }else if (_dipalyTopicType==kDisplayTopicType_Wrong && [obj.topicIsWrong boolValue]==YES){
+                            count++;
+                        }
+                    }
+                }];
+            }
+        }];
+        examTitleLabel.text=[NSString stringWithFormat:@"%@(%d)",_examData.examTitle,count];
+    }else{
+        examTitleLabel.text=_examData.examTitle;
+    }
     
     if (examTypeLabel==nil) {
         examTypeLabel=[[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMinX(self.frame)+5, CGRectGetMaxY(examTitleLabel.frame)+5, CGRectGetWidth(self.frame)-120, 20)];

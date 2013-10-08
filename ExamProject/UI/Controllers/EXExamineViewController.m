@@ -119,7 +119,7 @@
         [_examMSGBarView addSubview:_examLeftTime];
     }
     _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
-    if (displayTopicType == kDisplayTopicType_Wrong) {
+    if (displayTopicType == kDisplayTopicType_Wrong || displayTopicType == kDisplayTopicType_Record || displayTopicType == kDisplayTopicType_Collected) {
         _examLeftTime.hidden = YES;
     } else {
         _examLeftTime.hidden = NO;
@@ -136,7 +136,7 @@
     }
     _examDuration.text=[NSString stringWithFormat:@"时间："];
     _examLeftTime.text=[NSString stringWithFormat:@"用时：00:00"];
-    if (displayTopicType == kDisplayTopicType_Wrong) {
+    if (displayTopicType == kDisplayTopicType_Wrong || displayTopicType == kDisplayTopicType_Record || displayTopicType == kDisplayTopicType_Collected) {
         _examDuration.hidden = YES;
     } else {
         _examDuration.hidden = NO;
@@ -380,6 +380,9 @@
                     }];
                 }
             }];
+            
+            int index=[_examineListView getCurrentTopicIndex];
+            _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,selectedArray.count];
         }
     }else if (displayTopicType==kDisplayTopicType_Collected){
         if (_examData.papers) {
@@ -392,6 +395,9 @@
                     }];
                 }
             }];
+            
+            int index=[_examineListView getCurrentTopicIndex];
+            _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,selectedArray.count];
         }
     }else if (displayTopicType==kDisplayTopicType_Record){
         //答题记录
@@ -405,6 +411,9 @@
                     }];
                 }
             }];
+            
+            int index=[_examineListView getCurrentTopicIndex];
+            _paperCountLabel.text=[NSString stringWithFormat:@"进度：%d/%d",index+1,selectedArray.count];
         }
     }
     _examineListView.currentIndex=currentIndex;
