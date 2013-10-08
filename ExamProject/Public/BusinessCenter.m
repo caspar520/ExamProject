@@ -58,6 +58,24 @@ static BusinessCenter *instance = nil;
     }
 }
 
+- (id)getUserName
+{
+#if TARGET_IPHONE_SIMULATOR
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KEYCHAIN_USRNAME];
+#else
+    return [_keychainWrapper objectForKey:KEYCHAIN_USRNAME];
+#endif
+}
+
+- (id)getUserPassword
+{
+#if TARGET_IPHONE_SIMULATOR
+    return [[NSUserDefaults standardUserDefaults] objectForKey:KEYCHAIN_PWD];
+#else
+    return [_keychainWrapper objectForKey:KEYCHAIN_PWD];
+#endif
+}
+
 - (void)deleteIdentifierInfoFormKeyChain
 {
 #if TARGET_IPHONE_SIMULATOR

@@ -26,6 +26,8 @@
 
 //保存用户密码到keychain
 - (void)saveUsername:(NSString *)userName andPwd:(NSString *)password;
+- (id)getUserName;
+- (id)getUserPassword;
 - (void)deleteIdentifierInfoFormKeyChain;
 
 @end

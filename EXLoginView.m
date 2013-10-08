@@ -8,6 +8,7 @@
 
 #import "EXLoginView.h"
 #import "Toast.h"
+#import "BusinessCenter.h"
 
 @interface EXLoginView () <UITextFieldDelegate>
 
@@ -48,6 +49,13 @@
     _mailTextField.placeholder = @"请输入邮箱";
     [self addSubview:_mailTextField];
     
+    BOOL isAutoLogin = [[NSUserDefaults standardUserDefaults]boolForKey:AUTO_LOGIN];
+//    if (!isAutoLogin) {
+//        _mailTextField.text=nil;
+//    } else {
+//        _mailTextField.text=[[BusinessCenter sharedInstance] getUserName];;
+//    }
+    
     UIImageView *mailTxtBg = [[UIImageView alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(titleImgView.frame)+30, 270, 25)];
     mailTxtBg.image = [[UIImage imageNamed:@"login_input_drw.png"] stretchableImageWithLeftCapWidth:3.0f topCapHeight:2.0f];
     [self addSubview:mailTxtBg];
@@ -60,6 +68,12 @@
     _pwdTextField.backgroundColor = [UIColor clearColor];
     _pwdTextField.placeholder = @"请输入密码";
     [self addSubview:_pwdTextField];
+    
+//    if (!isAutoLogin) {
+//        _pwdTextField.text=nil;
+//    } else {
+//        _pwdTextField.text=[[BusinessCenter sharedInstance] getUserPassword];
+//    }
     
     UIImageView *pwdTxtBg = [[UIImageView alloc]initWithFrame:CGRectMake(25, CGRectGetMaxY(_mailTextField.frame)+10, 270, 25)];
     pwdTxtBg.image = [[UIImage imageNamed:@"login_input_drw.png"] stretchableImageWithLeftCapWidth:3.0f topCapHeight:2.0f];

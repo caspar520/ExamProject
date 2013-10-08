@@ -331,6 +331,14 @@
         _examData =[examData retain];
     }
     
+    if (displayTopicType == kDisplayTopicType_Wrong || displayTopicType == kDisplayTopicType_Record || displayTopicType == kDisplayTopicType_Collected) {
+        _examLeftTime.hidden = YES;
+        _examDuration.hidden=YES;
+    } else {
+        _examLeftTime.hidden = NO;
+        _examDuration.hidden=NO;
+    }
+    
     if (displayTopicType==kDisplayTopicType_Default) {
         self.navigationItem.rightBarButtonItem.enabled=YES;
         

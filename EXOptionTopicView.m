@@ -29,12 +29,19 @@
     NSArray *optionsArray=self.metaData.answers;
     if (optionsArray) {
         NSInteger height=2;
+        BOOL isSelected=NO;
+        for (AnswerData *obj in optionsArray) {
+            if (obj && [obj.isSelected boolValue]==YES) {
+                isSelected=YES;
+                break;
+            }
+        }
         for (AnswerData *obj in optionsArray) {
             if (obj) {
                 NSInteger idx=[optionsArray indexOfObject:obj];
                 BOOL isChecked=[obj.isSelected boolValue];
                 if (self.dipalyTopicType==kDisplayTopicType_Record) {
-                    if ([obj.isCorrect boolValue]==YES && [obj.isSelected boolValue]==YES) {
+                    if ([obj.isCorrect boolValue]==YES && isSelected==YES) {
                         isChecked=YES;
                     }
                 }

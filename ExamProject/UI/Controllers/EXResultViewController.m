@@ -257,7 +257,7 @@
             UIButton *topicOrder=[UIButton buttonWithType:UIButtonTypeCustom];
             [topicOrder setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
             [topicOrder setTitle:[NSString stringWithFormat:@"%d",topicOrder.tag] forState:UIControlStateNormal];
-            topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*20, 46, 20);
+            topicOrder.frame=CGRectMake(1+vIndex*46,1+lIndex*20, 46, 30);
             topicOrder.layer.borderColor=[UIColor blackColor].CGColor;
             topicOrder.layer.borderWidth=1;
             
@@ -300,7 +300,7 @@
         }
     }
     
-    if (answerSheet.contentSize.height<tLines*20+10) {
+    if (answerSheet.contentSize.height<tLines*30+10) {
         answerSheet.contentSize=CGSizeMake(answerSheet.contentSize.width, tLines*20+10);
     }
 }
