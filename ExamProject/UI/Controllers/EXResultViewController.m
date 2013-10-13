@@ -262,7 +262,7 @@
             topicOrder.layer.borderWidth=1;
             
             //根据答题是否正确设置背景颜色
-            topicOrder.backgroundColor=[UIColor whiteColor];
+            //topicOrder.backgroundColor=[UIColor whiteColor];
             if (lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex<tTopicArray.count) {
                 TopicData *tTopic=[tTopicArray objectAtIndex:lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex];
                 if (tTopic && tTopic.answers) {
@@ -301,7 +301,7 @@
     }
     
     if (answerSheet.contentSize.height<tLines*30+10) {
-        answerSheet.contentSize=CGSizeMake(answerSheet.contentSize.width, tLines*20+10);
+        answerSheet.contentSize=CGSizeMake(answerSheet.contentSize.width, tLines*30+10);
     }
 }
 

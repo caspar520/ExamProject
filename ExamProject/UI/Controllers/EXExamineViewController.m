@@ -619,26 +619,30 @@
     __block NSInteger tScore=0;
     NSMutableArray *topicsList=[NSMutableArray arrayWithCapacity:0];
     if (_examData.papers) {
-        [_examData.papers enumerateObjectsUsingBlock:^(PaperData *pObj, NSUInteger pIdx, BOOL *pStop) {
+        for (PaperData *pObj in _examData.papers) {
             if (pObj) {
                 if (pObj.topics) {
-                    [pObj.topics enumerateObjectsUsingBlock:^(TopicData *tObj, NSUInteger tIdx, BOOL *tStop) {
+                    for (TopicData *tObj in pObj.topics) {
                         if (tObj) {
                             NSMutableDictionary *tParameter=[[NSMutableDictionary alloc] initWithCapacity:0];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicId integerValue]] forKey:@"id"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
-                            __block NSString *optionParameter=@"";
+                            NSString *optionParameter=@"";
                             __block BOOL isWrong=NO;
                             BOOL isSelected=NO;
+                            
+                            for (AnswerData *item in tObj.answers) {
+                                if (item && [item.isSelected boolValue]) {
+                                    isSelected=YES;
+                                    break;
+                                }
+                            }
                             
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
-                                        if ([aObj.isSelected boolValue]) {
-                                            isSelected=YES;
-                                        }
-                                        if ([aObj.isCorrect boolValue] && [aObj.isSelected boolValue]) {
+                                        if ([aObj.isCorrect boolValue] && isSelected==YES) {
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
                                             }else{
@@ -653,16 +657,17 @@
                                         }
                                     }
                                 }
-                                [tObj.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                                
+                                for (AnswerData *obj in tObj.answers) {
                                     if (obj) {
                                         if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                                             || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                                             //正确选项没有被选择或者错误选项被选择了改题都算是答错
                                             isWrong=YES;
-                                            *stop=YES;
+                                            break;
                                         }
                                     }
-                                }];
+                                }
                             }
                             if (isSelected==YES) {
                                 if (isWrong==NO) {
@@ -672,19 +677,19 @@
                                 [tParameter setValue:optionParameter forKey:@"options"];
                                 
                                 [topicsList addObject:tParameter];
-                                [tParameter release];
                             }
+                            [tParameter release];
                         }
-                    }];
+                    }
                 }
             }
-        }];
+        }
     }
     
     [dataDic setValue:topicsList forKey:@"topicList"];
     [dataDic setValue:[NSNumber numberWithInt:tScore] forKey:@"score"];
     //[result setValue:dataDic forKey:@"data"];
-    //NSLog(@"result:%@",[dataDic JSONString]);
+    //NSLog(@"result:%@",dataDic);
     id parameter=[dataDic JSONString];
     return parameter;
 }
