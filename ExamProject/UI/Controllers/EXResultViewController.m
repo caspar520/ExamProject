@@ -266,21 +266,24 @@
             if (lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex<tTopicArray.count) {
                 TopicData *tTopic=[tTopicArray objectAtIndex:lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex];
                 if (tTopic && tTopic.answers) {
-                    __block BOOL isWrong=NO;
-                    __block BOOL isSelected=NO;
-                    [tTopic.answers enumerateObjectsUsingBlock:^(AnswerData *obj, NSUInteger idx, BOOL *stop) {
+                    BOOL isWrong=NO;
+                    BOOL isSelected=NO;
+                    for (AnswerData *item in tTopic.answers) {
+                        if (item && [item.isSelected boolValue]) {
+                            isSelected=YES;
+                            break;
+                        }
+                    }
+                    for (AnswerData *obj in tTopic.answers) {
                         if (obj) {
-                            if ([obj.isSelected boolValue]) {
-                                isSelected=YES;
-                            }
                             if (([obj.isCorrect boolValue] && [obj.isSelected boolValue]== NO)
                                 || ([obj.isCorrect boolValue]==NO && [obj.isSelected boolValue])) {
                                 //正确选项没有被选择或者错误选项被选择了改题都算是答错
                                 isWrong=YES;
-                                *stop=YES;
+                                break;
                             }
                         }
-                    }];
+                    }
                     if (isSelected) {
                         topicOrder.tag=lIndex*ANSWERSHEET_COUNT_PER_LINE+vIndex+1;
                         if (isWrong==NO) {

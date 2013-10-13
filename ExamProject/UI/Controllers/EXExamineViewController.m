@@ -629,7 +629,7 @@
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicType integerValue]] forKey:@"type"];
                             [tParameter setValue:[NSNumber numberWithInt:[tObj.topicValue integerValue]] forKey:@"value"];
                             NSString *optionParameter=@"";
-                            __block BOOL isWrong=NO;
+                            BOOL isWrong=NO;
                             BOOL isSelected=NO;
                             
                             for (AnswerData *item in tObj.answers) {
@@ -642,7 +642,7 @@
                             if (tObj.answers) {
                                 for (AnswerData *aObj in tObj.answers) {
                                     if (aObj) {
-                                        if ([aObj.isCorrect boolValue] && isSelected==YES) {
+                                        if ([aObj.isSelected boolValue]==YES) {
                                             if (optionParameter.length>0) {
                                                 optionParameter=[optionParameter stringByAppendingString:@"|*|true"];
                                             }else{
