@@ -115,7 +115,7 @@
 //    [request startAsynchronous];
     
     //登录测试
-    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/user_login"];
+    NSURL *url = [NSURL URLWithString:NET_LOGIN_URL];
     ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
     request.delegate = self;
     [request setPostValue:userName forKey:@"userName"];
