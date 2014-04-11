@@ -112,7 +112,7 @@
 - (void)doRegister
 {
     //注册测试
-    NSURL *url = [NSURL URLWithString:@"http://www.kanbook.cn/yonghu/su_add"];
+    NSURL *url = [NSURL URLWithString:NET_REGISTER_URL];
     ASIFormDataRequest *request = [[[ASIFormDataRequest alloc] initWithURL:url]autorelease];
     request.delegate = self;
     [request setPostValue:_userData.email forKey:@"email"];
